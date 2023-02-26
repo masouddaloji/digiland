@@ -1,0 +1,26 @@
+.breadcrumb{
+width: 100%;
+height: 3rem;
+background: var(--white);
+border-radius: var(--border-box);
+}
+.breadcrumb__wrapper{
+height: 100%;
+display: flex;
+align-items: center;
+padding: .5rem 1rem;
+}
+.breadcrumb__lists{
+display: flex;
+}
+.breadcrumb__item{
+}
+.breadcrumb__link{
+    font-family: var(--Iran-bold);
+font-size: 1.1rem;
+color: var(--gray-50);
+}
+.breadcrumb__divider{
+margin: 0 .5rem;
+color: #888;
+}

@@ -1,0 +1,47 @@
+.submitOrder{
+    background: var(--white);
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-box);
+    box-shadow: var(--box-shadow);
+}
+.submitOrder__details{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2.5rem 0;
+}
+.submitOrder__item{
+    display: flex;
+    flex-direction: column;
+    margin-left:2rem;
+    padding:0 2rem;
+    text-align: center;
+    font-size: 1.3rem;
+    font-family: var(--Iran-number);
+}
+.submitOrder__item:not(:last-child){
+    border-left: 1px dashed #d3ced2;
+}
+.submitOrder__item span{
+    margin-bottom: .5rem;
+}
+.submitOrder__btns{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+.submitOrder__btn{
+padding: .6rem 1.5rem;
+border-radius: var(--border-box);
+font-size: 1.3rem;
+color: var(--white);
+margin: 0 1.5rem;
+}
+.submitOrder__btn--submit{
+background: var(--green);
+}
+.submitOrder__btn--return{
+background: var(--red-50);
+}

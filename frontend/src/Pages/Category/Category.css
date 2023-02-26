@@ -1,0 +1,36 @@
+.pageTitle{
+    display: block;
+    color: #333;
+    font-size: 1.5rem;
+    height: 3.8rem;
+}
+.pageTitle__box{
+display: flex;
+position: relative;
+}
+.pageTitle__rightBox{
+background: var(--main-backgroundColor);
+line-height: 3.8rem;
+display: flex;
+align-items: center;
+}
+.pageTitle__icon{
+font-size: 2.2rem;
+display: inline-block;
+margin-left: 1rem;
+
+}
+.pageTitle__title{
+padding-left: 1.5rem;
+}
+.pageTitle__divider{
+position: absolute;
+left: 0;
+top: 50%;
+transform: translateY(-50%);
+height: .4rem;
+width: 100%;
+border-top: 2px dotted #C8C9CD;
+z-index: -1;
+margin-top: -.15rem;
+}

@@ -1,0 +1,14 @@
+.widget__imageBox {
+    width: 100%;
+    height: 100%;
+  }
+  .widget__link {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  .widget__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }

@@ -1,0 +1,115 @@
+.headerTitleBox {
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--Iran-bold);
+  font-size: 1.4rem;
+  overflow: hidden;
+  position: relative;
+}
+.headerTitleBox::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  transform: translateY(-50%);
+  border-top: .2rem dotted rgba(0, 0, 0, 0.2);
+  z-index: -2;
+}
+.rightBox {
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 2rem;
+  background: var( --main-backgroundColor);
+}
+
+.headerTitle__link {
+  color: var(--black-500);
+  margin-right: 0.7rem;
+  font-size: 1.4rem;
+  white-space: nowrap;
+
+}
+
+.leftBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 1rem 0 0;
+  background: var( --main-backgroundColor);
+}
+.headerTitle__btn {
+  font-size: 1rem;
+  color: var(--black-500);
+  display: flex;
+  align-items: center;
+  background: #ebebed;
+  padding: 0 1.2rem;
+  border-radius: var(--border-btn);
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.headerTitle__btn:hover {
+  background-color: var(--black-500);
+  color: var(--white);
+}
+.headerTitle__btnWrapper {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-left: 0.5rem;
+}
+
+/* @media (max-width:991px){
+    .rightBox {
+        flex-basis: 15%;
+    }
+        .midBox {
+            flex-basis: 70%;
+        }
+        .leftBox {
+            flex-basis: 15%;
+        }
+} */
+@media (max-width:767px){
+    .rightBox {
+        flex-basis: 20%;
+    }
+        .midBox {
+            flex-basis: 60%;
+        }
+        .leftBox {
+            flex-basis: 20%;
+        }
+}
+@media (max-width:576px){     
+
+.headerTitle__link{
+    font-size: 1.2rem;
+    margin-right: 0.25rem;
+}
+.headerTitle__btn{
+    padding: 0 .6rem;
+}
+}
+@media (max-width:320px){
+    .rightBox {
+        flex-basis: 50%;
+    }
+        .midBox {
+            flex-basis: 10%;
+        }
+        .leftBox {
+            flex-basis: 40%;
+        }
+        
+
+.headerTitle__link{
+    font-size: 1.2rem;
+    margin-right: 0.25rem;
+}
+
+}
+

@@ -1,0 +1,123 @@
+.reviewForm__ratingWrapper {
+  position: relative;
+}
+.reviewForm__ratingLabel{
+  margin-bottom: .5rem;
+}
+.range {
+  position: relative;
+  width: 100%;
+  height: 0.6rem;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.step {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  background: var(--white);
+  border-radius: 50%;
+}
+
+.range::after {
+  content: "";
+  width: 100%;
+  height: 0.6rem;
+  border-radius: 1rem;
+  background: #f2f4f4;
+  display: block;
+}
+
+.step1 {
+  right: calc(25% - 0.6rem);
+}
+.step2 {
+  right: calc(50% - 0.6rem);
+}
+.step3 {
+  right: calc(75% - 0.6rem);
+}
+.step4 {
+  right: calc(100% - 0.6rem);
+}
+
+.range__value {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  /* width: 25%; */
+  height: 0.6rem;
+  background: var(--blue);
+  border-radius: 1rem;
+  transition: 0.2s;
+}
+.range__circle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px 0 rgb(0 0 0 / 7%);
+  border: solid 2px var(--blue);
+  background: white;
+  display: inline-block;
+  transition: 0.2s;
+}
+.range__input {
+  position: absolute;
+  width: 100%;
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: 0;
+  z-index: 9;
+  outline: none;
+  opacity: 0;
+}
+.range__input::-webkit-slider-thumb {
+  width: 0.8rem;
+  height: 0.8rem;
+  cursor: pointer;
+  appearance: none;
+  border-radius: 50%;
+}
+.range__output {
+  position: absolute;
+  color: #888;
+  top: -0.5rem;
+  transform: translateX(3.1rem);
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  width: 6rem;
+  text-align: center;
+  vertical-align: middle;
+  z-index: 15;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .3s;
+  background: var(--white);
+}
+.range__output::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: -0.5rem;
+  left: 50%;
+  margin-left: -0.5rem;
+  transform: rotate(45deg);
+  border: 0.5rem solid;
+  border-color: transparent #ccc #ccc var(--white);
+  z-index: -2;
+}

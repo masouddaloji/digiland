@@ -1,0 +1,68 @@
+.companyProduct {
+  background: var(--white);
+  border-radius: var(--border-box);
+  max-width: 100%;
+  padding: 1rem;
+  box-shadow: 0 0.2rem 1rem -1rem rgba(0, 0, 0, 0.3);
+  position: relative;
+  transition: all .3s;
+}
+.companyProduct__link {
+  display: flex;
+  align-items: center;
+}
+.CompanyProduct__banner {
+  height: 100%;
+}
+.CompanyProduct__img {
+  max-width: 7.5rem;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+.CompanyProduct__info {
+  display: flex;
+  flex-direction: column;
+  margin-right: 0.7rem;
+}
+.CompanyProduct__title {
+  font-family: var(--Iran-bold);
+  font-size: 1.2rem;
+  color: var(--black-500);
+  margin-bottom: 1rem;
+}
+.companyProduct__details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.companyProduct__hoverBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-box);
+  backdrop-filter: blur(1px);
+  visibility: hidden;
+  opacity: 0;
+  transition: all .3s;
+}
+.companyProduct__iconBox {
+  width: 3rem;
+  height: 3rem;
+  background: var(--blue);
+  border-radius: 50%;
+  line-height: 3rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--white);
+  margin: 3.5rem 3.5rem 0 0;
+}
+.companyProduct:hover .companyProduct__hoverBox{
+    opacity: 1;
+    visibility: visible;
+}

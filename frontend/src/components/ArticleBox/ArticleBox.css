@@ -1,0 +1,105 @@
+.articleBox{
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-box);
+    background: var(--white);
+    padding: 1rem;
+}
+.articleBox__link{
+display: flex;
+flex-direction: column;
+}
+.articleBox__banner{
+max-width: 100%;
+height: 17rem;
+border-radius: var(--border-box) var(--border-box) 0 0;
+overflow: hidden;
+
+}
+.articleBox__img{
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.articleBox__title{
+margin:1.5rem 0;
+font-family: var(--Iran-bold);
+color: var(--black-500);
+font-size: 1.4rem;
+}
+.articleBox__details{
+    width: 100%;
+    height: 2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.articleBox__author{
+display: flex;
+align-items: center;
+
+}
+.articleBox__authorImg{
+width: 3rem;
+height: 3rem;
+border-radius: 50%;
+object-fit: cover;
+overflow: hidden;
+margin-left: 1rem;
+}
+.articleBox__authorName{
+    font-family: var(--Iran-bold);
+    color: #777;
+    font-size: 1rem;
+    padding-top: .5rem;
+}
+.articleBox__time{
+    display: flex;
+    align-items: center;
+    padding-top: .5rem;
+}
+.articleBox__iconBox{
+width: 1.7rem;
+height: 1.7rem;
+color: #777;
+margin-left: .5rem;
+}
+.articleBox__upload{
+font-size: 1.3rem;
+color: #777;
+}
+.articleBox__upload bdi{
+    margin: 0 .2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* for two line elipses */
+
+/* .blog-posts-content .post-title {
+    line-height: 20px;
+    margin: 0;
+    height: 40px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+} */

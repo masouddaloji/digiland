@@ -1,0 +1,23 @@
+.categoryFilter {
+  width: 100%;
+  background: var(--white);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-box);
+  margin: 1.2rem 0;
+}
+.categoryFilter__lists {
+padding: 1rem 1.5rem 1rem 1rem;
+overflow: hidden;
+}
+.categoryFilter__item {
+    line-height: 3rem;
+    display: block;
+    color: var(--gray-50);
+    font-size: 1.2rem;
+    width: 100%;
+    position: relative;
+    transition: all .3s;
+
+}
+
+

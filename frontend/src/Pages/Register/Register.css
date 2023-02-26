@@ -1,0 +1,23 @@
+.register__btn{
+    display: block;
+    color: var(--white);
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    border-radius: var(--border-box);
+    border:none;
+    outline: none;
+    margin:1.6rem 0 .8rem 0;
+    
+    transition: all .3s;
+  }
+.register__btn--active{
+    background: var(--blue);
+    cursor: pointer;
+  }
+  .register__btn--disable{
+    background: #848484;
+  }
+  .register__btn--active:hover{
+    background: var(--blue-hover);
+    box-shadow: 0 1px 3px var(--blue-hover);
+  }

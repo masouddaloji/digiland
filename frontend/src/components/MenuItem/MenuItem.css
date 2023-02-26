@@ -1,0 +1,55 @@
+.menuItem {
+  display: block;
+  position: relative;
+}
+.menuItem span{
+    transition: all .3s;
+}
+.menuItem span:hover{
+    color: var(--gold);
+
+}
+
+.menuItem__itemIcon {
+  margin-left: 0.8rem;
+  font-size: 1.5rem;
+  vertical-align: middle;
+}
+.menuItem__openIcon {
+  color: #ccc;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+.menuItem__closeIcon {
+  position: absolute;
+  font-size: 1.5rem;
+  color: #ccc;
+  top: 1rem;
+  left: 1rem;
+}
+.menuItem__subLists {
+  padding: 0 0.5rem;
+  display: block;
+    max-height: 0;
+  transition: all .8s;
+  overflow: hidden;
+ 
+}
+.menuItem__subLists--show {
+    /* height: auto; */
+max-height:20rem;
+
+
+
+
+
+}
+
+.menuItem__subItem {
+    transition: all .3s;
+}
+.menuItem__subItem:hover{
+    color: var(--gold);
+}

@@ -1,0 +1,110 @@
+
+.navbar{
+    display: flex;
+    width: 100%;
+    margin-top: 1rem;
+}
+.navbar__menu {
+    width: 100%;
+    height: 100%;
+  }
+  .menus {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+  }
+  .menus__item {
+    margin-left: 2rem;
+    display: block;
+    position: relative;
+    transition: all 0.3s;
+    padding: 0 0.2rem;
+    height: 100%;
+  }
+  .menus__link {
+    font-family: var(--Iran-bold);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--black-500);
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+    white-space: nowrap;
+    height: 100%;
+  
+  }
+  
+  .menus__link:hover {
+    color: var(--blue);
+  }
+  .menus__text{
+    margin:0 .6rem;
+  }
+  .submenu {
+    position: absolute;
+    top: calc(100% + 2rem);
+    right: 0;
+    background: var(--white);
+    width: 15rem;
+    z-index: 10;
+    padding: 1rem 1.5rem 1rem 1rem;
+    border-radius: var(--border-box);
+    border-top: 0.25rem solid var(--blue);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+  }
+  .menus__item:hover > .submenu {
+    opacity: 1;
+    visibility: visible;
+    top: calc(100% + .8rem);
+  }
+  .submenu__item {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    display: block;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .submenu__Link,
+  .submenu__link-leftmenu {
+    font-family: var(--Iran-bold);
+    font-size: 1.3rem;
+    color: var(--black-500);
+    transition: all 0.3s;
+    display: block;
+  }
+  .submenu__Link:hover,
+  .submenu__link-leftmenu:hover {
+    color: var(--blue);
+  }
+  .contact {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .contact__number {
+    font-family: var(--Iran-number);
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .contact__number strong {
+    margin-left: 0.7rem;
+    color: var(--gray-50);
+  }
+  .contact__number span {
+    color: var(--blue);
+  }
+  .header__phoneBox {
+    margin-right: 0.5rem;
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .contact__icon {
+    color: var(--gray-50);
+  }
