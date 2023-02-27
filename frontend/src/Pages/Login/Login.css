@@ -6,7 +6,7 @@
 }
 .login__checkboxText{
 font-size: 1.1rem;
-color: var(--gray-50);
+color: var(--black-50);
 font-family: var(--Iran-bold);
 font-weight: 500;
 margin-right: .5rem;
@@ -71,7 +71,7 @@ margin: 0 -1rem;
     bottom: -12px;
     border-radius: 40px;
     font-size: 1.2rem;
-    color: var(--gray-50);
+    color: var(--black-50);
     width: 24px;
     height: 24px;
     line-height: 24px;
@@ -86,7 +86,7 @@ margin: 0 -1rem;
   }
 .login__linkToRegister{
 width: 50%;
-color: var(--gray-50);
+color: var(--black-50);
 font-size: 1.2rem;
 display: flex;
 align-items: center;

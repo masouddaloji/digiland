@@ -241,7 +241,7 @@ color: #333;
   background-color:rgba(0, 0, 0, 0.3);
 }
 .category__lists {
-  color: var(--gray-50);
+  color: var(--black-50);
   padding: 0.7rem 1.5rem 0.7rem 0.5rem;
 }
 .category__item {
@@ -349,7 +349,7 @@ color: #333;
   height: 4rem;
   display: flex;
   align-items: center;
-  color: var(--gray-50);
+  color: var(--black-50);
   border-radius: var(--border-box);
   padding: 0.5rem 1rem;
 }
@@ -382,7 +382,7 @@ color: #333;
   top: -0.4rem;
   left: -0.7rem;
   color: var(--white);
-  background-color: var(--gray-50);
+  background-color: var(--black-50);
   width: 1.4rem;
   height: 1.4rem;
   border-radius: 50%;

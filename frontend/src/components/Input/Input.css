@@ -15,7 +15,7 @@
     border: 1px solid #eee;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     padding: .8rem 1rem .8rem 1.7rem;
-    color: var(--gray-50);
+    color: var(--black-50);
     font-size: 1.2rem;
     font-family: var(--Iran-bold);
     border-radius: var(--border-box);
@@ -35,7 +35,7 @@
     left: .5rem;
     width: 1.6rem;
     height: 1.6rem;
-    color: var(--gray-50);
+    color: var(--black-50);
     z-index: 3;
   }
   .auth__error{
@@ -48,7 +48,7 @@
   .input:-webkit-autofill,
 .input:-webkit-autofill:hover, 
 .input:-webkit-autofill:focus{
-  -webkit-text-fill-color: var(--gray-50);
+  -webkit-text-fill-color: var(--black-50);
   /* -webkit-box-shadow:0 0px 2px 1px rgba(0, 0, 0, 0.5), 0 0 0px 1000px #fff inset; */
   /* transition: background-color 5000s ease-in-out 0s; */
 }

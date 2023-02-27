@@ -11,7 +11,7 @@
     display: block;
   white-space: nowrap;
   overflow: hidden;
-  color: var(--gray-50);
+  color: var(--black-50);
   font-size: 1.3rem;
   margin: 0 0 1rem 0;
   text-overflow: ellipsis;

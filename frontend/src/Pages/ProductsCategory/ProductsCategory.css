@@ -19,7 +19,7 @@
 .productsCategory__sortWrapper{
 width: 21rem;
 cursor: pointer;
-color: var(--gray-50);
+color: var(--black-50);
 background: var(--white);
 overflow: hidden;
 display: flex;

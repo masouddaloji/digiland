@@ -179,7 +179,7 @@ a{
   --red-50: #f44336;
   --border-btn:1.5rem;
   --box-shadow:0 2px 5px rgba(0, 0, 0, .3);
-  --gray-50:#555;
+  --black-50:#191919;
 }
 /* end variabels */
 /* start default */
@@ -238,7 +238,7 @@ max-width: 100%;
 height: 3rem;
 }
 .auth__title{
-  color: var(--gray-50);
+  color: var(--black-50);
   font-weight: 600;
   padding-right: 1.5rem;
   position: relative;
@@ -297,7 +297,7 @@ height: 3rem;
 .toman {
   font-family: var(--Iran-bold);
   font-size: 75%;
-  color: var(--gray-50);
+  color: var(--black-50);
   margin-right: 0.4rem;
 }
 .productPrice {

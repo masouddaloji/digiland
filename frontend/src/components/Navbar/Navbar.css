@@ -95,7 +95,7 @@
   }
   .contact__number strong {
     margin-left: 0.7rem;
-    color: var(--gray-50);
+    color: var(--black-50);
   }
   .contact__number span {
     color: var(--blue);
@@ -106,5 +106,5 @@
     height: 2.4rem;
   }
   .contact__icon {
-    color: var(--gray-50);
+    color: var(--black-50);
   }

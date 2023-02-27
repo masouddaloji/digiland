@@ -108,11 +108,11 @@
 }
 .product__detailsMetainfo {
   font-size: 1.1rem;
-  color: var(--gray-50);
+  color: var(--black-50);
 }
 .product__detailsMetainfo a {
   font-size: 1.1rem;
-  color: var(--gray-50);
+  color: var(--black-50);
 }
 .product__detailsListInfos {
   color: #767676;
@@ -178,7 +178,7 @@ align-items: center; */
 }
 .product__colorTitle {
   font-size: 1.2rem;
-  color: var(--gray-50);
+  color: var(--black-50);
 }
 .product__color {
   width: 1.2rem;
@@ -235,7 +235,7 @@ align-items: center; */
 .product__warningText {
   font-size: 1.1rem;
   text-align: justify;
-  color: var(--gray-50);
+  color: var(--black-50);
   line-height: 2rem;
 }
 /* ///////////////////////product services/////////////////////////////// */
@@ -254,7 +254,7 @@ align-items: center; */
   background: linear-gradient(90deg, #fcfcfc 0%, #ffffff 100%);
   margin-top: 1rem;
   font-size: 1.1rem;
-  color: var(--gray-50);
+  color: var(--black-50);
 }
 .product__availbleItem span {
   font-family: var(--Iran-number);
@@ -269,7 +269,7 @@ align-items: center; */
   color: #2196f3;
 }
 .product__availbleItem.blue span {
-  color: var(--gray-50);
+  color: var(--black-50);
 }
 .blue {
   color: #2196f3;
@@ -314,7 +314,7 @@ align-items: center; */
   border: 1px dashed #eeeeee;
   padding: 0.5rem 1rem;
   font-size: 1.1rem;
-  color: var(--gray-50);
+  color: var(--black-50);
 }
 .product__servicesImg {
   width: 2.8rem;
@@ -412,7 +412,7 @@ table.productsTable {
   font-size: 1.2rem;
   display: block;
   width: 100%;
-  color: var(--gray-50);
+  color: var(--black-50);
   margin: 0.5rem 0;
 }
 .productsTable__icon {
@@ -431,7 +431,7 @@ table.productsTable {
   width: 100%;
   text-align: right;
   font-size: 1.1rem;
-  color: var(--gray-50);
+  color: var(--black-50);
 }
 .innerTable__row:nth-child(even) {
   border-top: 0.5rem solid #fff;
@@ -465,14 +465,14 @@ table.productsTable {
 .userComments__rulesText {
   text-align: justify;
   font-size: 1.2rem;
-  color: var(--gray-50);
+  color: var(--black-50);
   font-family: var(--main-font);
 }
 
 .reviewForm__wrapper {
   padding: 0.5rem 0;
   font-size: 1.2rem;
-  color: var(--gray-50);
+  color: var(--black-50);
 }
 .reviewForm {
   font-family: var(--Iran-number);
@@ -656,7 +656,7 @@ table.productsTable {
 .resultReview__title {
   font-family: var(--Iran-number);
   margin-bottom: 1.5rem;
-  color: var(--gray-50);
+  color: var(--black-50);
   font-size: 1.4rem;
   font-weight: 500;
 }
@@ -672,7 +672,7 @@ table.productsTable {
   margin-bottom: 1rem;
 }
 .resultReview__pointTitle {
-  color: var(--gray-50);
+  color: var(--black-50);
   font-size: 1.2rem;
   display: block;
 }
@@ -699,7 +699,7 @@ table.productsTable {
 .resultReview__pointResultText {
   margin-right: 1.5rem;
   font-size: 1.1rem;
-  color: var(--gray-50);
+  color: var(--black-50);
 }
 /* end review result */
 /* all comments */
@@ -783,7 +783,7 @@ table.productsTable {
 .comment__time {
   font-family: var(--Iran-number);
   font-size: 1.1rem;
-  color: var(--gray-50);
+  color: var(--black-50);
   font-weight: 500;
 }
 .comment__isRecommended {
@@ -897,7 +897,7 @@ table.productsTable {
   padding: 1rem 1.6rem;
   background: rgba(236, 236, 236, 0.5);
   border-radius: var(--border-box);
-  color: var(--gray-50);
+  color: var(--black-50);
   font-size: 1.2rem;
 }
 .question__header {
@@ -953,7 +953,7 @@ table.productsTable {
 }
 .sendQuestion__wrapper {
   font-size: 1.2rem;
-  color: var(--gray-50);
+  color: var(--black-50);
   margin: 1.5rem 0;
 }
 .sendQuestion__header {
@@ -994,7 +994,7 @@ table.productsTable {
   resize: none;
   margin-bottom: 1.5rem;
   font-size: 1.2rem;
-  color: var(--gray-50);
+  color: var(--black-50);
 }
 
 .sendQuestion__submitBtn {
@@ -1036,7 +1036,7 @@ table.productsTable {
 
 .reviews__wrapper ul {
   font-size: 1.1rem;
-  color: var(--gray-50);
+  color: var(--black-50);
 }
 .reviews__wrapper ul li {
   margin-bottom: 0.5rem;
@@ -1064,7 +1064,7 @@ table.productsTable {
   align-items: center;
   justify-content: space-between;
   font-size: 1.1rem;
-  color: var(--gray-50);
+  color: var(--black-50);
   margin-bottom: 0.5rem;
 }
 .reviewprogress__header span{

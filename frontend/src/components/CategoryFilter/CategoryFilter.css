@@ -12,7 +12,7 @@ overflow: hidden;
 .categoryFilter__item {
     line-height: 3rem;
     display: block;
-    color: var(--gray-50);
+    color: var(--black-50);
     font-size: 1.2rem;
     width: 100%;
     position: relative;

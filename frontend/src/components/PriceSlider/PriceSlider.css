@@ -11,7 +11,7 @@
 }
 .priceSlider__title{
   font-size: 1.3rem;
-  color: var(--gray-50);
+  color: var(--black-50);
   display: block;
   width: 100%;
   padding: 1rem 0;
@@ -81,7 +81,7 @@ pointer-events: auto;
 }
 .priceSlider__priceInfo{
   font-size: 1.2rem;
-  color: var(--gray-50);
+  color: var(--black-50);
   font-family: var(--Iran-number);
 }
 .priceSlider__priceInfo span{
