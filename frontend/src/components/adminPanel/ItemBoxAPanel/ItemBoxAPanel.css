@@ -3,7 +3,7 @@
     background: var(--white);
     padding: 1rem;
     border-radius: var(--border-box);
-    box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+    box-shadow: var(--box-shadow);
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -35,6 +35,7 @@
 .panelBox__content{
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin-right: 1rem;
     font-family: var(--Iran-number);
 }

@@ -178,7 +178,7 @@ a{
   --header-mobile-text: #666;
   --red-50: #f44336;
   --border-btn:1.5rem;
-  --box-shadow:0 2px 5px rgba(0, 0, 0, .3);
+  --box-shadow:0 5px 10px rgba(0,0,0,.1);
   --black-50:#191919;
 }
 /* end variabels */

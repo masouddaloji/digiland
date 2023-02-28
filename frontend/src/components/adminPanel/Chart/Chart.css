@@ -1,0 +1,9 @@
+.chrt__wrapper{
+    width: 100%;
+    height: 22rem;
+    background:var(--white);
+    border-radius: var(--border-box);
+    box-shadow: var(--box-shadow);
+    font-size: 1.3rem;
+    padding: .5rem;
+}

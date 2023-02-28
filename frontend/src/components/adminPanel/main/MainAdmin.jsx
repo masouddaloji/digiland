@@ -1,4 +1,5 @@
 import React from 'react'
+import Chart from '../Chart/Chart'
 import ItemBoxAPanel from '../ItemBoxAPanel/ItemBoxAPanel'
 
 
@@ -10,7 +11,6 @@ import './MainAdmin.css'
 const MainAdmin = () => {
   return (
     <section className="adminSection">
-    <div className='container'>
       <div className="row">
       {adminPanelItems.map(item=>(
         <div className="col-sm-6 col-lg-4 col-xl-3" key={item.id}>
@@ -19,7 +19,11 @@ const MainAdmin = () => {
       ))}
       
       </div>
-    </div>
+      <div className="row">
+        <div className="col-12">
+          <Chart/>
+        </div>
+      </div>
     </section>
   )
 }
