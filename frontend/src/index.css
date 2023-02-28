@@ -209,6 +209,10 @@ a {
 }
 /* end default */
 /* start helper */
+.f-24{
+  font-size: 2.4rem;
+  display: inline-block;
+}
 .auth{
   width: 100%;
   height: 100vh;

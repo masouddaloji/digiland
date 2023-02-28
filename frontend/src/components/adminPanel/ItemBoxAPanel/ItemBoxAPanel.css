@@ -1,0 +1,66 @@
+.panelBox{
+    width: 100%;
+    background: var(--white);
+    padding: 1rem;
+    border-radius: var(--border-box);
+    box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.panelBox__iconWrapper{
+    width: 4.5rem;
+    height: 4.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-box);
+}
+.panelBox__iconWrapper.purple{
+    background: rgba(155, 81, 224, 0.1);
+    color: #9b51e0;
+}
+.panelBox__iconWrapper.green{
+    background: rgba(33, 150, 83, 0.1);
+    color: #219653;
+}
+.panelBox__iconWrapper.prim{
+    background: rgba(74, 108, 247, 0.1);
+    color: #4a6cf7;
+}
+.panelBox__iconWrapper.orange{
+    background: rgba(242, 153, 74, 0.1);
+    color: #f2994a;
+}
+.panelBox__content{
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+    font-family: var(--Iran-number);
+}
+.panelBox__title{
+    font-size: 1.5rem;
+    color:var(--black-50)
+}
+.panelBox__amount{
+    font-size: 1.8rem;
+    color:var(--black-50)
+}
+.profitDetails{
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+}
+.panelBox__green{
+    color: #219653
+}
+.panelBox__red{
+    color: #d50100
+}
+.panelBox__arrow{
+    margin-right: 0.5rem;
+}
+.profitDetails i{
+    margin-left: .3rem;
+}
