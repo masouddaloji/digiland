@@ -7,7 +7,6 @@ import ProductsContext from "./../src/Context/ProductsContext";
 import "./App.css";
 import token from "./utils/api";
 import useFetch from "./hooks/useFetch";
-import menus from './Context/menu'
 
 export default function App() {
   const location = useLocation();
@@ -62,7 +61,6 @@ export default function App() {
         isLoadingCategories,
         errorCategories,
         categories: allDataCategories,
-        menus:menus
       }}
     >
       <div className="app">

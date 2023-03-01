@@ -1,0 +1,26 @@
+
+.table{
+color: var(--gray-50);
+font-size: 1.2rem;
+width: 100%;
+text-align: right;
+}
+.table tr:not(:last-child){
+    border-bottom: 1px solid var(--gray);
+    
+}
+.table th {
+    font-size: 1.3rem;
+    vertical-align: middle;
+    padding: 1rem 0;
+
+}
+.table td {
+    padding: .5rem 0;
+    vertical-align: middle;
+}
+.adminTable__img{
+width: 5rem;
+height: 5rem;
+border-radius: 50%;
+}

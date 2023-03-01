@@ -17,7 +17,6 @@ import AdminUsers from "./components/adminPanel/AdminUsers/AdminUsers";
 import AdminOrders from "./components/adminPanel/AdminOrders/AdminOrders";
 import AdminArticles from "./components/adminPanel/AdminArticles/AdminArticles";
 
-
 const routes = (products, categories) => [
   { path: "/", element: <Index /> },
   {
@@ -29,24 +28,25 @@ const routes = (products, categories) => [
     path: "/basket",
     element: <UserBasket />,
     children: [
-        { path: "", element:<Cart /> },
-        { path: "check-information", element:<CheckInformation /> },
-        { path: "order-pay", element:<SubmitOrder/> },
-    ]
+      { path: "", element: <Cart /> },
+      { path: "check-information", element: <CheckInformation /> },
+      { path: "order-pay", element: <SubmitOrder /> },
+    ],
   },
   { path: "/product/:productId", element: <Product /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
 
-
-
-
-  {path:"/adminpanel" , element:<AdminPanel />, children:[
-    {path:"dashboard" , element:<MainAdmin />},
-    {path:"products" , element:<AdminProducts />},
-    {path:"users" , element:<AdminUsers />},
-    {path:"orders" , element:<AdminOrders />},
-    {path:"articles" , element:<AdminArticles />},
-  ]}
+  {
+    path: "/adminpanel",
+    element: <AdminPanel />,
+    children: [
+      { path: "dashboard", element: <MainAdmin /> },
+      { path: "products", element: <AdminProducts /> },
+      { path: "users", element: <AdminUsers /> },
+      { path: "orders", element: <AdminOrders /> },
+      { path: "articles", element: <AdminArticles /> },
+    ],
+  },
 ];
 export default routes;

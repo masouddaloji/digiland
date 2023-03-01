@@ -157,13 +157,11 @@ a{
 :root {
   --black-500: #333;
   /* --main-backgroundColor: #eff1f5; */
-  --main-backgroundColor: #F7F7F7;
+  --main-backgroundColor: #F1F1F1;
   --main-font: "IRANSans", sans-serif;
   --Iran-bold: "IRANSansMed", sans-serif;
   --Iran-number: "IRANSansnumer", sans-serif;
   --white: #fff;
-  /* --white: #FFFFF9; */
-  /* --white: #FAF9F6; */
   --black: #000;
   --padding: 1rem;
   --border-box: 0.6rem;
@@ -174,8 +172,9 @@ a{
   --green:#00cc67;
   --gray-text: #6b6b6b;
   --error-text: #e4b7b9;
-  --mobile-menu-text: #444;
-  --header-mobile-text: #666;
+  --gray-100: #444;
+  --gray:#eee;
+  --gray-50: #666;
   --red-50: #f44336;
   --border-btn:1.5rem;
   --box-shadow:0 5px 10px rgba(0,0,0,.1);
@@ -209,6 +208,19 @@ a {
 }
 /* end default */
 /* start helper */
+.table__wrapper{
+  width: 100%;
+  background: var(--white);
+  border-radius: var(--border-box);
+  padding: 1rem;
+  box-shadow: var(--box-shadow);
+}
+.table__header{
+  font-size: 1.5rem;
+  margin: 2rem 0;
+  color: var(--gray-100);
+
+}
 .f-24{
   font-size: 2.4rem;
   display: inline-block;
@@ -306,7 +318,7 @@ height: 3rem;
 }
 .productPrice {
   font-family: var(--Iran-number);
-  color: var(--header-mobile-text);
+  color: var(--gray-50);
   font-size: 1.4rem;
   display: inline-block;
 }
@@ -396,7 +408,7 @@ height: 3rem;
   width: 7rem;
   height: 7rem;
   border-radius: 50%;
-  background: #eee;
+  background: var(--gray);
   border: .5rem solid #ddd;
   border-top-color: rgba(0, 0, 0, .3);
   margin: 3rem auto;

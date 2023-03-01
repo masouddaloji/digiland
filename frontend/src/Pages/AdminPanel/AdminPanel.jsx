@@ -6,46 +6,19 @@ import { AiOutlinePoweroff } from 'react-icons/ai'
 import { BiCog } from 'react-icons/bi'
 import { BsBell } from 'react-icons/bs'
 import { HiOutlineEnvelope } from 'react-icons/hi2'
+// components
+import Sidebar from '../../components/adminPanel/Sidebar/Sidebar'
 // style
 import './AdminPanel.css'
 
 const AdminPanel = () => {
   return (
-    <div className='container'>
-        <div className="row">
-            <div className="col-3">
-                <div className="admin__sideBar">
-                <ul className='admin__sidebarLIsts'>
-                    <li className='admin__sidebarItems'>
-                        <Link to="/" className='admin__sidebarimgLink'> <img
-                      src="/images/logo-mobile.png"
-                      alt="logo site for mobile"
-                      className="admin__sidebarimg"
-                    /></Link>
-                    </li>
-                    <li className='admin__sidebarItems'>
-                      <NavLink to='/adminpanel/dashboard' className={({ isActive }) =>isActive ? "admin__sideBarLink activedSidebar" : "admin__sideBarLink"}>صفحه اصلی</NavLink>     
-                    </li>
-                    <li className='admin__sidebarItems'>
-                      <NavLink to='products' className={({ isActive }) =>isActive ? "admin__sideBarLink activedSidebar" : "admin__sideBarLink"}>محصولات</NavLink>     
-                    </li>
-                    <li className='admin__sidebarItems'>
-                        <NavLink to='users' className={({ isActive }) =>isActive ? "admin__sideBarLink activedSidebar" : "admin__sideBarLink"}>کاربران</NavLink>
-                    </li>
-                    <li className='admin__sidebarItems'>
-                        <NavLink to='orders' className={({ isActive }) =>isActive ? "admin__sideBarLink activedSidebar" : "admin__sideBarLink"}>سفارشات</NavLink>
-                    </li>
-                    <li className='admin__sidebarItems'>
-                        <NavLink to='articles' className={({ isActive }) =>isActive ? "admin__sideBarLink activedSidebar" : "admin__sideBarLink"}>مقالات</NavLink>
-                    </li>
-                    {/* <li className='admin__sidebarItems'>
-                        <NavLink to='/' className={({ isActive }) => (isActive ? 'admin__sideBarLink  admin__sideBarLink activedSidebar' :null `}>محصولات</NavLink>
-                    </li> */}
-                </ul>
-                    
-                </div>
-            </div>
-            <div className="col-9">
+    <div className='admin'>
+                <Sidebar />
+                    <div className="adminContent">
+
+                  <div className="row">
+                    <div className="col-12">
                 <header className="admin__header">
                     <Link to="/" className='admin__headerLink admin__notifications' title='اطلاعیه ها'>
                         <BsBell className='admin__headerIcon'/>
@@ -64,10 +37,17 @@ const AdminPanel = () => {
                         <img src="/images/profile/profile.jpg" alt="" className="admin__headerProfile" />
                     </div>
                 </header>
+
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-12">
                 <Outlet />
+                    </div>
+                  </div>
+                </div>
             </div>
-        </div>
-    </div>
+
   )
 }
 

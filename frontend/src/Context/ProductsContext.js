@@ -6,6 +6,5 @@ const ProductsContext=createContext({
     categories:null,
     isLoadingCategories:null,
     errorCategories:null,
-    menus:null
 })
 export default ProductsContext

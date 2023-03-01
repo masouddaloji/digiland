@@ -53,7 +53,7 @@
   transition: all 0.3s;
 }
 .instantOffer__ProductName:hover {
-  color: var(--header-mobile-text);
+  color: var(--gray-50);
 }
 .instantOffer__priceBox {
   display: flex;

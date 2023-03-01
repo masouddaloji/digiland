@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
+// library
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
+import { Link } from "react-router-dom";
+// styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./Index.css";
-
-import { Link } from "react-router-dom";
-import { MdOutlineDevices } from "react-icons/md";
+// icons
 import { BsPrinter, BsTools } from "react-icons/bs";
 import { TbDeviceTvOld } from "react-icons/tb";
 import { RiHeartPulseLine } from "react-icons/ri";
@@ -24,6 +25,7 @@ import ProductsContext from "../../Context/ProductsContext";
 import token from "../../utils/api";
 import ServiceBox from "../../components/ServiceBox/ServiceBox";
 import Slider from "../../components/Slider/Slider";
+import { services } from "../../Constants";
 
 export default function Index() {
   const banners=[
@@ -33,18 +35,7 @@ export default function Index() {
     {id:404,link:"/",cover:"/images/widget/widget-img-4.png"},
 ]
 const articles=Array(6).fill(0)
-console.log("articles",articles)
-  const [services, setServices] = useState([]);
-  const getServices = async () => {
-    await fetch("http://localhost:1337/api/services?populate=deep", {
-      headers: { Authorization: `bearer ${token}` },
-    })
-      .then((res) => res.json())
-      .then((allServices) => setServices(allServices.data));
-  };
-  useEffect(() => {
-    getServices();
-  }, []);
+
 
   const suggestionProduct = [
     {
@@ -153,9 +144,9 @@ console.log("articles",articles)
           {services.map((service) => (
             <div className="col-6 col-md-4 col-lg-2" key={service.id}>
               <ServiceBox
-                title={service.attributes.title}
-                Icon={service.attributes.icon}
-                link={service.attributes.link}
+                title={service.title}
+                Icon={service.icon}
+                link={service.link}
               />
             </div>
           ))}
@@ -227,64 +218,6 @@ console.log("articles",articles)
                 link="/"
                 btnLink="/"
               />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12">
-            {/* convert to component */}
-              {/* <Swiper
-                dir="rtl"
-                slidesPerView={5}
-                spaceBetween={15}
-                style={{ overflow: "hidden" }}
-                loop={true}
-                navigation={true}
-                breakpoints={{
-                  // when window width is >= 640px
-                  270: {
-                    slidesPerView: 1,
-                  },
-                  600: {
-                    slidesPerView: 2,
-                  },
-                  // when window width is >= 768px
-                  768: {
-                    slidesPerView: 3,
-                  },
-                  992: {
-                    slidesPerView: 4,
-                  },
-                  1200: {
-                    slidesPerView: 5,
-                  },
-                }}
-                modules={[Autoplay, Pagination, Navigation]}
-                className="mySwiper"
-              >
-                {!productsContext.errorProducts ? (
-                  <>
-                    {!productsContext.isLoadingProducts ? (
-                      <>
-                        {productsContext.products.filter((product) => product.attributes.isNew)
-                  .map((product) => (
-                    <>
-                      <SwiperSlide key={product.id}>
-                        <ProductCart details={product.attributes} />
-                      </SwiperSlide>
-                    </>
-                  ))}
-                      </>
-                    ) : (
-                      <span>Loading ...</span>
-                    )}
-                  </>
-                ) : (
-                  <>
-                  {console.log("errorProducts", productsContext.errorProducts)}
-
-                  </>
-                )}
-              </Swiper> */}
             </div>
           </div>
         </section>
