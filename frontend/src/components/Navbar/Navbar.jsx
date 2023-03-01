@@ -1,7 +1,12 @@
 import React, { useContext, useRef } from 'react'
-import { FiChevronDown, FiPhoneCall } from 'react-icons/fi';
+// library
 import { Link } from 'react-router-dom';
+// icons
+import { FiChevronDown, FiPhoneCall } from 'react-icons/fi';
+// variables
 import ProductsContext from '../../Context/ProductsContext'
+import { menus } from '../../Constants';
+// styles
 import './Navbar.css'
 
 function Navbar() {
@@ -14,7 +19,7 @@ function Navbar() {
                 <nav className="navbar__menu">
                   <ul className="menus">
 
-                    {productContext.menus.map((menu) => (
+                    {menus.map((menu) => (
                         <li
                           className="menus__item"
                           key={menu.id}

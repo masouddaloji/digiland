@@ -27,6 +27,7 @@ import "./Header.css";
 import ProductCount from "../ProductCount/ProductCount";
 import ProductsContext from "../../Context/ProductsContext";
 import Navbar from "../Navbar/Navbar";
+import { menus } from "../../Constants";
 const MobileMenuItem = ({ menu }) => {
   const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
   console.log(menu);
@@ -111,7 +112,6 @@ const productContext=useContext(ProductsContext)
     window.addEventListener("resize", resizaHandler);
     return () => window.removeEventListener("resize", resizaHandler);
   }, []);
-  console.log("menus",productContext.menus.subMenu)
 
   return (
     <>
@@ -366,7 +366,7 @@ const productContext=useContext(ProductsContext)
                       >
                         تمام دسته ها
                       </li>
-                      {productContext.menus.map((category) => (
+                      {menus.map((category) => (
                         <li
                         key={category.shortLink}
                           className={`category__item ${
@@ -516,7 +516,7 @@ const productContext=useContext(ProductsContext)
                         >
                           تمام دسته ها
                         </li>
-                        {productContext.menus.map((category) => (
+                        {menus.map((category) => (
                           <li
                           key={category.shortLink}
                             className={`category__item ${

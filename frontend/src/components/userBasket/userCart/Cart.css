@@ -7,7 +7,7 @@
   box-shadow: var(--box-shadow);
 }
 .cart__productsWrapper {
-  border: 1px solid #eee;
+  border: 1px solid var(--gray);
   border-radius: var(--border-box);
   overflow: hidden;
 }
@@ -21,7 +21,7 @@
 }
 .cart__table thead {
   background: #f9f9f9;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--gray);
   color: #333;
   font-size: 1.3rem;
   font-family: var(--Iran-bold);
@@ -33,7 +33,7 @@
   padding: 0.5rem 1rem;
 }
 .cart__table tr {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--gray);
 }
 .changeable {
   width: 10rem;
@@ -65,7 +65,7 @@
 .cart__btnCount {
 }
 .discountCode{
-    border: 1px solid #eee;
+    border: 1px solid var(--gray);
     border-radius: var(--border-box);
     position: relative;
     margin: 2rem 0 1rem 0;
@@ -84,7 +84,7 @@
 }
 .discountCode__getCode{
     padding: 0.5rem;
-    border: 1px solid #eee;
+    border: 1px solid var(--gray);
     border-radius: var(--border-box);
     position: relative;
 }
@@ -117,7 +117,7 @@
 /* start total price */
 .totalPrice {
   font-size: 1.3rem;
-  color: #444;
+  color: var(--gray-100);
 }
 .totolaPrice__title {
   position: relative;

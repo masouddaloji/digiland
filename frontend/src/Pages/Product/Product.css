@@ -94,7 +94,7 @@
 }
 .product__detailsTitle {
   font-size: 1.5rem;
-  color: #444;
+  color: var(--gray-100);
 }
 .product__detailsSubtitle {
   display: block;
@@ -163,7 +163,7 @@ align-items: center; */
   margin: 1rem 0;
 }
 .product__currentColor span {
-  color: #444;
+  color: var(--gray-100);
   margin-left: 1rem;
 }
 .product__allColors {
@@ -532,7 +532,7 @@ table.productsTable {
 }
 .addPoint__input {
   width: 100%;
-  border: 1px solid #eee;
+  border: 1px solid var(--gray);
   border-radius: 2.5rem;
   background: transparent;
   padding: 0.5rem 1rem 0.5rem 3rem;
@@ -575,7 +575,7 @@ table.productsTable {
   padding: 0.7rem 1.5rem 0.5rem 1rem;
   font-size: 1.2rem;
   color: #666;
-  border: 1px solid #eee;
+  border: 1px solid var(--gray);
   resize: none;
   font-family: var(--main-font);
 }
@@ -723,7 +723,7 @@ table.productsTable {
 .allComments__sorted {
   display: flex;
   align-items: center;
-  color: #444;
+  color: var(--gray-100);
   font-size: 1.2rem;
   font-weight: 500;
 }
@@ -926,7 +926,7 @@ table.productsTable {
   padding: 0.5rem 1rem;
   font-size: 1.1rem;
   background: var(--white);
-  color: #444;
+  color: var(--gray-100);
 }
 .question__answerLists {
   border-radius: var(--border-box);
@@ -1075,7 +1075,7 @@ table.productsTable {
   height: 0.3rem;
   width: 100%;
   border-radius: 2rem;
-  background: #eee;
+  background: var(--gray);
 }
 .reviewprogress__progressBar{
   position: absolute;

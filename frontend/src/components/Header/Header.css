@@ -230,7 +230,7 @@ color: #333;
 }
 .category::-webkit-scrollbar {
   width: 0.2rem;
-  background-color: #eee;
+  background-color: var(--gray);
 }
 .category::-webkit-scrollbar-track {
   box-shadow:0 0 5px #ddd inset ;
@@ -415,7 +415,7 @@ color: #333;
   height: 2.4rem;
 }
 .mobileHeader__burgerIcon {
-  color: var(--header-mobile-text);
+  color: var(--gray-50);
 }
 .mobileHeader__logoBox {
   display: flex;
@@ -437,7 +437,7 @@ color: #333;
 }
 .mobileHeader__authIcon,
 .mobileHeader__basketIcon {
-  color: var(--header-mobile-text);
+  color: var(--gray-50);
 }
 .mobileHeader__basket {
   background: #eef0f3;
@@ -528,7 +528,7 @@ color: #333;
   overflow: hidden;
 }
 .mobileMenu__link {
-  color: var(--mobile-menu-text);
+  color: var(--gray-100);
   font-family: var(--Iran-bold);
   font-size: 1.25rem;
   padding: 0.7rem 1.5rem 0.7rem 0.7rem;
@@ -551,7 +551,7 @@ color: #333;
   display: block;
 }
 .mobileMenu__subLink {
-  color: var(--mobile-menu-text);
+  color: var(--gray-100);
   font-family: var(--Iran-bold);
   font-size: 1.25rem;
   display: block;

@@ -1,9 +1,18 @@
-.chrt__wrapper{
+.chart__wrapper{
     width: 100%;
-    height: 22rem;
+    height: 30rem;
     background:var(--white);
     border-radius: var(--border-box);
     box-shadow: var(--box-shadow);
     font-size: 1.3rem;
     padding: .5rem;
+    direction: ltr;
+}
+.chart__header{
+    text-align: end;
+    height: 4.5rem;
+    line-height: 3.2;
+    padding-right: 1.5rem;
+    font-size: 1.4rem;
+    color: var(--gray-100);
 }

@@ -1,0 +1,17 @@
+
+.table{
+color: var(--gray-50);
+font-size: 1.2rem;
+width: 100%;
+text-align: right;
+}
+.table tr{
+    border-bottom: 1px solid var(--gray);
+}
+.table th {
+    font-size: 1.3rem;
+}
+.adminTable__img{
+width: 4rem;
+border-radius: 50%;
+}

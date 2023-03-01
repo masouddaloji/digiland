@@ -2,7 +2,7 @@
     height: 3rem;
     display: flex;
     align-items: center;
-    border: 1px solid #eee;
+    border: 1px solid var(--gray);
     border-radius: var(--border-box);
   }
   .quantity__btn{
@@ -13,10 +13,10 @@
     height: inherit;
   }
   .quantity__btnRight{
-    border-left: 1px solid #eee;
+    border-left: 1px solid var(--gray);
   }
   .quantity__btnLeft{
-    border-right: 1px solid #eee;
+    border-right: 1px solid var(--gray);
 
   }
   .quantity__input {

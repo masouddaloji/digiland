@@ -4,7 +4,7 @@
   border-radius: var(--border-box);
   box-shadow: var(--box-shadow);
   padding: 1rem 1.5rem;
-  color: #444;
+  color: var(--gray-100);
   font-size: 1.1rem;
 }
 .useDiscount {
@@ -60,7 +60,7 @@
   margin-right: 0.5rem;
 }
 .purchaerDetails__input {
-  border: 1px solid #eee;
+  border: 1px solid var(--gray);
   border-radius: var(--border-box);
   font-size: 1.2rem;
   padding: 0.4rem 1.2rem;
@@ -75,7 +75,7 @@
 
 .orders {
   width: 100%;
-  border: 1px solid #eee;
+  border: 1px solid var(--gray);
   border-radius: var(--border-box);
  
 }
@@ -94,7 +94,7 @@
     padding: 1rem;
 }
 .orders__table tbody tr ,.orders__table tfoot tr:not(:last-child){
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--gray);
 }
 .orders__table tfoot{
   margin-top: .5rem;
@@ -103,11 +103,11 @@
     font-size: 1.2rem;
 }
 .orders__table tfoot td{
-    border-right: 1px solid #eee;
+    border-right: 1px solid var(--gray);
 }
 .submit__order{
     margin: 1.5rem 0;
-    border: 1px solid #eee;
+    border: 1px solid var(--gray);
     border-radius: var(--border-box);
     padding: 1rem 1.5rem;
 }
