@@ -3,6 +3,10 @@ import { BiDollar } from "react-icons/bi";
 import { BsCreditCard, BsFillCartCheckFill } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
 
+<<<<<<< HEAD
+=======
+// Definition of variables
+>>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
 import {BiHome} from 'react-icons/bi'
 import {  FaLaptopCode } from 'react-icons/fa';
 import { FiCamera } from 'react-icons/fi';
@@ -10,6 +14,7 @@ import { IoAmericanFootballOutline } from 'react-icons/io5';
 import { MdOutlineHomeRepairService } from 'react-icons/md';
 import { RiHandHeartLine } from 'react-icons/ri';
 import { TbBabyCarriage } from 'react-icons/tb';
+<<<<<<< HEAD
 import { MdOutlineDevices } from "react-icons/md";
 
 
@@ -23,6 +28,11 @@ export const services=[
   {id:150,title:"ورزش و سرگرمی",icon:<MdOutlineDevices />,link:"/"},
   {id:160,title:"ابزارآلات",icon:<MdOutlineDevices />,link:"/"},
 ]
+=======
+
+
+
+>>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
 export const menus = [
   {
     id: 1,

@@ -13,12 +13,21 @@ import './AdminPanel.css'
 
 const AdminPanel = () => {
   return (
+<<<<<<< HEAD
     <div className='admin'>
                 <Sidebar />
                     <div className="adminContent">
 
                   <div className="row">
                     <div className="col-12">
+=======
+    <div className='container'>
+        <div className="row">
+            <div className="col-3">
+                <Sidebar />
+            </div>
+            <div className="col-9">
+>>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
                 <header className="admin__header">
                     <Link to="/" className='admin__headerLink admin__notifications' title='اطلاعیه ها'>
                         <BsBell className='admin__headerIcon'/>

@@ -26,11 +26,14 @@ const MainAdmin = () => {
       <div className="row">
       <div className="col-12">
           <BestSellingTable />
+<<<<<<< HEAD
         </div>
         <div className="row">
           <div className="col-12">
             
           </div>
+=======
+>>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
         </div>
       </div>
     </section>

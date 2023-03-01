@@ -28,6 +28,7 @@ const BestSellingTable = () => {
             <td>121</td>
             <td>19</td>
         </tr>
+<<<<<<< HEAD
         <tr>
             <td>2</td>
             <td><img src="/images/sug/sug6.jpg" alt="" className="adminTable__img" /></td>
@@ -46,6 +47,8 @@ const BestSellingTable = () => {
             <td>121</td>
             <td>19</td>
         </tr>
+=======
+>>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
             </tbody>
         </table>
     </div>

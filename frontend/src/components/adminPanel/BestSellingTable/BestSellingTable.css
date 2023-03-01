@@ -5,6 +5,7 @@ font-size: 1.2rem;
 width: 100%;
 text-align: right;
 }
+<<<<<<< HEAD
 .table tr:not(:last-child){
     border-bottom: 1px solid var(--gray);
     
@@ -22,5 +23,15 @@ text-align: right;
 .adminTable__img{
 width: 5rem;
 height: 5rem;
+=======
+.table tr{
+    border-bottom: 1px solid var(--gray);
+}
+.table th {
+    font-size: 1.3rem;
+}
+.adminTable__img{
+width: 4rem;
+>>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
 border-radius: 50%;
 }
