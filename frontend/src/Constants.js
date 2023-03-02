@@ -1,38 +1,28 @@
 // import icons
 import { BiDollar } from "react-icons/bi";
-import { BsCreditCard, BsFillCartCheckFill } from "react-icons/bs";
+import { BsCreditCard, BsFillCartCheckFill, BsPrinter, BsTools } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
-
-<<<<<<< HEAD
-=======
-// Definition of variables
->>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
 import {BiHome} from 'react-icons/bi'
 import {  FaLaptopCode } from 'react-icons/fa';
 import { FiCamera } from 'react-icons/fi';
 import { IoAmericanFootballOutline } from 'react-icons/io5';
 import { MdOutlineHomeRepairService } from 'react-icons/md';
-import { RiHandHeartLine } from 'react-icons/ri';
-import { TbBabyCarriage } from 'react-icons/tb';
-<<<<<<< HEAD
+import { RiHandHeartLine, RiHeartPulseLine } from 'react-icons/ri';
+import { TbBabyCarriage, TbDeviceTvOld } from 'react-icons/tb';
 import { MdOutlineDevices } from "react-icons/md";
+import { IoMdFootball } from "react-icons/io";
 
 
 
 // Definition of variables
 export const services=[
-  {id:110,title:"موبایل و لپ تاپ",icon:<MdOutlineDevices />,link:"/"},
-  {id:120,title:"ماشین های اداری",icon:<MdOutlineDevices />,link:"/"},
-  {id:130,title:"صوتی و تصویری",icon:<MdOutlineDevices />,link:"/"},
-  {id:140,title:"زیبایی و سلامت",icon:<MdOutlineDevices />,link:"/"},
-  {id:150,title:"ورزش و سرگرمی",icon:<MdOutlineDevices />,link:"/"},
-  {id:160,title:"ابزارآلات",icon:<MdOutlineDevices />,link:"/"},
+  {id:110,title:"موبایل و لپ تاپ",icon:<MdOutlineDevices className="f-24"/>,link:"/"},
+  {id:120,title:"ماشین های اداری",icon:<BsPrinter className="f-24"/>,link:"/"},
+  {id:130,title:"صوتی و تصویری",icon:<TbDeviceTvOld className="f-24"/>,link:"/"},
+  {id:140,title:"زیبایی و سلامت",icon:<RiHeartPulseLine className="f-24"/>,link:"/"},
+  {id:150,title:"ورزش و سرگرمی",icon:<IoMdFootball className="f-24"/>,link:"/"},
+  {id:160,title:"ابزارآلات",icon:<BsTools className="f-24"/>,link:"/"},
 ]
-=======
-
-
-
->>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
 export const menus = [
   {
     id: 1,

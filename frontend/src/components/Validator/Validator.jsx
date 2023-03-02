@@ -23,6 +23,16 @@ function Validator(fieldName, value) {
     const userNameValid=userNamePattern.test(value)
     !userNameValid && isValid.push(false);
   };
+  const textValidator=value=>{
+    if(value.trim().length<3){
+      isValid.push(false)
+    }
+  }
+  const coverValidator=value=>{
+    const coverPattern=/(\.jpg|\.jpeg|\.png)$/i
+    const coverValid=coverPattern.test(value)
+    !coverValid && isValid.push(false)
+  }
   switch (fieldName) {
     case "email": {
       emailValidator(value);
@@ -39,6 +49,14 @@ function Validator(fieldName, value) {
     }
     case "userName": {
       userNameValidator(value);
+      break;
+    }
+    case "text":{
+      textValidator(value)
+      break;
+    }
+    case "cover":{
+      coverValidator(value)
       break;
     }
 

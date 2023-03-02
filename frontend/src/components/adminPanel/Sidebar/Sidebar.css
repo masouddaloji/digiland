@@ -1,7 +1,6 @@
 .sidebar {
-<<<<<<< HEAD
-    background: var(--blue);
-    border-radius: var(--border-box);
+    /* background: var(--blue); */
+    background: var(--admin-main);
     overflow: hidden;
     padding: 3rem 1rem 3rem 0;
     width:25rem;
@@ -10,14 +9,6 @@
     top: 0;
     right: 0;
     bottom: 0;
-=======
-    background: var(--blue-hover);
-    border-radius: var(--border-box);
-    overflow: hidden;
-    padding: 3rem 1rem 3rem 0;
-    width: 100%;
-    height: 100vh;
->>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
 }
   .sidebar__lists {
     width: 100%;
@@ -29,7 +20,7 @@
     margin-bottom: 2rem;
   }
   .sidebar__items:nth-child(1) {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     border-radius: var(--border-box);
   }
   
@@ -39,15 +30,12 @@
     align-items: center;
     justify-content: center;
   }
-<<<<<<< HEAD
   .sidebar__icon{
     font-size: 1.9rem;
     display: inline-block;
     vertical-align: middle;
     margin-left: 1rem;
   }
-=======
->>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
   .sidebar__img {
     display: block;
     filter: brightness(0) invert(1);
@@ -69,7 +57,7 @@
   .sidebar__link:hover,
   .activedSidebar {
     background: var(--white);
-    color: var(--blue-hover);
+    color: var(--admin-main);
   }
   
   .sidebar__link:hover::before,

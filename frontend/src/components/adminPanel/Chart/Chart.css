@@ -10,13 +10,10 @@
 }
 .chart__header{
     text-align: end;
-<<<<<<< HEAD
     height: 4rem;
     line-height: 2.5;
-=======
     height: 4.5rem;
     line-height: 3.2;
->>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
     padding-right: 1.5rem;
     font-size: 1.4rem;
     color: var(--gray-100);

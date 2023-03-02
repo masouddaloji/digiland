@@ -175,10 +175,12 @@ a{
   --gray-100: #444;
   --gray:#eee;
   --gray-50: #666;
-  --red-50: #f44336;
+  --red:#c00;
+  --red-50: #fee2e2;
   --border-btn:1.5rem;
   --box-shadow:0 5px 10px rgba(0,0,0,.1);
   --black-50:#191919;
+  --admin-main:#0F111A;
 }
 /* end variabels */
 /* start default */
@@ -208,6 +210,9 @@ a {
 }
 /* end default */
 /* start helper */
+.adminSection{
+  margin-top: 5rem;
+}
 .table__wrapper{
   width: 100%;
   background: var(--white);
@@ -414,15 +419,6 @@ height: 3rem;
   margin: 3rem auto;
   transition: all .3s;
   animation: spiner 1.3s linear infinite;
-}
-.alertError{
-  width: 100%;
-  background: var(--error-text);
-  padding: 0.7rem 3rem .7rem 0;
-  border: 1px solid #b80e02;
-  border-radius: var(--border-box);
-  color: #b80e02;
-  font-size: 1.3rem;
 }
 .sectionHeader__icon{
   font-size: 2.6rem;

@@ -13,6 +13,7 @@ import ProductsContext from "../../Context/ProductsContext";
 import { useContext } from "react";
 import ProductCart from "../../components/ProductCart/ProductCart";
 import useFetch from "./../../hooks/useFetch";
+import Error from "../../components/Error/Error";
 
 export default function ProductsCategory({ products, categories }) {
   const productsContext = useContext(ProductsContext);
@@ -259,7 +260,7 @@ console.log("sortedProducts",sortedProducts)
                             </div>
                           </>
                         )):
-                        <div className="alertError">هیچ محصولی یافت نشد</div>) : <div className="loadingSpiner"></div>
+                        <Error title="هیچ محصولی یافت نشد"/>) : <div className="loadingSpiner"></div>
                       
                      
                        }

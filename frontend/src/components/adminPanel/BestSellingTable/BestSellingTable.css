@@ -3,9 +3,8 @@
 color: var(--gray-50);
 font-size: 1.2rem;
 width: 100%;
-text-align: right;
+text-align: center;
 }
-<<<<<<< HEAD
 .table tr:not(:last-child){
     border-bottom: 1px solid var(--gray);
     
@@ -21,9 +20,9 @@ text-align: right;
     vertical-align: middle;
 }
 .adminTable__img{
-width: 5rem;
-height: 5rem;
-=======
+width: 4rem;
+height: 4rem;
+}
 .table tr{
     border-bottom: 1px solid var(--gray);
 }
@@ -32,6 +31,5 @@ height: 5rem;
 }
 .adminTable__img{
 width: 4rem;
->>>>>>> 8286f47708ee9e22b8122f0a5b174b8dcf4c78d7
 border-radius: 50%;
 }

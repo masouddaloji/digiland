@@ -113,6 +113,7 @@ const articles=Array(6).fill(0)
             <Slider space={45}  isNavigation={true}  center={true} array={banners} slide="BannerBox"/>
             </div>
           </div>
+          {/* instantOffer */}
           <div className="col-lg-3 hideninstantOffer">
             <div className="instantOffer">
               <div className="instantOffer__titleBox">
@@ -140,13 +141,11 @@ const articles=Array(6).fill(0)
             </div>
           </div>
         </div>
+        {/* services icon */}
         <div className="row">
           {services.map((service) => (
             <div className="col-6 col-md-4 col-lg-2" key={service.id}>
-              <ServiceBox
-                title={service.title}
-                Icon={service.icon}
-                link={service.link}
+              <ServiceBox {...service}
               />
             </div>
           ))}
@@ -209,6 +208,7 @@ const articles=Array(6).fill(0)
             </div>
           </div>
         </section>
+        {/* new products */}
         <section className="newProduct">
           <div className="row">
             <div className="col-12">
@@ -221,6 +221,7 @@ const articles=Array(6).fill(0)
             </div>
           </div>
         </section>
+        {/* apple products */}
         <section className="appleProduct">
           <div className="row">
             <div className="col-12">
