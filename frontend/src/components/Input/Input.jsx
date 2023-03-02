@@ -18,7 +18,7 @@ const inputReducer=(state,action)=>{
   }
 }
 
-function Input({ name,type, label, className, icon,error,validation,inputChangeHandler}) {
+function Input({ name,type, label, className, icon,error,validation,inputChangeHandler,placeHolder,multiple}) {
   const [input,dispatch]=useReducer(inputReducer,{
     value:"",
     isValid:false
@@ -50,9 +50,11 @@ function Input({ name,type, label, className, icon,error,validation,inputChangeH
           className={`input ${className ? className : ""}`}
           value={input.value}
           onChange={inputHandler}
-          validation={validation}
+          validation={validation?validation:undefined}
+          placeholder={placeHolder?placeHolder:undefined}
+          multiple={multiple?true:false}
         />
-        {icon}
+        {icon?icon:null}
          {/* { !isValid && <span className="auth__error">{error}</span>} */}
       </div>
     </div>

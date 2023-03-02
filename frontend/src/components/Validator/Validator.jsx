@@ -29,6 +29,7 @@ function Validator(fieldName, value) {
     }
   }
   const coverValidator=value=>{
+    console.log(value,"value validator")
     const coverPattern=/(\.jpg|\.jpeg|\.png)$/i
     const coverValid=coverPattern.test(value)
     !coverValid && isValid.push(false)

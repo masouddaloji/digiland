@@ -22,12 +22,14 @@ const AdminProducts = () => {
     <section className="adminSection">
         <div className="table__wrapper">
           <h2 className="table__header">
-            {persianTexts.admin.products.addProductsTitle}
+            {persianTexts.admin.products.label.addProductsTitle}
           </h2>
       <div className="row">
           <div className="col-md-6">
             <Input
-              label={persianTexts.admin.products.inputLabelTitle}
+              label={persianTexts.admin.products.label.inputLabelTitle}
+              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderTitle}
+
               type="text"
               name="title"
               inputChangeHandler={inputChangeHandler}
@@ -36,11 +38,103 @@ const AdminProducts = () => {
           </div>
           <div className="col-md-6">
             <Input
-              label={persianTexts.admin.products.inputLabelCover}
-              type="file"
-              name="cover"
+              label={persianTexts.admin.products.label.inputLabelPrice}
+              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderPrice}
+              type="text"
+              name="price"
               inputChangeHandler={inputChangeHandler}
-              validation="cover"
+              validation="text"
+            />
+          </div>
+          <div className="col-md-6">
+            <Input
+              label={persianTexts.admin.products.label.inputLabelRating}
+              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderRating}
+              type="text"
+              name="rating"
+              inputChangeHandler={inputChangeHandler}
+              validation="text"
+            />
+          </div>
+          <div className="col-md-6">
+            <Input
+              label={persianTexts.admin.products.label.inputLabelQuantity}
+              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderQuantity}
+              type="text"Placeholder
+              name="qantity"
+              inputChangeHandler={inputChangeHandler}
+              validation="text"
+            />
+          </div>
+          <div className="col-md-6">
+            <Input
+              label={persianTexts.admin.products.label.inputLabelCategory}
+              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderCategory}
+              type="text"
+              name="category"
+              inputChangeHandler={inputChangeHandler}
+              validation="text"
+            />
+          </div>
+          <div className="col-md-6">
+            <Input
+              label={persianTexts.admin.products.label.inputLabelSegment}
+              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderSegment}
+              type="text"
+              name="segment"
+              inputChangeHandler={inputChangeHandler}
+              validation="text"
+            />
+          </div>
+          <div className="col-md-6">
+            <Input
+              label={persianTexts.admin.products.label.inputLabelColors}
+              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderColors}
+              type="text"
+              name="colors"
+              inputChangeHandler={inputChangeHandler}
+              validation="text"
+            />
+          </div>
+        
+          <div className="col-md-6">
+            <Input
+              label={persianTexts.admin.products.label.inputLabelBrand}
+              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderBrand}
+              type="text"
+              name="brand"
+              inputChangeHandler={inputChangeHandler}
+              validation="text"
+            />
+          </div>
+          <div className="col-md-6">
+            <Input
+              label={persianTexts.admin.products.label.inputLabelOffPrice}
+              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderOffPrice}
+              type="text"
+              name="offPrice"
+              inputChangeHandler={inputChangeHandler}
+              validation="text"
+            />
+          </div>
+          <div className="col-md-6">
+            <Input
+              label={persianTexts.admin.products.label.inputLabelShortDescription}
+              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderShortDescription}
+              type="text"
+              name="shortDescription"
+              inputChangeHandler={inputChangeHandler}
+              validation="text"
+            />
+          </div>
+          <div className="col-md-6">
+            <Input
+              label={persianTexts.admin.products.label.inputLabelFullDescription}
+              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderFullDescription}
+              type="text"
+              name="fullDescription"
+              inputChangeHandler={inputChangeHandler}
+              validation="text"
             />
           </div>
         </div>
