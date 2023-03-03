@@ -22,7 +22,7 @@
     outline: none;
   }
   .input.input--invalid{
-    border: 1px solid var(--red-50);
+    border: 1px solid var(--red);
     box-shadow: 0 1px 3px rgba(244, 67, 54, .4);
   }
   .input:focus{
@@ -35,7 +35,7 @@
     left: .5rem;
     width: 1.6rem;
     height: 1.6rem;
-    color: var(--black-50);
+    color: var(--gray-50);
     z-index: 3;
   }
   .auth__error{
@@ -43,7 +43,7 @@
     margin-top: 0.8rem;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--red-50);
+    color: var(--red);
   }
   .input:-webkit-autofill,
 .input:-webkit-autofill:hover, 

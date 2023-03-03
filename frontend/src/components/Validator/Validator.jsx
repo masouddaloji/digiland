@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Validator(fieldName, value) {
+function Validator(fieldName, value,comparison) {
   const isValid = [];
   const emailValidator = (value) => {
    const emailPattern=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/g
@@ -12,6 +12,9 @@ function Validator(fieldName, value) {
     const passwordPattern =/^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~!@#$%&*-+=:;,._₹]).{8,20}$/gm;
      const passwordValid=passwordPattern.test(value)
     !passwordValid && isValid.push(false);
+  };
+  const confirmPasswordValidator = (value) => {
+    value!==comparison && isValid.push(false)
   };
   const phoneNumberValidator = (value) => {
     const phoneNumberPattern = /^(\+98|098|0|0098|98)?(9\d{9})$/g;
