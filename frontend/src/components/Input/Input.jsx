@@ -1,5 +1,7 @@
 import React, { useEffect, useReducer } from "react";
+// components
 import Validator from "../Validator/Validator";
+// styles
 import "./Input.css";
 
 const inputReducer=(state,action)=>{

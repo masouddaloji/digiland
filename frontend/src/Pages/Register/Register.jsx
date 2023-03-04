@@ -6,16 +6,17 @@ import { MdAlternateEmail } from "react-icons/md";
 import { BiHide, BiShow } from "react-icons/bi";
 import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import { IoPersonOutline } from "react-icons/io5";
-// styles
-import "./Register.css";
+
 // components
 import Input from "../../components/Input/Input";
 import useForm from "../../hooks/useForm";
 import { persianTexts } from "../../text";
 
-export default function Register() {
-  const passwordRef=useRef()
+// styles
+import "./Register.css";
 
+
+export default function Register() {
   const [formState, inputChangeHandler] = useForm(
     {
       phoneNamber: {
@@ -72,7 +73,6 @@ export default function Register() {
               icon=<IoPersonOutline className="input__icon" />
               validation="userName"
               errorText={persianTexts.error.register.input.userName}
-
             />
 
             <Input
@@ -93,7 +93,14 @@ export default function Register() {
               icon=<BiShow className="input__icon" />
               validation="password"
               errorText={persianTexts.error.register.input.password}
-              ref={passwordRef}
+            />
+            <Input
+              inputChangeHandler={inputChangeHandler}
+              type="text"
+              label="تکرار رمز عبور"
+              name="confirmpassword"
+              icon=<BiShow className="input__icon" />
+              errorText={persianTexts.error.register.input.password}
             />
 
             <button

@@ -49,7 +49,7 @@
 .input:-webkit-autofill:hover, 
 .input:-webkit-autofill:focus{
   -webkit-text-fill-color: var(--black-50);
-  /* -webkit-box-shadow:0 0px 2px 1px rgba(0, 0, 0, 0.5), 0 0 0px 1000px #fff inset; */
+  box-shadow:0 0 0px 1000px #fff inset;
   /* transition: background-color 5000s ease-in-out 0s; */
 }
 

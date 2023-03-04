@@ -13,9 +13,6 @@ function Validator(fieldName, value,comparison) {
      const passwordValid=passwordPattern.test(value)
     !passwordValid && isValid.push(false);
   };
-  const confirmPasswordValidator = (value) => {
-    value!==comparison && isValid.push(false)
-  };
   const phoneNumberValidator = (value) => {
     const phoneNumberPattern = /^(\+98|098|0|0098|98)?(9\d{9})$/g;
     const phoneNumberValid=phoneNumberPattern.test(value)
