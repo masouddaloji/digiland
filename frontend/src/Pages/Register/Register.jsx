@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 // library
 import { useLocation } from "react-router-dom";
-import { Formik, Form, handleSubmit } from "formik";
+import { Formik, Form } from "formik";
 // icons
 import { MdAlternateEmail } from "react-icons/md";
 import { BiHide, BiShow } from "react-icons/bi";
