@@ -8,7 +8,7 @@ const userNamePattern = /[A-Za-z0-9._]{8,25}/;
 const passwordPattern =/^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~!@#$%&*-+=:;,._₹]).{8,25}$/;
 // const coverPattern = /(\.jpg|\.jpeg|\.png)$/i;
 
-const schema = Yup.object().shape({
+export const RegisterSchema = Yup.object().shape({
   registerPhoneNumber: Yup.string()
   .required(persianTexts.error.register.input.phoneNumber.required)
     .matches(
@@ -49,5 +49,25 @@ const schema = Yup.object().shape({
     )
     .required(persianTexts.error.register.input.confirmPassword.required),
 });
+export const LoginSchema = Yup.object().shape({
 
-export default schema;
+    loginUserName: Yup.string()
+    .required(persianTexts.error.register.input.userName.required)
+    .matches(
+      userNamePattern,
+      persianTexts.error.register.input.userName.regex
+    )
+    .min(8,persianTexts.error.register.input.userName.min)
+    .max(25,persianTexts.error.register.input.userName.max),
+
+  loginPassword: Yup.string()
+  .required(persianTexts.error.register.input.password.required)
+  .matches(
+    passwordPattern,
+    persianTexts.error.register.input.password.regex
+  )
+  .min(8,persianTexts.error.register.input.password.min)
+  .max(25,persianTexts.error.register.input.password.max)
+});
+
+

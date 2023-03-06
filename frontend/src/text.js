@@ -68,7 +68,8 @@ export const persianTexts={
             inputPlaceholderFullDescription:"کلیه اطلاعات و توضیحات محصول را وارد کنید",
             inputPlaceholderBrand:"samsung",
             inputPlaceholderOffPrice:"20",
-            }
+            },
+            btn:"افزودن محصول"
         }
     }
 }

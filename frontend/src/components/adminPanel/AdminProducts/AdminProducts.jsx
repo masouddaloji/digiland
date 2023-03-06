@@ -4,131 +4,177 @@ import { persianTexts } from "../../../text";
 // components
 import Error from "../../Error/Error";
 import Input from "./../../Input/Input";
-import useForm from "../../../hooks/useForm";
+// library
+import { Form, Formik } from "formik";
 // styles
 import "./AdminProducts.css";
 const AdminProducts = () => {
-  // <Error title={persianTexts.error.adminpanel.products}/>
-  const [formState, inputChangeHandler] = useForm(
-    {
-      title: {
-        value: "",
-        isValid: false,
-      },
-    },
-    false
-  );
   return (
-    <section className="adminSection">
-        <div className="table__wrapper">
-          <h2 className="table__header">
-            {persianTexts.admin.products.label.addProductsTitle}
-          </h2>
-      <div className="row">
-          <div className="col-md-6">
-            <Input
-              label={persianTexts.admin.products.label.inputLabelTitle}
-              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderTitle}
+    <Formik
+      initialValues={{
+        productTitle: "",
+        productPrice: "",
+        productRating: "",
+        productQantity: "",
+        productCategory: "",
+        productSegment: "",
+        productColors: "",
+        productBrand: "",
+        productOffPrice: "",
+        productShortDescription: "",
+        productFullDescription: "",
+      }}
+      onSubmit={(values,{resetForm})=>{
+        console.log(values)
+        resetForm()
+      }}
+    >
+      {(formik) => (
+        <section className="adminSection">
+          <div className="table__wrapper">
+            <h2 className="table__header">
+              {persianTexts.admin.products.label.addProductsTitle}
+            </h2>
+            <Form className="full--width">
+              <div className="row">
+                <div className="col-md-6">
+                  <Input
+                    label={persianTexts.admin.products.label.inputLabelTitle}
+                    placeHolder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderTitle
+                    }
+                    type="text"
+                    name="productTitle"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label={persianTexts.admin.products.label.inputLabelPrice}
+                    placeHolder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderPrice
+                    }
+                    type="text"
+                    name="productPrice"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label={persianTexts.admin.products.label.inputLabelRating}
+                    placeHolder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderRating
+                    }
+                    type="text"
+                    name="productRating"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label={persianTexts.admin.products.label.inputLabelQuantity}
+                    placeHolder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderQuantity
+                    }
+                    type="text"
+                    Placeholder
+                    name="productQantity"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label={persianTexts.admin.products.label.inputLabelCategory}
+                    placeHolder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderCategory
+                    }
+                    type="text"
+                    name="productCategory"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label={persianTexts.admin.products.label.inputLabelSegment}
+                    placeHolder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderSegment
+                    }
+                    type="text"
+                    name="productSegment"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label={persianTexts.admin.products.label.inputLabelColors}
+                    placeHolder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderColors
+                    }
+                    type="text"
+                    name="productColors"
+                  />
+                </div>
 
-              type="text"
-              name="title"
-              inputChangeHandler={inputChangeHandler}
-            />
+                <div className="col-md-6">
+                  <Input
+                    label={persianTexts.admin.products.label.inputLabelBrand}
+                    placeHolder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderBrand
+                    }
+                    type="text"
+                    name="productBrand"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label={persianTexts.admin.products.label.inputLabelOffPrice}
+                    placeHolder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderOffPrice
+                    }
+                    type="text"
+                    name="productOffPrice"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label={
+                      persianTexts.admin.products.label
+                        .inputLabelShortDescription
+                    }
+                    placeHolder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderShortDescription
+                    }
+                    type="text"
+                    name="productShortDescription"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label={
+                      persianTexts.admin.products.label
+                        .inputLabelFullDescription
+                    }
+                    placeHolder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderFullDescription
+                    }
+                    type="text"
+                    name="productFullDescription"
+                  />
+                </div>
+              </div>
+              <div className="row btn__wrapper">
+            <button className={`admin__btn ${(formik.dirty && formik.isValid)?"btn--active":"btn--disable"}`} type="submit" disabled={!(formik.dirty && formik.isValid)}>{persianTexts.admin.products.btn}</button>
+              </div>
+            </Form>
           </div>
-          <div className="col-md-6">
-            <Input
-              label={persianTexts.admin.products.label.inputLabelPrice}
-              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderPrice}
-              type="text"
-              name="price"
-              inputChangeHandler={inputChangeHandler}
-            />
-          </div>
-          <div className="col-md-6">
-            <Input
-              label={persianTexts.admin.products.label.inputLabelRating}
-              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderRating}
-              type="text"
-              name="rating"
-              inputChangeHandler={inputChangeHandler}
-            />
-          </div>
-          <div className="col-md-6">
-            <Input
-              label={persianTexts.admin.products.label.inputLabelQuantity}
-              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderQuantity}
-              type="text"Placeholder
-              name="qantity"
-              inputChangeHandler={inputChangeHandler}
-            />
-          </div>
-          <div className="col-md-6">
-            <Input
-              label={persianTexts.admin.products.label.inputLabelCategory}
-              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderCategory}
-              type="text"
-              name="category"
-              inputChangeHandler={inputChangeHandler}
-            />
-          </div>
-          <div className="col-md-6">
-            <Input
-              label={persianTexts.admin.products.label.inputLabelSegment}
-              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderSegment}
-              type="text"
-              name="segment"
-              inputChangeHandler={inputChangeHandler}
-            />
-          </div>
-          <div className="col-md-6">
-            <Input
-              label={persianTexts.admin.products.label.inputLabelColors}
-              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderColors}
-              type="text"
-              name="colors"
-              inputChangeHandler={inputChangeHandler}
-            />
-          </div>
-        
-          <div className="col-md-6">
-            <Input
-              label={persianTexts.admin.products.label.inputLabelBrand}
-              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderBrand}
-              type="text"
-              name="brand"
-              inputChangeHandler={inputChangeHandler}
-            />
-          </div>
-          <div className="col-md-6">
-            <Input
-              label={persianTexts.admin.products.label.inputLabelOffPrice}
-              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderOffPrice}
-              type="text"
-              name="offPrice"
-              inputChangeHandler={inputChangeHandler}
-            />
-          </div>
-          <div className="col-md-6">
-            <Input
-              label={persianTexts.admin.products.label.inputLabelShortDescription}
-              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderShortDescription}
-              type="text"
-              name="shortDescription"
-              inputChangeHandler={inputChangeHandler}
-            />
-          </div>
-          <div className="col-md-6">
-            <Input
-              label={persianTexts.admin.products.label.inputLabelFullDescription}
-              placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderFullDescription}
-              type="text"
-              name="fullDescription"
-              inputChangeHandler={inputChangeHandler}
-            />
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      )}
+    </Formik>
   );
 };
 

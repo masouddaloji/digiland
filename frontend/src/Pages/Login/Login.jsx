@@ -4,29 +4,35 @@ import { Link } from 'react-router-dom'
 import { BiShow } from 'react-icons/bi'
 import { MdAlternateEmail } from 'react-icons/md'
 import { FiUserPlus } from 'react-icons/fi'
-
-// hooks
-import useForm from './../../hooks/useForm' 
+// components
+import Input from '../../components/Input/Input'
+// validator
+import { LoginSchema } from '../../components/Validator/Validator'
 // style
 import './Login.css'
-import Input from '../../components/Input/Input'
+import { Form, Formik } from 'formik'
 
 export default function Login() {
-const [formState, inputChangeHandler]=useForm({
-  userName:{
-    value:"",
-    isValid:false
-  },
-  password:{
-    value:"",
-    isValid:false
-  }
-},false)
+
 const inputRef=useRef()
 
 
   return (
-    <div className='auth'>
+    <Formik 
+    initialValues={{
+      loginUserName:"",
+      loginPassword:"",
+
+    }}
+    validationSchema={LoginSchema}
+    onSubmit={(values,{resetForm})=>{
+      console.log(values)
+      resetForm()
+    }}
+    >
+        {formik=>(
+          <Form>
+          <div className='auth'>
       <div className="auth__wrapper">
         <div className="auth__content">
           <div className="auth__logoBox">
@@ -34,29 +40,28 @@ const inputRef=useRef()
           </div>
       
             <h4 className="auth__title">ورود</h4>
-            <form className="auth__form">
-            <Input inputChangeHandler={inputChangeHandler} 
+            <div className="auth__form">
+            <Input 
             type="text" 
             label="نام کاربری"
-            name="userName"
+            name="loginUserName"
             icon=<MdAlternateEmail className="input__icon" />
-            validation="userName"/>
-             <Input inputChangeHandler={inputChangeHandler}
-            type="text" 
+            />
+             <Input 
+            type="password" 
             label="رمز عبور"
-            name="password"
+            name="loginPassword"
             icon=<BiShow className="input__icon" />
-            validation="password"
             />
               <div className="login__checkbox">
               <input type="checkbox" name="saveme" id="" />
               <span className="login__checkboxText">مرا به خاطر بسپار</span>
               </div>
               <div className="login__btns">
-              <button type="submit" className={`login__btn ${formState.isFormValid?"login__btn--active":"login__btn--disable"}`}>ورود</button>
+              <button disabled={!(formik.dirty && formik.isValid)} type="submit" className={`login__btn ${(formik.dirty && formik.isValid)?"login__btn--active":"login__btn--disable"}`}>ورود</button>
               <button type="submit" className='login__btn login__btn--forget'>فراموشی گذرواژه</button>
               </div>
-            </form>
+            </div>
             <span className="login__divider" >
               <i>یا</i>
             </span>
@@ -69,5 +74,9 @@ const inputRef=useRef()
         </div>
       </div>
     </div>
+          </Form>
+        )}
+    </Formik>
+    
   )
 }

@@ -10,7 +10,8 @@ import { IoPersonOutline } from "react-icons/io5";
 
 // components
 import Input from "../../components/Input/Input";
-import schema from "../../components/Validator/Validator";
+// validator``
+import { RegisterSchema } from "../../components/Validator/Validator";
 
 
 import { persianTexts } from "../../text";
@@ -29,7 +30,7 @@ export default function Register() {
       registerPassword:"",
       registerConfirmPassword:"",
     }}
-    validationSchema={schema}
+    validationSchema={RegisterSchema}
     onSubmit={(values,{resetForm})=>{
       console.log(values)
       resetForm()
@@ -90,10 +91,10 @@ export default function Register() {
              />
 
              <button
-               disabled={!formik.isValid}
+               disabled={!(formik.isValid && formik.dirty)}
                type="submit"
                className={`register__btn ${
-                 formik.isValid
+                (formik.isValid && formik.dirty)
                    ? "register__btn--active"
                    : "register__btn--disable"
                }`}

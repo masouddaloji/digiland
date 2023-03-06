@@ -44,6 +44,7 @@ const Sidebar = () => {
             <BsBoxSeam className="sidebar__icon" />
             محصولات
           </NavLink>
+          
         </li>
         <li className="sidebar__items">
           <NavLink

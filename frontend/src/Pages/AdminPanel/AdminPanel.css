@@ -24,13 +24,8 @@
 }
 .admin__headerLink {
   margin-right: 1.5rem;
-  width: 4rem;
-  height: 4rem;
   border-radius: 1rem;
-  background: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   position: relative;
 }
 .admin__notifications {
@@ -46,9 +41,10 @@
   background: var(--red);
 }
 .admin__headerIcon {
-  font-size: 2rem;
-  color: #555;
+  font-size: 2.4rem;
+  color: var(--white);
   display: inline-block;
+  vertical-align: middle;
 }
 .admin__headerProfileBox {
   width: 4rem;

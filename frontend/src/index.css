@@ -164,7 +164,7 @@ a{
   --white: #fff;
   --black: #000;
   --padding: 1rem;
-  --border-box: 0.6rem;
+  --border-box: 0.5rem;
   --gold: #ffd300;
   /* --blue: #0183ff; */
   --blue: #1463F3;
@@ -210,6 +210,9 @@ a {
 }
 /* end default */
 /* start helper */
+.full--width{
+  width: 100%;
+}
 .adminSection{
   margin-top: 5rem;
 }
