@@ -1,74 +1,30 @@
 import React, { useEffect, useReducer } from "react";
+// library
+import { useField } from "formik";
 // components
 import Validator from "../Validator/Validator";
 // styles
 import "./Input.css";
 
-const inputReducer=(state,action)=>{
-  switch (action.type) {
-    case "change":{
-      return{
-        ...state,
-        value:action.value,
-        isValid:Validator(action.validation,action.value),
-        error:!Validator(action.validation,action.value)
-      }
-    }
-
-    default:{
-      return state
-    }
-  }
-}
-
-function Input({ name,type, label, className, icon,validation,inputChangeHandler,placeHolder,multiple,errorText}) {
-  const [input,dispatch]=useReducer(inputReducer,{
-    value:"",
-    isValid:false,
-    error:false
-  })
-  const {value,isValid,error}=input
-  useEffect(()=>{
-    inputChangeHandler(name,value,isValid)
-  },[value])
-  const inputHandler=e=>{
-    dispatch({
-      type:"change",
-      value:e.target.value,
-      validation:validation,
-      isValid:true,
-      error:false
-    })
-  }
-
+function Input({ label, icon, ...props }) {
+  const [field, meta] = useField(props);
+  console.log("field", field);
+  console.log("meta", meta);
   return (
     <div className="input__wrapper">
       {label && (
-<<<<<<< HEAD
         <label htmlFor={field.name} className="input__label">
-=======
-        <label htmlFor={name} className="input__label">
->>>>>>> parent of 62a742b (use react formik in project)
           {label}
         </label>
       )}
       <div className="input__box">
         <input
-          type={type}
-          name={name}
-          className={`input ${className ? className : ""} ${error ? "input--invalid":undefined}`}
-          value={input.value}
-          onChange={inputHandler}
-          validation={validation?validation:undefined}
-          placeholder={placeHolder?placeHolder:undefined}
-          multiple={multiple?true:false}
+          className={`input ${meta.touched && meta.error  ? "input--invalid":undefined}`}
+          autoComplete="off"
+          {...field} {...props}
         />
         {icon?icon:null}
-<<<<<<< HEAD
          { meta.touched && meta.error ? <span className="auth__error">{meta.error}</span>:null}
-=======
-         { error && <span className="auth__error">{errorText}</span>}
->>>>>>> parent of 62a742b (use react formik in project)
       </div>
     </div>
   );
