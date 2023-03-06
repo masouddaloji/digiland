@@ -12,7 +12,7 @@ function Input({ label, icon, ...props }) {
   console.log("meta", meta);
   return (
     <div className="input__wrapper">
-      {/* {label && (
+      {label && (
         <label htmlFor={field.name} className="input__label">
           {label}
         </label>
@@ -25,7 +25,7 @@ function Input({ label, icon, ...props }) {
         />
         {icon?icon:null}
          { meta.touched && meta.error ? <span className="auth__error">{meta.error}</span>:null}
-      </div> */}
+      </div>
     </div>
   );
 }

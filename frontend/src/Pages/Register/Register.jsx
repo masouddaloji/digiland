@@ -10,7 +10,6 @@ import { IoPersonOutline } from "react-icons/io5";
 
 // components
 import Input from "../../components/Input/Input";
-import useForm from "../../hooks/useForm";
 import { persianTexts } from "../../text";
 import Validator from "../../components/Validator/Validator";
 
@@ -56,7 +55,7 @@ export default function Register() {
           </div>
 
           <h4 className="auth__title">ثبت نام</h4>
-          <Formik
+          {/* <Formik
             initialValues={{
               registerPhoneNumber: "",
               registerUserName: "",
@@ -100,7 +99,7 @@ export default function Register() {
                 icon=<BiShow className="input__icon" />
               />
 
-              {/* <button
+              <button
               disabled={!formState.isFormValid}
               type="submit"
               className={`register__btn ${
@@ -110,9 +109,9 @@ export default function Register() {
               }`}
             >
               عضویت
-            </button> */}
+            </button>
             </Form>
-          </Formik>
+          </Formik> */}
         </div>
       </div>
     </div>

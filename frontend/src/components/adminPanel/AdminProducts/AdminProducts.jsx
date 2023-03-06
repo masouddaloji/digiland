@@ -33,7 +33,6 @@ const AdminProducts = () => {
               type="text"
               name="title"
               inputChangeHandler={inputChangeHandler}
-              validation="text"
             />
           </div>
           <div className="col-md-6">
@@ -43,7 +42,6 @@ const AdminProducts = () => {
               type="text"
               name="price"
               inputChangeHandler={inputChangeHandler}
-              validation="text"
             />
           </div>
           <div className="col-md-6">
@@ -53,7 +51,6 @@ const AdminProducts = () => {
               type="text"
               name="rating"
               inputChangeHandler={inputChangeHandler}
-              validation="text"
             />
           </div>
           <div className="col-md-6">
@@ -63,7 +60,6 @@ const AdminProducts = () => {
               type="text"Placeholder
               name="qantity"
               inputChangeHandler={inputChangeHandler}
-              validation="text"
             />
           </div>
           <div className="col-md-6">
@@ -73,7 +69,6 @@ const AdminProducts = () => {
               type="text"
               name="category"
               inputChangeHandler={inputChangeHandler}
-              validation="text"
             />
           </div>
           <div className="col-md-6">
@@ -83,7 +78,6 @@ const AdminProducts = () => {
               type="text"
               name="segment"
               inputChangeHandler={inputChangeHandler}
-              validation="text"
             />
           </div>
           <div className="col-md-6">
@@ -93,7 +87,6 @@ const AdminProducts = () => {
               type="text"
               name="colors"
               inputChangeHandler={inputChangeHandler}
-              validation="text"
             />
           </div>
         
@@ -104,7 +97,6 @@ const AdminProducts = () => {
               type="text"
               name="brand"
               inputChangeHandler={inputChangeHandler}
-              validation="text"
             />
           </div>
           <div className="col-md-6">
@@ -114,7 +106,6 @@ const AdminProducts = () => {
               type="text"
               name="offPrice"
               inputChangeHandler={inputChangeHandler}
-              validation="text"
             />
           </div>
           <div className="col-md-6">
@@ -124,7 +115,6 @@ const AdminProducts = () => {
               type="text"
               name="shortDescription"
               inputChangeHandler={inputChangeHandler}
-              validation="text"
             />
           </div>
           <div className="col-md-6">
@@ -134,7 +124,6 @@ const AdminProducts = () => {
               type="text"
               name="fullDescription"
               inputChangeHandler={inputChangeHandler}
-              validation="text"
             />
           </div>
         </div>
