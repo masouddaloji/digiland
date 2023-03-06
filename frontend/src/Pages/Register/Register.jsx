@@ -1,4 +1,4 @@
-import React, { useState,useRef } from "react";
+import React, { useState, useRef } from "react";
 // library
 import { useLocation } from "react-router-dom";
 import {Formik,Form} from 'formik'
@@ -14,13 +14,12 @@ import schema from "../../components/Validator/Validator";
 
 
 import { persianTexts } from "../../text";
+import Validator from "../../components/Validator/Validator";
 
 // styles
 import "./Register.css";
 
-
 export default function Register() {
-
   return (
     <Formik 
     initialValues={{
