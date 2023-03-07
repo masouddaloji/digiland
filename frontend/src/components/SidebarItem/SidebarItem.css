@@ -1,0 +1,34 @@
+.sidebarItem {
+    width: 100%;
+    height: 3.5rem;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+.sidebarLink{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    color: var(--white);
+    border-top-right-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+    padding-right: 1.5rem;
+    transition: all .3s;
+}
+.sidebarLink:hover,
+.sidebarLink--active{
+    background: var(--white);
+    color: var(--admin-main);
+}
+.sidebarItem__mainIcon{
+    font-size: 1.9rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 1rem;
+  }
+.sidebarItem__iconDown{
+    margin-left: 2rem;
+}
+ 

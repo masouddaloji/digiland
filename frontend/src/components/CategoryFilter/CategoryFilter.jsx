@@ -13,7 +13,7 @@ export default function CategoryFilter({categories}) {
       {categories.map(category=>(
         <>
         <li className="categoryFilter__item" key={category.id}>
-         <MenuItem category={category.attributes} />
+         <MenuItem category={category} />
         </li>
         </>
       ))}
