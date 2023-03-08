@@ -16,6 +16,7 @@ import AdminProducts from "./components/adminPanel/AdminProducts/AdminProducts";
 import AdminUsers from "./components/adminPanel/AdminUsers/AdminUsers";
 import AdminOrders from "./components/adminPanel/AdminOrders/AdminOrders";
 import AdminArticles from "./components/adminPanel/AdminArticles/AdminArticles";
+import AddProduct from "./components/adminPanel/AddProduct/AddProduct";
 
 const routes = (products, categories) => [
   { path: "/", element: <Index /> },
@@ -43,6 +44,7 @@ const routes = (products, categories) => [
     children: [
       { path: "dashboard", element: <MainAdmin /> },
       { path: "products", element: <AdminProducts /> },
+      { path: "add-products", element: <AddProduct /> },
       { path: "users", element: <AdminUsers /> },
       { path: "orders", element: <AdminOrders /> },
       { path: "articles", element: <AdminArticles /> },

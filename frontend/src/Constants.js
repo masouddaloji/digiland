@@ -1,16 +1,17 @@
 // import icons
 import { BiDollar } from "react-icons/bi";
-import { BsCreditCard, BsFillCartCheckFill, BsPrinter, BsTools } from "react-icons/bs";
-import { FaRegUser } from "react-icons/fa";
+import { BsBoxSeam, BsCreditCard, BsFillCartCheckFill, BsPrinter, BsTools } from "react-icons/bs";
+import { FaBoxes, FaRegUser } from "react-icons/fa";
 import {BiHome} from 'react-icons/bi'
 import {  FaLaptopCode } from 'react-icons/fa';
 import { FiCamera } from 'react-icons/fi';
-import { IoAmericanFootballOutline } from 'react-icons/io5';
-import { MdOutlineHomeRepairService } from 'react-icons/md';
-import { RiHandHeartLine, RiHeartPulseLine } from 'react-icons/ri';
+import { IoAmericanFootballOutline, IoGridOutline } from 'react-icons/io5';
+import { MdOutlineAddShoppingCart, MdOutlineHomeRepairService } from 'react-icons/md';
+import { RiArticleLine, RiHandHeartLine, RiHeartPulseLine } from 'react-icons/ri';
 import { TbBabyCarriage, TbDeviceTvOld } from 'react-icons/tb';
 import { MdOutlineDevices } from "react-icons/md";
 import { IoMdFootball } from "react-icons/io";
+import { HiOutlineUser } from "react-icons/hi";
 
 
 
@@ -294,4 +295,14 @@ export const monthlyInformationChart=[
 ]
 export const weeklyInformationChart=[
 
+]
+export const adminSidebarItems=[
+  {icon:<IoGridOutline className="sidebarItem__mainIcon" /> ,title:"داشبورد" ,link:"/adminpanel/dashboard"},
+  {icon:<BsBoxSeam className="sidebarItem__mainIcon" /> ,title:"محصولات" ,subMenus:[
+    {icon:<FaBoxes className="sidebarItem__mainIcon" /> ,title:"نمایش همه محصولات" ,link:"products"},
+    {icon:<FaBoxes className="sidebarItem__mainIcon" /> ,title:"افزودن محصول جدید" ,link:"add-products"},
+  ]},
+  {icon:<HiOutlineUser className="sidebarItem__mainIcon" /> ,title:"کاربران" ,link:"users"},
+  {icon:<MdOutlineAddShoppingCart className="sidebarItem__mainIcon" />, title:"سفارشات" ,link:"orders"},
+  {icon:<RiArticleLine className="sidebarItem__mainIcon" /> ,title:"مقالات" ,link:"articles"},
 ]
