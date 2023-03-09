@@ -30,12 +30,14 @@ const Table = () => {
                 <tr>
                     <td>1</td>
                     <td><img src="/images/phone/phone1.jpg" alt="" /></td>
-                    <td>
+                    <td className='table__name'>
                         
                         samsung s22 ultra 32 GB
                     </td>
                     <td>گوشی تلفن همراه</td>
-                    <td> <strong> 12,900,000</strong> </td>
+                    <td> <bdi className="currentPrice">12,900,000
+         <span className="toman">تومان</span>
+         </bdi> </td>
                     <td>129</td>
                     <td>5</td>
                     <td>
@@ -47,29 +49,14 @@ const Table = () => {
                 <tr>
                     <td>1</td>
                     <td><img src="/images/phone/phone1.jpg" alt="" /></td>
-                    <td>
+                    <td className='table__name'>
                         
                         samsung s22 ultra 32 GB
                     </td>
                     <td>گوشی تلفن همراه</td>
-                    <td> <strong> 12,900,000</strong> </td>
-                    <td>129</td>
-                    <td>5</td>
-                     <td>
-                        <FiEdit className='table__icon edite' title='ویرایش'/>
-                        <MdOutlineDeleteOutline className='table__icon delete' title='حذف'/>
-                        <FiMoreHorizontal className='table__icon' title='اطلاعات بیشتر'/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td><img src="/images/phone/phone1.jpg" alt="" /></td>
-                    <td>
-                        
-                        samsung s22 ultra 32 GB
-                    </td>
-                    <td>گوشی تلفن همراه</td>
-                    <td> <strong> 12,900,000</strong> </td>
+                    <td> <bdi className="currentPrice">12,900,000
+         <span className="toman">تومان</span>
+         </bdi> </td>
                     <td>129</td>
                     <td>5</td>
                      <td>
@@ -81,12 +68,14 @@ const Table = () => {
                 <tr>
                     <td>1</td>
                     <td><img src="/images/phone/phone1.jpg" alt="" /></td>
-                    <td>
+                    <td className='table__name'>
                         
                         samsung s22 ultra 32 GB
                     </td>
                     <td>گوشی تلفن همراه</td>
-                    <td> <strong> 12,900,000</strong> </td>
+                    <td> <bdi className="currentPrice">12,900,000
+         <span className="toman">تومان</span>
+         </bdi> </td>
                     <td>129</td>
                     <td>5</td>
                      <td>
@@ -98,12 +87,14 @@ const Table = () => {
                 <tr>
                     <td>1</td>
                     <td><img src="/images/phone/phone1.jpg" alt="" /></td>
-                    <td>
+                    <td className='table__name'>
                         
                         samsung s22 ultra 32 GB
                     </td>
                     <td>گوشی تلفن همراه</td>
-                    <td> <strong> 12,900,000</strong> </td>
+                    <td> <bdi className="currentPrice">12,900,000
+         <span className="toman">تومان</span>
+         </bdi> </td>
                     <td>129</td>
                     <td>5</td>
                      <td>
@@ -115,12 +106,14 @@ const Table = () => {
                 <tr>
                     <td>1</td>
                     <td><img src="/images/phone/phone1.jpg" alt="" /></td>
-                    <td>
+                    <td className='table__name'>
                         
                         samsung s22 ultra 32 GB
                     </td>
                     <td>گوشی تلفن همراه</td>
-                    <td> <strong> 12,900,000</strong> </td>
+                    <td> <bdi className="currentPrice">12,900,000
+         <span className="toman">تومان</span>
+         </bdi> </td>
                     <td>129</td>
                     <td>5</td>
                      <td>
@@ -132,12 +125,14 @@ const Table = () => {
                 <tr>
                     <td>1</td>
                     <td><img src="/images/phone/phone1.jpg" alt="" /></td>
-                    <td>
+                    <td className='table__name'>
                         
                         samsung s22 ultra 32 GB
                     </td>
                     <td>گوشی تلفن همراه</td>
-                    <td> <strong> 12,900,000</strong> </td>
+                    <td> <bdi className="currentPrice">12,900,000
+         <span className="toman">تومان</span>
+         </bdi> </td>
                     <td>129</td>
                     <td>5</td>
                      <td>
@@ -149,12 +144,14 @@ const Table = () => {
                 <tr>
                     <td>1</td>
                     <td><img src="/images/phone/phone1.jpg" alt="" /></td>
-                    <td>
+                    <td className='table__name'>
                         
                         samsung s22 ultra 32 GB
                     </td>
                     <td>گوشی تلفن همراه</td>
-                    <td> <strong> 12,900,000</strong> </td>
+                    <td> <bdi className="currentPrice">12,900,000
+         <span className="toman">تومان</span>
+         </bdi> </td>
                     <td>129</td>
                     <td>5</td>
                      <td>
@@ -166,12 +163,33 @@ const Table = () => {
                 <tr>
                     <td>1</td>
                     <td><img src="/images/phone/phone1.jpg" alt="" /></td>
-                    <td>
+                    <td className='table__name'>
                         
                         samsung s22 ultra 32 GB
                     </td>
                     <td>گوشی تلفن همراه</td>
-                    <td> <strong> 12,900,000</strong> </td>
+                    <td> <bdi className="currentPrice">12,900,000
+         <span className="toman">تومان</span>
+         </bdi> </td>
+                    <td>129</td>
+                    <td>5</td>
+                     <td>
+                        <FiEdit className='table__icon edite' title='ویرایش'/>
+                        <MdOutlineDeleteOutline className='table__icon delete' title='حذف'/>
+                        <FiMoreHorizontal className='table__icon' title='اطلاعات بیشتر'/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td><img src="/images/phone/phone1.jpg" alt="" /></td>
+                    <td className='table__name'>
+                        
+                        samsung s22 ultra 32 GB
+                    </td>
+                    <td>گوشی تلفن همراه</td>
+                    <td> <bdi className="currentPrice">12,900,000
+         <span className="toman">تومان</span>
+         </bdi> </td>
                     <td>129</td>
                     <td>5</td>
                      <td>
