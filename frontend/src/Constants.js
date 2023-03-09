@@ -1,7 +1,7 @@
 // import icons
 import { BiDollar } from "react-icons/bi";
 import { BsBoxSeam, BsCreditCard, BsFillCartCheckFill, BsPrinter, BsTools } from "react-icons/bs";
-import { FaBoxes, FaRegUser } from "react-icons/fa";
+import { FaBoxes, FaClipboardList, FaRegUser } from "react-icons/fa";
 import {BiHome} from 'react-icons/bi'
 import {  FaLaptopCode } from 'react-icons/fa';
 import { FiCamera } from 'react-icons/fi';
@@ -299,7 +299,7 @@ export const weeklyInformationChart=[
 export const adminSidebarItems=[
   {icon:<IoGridOutline className="sidebarItem__mainIcon" /> ,title:"داشبورد" ,link:"/adminpanel/dashboard"},
   {icon:<BsBoxSeam className="sidebarItem__mainIcon" /> ,title:"محصولات" ,subMenus:[
-    {icon:<FaBoxes className="sidebarItem__mainIcon" /> ,title:"نمایش همه محصولات" ,link:"products"},
+    {icon:<FaClipboardList className="sidebarItem__mainIcon" /> ,title:"نمایش همه محصولات" ,link:"products"},
     {icon:<FaBoxes className="sidebarItem__mainIcon" /> ,title:"افزودن محصول جدید" ,link:"add-products"},
   ]},
   {icon:<HiOutlineUser className="sidebarItem__mainIcon" /> ,title:"کاربران" ,link:"users"},

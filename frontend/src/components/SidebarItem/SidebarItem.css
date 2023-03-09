@@ -5,8 +5,12 @@
     position: relative;
     
   }
+  .sidebarItem{
+    padding-right: 1rem;
+
+  }
   .sidebarItem:not(:first-child),.sidebar__submenuItem:not(:first-child){
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 .sidebarLink{
     display: flex;
@@ -16,15 +20,14 @@
     height: 100%;
     position: relative;
     color: var(--white);
-    border-right: 0.3rem solid transparent;
     padding-right: 1.5rem;
     transition: all .3s;
+    border-top-right-radius: 2.5rem;
+    border-bottom-right-radius: 2.5rem;
 }
 .sidebarLink:hover,
 .sidebarLink--active{
-    /* background: var(--white); */
-    color: #008b8b;
-    border-right: 0.3rem solid #008b8b;
+    background: #044557;
 
 }
 .sidebarItem__mainIcon{
@@ -42,7 +45,7 @@
 }
 .sidebar__submenu{
   padding-top: 2rem;
-  margin-right: 1.5rem;
+  margin-right: 1rem;
   display: none;
 }
 .sidebar__submenu--show{

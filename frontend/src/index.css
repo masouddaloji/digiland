@@ -217,19 +217,7 @@ a {
 .adminSection{
   margin-top: 5rem;
 }
-.table__wrapper{
-  width: 100%;
-  background: var(--white);
-  border-radius: var(--border-box);
-  padding: 1rem;
-  box-shadow: var(--box-shadow);
-}
-.table__header{
-  font-size: 1.5rem;
-  margin: 2rem 0;
-  color: var(--gray-100);
 
-}
 .f-24{
   font-size: 2.4rem;
   display: inline-block;

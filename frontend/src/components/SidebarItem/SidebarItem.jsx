@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // library
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 // icons
 import { AiOutlineCaretDown } from "react-icons/ai";
 // styles
@@ -9,11 +9,12 @@ import "./SidebarItem.css";
 const SidebarItem = ({ title, link, icon, subMenus }) => {
   const [isShow, setIsShow] = useState(false);
   return (
-    <li className="sidebarItem">
-      <NavLink
+    <li className="sidebarItem" >
+     {!subMenus?
+     (<NavLink
         className={({ isActive }) =>
-          isActive ? "sidebarLink sidebarLink--active" : "sidebarLink"
-        }
+    isActive ? "sidebarLink sidebarLink--active" : "sidebarLink"
+  } 
         to={link?link:"#"}
         onClick={() => setIsShow(!isShow)}
       >
@@ -21,13 +22,25 @@ const SidebarItem = ({ title, link, icon, subMenus }) => {
           {icon}
           {title}
         </span>
-        {subMenus && (
+      </NavLink>
+      )
+     :
+     <>
+
+     
+      <Link
+        className="sidebarLink"
+        to={link?link:"#"}
+        onClick={() => setIsShow(!isShow)}
+      >
+        <span>
+          {icon}
+          {title}
+        </span>
           <AiOutlineCaretDown
             className={` sidebarItem__iconDown ${isShow ? "rotate" : ""}`}
           />
-        )}
-      </NavLink>
-      {subMenus && (
+      </Link>
         <ul
           className={`sidebar__submenu ${
             isShow ? "sidebar__submenu--show" : ""
@@ -49,7 +62,8 @@ const SidebarItem = ({ title, link, icon, subMenus }) => {
             </li>
           ))}
         </ul>
-      )}
+</>
+     }
     </li>
   );
 };
