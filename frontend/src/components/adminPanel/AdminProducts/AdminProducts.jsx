@@ -3,6 +3,7 @@ import React from "react";
 import { persianTexts } from "../../../text";
 // components
 import Error from "../../Error/Error";
+import Pagination from "../../Pagination/Pagination";
 import Table from "../../Table/Table";
 
 
@@ -12,6 +13,7 @@ const AdminProducts = () => {
   return (
   <>
     <Table/>
+    <Pagination/>
   </>
   );
 };

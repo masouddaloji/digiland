@@ -1,0 +1,50 @@
+.pagination {
+  width: 80%;
+  height: 3rem;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--Iran-number);
+  direction: ltr;
+}
+.pagination__item {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e1e1e1;
+  color:var(--gray-100);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1.3rem;
+  user-select: none;
+}
+.arrow{
+    opacity: 1;
+    visibility: visible;
+    transition: all .3s;
+
+}
+.arrow--hide{
+    opacity: 0;
+    visibility: hidden; 
+}
+.pagination__item.active {
+  background: var(--blue-hover);
+  color: var(--white);
+}
+.pagination__item:hover:not(.active) {
+  color: var(--white);
+  background: var(--blue);
+
+}
+.pagination__item:not(:first-child) {
+  margin-left: 1rem;
+}
+.pagination__icon {
+  display: block;
+  font-size: 2rem;
+}
