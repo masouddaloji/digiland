@@ -120,7 +120,6 @@ const Pagination = () => {
   ];
   const [shownArray, setShownArray] = useState([]);
   const [btns, setBtns] = useState(null);
-  let allBtns = Array.from({ length: pageCount }, (_, index) => index + 1);
 
   useEffect(() => {
     let endIndex = currentPage * countInPage;
@@ -129,6 +128,10 @@ const Pagination = () => {
     setPageCount(pageNumber);
     generateBtn();
   }, [currentPage, mainArray]);
+
+
+  let allBtns = Array.from({ length: pageCount }, (_, index) => index + 1);
+
   function generateBtn() {
     let currentIndex = allBtns.findIndex((btn) => btn === currentPage);
     let sliceArray =[]
