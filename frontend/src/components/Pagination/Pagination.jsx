@@ -13,6 +13,7 @@ const Pagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [countInPage, setCountInPage] = useState(10);
   const [pageCount, setPageCount] = useState(null);
+  const [shownBtns, setShownBtns] = useState([]);
   const mainArray = [
     "amir",
     "sara",
@@ -119,14 +120,30 @@ const Pagination = () => {
   ];
   const [shownArray, setShownArray] = useState([]);
   const [btns, setBtns] = useState(null);
+  let allBtns = Array.from({ length: pageCount }, (_, index) => index + 1);
+
   useEffect(() => {
     let endIndex = currentPage * countInPage;
     let startIndex = endIndex - countInPage;
-    // let paginatedArray = mainArray.slice(startIndex, endIndex);
-    // setShownArray(paginatedArray);
     let pageNumber = Math.ceil(mainArray.length / countInPage);
     setPageCount(pageNumber);
-  }, [mainArray]);
+    generateBtn();
+  }, [currentPage, mainArray]);
+  function generateBtn() {
+    let currentIndex = allBtns.findIndex((btn) => btn === currentPage);
+    let sliceArray =[]
+     if(currentPage===1){
+      // sliceArray=[...allBtns].slice(currentIndex - 1, currentIndex + 2)
+      sliceArray=[...allBtns].slice(0,3)
+    }else if(currentPage===pageCount){
+      sliceArray=[...allBtns].slice(-3)
+
+    }else{
+      sliceArray=[...allBtns].slice(currentIndex - 1, currentIndex + 2)
+
+    }
+    setShownBtns(sliceArray);
+  }
   const IncreasePage = () => {
     if (currentPage === pageCount) {
       setCurrentPage(pageCount);
@@ -145,40 +162,76 @@ const Pagination = () => {
     <>
       {pageCount > 1 && (
         <ul className="pagination">
+          <li
+            className={`pagination__item arrow ${
+              currentPage === 1 ? "arrow--hide" : ""
+            }`}
+            onClick={() => setCurrentPage(1)}
+          >
+            <HiChevronDoubleLeft className="pagination__icon" />
+          </li>
+          <li
+            className={`pagination__item arrow ${
+              currentPage === 1 ? "arrow--hide" : ""
+            }`}
+            onClick={decreasePage}
+          >
+            <HiChevronLeft className="pagination__icon" />
+          </li>
 
-              <li
-                className={`pagination__item arrow ${currentPage === 1?"arrow--hide":""}`}
-                onClick={() => setCurrentPage(1)}
-              >
-                <HiChevronDoubleLeft className="pagination__icon" />
-              </li>
-              <li className={`pagination__item arrow ${currentPage === 1?"arrow--hide":""}`} onClick={decreasePage}>
-                <HiChevronLeft className="pagination__icon" />
-              </li>
-
-
-          {Array(pageCount).fill(0).map((btn, index) => (
+          {1 < currentPage - 1 && (
             <li
-            key={index}
               className={`pagination__item ${
-                currentPage === index + 1 ? "active" : ""
+                currentPage === 1 ? "active" : ""
               }`}
-              onClick={() => setCurrentPage(index + 1)}
+              onClick={() => setCurrentPage(1)}
             >
-              {index + 1}
+              1
+            </li>
+          )}
+          {shownBtns[0] - 1 > 1 && <li className={`pagination__dot`}>...</li>}
+
+          {shownBtns.map((btn) => (
+            <li
+              key={btn}
+              className={`pagination__item ${
+                currentPage === btn ? "active" : ""
+              }`}
+              onClick={() => setCurrentPage(btn)}
+            >
+              {btn}
             </li>
           ))}
-            <li className={`pagination__item arrow ${currentPage === pageCount?"arrow--hide":""}`} onClick={IncreasePage}>
+          {pageCount - shownBtns[shownBtns.length - 1] > 1 && (
+            <li className={`pagination__dot`}>...</li>
+          )}
+
+          {currentPage < pageCount - 1 && (
+            <li
+              className={`pagination__item ${
+                currentPage === pageCount ? "active" : ""
+              }`}
+              onClick={() => setCurrentPage(pageCount)}
+            >
+              {pageCount}
+            </li>
+          )}
+          <li
+            className={`pagination__item arrow ${
+              currentPage === pageCount ? "arrow--hide" : ""
+            }`}
+            onClick={IncreasePage}
+          >
             <HiChevronRight className="pagination__icon" />
           </li>
           <li
-            className={`pagination__item arrow ${currentPage === pageCount?"arrow--hide":""}`}
+            className={`pagination__item arrow ${
+              currentPage === pageCount ? "arrow--hide" : ""
+            }`}
             onClick={() => setCurrentPage(pageCount)}
           >
             <HiChevronDoubleRight className="pagination__icon" />
           </li>
-
-         
         </ul>
       )}
     </>
