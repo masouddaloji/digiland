@@ -5,6 +5,8 @@ import { persianTexts } from "../../../text";
 import Input from "./../../Input/Input";
 // library
 import { Form, Formik } from "formik";
+// icons
+import { MdUploadFile,MdOutlineDriveFolderUpload } from 'react-icons/md';
 // styles
 import './AddProduct.css'
 
@@ -23,6 +25,8 @@ const AddProduct = () => {
       productOffPrice: "",
       productShortDescription: "",
       productFullDescription: "",
+      productCover: null,
+      productGallery: null,
     }}
     onSubmit={(values,{resetForm})=>{
       console.log(values)
@@ -30,6 +34,9 @@ const AddProduct = () => {
     }}
   >
     {(formik) => (
+      <>
+        {console.log("formik",formik)}
+     
       <section className="adminSection">
         <div className="table__wrapper">
           <h2 className="table__header">
@@ -166,6 +173,35 @@ const AddProduct = () => {
                   name="productFullDescription"
                 />
               </div>
+              
+            </div>
+            <div className="row">
+            <div className="col-md-6">
+                <Input
+                  label={
+                    persianTexts.admin.products.label
+                      .inputLabelCover
+                  }
+                  placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderCover}
+                  type="file"
+                  name="productCover"
+                  icon={<MdUploadFile className='uploader__icon'/>}
+                />
+              </div>
+            <div className="col-md-6">
+                <Input
+                  label={
+                    persianTexts.admin.products.label
+                      .inputLabelGallery
+                  }
+                  icon={<MdOutlineDriveFolderUpload className='uploader__icon'/>}
+                  placeHolder={persianTexts.admin.products.placeholder.inputPlaceholderGallery}
+                  type="file"
+                  name="productGallery"
+                  multiple
+                  
+                />
+              </div>
             </div>
             <div className="row btn__wrapper">
           <button className={`admin__btn ${(formik.dirty && formik.isValid)?"btn--active":"btn--disable"}`} type="submit" disabled={!(formik.dirty && formik.isValid)}>{persianTexts.admin.products.btn}</button>
@@ -173,6 +209,7 @@ const AddProduct = () => {
           </Form>
         </div>
       </section>
+      </>
     )}
   </Formik>
   )

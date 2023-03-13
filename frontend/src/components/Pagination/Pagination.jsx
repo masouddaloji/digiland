@@ -124,28 +124,31 @@ const Pagination = () => {
   useEffect(() => {
     let endIndex = currentPage * countInPage;
     let startIndex = endIndex - countInPage;
+    generateBtn();
+  }, [currentPage, JSON.stringify(mainArray)]);
+
+
+  
+  function generateBtn() {
     let pageNumber = Math.ceil(mainArray.length / countInPage);
     setPageCount(pageNumber);
-    generateBtn();
-  }, [currentPage, mainArray]);
-
-
-  let allBtns = Array.from({ length: pageCount }, (_, index) => index + 1);
-
-  function generateBtn() {
+    let allBtns = Array.from({ length: pageNumber }, (_, index) => index + 1);
     let currentIndex = allBtns.findIndex((btn) => btn === currentPage);
     let sliceArray =[]
      if(currentPage===1){
       // sliceArray=[...allBtns].slice(currentIndex - 1, currentIndex + 2)
-      sliceArray=[...allBtns].slice(0,3)
+      sliceArray=[...allBtns].slice(0,4)
+      setShownBtns(sliceArray)
     }else if(currentPage===pageCount){
-      sliceArray=[...allBtns].slice(-3)
+      sliceArray=[...allBtns].slice(-4)
+      setShownBtns(sliceArray)
 
     }else{
       sliceArray=[...allBtns].slice(currentIndex - 1, currentIndex + 2)
+      setShownBtns(sliceArray)
 
     }
-    setShownBtns(sliceArray);
+    // setShownBtns(sliceArray);
   }
   const IncreasePage = () => {
     if (currentPage === pageCount) {
@@ -182,7 +185,7 @@ const Pagination = () => {
             <HiChevronLeft className="pagination__icon" />
           </li>
 
-          {1 < currentPage - 1 && (
+          {1 < currentPage - 2 && (
             <li
               className={`pagination__item ${
                 currentPage === 1 ? "active" : ""

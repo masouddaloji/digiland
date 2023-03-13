@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import {Formik,Form} from 'formik'
 // icons
 import { MdAlternateEmail } from "react-icons/md";
-import { BiHide, BiShow } from "react-icons/bi";
 import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import { IoPersonOutline } from "react-icons/io5";
 
@@ -77,17 +76,16 @@ export default function Register() {
 
              />
              <Input
-               type="text"
+               type="password"
                label="رمز عبور"
                name="registerPassword"
-               icon=<BiShow className="input__icon" />
 
              />
              <Input
-               type="text"
+               type="password"
                label="تکرار رمز عبور"
                name="registerConfirmPassword"
-               icon=<BiShow className="input__icon" />
+
              />
 
              <button

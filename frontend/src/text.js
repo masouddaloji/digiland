@@ -68,6 +68,8 @@ export const persianTexts={
             inputPlaceholderFullDescription:"کلیه اطلاعات و توضیحات محصول را وارد کنید",
             inputPlaceholderBrand:"samsung",
             inputPlaceholderOffPrice:"20",
+            inputPlaceholderCover:"لطفا عکس اصلی محصول را انتخاب کنید",
+            inputPlaceholderGallery:"لطفا همه ی عکس های محصول را انتخاب کنید",
             },
             btn:"افزودن محصول"
         }

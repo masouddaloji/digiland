@@ -1,3 +1,9 @@
+.table__wrapper{
+  background: #fbfbfb;
+  border-radius: var(--border-box);
+  overflow: hidden;
+  padding: 0 0 1rem 0;
+}
 .btn__wrapper {
     justify-content: flex-end;
   }
