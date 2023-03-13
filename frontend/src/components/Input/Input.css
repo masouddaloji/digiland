@@ -1,6 +1,7 @@
 .input__wrapper {
   width: 100%;
   margin-bottom: 1rem;
+  user-select: none;
 }
 .input__label {
   font-size: 1.3rem;

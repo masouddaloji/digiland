@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 // library
-import { useField, useFormikContext } from "formik";
+import { Field, useField, useFormikContext } from "formik";
 // components
 import Validator from "../Validator/Validator";
 // icons
@@ -18,16 +18,7 @@ function Input({ label, icon, type, ...props }) {
   const inputRef = useRef();
   const passwordRef = useRef();
   const uploaderRef = useRef();
-  const dragEnterHandler = (e) => {
-    e.preventDefault();
-  };
-  const dragOverHandler = (e) => {
-    e.preventDefault();
-  };
-  const dropHandler = (e) => {
-    e.preventDefault();
-    setFiles();
-  };
+
 
   const element =
     type === "password" ? (
@@ -70,24 +61,37 @@ function Input({ label, icon, type, ...props }) {
         <div
           className="uploader"
           ref={uploaderRef}
-          onDragEnter={dragEnterHandler}
-          onDragOver={dragOverHandler}
-          onDrop={dropHandler}
         >
           <label htmlFor={field.name} className="uploader__label">
             {icon ? icon : null}
             {props.placeHolder}
           </label>
-          <input
+          {/* <input
             type="file"
             id={field.name}
+            accept="image/*"
+            multiple={props.multiple?true:false}
             className={`uploader__input ${
               meta.touched && meta.error ? "input--invalid" : undefined
             }`}
             {...props}
             {...field}
-            onChange={e=>setFieldValue(field.name,e.currentTarget.files[0])}
-          />
+            onBlur={()=>setFieldValue(field.name)}
+            onChange={e=>{
+                setFieldValue(field.name,e.currentTarget.files)
+                console.log("e.currentTarget.files",e.currentTarget.files)
+            }} */}
+          {/* /> */}
+            <Field type="file"
+            id={field.name}
+            className={`uploader__input ${
+              meta.touched && meta.error ? "input--invalid" : undefined
+            }`}
+            value={undefined}
+            {...props}
+            {...field}
+            onChange={e=>setFieldValue(field.name,e.currentTarget.files)}
+            />
            {meta.touched && meta.error && (
             <span className="auth__error">{meta.error}</span>
           )}
