@@ -8,13 +8,11 @@ import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import { IoPersonOutline } from "react-icons/io5";
 
 // components
-import Input from "../../components/Input/Input";
+import FormControl from "../../components/FormControl/FormControl";
 // validator``
 import { RegisterSchema } from "../../components/Validator/Validator";
-
-
+// text
 import { persianTexts } from "../../text";
-import Validator from "../../components/Validator/Validator";
 
 // styles
 import "./Register.css";
@@ -49,39 +47,39 @@ export default function Register() {
 
            <h4 className="auth__title">ثبت نام</h4>
            <Form className="auth__form">
-             <Input
+             <FormControl
                type="text"
                label="شماره موبایل"
                name="registerPhoneNumber"
-               icon=<HiOutlineDevicePhoneMobile className="input__icon" />
+               icon=<HiOutlineDevicePhoneMobile className="formControl__icon" />
 
 
              />
-             <Input
+             <FormControl
                type="text"
                label="نام کاربری"
                name="registerUserName"
-               icon=<IoPersonOutline className="input__icon" />
+               icon=<IoPersonOutline className="formControl__icon" />
 
 
              />
 
-             <Input
+             <FormControl
                type="email"
                label="ایمیل"
                name="registerEmail"
-               icon=<MdAlternateEmail className="input__icon" />
+               icon=<MdAlternateEmail className="formControl__icon" />
 
 
 
              />
-             <Input
+             <FormControl
                type="password"
                label="رمز عبور"
                name="registerPassword"
 
              />
-             <Input
+             <FormControl
                type="password"
                label="تکرار رمز عبور"
                name="registerConfirmPassword"

@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useRef } from "react";
 // variables
 import { persianTexts } from "../../../text";
 // components
-import Input from "./../../Input/Input";
+import FormControl from "../../FormControl/FormControl";
+
 // library
 import { Form, Formik } from "formik";
 // icons
 import { MdUploadFile, MdOutlineDriveFolderUpload } from "react-icons/md";
+// validator
+import { addProductsSchema } from "../../Validator/Validator";
 // styles
 import "./AddProduct.css";
 
 const AddProduct = () => {
+  const uploadRef=useRef()
+  const ratingOptions=[
+    {value:"",text:"لطفا امتیاز محصول را انتخاب کنید"},
+    {value:1,text:"بد"},
+    {value:2,text:"معمولی"},
+    {value:3,text:"خوب"},
+    {value:4,text:"خیلی خوب"},
+    {value:5,text:"عالی"},
+  ]
   return (
     <Formik
       initialValues={{
@@ -28,6 +40,7 @@ const AddProduct = () => {
         productCover: null,
         productGallery: null,
       }}
+      validationSchema={addProductsSchema}
       onSubmit={(values, { resetForm }) => {
         console.log(values);
         resetForm();
@@ -42,10 +55,10 @@ const AddProduct = () => {
               <h2 className="table__header">
                 {persianTexts.admin.products.label.addProductsTitle}
               </h2>
-              <Form className="full--width">
+              <Form className="admin__form">
                 <div className="row">
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={persianTexts.admin.products.label.inputLabelTitle}
                       placeHolder={
                         persianTexts.admin.products.placeholder
@@ -56,7 +69,7 @@ const AddProduct = () => {
                     />
                   </div>
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={persianTexts.admin.products.label.inputLabelPrice}
                       placeHolder={
                         persianTexts.admin.products.placeholder
@@ -67,24 +80,24 @@ const AddProduct = () => {
                     />
                   </div>
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={persianTexts.admin.products.label.inputLabelRating}
                       placeHolder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderRating
                       }
-                      type="text"
+                      type="select"
                       name="productRating"
+                      options={ratingOptions}
                     />
                   </div>
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={
                         persianTexts.admin.products.label.inputLabelQuantity
                       }
                       placeHolder={
-                        persianTexts.admin.products.placeholder
-                          .inputPlaceholderQuantity
+                        persianTexts.admin.products.placeholder.inputPlaceholderQuantity
                       }
                       type="text"
                       Placeholder
@@ -92,7 +105,7 @@ const AddProduct = () => {
                     />
                   </div>
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={
                         persianTexts.admin.products.label.inputLabelCategory
                       }
@@ -105,7 +118,7 @@ const AddProduct = () => {
                     />
                   </div>
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={
                         persianTexts.admin.products.label.inputLabelSegment
                       }
@@ -118,7 +131,7 @@ const AddProduct = () => {
                     />
                   </div>
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={persianTexts.admin.products.label.inputLabelColors}
                       placeHolder={
                         persianTexts.admin.products.placeholder
@@ -130,7 +143,7 @@ const AddProduct = () => {
                   </div>
 
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={persianTexts.admin.products.label.inputLabelBrand}
                       placeHolder={
                         persianTexts.admin.products.placeholder
@@ -141,7 +154,7 @@ const AddProduct = () => {
                     />
                   </div>
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={
                         persianTexts.admin.products.label.inputLabelOffPrice
                       }
@@ -154,7 +167,7 @@ const AddProduct = () => {
                     />
                   </div>
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={
                         persianTexts.admin.products.label
                           .inputLabelShortDescription
@@ -167,8 +180,8 @@ const AddProduct = () => {
                       name="productShortDescription"
                     />
                   </div>
-                  <div className="col-md-6">
-                    <Input
+                  <div className="col-12">
+                    <FormControl
                       label={
                         persianTexts.admin.products.label
                           .inputLabelFullDescription
@@ -177,14 +190,14 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderFullDescription
                       }
-                      type="text"
+                      type="textarea"
                       name="productFullDescription"
                     />
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={persianTexts.admin.products.label.inputLabelCover}
                       placeHolder={
                         persianTexts.admin.products.placeholder
@@ -194,11 +207,11 @@ const AddProduct = () => {
                       accept="image/*"
                       name="productCover"
                       icon={<MdUploadFile className="uploader__icon" />}
-                      value={undefined}
+
                     />
                   </div>
                   <div className="col-md-6">
-                    <Input
+                    <FormControl
                       label={
                         persianTexts.admin.products.label.inputLabelGallery
                       }
@@ -213,7 +226,6 @@ const AddProduct = () => {
                       accept="image/*"
                       name="productGallery"
                       multiple
-                      value={undefined}
                     />
                   </div>
                 </div>
@@ -225,7 +237,7 @@ const AddProduct = () => {
                         : "btn--disable"
                     }`}
                     type="submit"
-                    disabled={!(formik.dirty && formik.isValid)}
+                    // disabled={!(formik.dirty && formik.isValid)}
                   >
                     {persianTexts.admin.products.btn}
                   </button>

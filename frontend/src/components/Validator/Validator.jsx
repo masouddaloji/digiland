@@ -69,5 +69,20 @@ export const LoginSchema = Yup.object().shape({
   .min(8,persianTexts.error.register.input.password.min)
   .max(25,persianTexts.error.register.input.password.max)
 });
+export const addProductsSchema=Yup.object().shape({
+  productTitle:Yup.string().required(persianTexts.error.addProducts.productTitle.required).min(4,persianTexts.error.addProducts.productTitle.min),
+  productPrice:Yup.number(persianTexts.error.addProducts.productPrice.number).required(persianTexts.error.addProducts.productPrice.required).integer(persianTexts.error.addProducts.productPrice.integer).moreThan(10000,persianTexts.error.addProducts.productPrice.moreThan),
+  productRating:Yup.number(persianTexts.error.addProducts.productRating.number).integer(persianTexts.error.addProducts.productRating.integer).moreThan(0,persianTexts.error.addProducts.productRating.moreThan).required(persianTexts.error.addProducts.productRating.required),
+  productQantity:Yup.number(persianTexts.error.addProducts.productQantity.number).moreThan(0,persianTexts.error.addProducts.productQantity.moreThan).integer(persianTexts.error.addProducts.productQantity.integer).required(persianTexts.error.addProducts.productQantity.required),
+  productCategory:Yup.string().required(persianTexts.error.addProducts.productCategory.required),
+  productSegment:Yup.string().required(persianTexts.error.addProducts.productSegment.required),
+  productColors:Yup.string().required(persianTexts.error.addProducts.productColors.required),
+  productBrand:Yup.string().required(persianTexts.error.addProducts.productBrand.required),
+  productOffPrice:Yup.number(persianTexts.error.addProducts.productOffPrice.number).moreThan(0,persianTexts.error.addProducts.productOffPrice.moreThan).integer(persianTexts.error.addProducts.productOffPrice.integer),
+  productShortDescription:Yup.string().required(persianTexts.error.addProducts.productShortDescription.required).min(10),
+  productFullDescription:Yup.string().required(persianTexts.error.addProducts.productFullDescription.required).min(20),
+  productCover:Yup.mixed().required(persianTexts.error.addProducts.productCover.required),
+  productGallery:Yup.mixed().required(persianTexts.error.addProducts.productGallery.required),
+})
 
 

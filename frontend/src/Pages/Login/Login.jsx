@@ -1,16 +1,17 @@
 import React, { useRef, useState } from 'react'
+// library
 import { Link } from 'react-router-dom'
+import { Form, Formik } from 'formik'
 // icons
 import { BiShow } from 'react-icons/bi'
 import { MdAlternateEmail } from 'react-icons/md'
 import { FiUserPlus } from 'react-icons/fi'
 // components
-import Input from '../../components/Input/Input'
+import FormControl from '../../components/FormControl/FormControl'
 // validator
 import { LoginSchema } from '../../components/Validator/Validator'
 // style
 import './Login.css'
-import { Form, Formik } from 'formik'
 
 export default function Login() {
 
@@ -41,17 +42,17 @@ const inputRef=useRef()
       
             <h4 className="auth__title">ورود</h4>
             <div className="auth__form">
-            <Input 
+            <FormControl 
             type="text" 
             label="نام کاربری"
             name="loginUserName"
-            icon=<MdAlternateEmail className="input__icon" />
+            icon=<MdAlternateEmail className="formControl__icon" />
             />
-             <Input 
+             <FormControl 
             type="password" 
             label="رمز عبور"
             name="loginPassword"
-            icon=<BiShow className="input__icon" />
+            icon=<BiShow className="formControl__icon" />
             />
               <div className="login__checkbox">
               <input type="checkbox" name="saveme" id="" />
