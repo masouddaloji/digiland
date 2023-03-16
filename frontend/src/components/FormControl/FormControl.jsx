@@ -10,12 +10,12 @@ import { FiChevronDown } from "react-icons/fi";
 // styles
 import "./FormControl.css";
 import { persianTexts } from "../../text";
+import { Link } from "react-router-dom";
 
 function FormControl({ label, icon, ref, ...props }) {
   const [field, meta, helpers] = useField(props);
-  const { setFieldValue } = useFormikContext();
+  const { setFieldValue,errors,setFieldTouched,touched } = useFormikContext();
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [files, setFiles] = useState([]);
   const [preview, setPreview] = useState([]);
   const [isShowCheckBox,setIsShowCheckBox]=useState(false)
   const inputRef = useRef();
@@ -28,7 +28,6 @@ function FormControl({ label, icon, ref, ...props }) {
     let arrayFiles = Array.from(files);
     setFieldValue(field.name, arrayFiles);
   };
-  let element = null;
   switch (props.type) {
     case "password": {
       return (
@@ -40,7 +39,6 @@ function FormControl({ label, icon, ref, ...props }) {
           )}
           <div className="formControl__box">
             <input
-              type={!isShowPassword ? "password" : "text"}
               ref={passwordRef}
               className={`input ${
                 meta.touched && meta.error ? "formControl--invalid" : undefined
@@ -49,16 +47,17 @@ function FormControl({ label, icon, ref, ...props }) {
               id={field.name}
               {...props}
               {...field}
+              type={isShowPassword ?"text": "password" }
             />
             {!isShowPassword ? (
               <BiShow
                 className="formControl__icon"
-                onClick={() => setIsShowPassword(true)}
+                onClick={() => setIsShowPassword(!isShowPassword)}
               />
             ) : (
               <BiHide
                 className="formControl__icon"
-                onClick={() => setIsShowPassword(false)}
+                onClick={() => setIsShowPassword(!isShowPassword)}
               />
             )}
             {meta.touched && meta.error && (
@@ -97,6 +96,7 @@ function FormControl({ label, icon, ref, ...props }) {
       );
     }
 
+    case "email":
     case "text": {
       return (
         <div className="formControl__wrapper">
@@ -185,63 +185,62 @@ function FormControl({ label, icon, ref, ...props }) {
     }
     case "checkbox":{
       return (
-        <div className="formControl__wrapper">
-        {label && (
-          <label htmlFor={field.name} className="formControl__label">
-            {label}
-          </label>
-        )}
-        <div className="formControl__box">
-          <Field
-            as="select"
-            className={`select ${
-              meta.touched && meta.error ? "formControl--invalid" : undefined
-            }`}
-            id={field.name}
-            {...props}
-            {...field}
-            multiple
-          >
-            {props.options &&
-              props.options.map((option) => (
-                <option disabled={option.value===""?true:false} key={option.value} value={option.value} className="option">
-                  {option.text}
-                </option>
-              ))}
-          </Field>
-          {icon ? icon : null}
-          {meta.touched && meta.error && (
-            <span className="auth__error">{meta.error}</span>
+      //   <div className="formControl__wrapper">
+      //   {label && (
+      //     <label htmlFor={field.name} className="formControl__label">
+      //       {label}
+      //     </label>
+      //   )}
+      //   <div className="formControl__box">
+      //     <Field
+      //       as="select"
+      //       className={`select ${
+      //         meta.touched && meta.error ? "formControl--invalid" : undefined
+      //       }`}
+      //       id={field.name}
+      //       {...props}
+      //       {...field}
+      //     >
+      //       {props.options &&
+      //         props.options.map((option) => (
+      //           <option disabled={option.value===""?true:false} key={option.value} value={option.value} className="option">
+      //             {option.text}
+      //           </option>
+      //         ))}
+      //     </Field>
+      //     {icon ? icon : null}
+      //     {meta.touched && meta.error && (
+      //       <span className="auth__error">{meta.error}</span>
+      //     )}
+      //   </div>
+      // </div>
+        <div to="#" className="formControl__wrapper" >
+        {console.log("field, meta",field, meta)}
+          {label && (
+            <label htmlFor={field.name} className="formControl__label">
+              {label}
+            </label>
           )}
+          <div className="formControl__box">
+            <div  className={`checkbox ${touched["productColor"] && errors["productColors"] ? "formControl--invalid" : ""}`} {...field} ref={checkboxRef} >  
+            <FiChevronDown className={`checkbox__icon ${isShowCheckBox?"rotate":""}`} onClick={()=> setIsShowCheckBox(!isShowCheckBox)}/>
+            <ul className={`checkbox__lists ${isShowCheckBox?"checkbox__lists--show":""}`}>
+              {props.options &&
+                props.options.map((option) => (
+                  <li className="checkbox__item"  key={option.value}>
+                  <Field name={field.name} type="checkbox" id={option.value} checked={field.value.includes(option.value)}   value={option.value}  />
+                    <label htmlFor={option.value} className="checkbox__label">{option.text}</label>
+                  </li>
+                ))}
+                </ul>
+            </div>
+            {icon ? icon : null}
+            {touched["productColors"] && errors["productColors"] && (
+              <span className="auth__error">{errors["productColors"]}</span>
+            )}
+          </div>
         </div>
-      </div>
-        // <div className="formControl__wrapper">
-        // {console.log("field, meta",field, meta)}
-        //   {label && (
-        //     <label htmlFor={field.name} className="formControl__label">
-        //       {label}
-        //     </label>
-        //   )}
-        //   <div className="formControl__box">
-        //     <div className={`checkbox`} {...field} ref={checkboxRef} onClick={(e)=>checkboxRef.current.focus()}>  
-        //     <FiChevronDown className={`checkbox__icon ${isShowCheckBox?"rotate":""}`} onClick={()=> setIsShowCheckBox(!isShowCheckBox)}/>
-        //     <ul className={`checkbox__lists ${isShowCheckBox?"checkbox__lists--show":""}`}>
-        //       {props.options &&
-        //         props.options.map((option) => (
-        //           <li className="checkbox__item"  key={option.value}>
-        //           <Field name={field.name} type="checkbox" id={option.value} checked={field.value.includes(option.value)}   value={option.value}  />
-        //             <label htmlFor={option.value} className="checkbox__label">{option.text}</label>
-        //           </li>
-        //         ))}
-        //         </ul>
-        //     </div>
-        //     {icon ? icon : null}
-        //     {meta.touched && meta.error && (
-        //       <span className="auth__error">{meta.error}</span>
-        //     )}
-        //   </div>
-        // </div>
-      );
+      )
     }
     // case "password":
     //   break;

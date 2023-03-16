@@ -13,6 +13,20 @@ export default function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const router = useRoutes(routes(products, categories));
+  const [isLogin,setIsLogin]=useState(false)
+  const [userInfos,setUserInfos]=useState(null)
+  const [token,setToken]=useState(null)
+  const loggin=(token,userInfos)=>{
+    setToken(token)
+    setUserInfos(userInfos)
+    setIsLogin(true)
+    const usertoken=localStorage.setItem("user",JSON.stringify({token}))
+  }
+  const logout=()=>{
+    setIsLogin(false)
+    setToken(null)
+    setUserInfos(null)
+  }
 
   const getAllProducts = async () => {
     await fetch("http://localhost:1337/api/products?populate=deep")

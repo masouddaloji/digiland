@@ -30,6 +30,7 @@ export default function Register() {
     validationSchema={RegisterSchema}
     onSubmit={(values,{resetForm})=>{
       console.log(values)
+      
       resetForm()
       }}
     >
