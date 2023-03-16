@@ -86,7 +86,7 @@ export const persianTexts = {
         required: "انتخاب عکس اصلی محصول اجباری می باشد",
       },
       productGallery: {
-        required: " مجموعه عکس های محصول را وارد می باشد",
+        required: " مجموعه عکس های محصول را وارد کنید",
       },
     },
   },

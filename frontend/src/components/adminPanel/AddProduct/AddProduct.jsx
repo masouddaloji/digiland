@@ -23,6 +23,13 @@ const AddProduct = () => {
     {value:4,text:"خیلی خوب"},
     {value:5,text:"عالی"},
   ]
+  const colorOptions=[
+    {value:"red",text:"قرمز"},
+    {value:"black",text:"مشکی"},
+    {value:"blue",text:"آبی"},
+    {value:"green",text:"سبز"},
+    {value:"pink",text:"صورتی"},
+  ]
   return (
     <Formik
       initialValues={{
@@ -32,7 +39,7 @@ const AddProduct = () => {
         productQantity: "",
         productCategory: "",
         productSegment: "",
-        productColors: "",
+        productColors: [],
         productBrand: "",
         productOffPrice: "",
         productShortDescription: "",
@@ -137,8 +144,9 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderColors
                       }
-                      type="text"
+                      type="checkbox"
                       name="productColors"
+                      options={colorOptions}
                     />
                   </div>
 
