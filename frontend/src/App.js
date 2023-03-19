@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+// packages
 import { useLocation, useRoutes } from "react-router-dom";
+// components
 import routes from "./Routes";
 import Navbar from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import ProductsContext from "./../src/Context/ProductsContext";
+// contexts
+import AuthContext from "./Context/AuthContext";
+// styles
 import "./App.css";
-import token from "./utils/api";
-import useFetch from "./hooks/useFetch";
 
 export default function App() {
   const location = useLocation();
@@ -16,71 +18,33 @@ export default function App() {
   const [isLogin,setIsLogin]=useState(false)
   const [userInfos,setUserInfos]=useState(null)
   const [token,setToken]=useState(null)
-  const loggin=(token,userInfos)=>{
-    setToken(token)
-    setUserInfos(userInfos)
-    setIsLogin(true)
-    const usertoken=localStorage.setItem("user",JSON.stringify({token}))
-  }
-  const logout=()=>{
-    setIsLogin(false)
-    setToken(null)
-    setUserInfos(null)
-  }
+  const allDataCategories=[]
 
-  const getAllProducts = async () => {
-    await fetch("http://localhost:1337/api/products?populate=deep")
-      .then((res) => res.json())
-      .then((allProducts) => setProducts(allProducts.data));
-  };
-  const getCategory = async () => {
-    await fetch("http://localhost:1337/api/categories?populate=deep", {
-      headers: { Authorization: `bearer ${token}` },
-    })
-      .then((res) => res.json())
-      .then((allData) => {
-        setCategories(allData.data);
-      });
-  };
-  const {
-    isLoading: isLoadingProducts,
-    error: errorProducts,
-    allData: allDataProducts,
-  } = useFetch({
-    url: "http://localhost:1337/api/products?populate=deep",
-    method: "",
-    headers: {},
-    body: "",
-  });
-  const {
-    isLoading: isLoadingCategories,
-    error: errorCategories,
-    allData: allDataCategories,
-  } = useFetch({
-    url: "http://localhost:1337/api/categories?populate=deep",
-    method: "",
-    headers: {},
-    body: "",
-  });
-  // useEffect(() => {
-  //   getAllProducts();
-  //   getCategory();
-  // }, []);
+  const login = (token) => {
+        setToken(token);
+        setIsLogin(true);
+       localStorage.setItem("user", JSON.stringify({ token }));
+      };
+      const logout = () => {
+        setIsLogin(false);
+        setToken(null);
+        setUserInfos(null);
+      };
+    
+
   return (
-    <ProductsContext.Provider
+    <AuthContext.Provider
       value={{
-        isLoadingProducts,
-        errorProducts,
-        products: allDataProducts,
-        isLoadingCategories,
-        errorCategories,
-        categories: allDataCategories,
+        isLogin,
+        token,
+        login,
+        logout,
       }}
     >
       <div className="app">
         {location.pathname.includes("register") ||
         location.pathname.includes("login") ||location.pathname.includes("adminpanel")? null : (
-          <Navbar categories={allDataCategories} isLoading={isLoadingCategories}/>
+          <Navbar categories={allDataCategories} isLoading={true}/>
         )}
 
         {router}
@@ -89,6 +53,54 @@ export default function App() {
           <Footer />
         )}
       </div>
-    </ProductsContext.Provider>
+      </AuthContext.Provider>
   );
 }
+
+
+
+
+// export default function App() {
+//   const location = useLocation();
+//   const router = useRoutes(routes);
+//   const [isLoggin, setIsLoggin] = useState(false);
+//   const [userInfos, setUserInfos] = useState(null);
+//   const [token, setToken] = useState(null);
+//   const allDataCategories = [];
+//   const loggin = (token) => {
+//     setToken(token);
+//     setIsLoggin(true);
+//     const usertoken = localStorage.setItem("user", JSON.stringify({ token }));
+//   };
+//   const logout = () => {
+//     setIsLoggin(false);
+//     setToken(null);
+//     setUserInfos(null);
+//   };
+
+//   return (
+//     <AuthContext.Provider
+//       value={{
+//         isLoggin,
+//         token,
+//         loggin,
+//         logout,
+//       }}
+//     >
+//       <div className="app">
+//         {location.pathname.includes("register") ||
+//         location.pathname.includes("login") ||
+//         location.pathname.includes("adminpanel") ? null : (
+//           <Navbar categories={allDataCategories} isLoading={true} />
+//         )}
+
+//         {router}
+//         {location.pathname.includes("register") ||
+//         location.pathname.includes("login") ||
+//         location.pathname.includes("adminpanel") ? null : (
+//           <Footer />
+//         )}
+//       </div>
+//     </AuthContext.Provider>
+//   );
+// }

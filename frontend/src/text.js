@@ -30,6 +30,7 @@ export const persianTexts = {
           regex: "رمزعبور و تکرار آن یکسان نیستند",
         },
       },
+     
     },
     adminpanel: {
       products: "هیچ محصولی یافت نشد",
@@ -128,4 +129,12 @@ export const persianTexts = {
       btn: "افزودن محصول",
     },
   },
+  register:{
+    registerSuccess:"شما با موفقیت عضو شدید لطفا وارد حساب خود شوید",
+    registerError:"ثبت نام شما با مشکل مواجه شد لطفا دوباره تلاش کنید"
+  },
+  login:{
+    logginSuccess:"شما با موفقیت وارد شدید",
+    logginError:"ورود به حساب کاربری با مشکل مواجه شد لطفا دوباره تلاش کنید"
+  }
 };

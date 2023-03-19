@@ -403,6 +403,7 @@ const productContext=useContext(ProductsContext)
           </div>
         </header>
       ) : (
+        /* start mobile */
         <header className="mobileHeader">
           <div
             className={`${

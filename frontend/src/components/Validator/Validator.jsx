@@ -9,21 +9,21 @@ const passwordPattern =/^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~!@#$%&*
 // const coverPattern = /(\.jpg|\.jpeg|\.png)$/i;
 
 export const RegisterSchema = Yup.object().shape({
-  registerPhoneNumber: Yup.string()
-  .required(persianTexts.error.register.input.phoneNumber.required)
-    .matches(
-      phoneNumberPattern,
-      persianTexts.error.register.input.phoneNumber.regex
-    )
-    ,
-    registerUserName: Yup.string()
-    .required(persianTexts.error.register.input.userName.required)
-    .matches(
-      userNamePattern,
-      persianTexts.error.register.input.userName.regex
-    )
-    .min(8,persianTexts.error.register.input.userName.min)
-    .max(25,persianTexts.error.register.input.userName.max),
+  // registerPhoneNumber: Yup.string()
+  // .required(persianTexts.error.register.input.phoneNumber.required)
+  //   .matches(
+  //     phoneNumberPattern,
+  //     persianTexts.error.register.input.phoneNumber.regex
+  //   )
+  //   ,
+    // registerUserName: Yup.string()
+    // .required(persianTexts.error.register.input.userName.required)
+    // .matches(
+    //   userNamePattern,
+    //   persianTexts.error.register.input.userName.regex
+    // )
+    // .min(8,persianTexts.error.register.input.userName.min)
+    // .max(25,persianTexts.error.register.input.userName.max),
 
     registerEmail: Yup.string()
     .required(persianTexts.error.register.input.email.required)
