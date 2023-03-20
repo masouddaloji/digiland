@@ -232,7 +232,7 @@ const articles=Array(6).fill(0)
             </div>
           </div>
           <div className="row">
-          {!productsContext.errorProducts ? (
+          {/* {!productsContext.errorProducts ? (
                   <>
                     {!productsContext.isLoadingProducts ? (
                       <>
@@ -255,8 +255,7 @@ const articles=Array(6).fill(0)
                   {console.log("errorProducts", productsContext.errorProducts)}
 
                   </>
-                )}
-
+                )}  */}
           </div>
         </section>
         {/* articles */}

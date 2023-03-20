@@ -24,11 +24,13 @@ const AddProduct = () => {
     {value:5,text:"عالی"},
   ]
   const colorOptions=[
-    {value:"red",text:"قرمز"},
-    {value:"black",text:"مشکی"},
-    {value:"blue",text:"آبی"},
-    {value:"green",text:"سبز"},
-    {value:"pink",text:"صورتی"},
+    {value:"red",text:"قرمز",color:"#FF0000"},
+    {value:"black",text:"مشکی",color:"#000"},
+    {value:"gold",text:"طلایی",color:"#ffd300"},
+    {value:"blue",text:"آبی",color:"#0000FF"},
+    {value:"green",text:"سبز",color:"#00FF00"},
+    {value:"white",text:"سفید",color:"#FFF"},
+    {value:"pink",text:"صورتی",color:"#FF69B4"},
   ]
   return (
     <Formik
@@ -39,7 +41,7 @@ const AddProduct = () => {
         productQantity: "",
         productCategory: "",
         productSegment: "",
-        productColors: [],
+        productColors: null,
         productBrand: "",
         productOffPrice: "",
         productShortDescription: "",

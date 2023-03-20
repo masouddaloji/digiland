@@ -17,6 +17,7 @@ import AdminUsers from "./components/adminPanel/AdminUsers/AdminUsers";
 import AdminOrders from "./components/adminPanel/AdminOrders/AdminOrders";
 import AdminArticles from "./components/adminPanel/AdminArticles/AdminArticles";
 import AddProduct from "./components/adminPanel/AddProduct/AddProduct";
+import UserPanel from "./Pages/UserPanel/Index";
 
 const routes = (products, categories) => [
   { path: "/", element: <Index /> },
@@ -37,7 +38,8 @@ const routes = (products, categories) => [
   { path: "/product/:productId", element: <Product /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
-
+  { path: "/userpanel",
+  element: <UserPanel />,},
   {
     path: "/adminpanel",
     element: <AdminPanel />,

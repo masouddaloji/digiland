@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
+// packages
 import { Link } from "react-router-dom";
+// components
+import Navbar from "../Navbar/Navbar";
+// contexts 
+import AuthContext from "../../Context/AuthContext";
+// icons
 import { TfiSearch } from "react-icons/tfi";
 import { TbApps } from "react-icons/tb";
 import { IoPersonOutline } from "react-icons/io5";
@@ -9,25 +15,20 @@ import {
   AiOutlineCloseCircle,
   AiOutlineHome,
 } from "react-icons/ai";
-import { IoIosLaptop, IoMdClose } from "react-icons/io";
-import { CgSmartHomeWashMachine } from "react-icons/cg";
-import { RiUserHeartLine } from "react-icons/ri";
-import { TbBabyCarriage } from "react-icons/tb";
-import { IoAmericanFootballOutline } from "react-icons/io5";
-import { FaToolbox } from "react-icons/fa";
-import { FiPhoneCall, FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { HiChevronLeft } from "react-icons/hi";
+import { IoMdClose } from "react-icons/io";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { CgShoppingBag } from "react-icons/cg";
 import { SiShopify } from "react-icons/si";
 import { CgCloseO } from "react-icons/cg";
-import token, { fetchDataFromApi } from "../../utils/api";
-
+// constans
+import { menus } from "../../Constants";
+// styles
 import "./Header.css";
+
+
 import ProductCount from "../ProductCount/ProductCount";
 import ProductsContext from "../../Context/ProductsContext";
-import Navbar from "../Navbar/Navbar";
-import { menus } from "../../Constants";
 const MobileMenuItem = ({ menu }) => {
   const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
   console.log(menu);
@@ -77,7 +78,7 @@ export default function Header({ categories, isLoading }) {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [deviceWidth, setDeviceWidth] = useState({ width: window.innerWidth });
   const [isShowSideBarCart, setIsShowSideBarCart] = useState(false);
-
+  const authContext=useContext(AuthContext)
 
   const categoryRef = useRef();
   const btnCategoryRef = useRef();
@@ -383,12 +384,20 @@ const productContext=useContext(ProductsContext)
               </div>
               <div className="col-lg-3">
                 <div className="header__leftBox">
-                  <Link className="header__authUser" to="/login">
+                {!authContext.isLogin ? (
+                   <Link className="header__authUser" to="/login">
                     <div className="header__authUser-box">
                       <IoPersonOutline className="fullIcon" />
                     </div>
                     <span className="header__authUser-text">ورود / عضویت</span>
+                  </Link>):(
+                    <Link className="header__authUser" to="/userpanel">
+                    <div className="header__authUser-box">
+                      <IoPersonOutline className="fullIcon" />
+                    </div>
                   </Link>
+                  )}
+                 
                   <div
                     className="basket"
                     onClick={() => setIsShowSideBarCart(true)}
