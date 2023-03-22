@@ -30,7 +30,5 @@
   .btn--active:hover {
     background: var(--blue-hover);
   }
-  .btn--disable {
-    background: var(--gray-50);
-  }
+ 
   

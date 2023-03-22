@@ -109,7 +109,6 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder.inputPlaceholderQuantity
                       }
                       type="text"
-                      Placeholder
                       name="productQantity"
                     />
                   </div>
@@ -190,7 +189,7 @@ const AddProduct = () => {
                       name="productShortDescription"
                     />
                   </div>
-                  <div className="col-12">
+                  {/* <div className="col-12">
                     <FormControl
                       label={
                         persianTexts.admin.products.label
@@ -201,6 +200,20 @@ const AddProduct = () => {
                           .inputPlaceholderFullDescription
                       }
                       type="textarea"
+                      name="productFullDescription"
+                    />
+                  </div> */}
+                  <div className="col-12">
+                    <FormControl
+                      label={
+                        persianTexts.admin.products.label
+                          .inputLabelFullDescription
+                      }
+                      placeHolder={
+                        persianTexts.admin.products.placeholder
+                          .inputPlaceholderFullDescription
+                      }
+                      type="editor"
                       name="productFullDescription"
                     />
                   </div>

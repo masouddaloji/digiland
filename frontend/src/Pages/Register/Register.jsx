@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
-// library
-import { useLocation, useNavigate } from "react-router-dom";
+// packages
+import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { toast } from "react-toastify";
+import axios from "axios";
 // icons
 import { MdAlternateEmail } from "react-icons/md";
 
@@ -33,14 +34,25 @@ export default function Register() {
           email: values.registerEmail,
           pwd: values.registerPassword,
         };
-        fetch("http://localhost:8000/auth/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userData),
-        })
-        .then((res) => {
-          if (res.ok) {
-            toast.success(persianTexts.register.registerSuccess, {
+        axios
+          .post("http://localhost:8000/auth/register", userData)
+          .then((res) => {
+            if (res.statusText) {
+              toast.success(persianTexts.register.registerSuccess, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+              navigate("/login")
+            }
+          })
+          .catch((err) => {
+            toast.error(persianTexts.register.registerError, {
               position: "top-right",
               autoClose: 3000,
               hideProgressBar: false,
@@ -50,24 +62,11 @@ export default function Register() {
               progress: undefined,
               theme: "light",
             });
-            return res.json()
-          } else {
-            toast.error(persianTexts.error.register.registerError, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          }
-        })
-        .then(result=>{
-        resetForm();
-        navigate("/login")
-        })
+          })
+          .finally(
+            resetForm()
+          )
+
       }}
     >
       {(formik) => (

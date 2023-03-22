@@ -170,17 +170,18 @@ a{
   --blue: #1463F3;
   --blue-hover:#2343F2;
   --green:#00cc67;
-  --gray-text: #6b6b6b;
   --error-text: #e4b7b9;
-  --gray-100: #444;
   --gray:#eee;
-  --gray-50: #666;
+  --gray-text: #6b6b6b;
+  --gray-100: #444;
+  --gray-50: #d3d3d3;
+  --gray-25: #C0C0C0;
   --red:#c00;
   --red-50: #fee2e2;
   --border-btn:1.5rem;
   --box-shadow:0 5px 10px rgba(0,0,0,.1);
   --black-50:#1d1d1d;
-  --admin-main:#0F111A;
+  --admin-main:#00001c;
   /* --admin-main:#234099; */
 }
 /* end variabels */
@@ -221,6 +222,9 @@ a {
 .f-24{
   font-size: 2.4rem;
   display: inline-block;
+}
+.btn--disable {
+  background: var(--gray-25);
 }
 .auth{
   width: 100%;

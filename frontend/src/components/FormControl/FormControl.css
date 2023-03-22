@@ -43,6 +43,50 @@
 .uploader__input {
   display: none;
 }
+.uploader__progress{
+  width: 100%;
+  height: 0;
+  background: var(--gray-50);
+  border-radius: 2rem;
+  margin-top: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.uploader__progress--show{
+  height: 0.6rem;
+
+}
+.uploader__progressbar{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: inherit;
+  background: var(--green);
+  border-radius: 2rem;
+}
+.uploader__btn{
+  margin: 2rem auto;
+  width: 14rem;
+  height: 3.6rem;
+  border: none;
+  outline: none;
+  background: var(--blue);
+  color: var(--white);
+  border-radius: var(--border-box);
+  font-size: 1.4rem;
+  transition: all .3s;
+  cursor: pointer;
+  overflow: hidden;
+  display: none;
+}
+.uploader__btn--show{
+  display: block;
+
+}
+.uploader__btn:hover{
+  background: var(--blue-hover);
+}
+
 .input,
 .textarea,
 .select,
@@ -57,6 +101,17 @@
   font-family: var(--Iran-bold);
   border-radius: var(--border-box);
   outline: none;
+}
+.ck.ck-editor{
+  outline: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.ck-editor__editable{
+  min-height: 12rem;
+  direction: rtl;
 }
 .select {
   appearance: none;
@@ -166,7 +221,9 @@
   box-shadow: 0 0 0px 1000px #fff inset;
   /* transition: background-color 5000s ease-in-out 0s; */
 }
-
+.ck-content{
+  border: none;
+}
 @media (max-width: 768px) {
   .auth__wrapper {
     width: 100%;

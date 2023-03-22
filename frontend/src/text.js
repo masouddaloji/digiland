@@ -66,6 +66,7 @@ export const persianTexts = {
       },
       productColors: {
         required: "لطفا رنگ های محصول را مشخص کنید",
+        min:"حداقل یک رنگ را انتخاب کنید"
       },
       productBrand: {
         required: "لطفا برند محصول را مشخص کنید",

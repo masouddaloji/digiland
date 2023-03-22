@@ -3,6 +3,7 @@ import React, { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
+import axios from "axios";
 // icons
 import { BiShow } from "react-icons/bi";
 import { MdAlternateEmail } from "react-icons/md";
@@ -35,13 +36,10 @@ export default function Login() {
           email: values.loginUserName,
           pwd: values.loginPassword,
         };
-        fetch("http://localhost:8000/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userData),
-        })
+        axios
+          .post("http://localhost:8000/auth/login", userData)
           .then((res) => {
-            if (res.ok) {
+            if (res.statusText) {
               toast.success(persianTexts.login.logginSuccess, {
                 position: "top-right",
                 autoClose: 3000,
@@ -52,25 +50,25 @@ export default function Login() {
                 progress: undefined,
                 theme: "light",
               });
-              resetForm();
-              return res.json();
-            } else {
-              toast.error(persianTexts.login.logginError, {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
+              authContext.login(res.data.accessToken);
+              navigate("/");
             }
           })
-          .then((result) => {
-            authContext.login(result.accessToken);
-            navigate("/");
-          });
+          .catch((err) => {
+            toast.error(persianTexts.login.logginError, {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          })
+          .finally(
+            resetForm()
+          )
       }}
     >
       {(formik) => (
