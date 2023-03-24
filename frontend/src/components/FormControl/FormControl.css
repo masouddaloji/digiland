@@ -16,7 +16,7 @@
 .uploader {
   border: 1px solid var(--gray);
   border-radius: var(--border-box);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1.2rem 1rem -1rem rgba(0, 0, 0, 0.4);
   padding: 0.5rem 1rem;
   width: 100%;
   background: var(--white);
@@ -93,13 +93,14 @@
 .checkbox {
   width: 100%;
   height: 3.6rem;
-  border: 1px solid var(--gray);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  border: none;
+  border-bottom: 1px solid var(--gray);
+  box-shadow: 0 1.2rem 1rem -1rem rgba(0, 0, 0, 0.3);
   padding: 0.8rem 1rem 0.8rem 1.7rem;
   color: var(--black-50);
   font-size: 1.3rem;
   font-family: var(--Iran-bold);
-  border-radius: var(--border-box);
+  /* border-radius: var(--border-box); */
   outline: none;
 }
 .ck.ck-editor{
@@ -107,7 +108,7 @@
   padding: 0;
   margin: 0;
   border: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1.2rem 1rem -1rem rgba(0, 0, 0, 0.3);
 }
 .ck-editor__editable{
   min-height: 12rem;
@@ -138,7 +139,7 @@
   justify-content: space-between;
   width: 100%;
   height: 3.6rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1.2rem 1rem rgba(0, 0, 0, 0.3);
   border-radius: var(--border-box);
   padding-right: .5rem;
   background: #fbfbfb;
@@ -151,7 +152,7 @@
   padding: 0.5rem 0;
 }
 .checkbox__label {
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 }
 .checkbox__item .checkboxInput {
   width: 2rem;
@@ -164,7 +165,7 @@
   justify-content: center;
   outline: none;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1.2rem 1rem rgba(0, 0, 0, 0.5);
 }
 .checkbox__item .checkboxInput::before {
   content: "✓";
@@ -189,14 +190,14 @@
   height: 15rem;
 }
 .formControl--invalid {
-  border: 1px solid var(--red);
-  box-shadow: 0 2px 5px rgba(241, 52, 38, 0.3);
+  border-bottom: 1px solid var(--red);
+  box-shadow: 0 1.2rem 1rem -1rem rgba(241, 52, 38, 0.3);
 }
 .input:focus,
 .select:focus,
 .textarea:focus {
-  border: 1px solid var(--blue);
-  box-shadow: 0 3px 10px rgba(1, 131, 255, 0.4);
+  border-bottom: 1px solid var(--blue);
+  box-shadow: 0 1.2rem 1rem -1rem rgba(1, 131, 255, 0.4);
 }
 .formControl__icon {
   position: absolute;
@@ -209,7 +210,7 @@
 }
 .auth__error {
   display: inline-block;
-  margin-top: 0.8rem;
+  margin-top: 1rem;
   font-size: 1rem;
   font-weight: 600;
   color: var(--red);
@@ -218,7 +219,7 @@
 .input:-webkit-autofill:hover,
 .input:-webkit-autofill:focus {
   -webkit-text-fill-color: var(--black-50);
-  box-shadow: 0 0 0px 1000px #fff inset;
+  box-shadow: 0 1.2rempx 1000px #fff inset;
   /* transition: background-color 5000s ease-in-out 0s; */
 }
 .ck-content{

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 // variables
 import { persianTexts } from "../../../text";
 // components
@@ -14,24 +14,26 @@ import { addProductsSchema } from "../../Validator/Validator";
 import "./AddProduct.css";
 
 const AddProduct = () => {
-  const uploadRef=useRef()
-  const ratingOptions=[
-    {value:"",text:"لطفا امتیاز محصول را انتخاب کنید"},
-    {value:1,text:"بد"},
-    {value:2,text:"معمولی"},
-    {value:3,text:"خوب"},
-    {value:4,text:"خیلی خوب"},
-    {value:5,text:"عالی"},
-  ]
-  const colorOptions=[
-    {value:"red",text:"قرمز",color:"#FF0000"},
-    {value:"black",text:"مشکی",color:"#000"},
-    {value:"gold",text:"طلایی",color:"#ffd300"},
-    {value:"blue",text:"آبی",color:"#0000FF"},
-    {value:"green",text:"سبز",color:"#00FF00"},
-    {value:"white",text:"سفید",color:"#FFF"},
-    {value:"pink",text:"صورتی",color:"#FF69B4"},
-  ]
+  const uploadRef = useRef();
+  const [uploadCoverImage, setUploadCoverImage] = useState(null);
+  const [uploadGalleryImages, setUploadGalleryImages] = useState(null);
+  const ratingOptions = [
+    { value: "", text: "لطفا امتیاز محصول را انتخاب کنید" },
+    { value: 1, text: "بد" },
+    { value: 2, text: "معمولی" },
+    { value: 3, text: "خوب" },
+    { value: 4, text: "خیلی خوب" },
+    { value: 5, text: "عالی" },
+  ];
+  const colorOptions = [
+    { value: "red", text: "قرمز", color: "#FF0000" },
+    { value: "black", text: "مشکی", color: "#000" },
+    { value: "gold", text: "طلایی", color: "#ffd300" },
+    { value: "blue", text: "آبی", color: "#0000FF" },
+    { value: "green", text: "سبز", color: "#00FF00" },
+    { value: "white", text: "سفید", color: "#FFF" },
+    { value: "pink", text: "صورتی", color: "#FF69B4" },
+  ];
   return (
     <Formik
       initialValues={{
@@ -57,7 +59,7 @@ const AddProduct = () => {
     >
       {(formik) => (
         <>
-          {console.log("formik", formik)}
+          {/* {console.log("formik", formik)} */}
 
           <section className="adminSection">
             <div className="table__wrapper">
@@ -69,7 +71,7 @@ const AddProduct = () => {
                   <div className="col-md-6">
                     <FormControl
                       label={persianTexts.admin.products.label.inputLabelTitle}
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderTitle
                       }
@@ -80,7 +82,7 @@ const AddProduct = () => {
                   <div className="col-md-6">
                     <FormControl
                       label={persianTexts.admin.products.label.inputLabelPrice}
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderPrice
                       }
@@ -91,7 +93,7 @@ const AddProduct = () => {
                   <div className="col-md-6">
                     <FormControl
                       label={persianTexts.admin.products.label.inputLabelRating}
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderRating
                       }
@@ -105,8 +107,9 @@ const AddProduct = () => {
                       label={
                         persianTexts.admin.products.label.inputLabelQuantity
                       }
-                      placeHolder={
-                        persianTexts.admin.products.placeholder.inputPlaceholderQuantity
+                      placeholder={
+                        persianTexts.admin.products.placeholder
+                          .inputPlaceholderQuantity
                       }
                       type="text"
                       name="productQantity"
@@ -117,7 +120,7 @@ const AddProduct = () => {
                       label={
                         persianTexts.admin.products.label.inputLabelCategory
                       }
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderCategory
                       }
@@ -130,7 +133,7 @@ const AddProduct = () => {
                       label={
                         persianTexts.admin.products.label.inputLabelSegment
                       }
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderSegment
                       }
@@ -141,7 +144,7 @@ const AddProduct = () => {
                   <div className="col-md-6">
                     <FormControl
                       label={persianTexts.admin.products.label.inputLabelColors}
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderColors
                       }
@@ -154,7 +157,7 @@ const AddProduct = () => {
                   <div className="col-md-6">
                     <FormControl
                       label={persianTexts.admin.products.label.inputLabelBrand}
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderBrand
                       }
@@ -167,7 +170,7 @@ const AddProduct = () => {
                       label={
                         persianTexts.admin.products.label.inputLabelOffPrice
                       }
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderOffPrice
                       }
@@ -181,7 +184,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.label
                           .inputLabelShortDescription
                       }
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderShortDescription
                       }
@@ -209,7 +212,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.label
                           .inputLabelFullDescription
                       }
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderFullDescription
                       }
@@ -222,7 +225,7 @@ const AddProduct = () => {
                   <div className="col-md-6">
                     <FormControl
                       label={persianTexts.admin.products.label.inputLabelCover}
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderCover
                       }
@@ -230,7 +233,7 @@ const AddProduct = () => {
                       accept="image/*"
                       name="productCover"
                       icon={<MdUploadFile className="uploader__icon" />}
-
+                      saved={setUploadCoverImage}
                     />
                   </div>
                   <div className="col-md-6">
@@ -241,7 +244,7 @@ const AddProduct = () => {
                       icon={
                         <MdOutlineDriveFolderUpload className="uploader__icon" />
                       }
-                      placeHolder={
+                      placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderGallery
                       }
@@ -249,6 +252,7 @@ const AddProduct = () => {
                       accept="image/*"
                       name="productGallery"
                       multiple
+                      saved={setUploadGalleryImages}
                     />
                   </div>
                 </div>

@@ -31,24 +31,16 @@ export default function Login() {
         loginPassword: "",
       }}
       validationSchema={LoginSchema}
-      onSubmit={(values, { resetForm }) => {
+      onSubmit={ async(values, { resetForm }) => {
         const userData = {
           email: values.loginUserName,
           pwd: values.loginPassword,
         };
-        axios
+        await axios
           .post("http://localhost:8000/auth/login", userData)
           .then((res) => {
-            if (res.statusText) {
+            if (res.status===200) {
               toast.success(persianTexts.login.logginSuccess, {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
               });
               authContext.login(res.data.accessToken);
               navigate("/");

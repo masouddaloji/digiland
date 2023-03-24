@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // components
 import Navbar from "../Navbar/Navbar";
 // contexts 
-import AuthContext from "../../Context/AuthContext";
+import {AuthContext} from "../../Context/AuthContext";
 // icons
 import { TfiSearch } from "react-icons/tfi";
 import { TbApps } from "react-icons/tb";
