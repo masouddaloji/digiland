@@ -9,7 +9,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Validator from "../Validator/Validator";
 import { persianTexts } from "../../text";
 // contexts
-import AuthContext from "../../Context/AuthContext";
+import { AuthContext } from "../../Context/AuthContext";
 // icons
 import { BiHide, BiShow } from "react-icons/bi";
 import { FiChevronDown } from "react-icons/fi";
@@ -25,8 +25,8 @@ function FormControl({ label, icon, ref, ...props }) {
   const [preview, setPreview] = useState([]);
   const [isShowCheckBox, setIsShowCheckBox] = useState(false);
   const [percentage, setPercentage] = useState(null);
-  const [uploadCover, setUploadCover] = useState(null);
-  const [uploadGalleries, setUploadGalleries] = useState(null);
+  const [uploadCover, setUploadCover] = useState([]);
+  const [uploadGalleries, setUploadGalleries] = useState([]);
   const [uploadCoverPercent, setUploadCoverPercent] = useState(null);
   const [uploadGalleriesPercent, setUploadGalleriesPercent] = useState(null);
   const inputRef = useRef();
@@ -41,104 +41,58 @@ function FormControl({ label, icon, ref, ...props }) {
     setFieldValue(field.name, arrayFiles);
   };
 
-  const uploadCoverProduct=async(url,data)=>{
-    const localStorageData = JSON.parse(localStorage.getItem("user"));
+  const uploadCoverProduct = async (url, data) => {
     await axios
-        .post(url, data, {
-          onUploadProgress:progress=>{
-            const percent=Math.round((progress.loaded/progress.total)*100)
-            setUploadCoverPercent(percent)
-          },
-          headers: {
-            "Authorization": `Bearer ${localStorageData.token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          toast.success("کاور با موفقیت آپلود شد")
-          setUploadCover(res.data.path)
-        }
-        
-        )
-        .catch(async(err) => {
-          if (err.response.status === 401 ||err.response.status === 403) {
-           await authContext.getRefreshToken();
-           await axios
-           .post(url, data, {
-            onUploadProgress:progress=>{
-              const percent=Math.round((progress.loaded/progress.total)*100)
-              setUploadCoverPercent(percent)
-            },
-             headers: {
-               "Authorization": `Bearer ${localStorageData.token}`,
-               "Content-Type": "multipart/form-data",
-             },
-           }).then(res=>{
-            toast.success("کاور با موفقیت آپلود شد")
-            setUploadCover(res.data.path)
-           })
-           .catch(err=>console.log(err))
-          } else {
-            console.log("err", err);
-          }
-        })
-  }
-  const uploadgalleryProduct=async(url,data,savePath)=>{
-    const localStorageData = JSON.parse(localStorage.getItem("user"));
+      .post(url, data, {
+        onUploadProgress: (progress) => {
+          const percent = Math.round((progress.loaded / progress.total) * 100);
+          setUploadCoverPercent(percent);
+        },
+        headers: {
+          Authorization: `Bearer ${authContext.getLocalToken()}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        toast.success("کاور با موفقیت آپلود شد");
+        setUploadCover(res.data.path);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+  const uploadgalleryProduct = async (url, data, savePath) => {
     await axios
-        .post(url, data, {
-          onUploadProgress:progress=>{
-            const percent=Math.round((progress.loaded/progress.total)*100)
-            setUploadGalleriesPercent(percent)
-          },
-          headers: {
-            "Authorization": `Bearer ${localStorageData.token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          toast.success("عکس های محصول با موفقیت آپلود شد")
-          setUploadGalleries(res.data.galleryArray)
-        }
-        
-        )
-        .catch(async(err) => {
-          if (err.response.status === 401 ||err.response.status === 403) {
-           await authContext.getRefreshToken();
-           await axios
-           .post(url, data, {
-            onUploadProgress:progress=>{
-              const percent=Math.round((progress.loaded/progress.total)*100)
-              setUploadGalleriesPercent(percent)
-            },
-             headers: {
-               "Authorization": `Bearer ${localStorageData.token}`,
-               "Content-Type": "multipart/form-data",
-             },
-           }).then(res=>{
-            toast.success("عکس های محصول با موفقیت آپلود شد")
-            setUploadGalleries(res.data.galleryArray)
-           })
-           .catch(err=>console.log(err))
-          } else {
-            console.log("err", err);
-          }
-        })
-  }
-
+      .post(url, data, {
+        onUploadProgress: (progress) => {
+          const percent = Math.round((progress.loaded / progress.total) * 100);
+          setUploadGalleriesPercent(percent);
+        },
+        headers: {
+          Authorization: `Bearer ${authContext.getLocalToken()}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        toast.success("عکس های محصول با موفقیت آپلود شد");
+        setUploadGalleries(res.data.galleryArray);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
 
   const uploading = (files, segment) => {
     if (segment === "productCover") {
       const coverData = new FormData();
       coverData.append("image", files[0]);
-      uploadCoverProduct("http://localhost:8000/upload/prodimg",coverData)
+      uploadCoverProduct("upload/prodimg", coverData);
     } else {
       const galleryData = new FormData();
       for (const item of files) {
         galleryData.append("images", item);
       }
-      uploadgalleryProduct("http://localhost:8000/upload/prodgallery",galleryData)
-
+      uploadgalleryProduct("upload/prodgallery", galleryData);
     }
   };
   switch (props.type) {
@@ -206,6 +160,13 @@ function FormControl({ label, icon, ref, ...props }) {
                 value=""
               />
             </div>
+            <div className="flex" style={{margin:"2rem 0",width:"100%",display:"flex"}}>
+              {field.name==="productCover"? uploadCover && uploadCover.map((item,index)=>{
+                <img src={item} style={{width:"20rem",height:"20rem"}} alt="" key={index+1}/>
+              }):field.name==="productGallery"?uploadGalleries && uploadGalleries.map((item,index)=>{
+                <img src={item} style={{width:"20rem"}} alt="" key={index+1}/>
+              }):null}
+            </div>
             {meta.touched && meta.error && (
               <span className="auth__error">{meta.error}</span>
             )}
@@ -216,7 +177,15 @@ function FormControl({ label, icon, ref, ...props }) {
               meta.value && "uploader__progress--show"
             }`}
           >
-            <div className="uploader__progressbar" style={{width:field.name==="productCover"?`${uploadCoverPercent}%`:`${uploadGalleriesPercent}%`}}></div>
+            <div
+              className="uploader__progressbar"
+              style={{
+                width:
+                  field.name === "productCover"
+                    ? `${uploadCoverPercent}%`
+                    : `${uploadGalleriesPercent}%`,
+              }}
+            ></div>
           </div>
           <button
             onClick={() => uploading(meta.value, field.name)}
@@ -227,7 +196,6 @@ function FormControl({ label, icon, ref, ...props }) {
         </>
       );
     }
-
 
     case "email":
     case "text": {

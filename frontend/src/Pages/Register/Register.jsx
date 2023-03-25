@@ -35,7 +35,7 @@ export default function Register() {
           pwd: values.registerPassword,
         };
         axios
-          .post("http://localhost:8000/auth/register", userData)
+          .post("auth/register", userData)
           .then((res) => {
             if (res.statusText) {
               toast.success(persianTexts.register.registerSuccess, {

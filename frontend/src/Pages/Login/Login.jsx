@@ -13,7 +13,7 @@ import FormControl from "../../components/FormControl/FormControl";
 // validator
 import { LoginSchema } from "../../components/Validator/Validator";
 // contexts
-import AuthContext from "../../Context/AuthContext";
+import {AuthContext} from "../../Context/AuthContext";
 // persian texts
 import { persianTexts } from "../../text";
 // style
@@ -37,26 +37,16 @@ export default function Login() {
           pwd: values.loginPassword,
         };
         await axios
-          .post("http://localhost:8000/auth/login", userData)
+          .post("auth/login", userData)
           .then((res) => {
             if (res.status===200) {
-              toast.success(persianTexts.login.logginSuccess, {
-              });
+              toast.success(persianTexts.login.logginSuccess);
               authContext.login(res.data.accessToken);
               navigate("/");
             }
           })
           .catch((err) => {
-            toast.error(persianTexts.login.logginError, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            toast.error(persianTexts.login.logginError);
           })
           .finally(
             resetForm()

@@ -6,7 +6,7 @@ import "./SuggestedProductBox.css";
 
 export default function SuggestedProductBox(props) {
   const {id,title,cover,productPrice,currentPrice,link,offerTime,percent}=props
-  console.log("props",props)
+  // console.log("props",props)
   return (
     <div className="productBox">
       <h2 className="suggestedproduct__title">

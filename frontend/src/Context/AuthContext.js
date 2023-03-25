@@ -8,40 +8,31 @@ export const AuthContext = createContext({
   token: null,
   login: () => {},
   logout: () => {},
-  getRefreshToken: () => {},
+  setLocalToken: () => {},
+  getLocalToken: () => {},
+  removeLocalToken: () => {},
 });
-const AuthContextProvider = props => {
+
+const AuthContextProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfos, setUserInfos] = useState(null);
   const [token, setToken] = useState(null);
 
-  const login = (token) => {
+  const setLocalToken = (token) =>
     localStorage.setItem("user", JSON.stringify({ token }));
+  const getLocalToken = () => JSON.parse(localStorage.getItem("user")).token;
+  const removeLocalToken = () => localStorage.removeItem("user");
+
+  const login = (token) => {
+    setLocalToken(token);
     setToken(token);
     setIsLogin(true);
   };
   const logout = () => {
     setIsLogin(false);
     setToken(null);
-    setUserInfos(null);
+    removeLocalToken();
   };
-  const getRefreshToken = async () => {
-    await axios
-      .get("http://localhost:8000/auth/refresh")
-      .then((res) => {
-        const token = res.data.accessToken;
-        localStorage.setItem("user", JSON.stringify({ token }));
-      })
-      .catch((err) => console.log(err));
-  };
-  useEffect(() => {
-    const localStorageData = localStorage.getItem("user");
-    if (localStorageData) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  }, [login, logout]);
   return (
     <AuthContext.Provider
       value={{
@@ -49,9 +40,13 @@ const AuthContextProvider = props => {
         token,
         login,
         logout,
-        getRefreshToken,
+        setLocalToken,
+        getLocalToken,
+        removeLocalToken,
       }}
-    >{props.children}</AuthContext.Provider>
+    >
+      {children}
+    </AuthContext.Provider>
   );
 };
 
