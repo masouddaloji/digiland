@@ -3,363 +3,55 @@ import React, { useContext, useRef, useState } from "react";
 import { Field, useField, useFormikContext } from "formik";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 // components
 import Validator from "../Validator/Validator";
 import { persianTexts } from "../../text";
+import Uploader from "./Uploader";
+import PasswordInput from "./PasswordInput";
+import Input from "./Input";
+import SelectBox from "./SelectBox";
+import Textarea from "./Textarea";
+import CheckBox from "./CheckBox";
+import Editor from "./Editor";
+
 // contexts
 import { AuthContext } from "../../Context/AuthContext";
 // icons
-import { BiHide, BiShow } from "react-icons/bi";
 import { FiChevronDown } from "react-icons/fi";
 
 // styles
 import "./FormControl.css";
-import { toast } from "react-toastify";
 
-function FormControl({ label, icon, ref, ...props }) {
-  const [field, meta, helpers] = useField(props);
-  const { setFieldValue } = useFormikContext();
-  const [isShowPassword, setIsShowPassword] = useState(false);
-  const [preview, setPreview] = useState([]);
-  const [isShowCheckBox, setIsShowCheckBox] = useState(false);
-  const [percentage, setPercentage] = useState(null);
-  const [uploadCover, setUploadCover] = useState([]);
-  const [uploadGalleries, setUploadGalleries] = useState([]);
-  const [uploadCoverPercent, setUploadCoverPercent] = useState(null);
-  const [uploadGalleriesPercent, setUploadGalleriesPercent] = useState(null);
-  const inputRef = useRef();
-  const passwordRef = useRef();
-  const uploaderRef = useRef();
-  const checkboxRef = useRef();
-  const authContext = useContext(AuthContext);
 
-  const uploadHandler = (event) => {
-    let files = event.target.files;
-    let arrayFiles = Array.from(files);
-    setFieldValue(field.name, arrayFiles);
-  };
 
-  const uploadCoverProduct = async (url, data) => {
-    await axios
-      .post(url, data, {
-        onUploadProgress: (progress) => {
-          const percent = Math.round((progress.loaded / progress.total) * 100);
-          setUploadCoverPercent(percent);
-        },
-        headers: {
-          Authorization: `Bearer ${authContext.getLocalToken()}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        toast.success("کاور با موفقیت آپلود شد");
-        setUploadCover(res.data.path);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  };
-  const uploadgalleryProduct = async (url, data, savePath) => {
-    await axios
-      .post(url, data, {
-        onUploadProgress: (progress) => {
-          const percent = Math.round((progress.loaded / progress.total) * 100);
-          setUploadGalleriesPercent(percent);
-        },
-        headers: {
-          Authorization: `Bearer ${authContext.getLocalToken()}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        toast.success("عکس های محصول با موفقیت آپلود شد");
-        setUploadGalleries(res.data.galleryArray);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  };
+function FormControl(props) {
 
-  const uploading = (files, segment) => {
-    if (segment === "productCover") {
-      const coverData = new FormData();
-      coverData.append("image", files[0]);
-      uploadCoverProduct("upload/prodimg", coverData);
-    } else {
-      const galleryData = new FormData();
-      for (const item of files) {
-        galleryData.append("images", item);
-      }
-      uploadgalleryProduct("upload/prodgallery", galleryData);
-    }
-  };
   switch (props.type) {
     case "password": {
-      return (
-        <div className="formControl__wrapper">
-          {label && (
-            <label htmlFor={field.name} className="formControl__label">
-              {label}
-            </label>
-          )}
-          <div className="formControl__box">
-            <input
-              ref={passwordRef}
-              className={`input ${
-                meta.touched && meta.error ? "formControl--invalid" : undefined
-              }`}
-              autoComplete="off"
-              id={field.name}
-              {...props}
-              {...field}
-              type={isShowPassword ? "text" : "password"}
-            />
-            {!isShowPassword ? (
-              <BiShow
-                className="formControl__icon"
-                onClick={() => setIsShowPassword(!isShowPassword)}
-              />
-            ) : (
-              <BiHide
-                className="formControl__icon"
-                onClick={() => setIsShowPassword(!isShowPassword)}
-              />
-            )}
-            {meta.touched && meta.error && (
-              <span className="auth__error">{meta.error}</span>
-            )}
-          </div>
-        </div>
-      );
+      return <PasswordInput {...props}/>
     }
 
     case "file": {
-      return (
-        <>
-          <div className="formControl__wrapper">
-            <div
-              className={`uploader ${
-                meta.touched && meta.error ? "formControl--invalid" : undefined
-              }`}
-              ref={uploaderRef}
-            >
-              <label htmlFor={field.name} className="uploader__label">
-                {icon ? icon : null}
-                {props.placeholder}
-              </label>
-
-              <input
-                type="file"
-                id={field.name}
-                className={`uploader__input `}
-                {...props}
-                {...field}
-                onChange={uploadHandler}
-                value=""
-              />
-            </div>
-            <div className="flex" style={{margin:"2rem 0",width:"100%",display:"flex"}}>
-              {field.name==="productCover"? uploadCover && uploadCover.map((item,index)=>{
-                <img src={item} style={{width:"20rem",height:"20rem"}} alt="" key={index+1}/>
-              }):field.name==="productGallery"?uploadGalleries && uploadGalleries.map((item,index)=>{
-                <img src={item} style={{width:"20rem"}} alt="" key={index+1}/>
-              }):null}
-            </div>
-            {meta.touched && meta.error && (
-              <span className="auth__error">{meta.error}</span>
-            )}
-          </div>
-
-          <div
-            className={`uploader__progress ${
-              meta.value && "uploader__progress--show"
-            }`}
-          >
-            <div
-              className="uploader__progressbar"
-              style={{
-                width:
-                  field.name === "productCover"
-                    ? `${uploadCoverPercent}%`
-                    : `${uploadGalleriesPercent}%`,
-              }}
-            ></div>
-          </div>
-          <button
-            onClick={() => uploading(meta.value, field.name)}
-            className={`uploader__btn ${meta.value && "uploader__btn--show"}`}
-          >
-            آپلود
-          </button>
-        </>
-      );
+     return <Uploader {...props}  />;
+     
     }
 
     case "email":
     case "text": {
-      return (
-        <div className="formControl__wrapper">
-          {label && (
-            <label htmlFor={field.name} className="formControl__label">
-              {label}
-            </label>
-          )}
-          <div className="formControl__box">
-            <input
-              ref={inputRef}
-              className={`input ${
-                meta.touched && meta.error ? "formControl--invalid" : undefined
-              }`}
-              autoComplete="off"
-              id={field.name}
-              {...props}
-              {...field}
-            />
-            {icon ? icon : null}
-            {meta.touched && meta.error && (
-              <span className="auth__error">{meta.error}</span>
-            )}
-          </div>
-        </div>
-      );
+      return <Input {...props} />
     }
     case "select": {
-      return (
-        <div className="formControl__wrapper">
-          {label && (
-            <label htmlFor={field.name} className="formControl__label">
-              {label}
-            </label>
-          )}
-          <div className="formControl__box">
-            <Field
-              as="select"
-              className={`select ${
-                meta.touched && meta.error ? "formControl--invalid" : undefined
-              }`}
-              id={field.name}
-              {...props}
-              {...field}
-            >
-              {props.options &&
-                props.options.map((option) => (
-                  <option
-                    disabled={option.value === "" ? true : false}
-                    key={option.value}
-                    value={option.value}
-                    className="option"
-                  >
-                    {option.text}
-                  </option>
-                ))}
-            </Field>
-            {icon ? icon : null}
-            {meta.touched && meta.error && (
-              <span className="auth__error">{meta.error}</span>
-            )}
-          </div>
-        </div>
-      );
+      return <SelectBox {...props}/>
     }
     case "textarea": {
-      return (
-        <div className="formControl__wrapper">
-          {label && (
-            <label htmlFor={field.name} className="formControl__label">
-              {label}
-            </label>
-          )}
-          <div className="formControl__box">
-            <textarea
-              className={`textarea ${
-                meta.touched && meta.error ? "formControl--invalid" : undefined
-              }`}
-              autoComplete="off"
-              id={field.name}
-              {...props}
-              {...field}
-            />
-            {icon ? icon : null}
-            {meta.touched && meta.error && (
-              <span className="auth__error">{meta.error}</span>
-            )}
-          </div>
-        </div>
-      );
+      return <Textarea {...props} />
     }
     case "checkbox": {
-      return (
-        <div className="formControl__wrapper">
-          {label && (
-            <label htmlFor={field.name} className="formControl__label">
-              {label}
-            </label>
-          )}
-          <div className="formControl__box">
-            <ul
-              className={`checkbox__lists ${
-                meta.touched && meta.error ? "formControl--invalid" : ""
-              }`}
-            >
-              {props.options &&
-                props.options.map((option) => (
-                  <li className="checkbox__item" key={option.value}>
-                    <Field
-                      className="checkboxInput"
-                      value={option.value}
-                      style={{
-                        backgroundColor: option.color,
-                      }}
-                      name={field.name}
-                      type="checkbox"
-                      id={option.value}
-                      title={option.text}
-                    />
-                  </li>
-                ))}
-            </ul>
-
-            {meta.touched && meta.error && (
-              <span className="auth__error">{meta.error}</span>
-            )}
-          </div>
-        </div>
-      );
+      return <CheckBox {...props}/>
     }
     case "editor": {
-      return (
-        <div className="formControl__wrapper">
-          {label && (
-            <label htmlFor={field.name} className="formControl__label">
-              {label}
-            </label>
-          )}
-          {/* <div className={`editor__box ${meta.touched && meta.error ? "formControl--invalid":""}`}> */}
-          <CKEditor
-            editor={ClassicEditor}
-            data={field.value}
-            {...props}
-            {...field}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              setFieldValue(field.name, data);
-              console.log({ event, editor, data });
-            }}
-            onBlur={(event, editor) => {
-              meta.touched = true;
-            }}
-            // onFocus={ ( event, editor ) => {
-            //     console.log( 'Focus.', editor );
-            // } }
-          />
-          {/* </div> */}
-          {meta.touched && meta.error && (
-            <span className="auth__error">{meta.error}</span>
-          )}
-        </div>
-      );
+      return <Editor {...props} />
     }
     // case "password":
     //   break;
@@ -368,7 +60,6 @@ function FormControl({ label, icon, ref, ...props }) {
       return null;
   }
 
-  // return <div className="formControl__wrapper">{element}</div>;
 }
 
 export default FormControl;

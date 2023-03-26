@@ -21,7 +21,7 @@ axios.interceptors.response.use(
     } else if (err.response.status === 401) {
       try {
         await axios
-          .get("auth/refresh")
+          .get("auth/refresh",{withCredentials:true})
           .then((res) => {
             const token = res.data.accessToken;
             localStorage.setItem("user", JSON.stringify({ token }));
