@@ -10,7 +10,6 @@ import { MdOutlineDriveFolderUpload } from "react-icons/md";
 const Uploader = (props) => {
   const [field, meta, helpers] = useField(props);
   const { setFieldValue } = useFormikContext();
-  const [uploadImage, setUploadImage] = useState([]);
   const [previewImage, setPreviewImage] = useState([]);
   const [uploadImagePercent, setUploadImagePercent] = useState(null);
   const [resultUpload, setResultUpload] = useState(false);
@@ -18,12 +17,14 @@ const Uploader = (props) => {
   const authContext = useContext(AuthContext);
 
   const uploadHandler = (event) => {
+    event.preventDefault()
     let files = event.target.files;
     let arrayFiles = Array.from(files);
     setFieldValue(field.name, arrayFiles);
   };
 
   const uploadProduct = async (url, data) => {
+  
     await axios
       .post(url, data, {
         onUploadProgress: (progress) => {
@@ -38,9 +39,9 @@ const Uploader = (props) => {
       .then((res) => {
         setResultUpload(true);
         if (props.multiple) {
-          setUploadImage(res.data.galleryArray);
+          sendUploadUrl(res.data.galleryArray,"multi");
         } else {
-          setUploadImage(res.data.path);
+          sendUploadUrl(res.data.path,"single");
         }
       })
       .catch((err) => {
@@ -48,7 +49,8 @@ const Uploader = (props) => {
       });
   };
 
-  const uploading =  (files) => {
+  const uploading =  (e,files) => {
+    e.preventDefault()
     if (!props.multiple) {
       const coverData = new FormData();
        coverData.append("image", files[0]);
@@ -65,6 +67,10 @@ const Uploader = (props) => {
       uploadProduct("upload/prodgallery", galleryData);
     }
   };
+
+  const sendUploadUrl=(url,type)=>{
+    props.saveUploadHandler(url,type)
+  }
   return (
     <>
       <div className="formControl__wrapper">
@@ -107,7 +113,7 @@ const Uploader = (props) => {
       </div>
  
       <button
-        onClick={() => uploading(meta.value)}
+        onClick={(e) => uploading(e,meta.value)}
         className={`uploader__btn ${meta.value && "uploader__btn--show"}`}
       >
         آپلود

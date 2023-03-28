@@ -1,22 +1,27 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 // variables
 import { persianTexts } from "../../../text";
 // components
 import FormControl from "../../FormControl/FormControl";
 
-// library
+// packages
+import axios from "axios";
 import { Form, Formik } from "formik";
 // icons
 import { MdUploadFile, MdOutlineDriveFolderUpload } from "react-icons/md";
 // validator
 import { addProductsSchema } from "../../Validator/Validator";
+// contexts
+import { AuthContext } from "../../../Context/AuthContext";
 // styles
 import "./AddProduct.css";
+import { toast } from "react-toastify";
 
 const AddProduct = () => {
+  const authContext = useContext(AuthContext);
   const uploadRef = useRef();
-  const [uploadCoverImage, setUploadCoverImage] = useState(null);
-  const [uploadGalleryImages, setUploadGalleryImages] = useState(null);
+  const [cover, setCover] = useState(null);
+  const [gallery, setGallery] = useState([]);
   const ratingOptions = [
     { value: "", text: "لطفا امتیاز محصول را انتخاب کنید" },
     { value: 1, text: "بد" },
@@ -34,6 +39,23 @@ const AddProduct = () => {
     { value: "white", text: "سفید", color: "#FFF" },
     { value: "pink", text: "صورتی", color: "#FF69B4" },
   ];
+  const saveUploadHandler = (values, type) => {
+    console.log(values, type);
+    switch (type) {
+      case "multi": {
+        setGallery(values);
+        break;
+      }
+
+      case "single": {
+        setCover(values);
+        break;
+      }
+
+      default:
+        break;
+    }
+  };
   return (
     <Formik
       initialValues={{
@@ -52,9 +74,36 @@ const AddProduct = () => {
         productGallery: null,
       }}
       validationSchema={addProductsSchema}
-      onSubmit={(values, { resetForm }) => {
-        console.log(values);
-        resetForm();
+      onSubmit={async (values, { resetForm }) => {
+        const formdata = new FormData();
+        formdata.append("title", values.productTitle);
+        formdata.append("segment", values.productSegment);
+        formdata.append("image", cover);
+        formdata.append("gallery", gallery);
+        formdata.append("offPrice", values.productOffPrice);
+        formdata.append("price", values.productPrice);
+        formdata.append("rating", values.productRating);
+        formdata.append("quantity", values.productQantity);
+        formdata.append("colors", values.productColors);
+        formdata.append("category", values.productCategory);
+        formdata.append("shortDescription", values.productShortDescription);
+        formdata.append("fullDescription", values.productFullDescription);
+        formdata.append("brand", values.productBrand);
+
+        await axios
+          .post("products", formdata, {
+            headers: { Authorization: `Bearer ${authContext.getLocalToken()}`, "Content-Type":"application/json"},
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              toast.success("محصول با موفقیت افزوده شد");
+            }
+          })
+          .catch((err) => {
+            toast.error("ثبت محصول با خطا مواجه شد");
+            console.log(err);
+          })
+          .finally(resetForm());
       }}
     >
       {(formik) => (
@@ -192,20 +241,7 @@ const AddProduct = () => {
                       name="productShortDescription"
                     />
                   </div>
-                  {/* <div className="col-12">
-                    <FormControl
-                      label={
-                        persianTexts.admin.products.label
-                          .inputLabelFullDescription
-                      }
-                      placeHolder={
-                        persianTexts.admin.products.placeholder
-                          .inputPlaceholderFullDescription
-                      }
-                      type="textarea"
-                      name="productFullDescription"
-                    />
-                  </div> */}
+
                   <div className="col-12">
                     <FormControl
                       label={
@@ -233,7 +269,7 @@ const AddProduct = () => {
                       accept="image/*"
                       name="productCover"
                       icon={<MdUploadFile className="uploader__icon" />}
-                      saved={setUploadCoverImage}
+                      saveUploadHandler={saveUploadHandler}
                     />
                   </div>
                   <div className="col-md-6">
@@ -252,7 +288,7 @@ const AddProduct = () => {
                       accept="image/*"
                       name="productGallery"
                       multiple
-                      saved={setUploadGalleryImages}
+                      saveUploadHandler={saveUploadHandler}
                     />
                   </div>
                 </div>

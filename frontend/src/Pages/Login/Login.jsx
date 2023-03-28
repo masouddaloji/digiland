@@ -12,18 +12,19 @@ import { FiUserPlus } from "react-icons/fi";
 import FormControl from "../../components/FormControl/FormControl";
 // validator
 import { LoginSchema } from "../../components/Validator/Validator";
-// contexts
-import {AuthContext} from "../../Context/AuthContext";
+
 // persian texts
 import { persianTexts } from "../../text";
+// hooks
+import useAuth from "../../hooks/useAuth";
 // style
 import "./Login.css";
 
 export default function Login() {
   const inputRef = useRef();
-  const authContext = useContext(AuthContext);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
+const{setAuth}=useAuth
   return (
     <Formik
       initialValues={{
@@ -31,26 +32,20 @@ export default function Login() {
         loginPassword: "",
       }}
       validationSchema={LoginSchema}
-      onSubmit={ async(values, { resetForm }) => {
+      onSubmit={async (values, { resetForm }) => {
         const userData = {
           email: values.loginUserName,
           pwd: values.loginPassword,
         };
-        await axios
-          .post("auth/login", userData)
-          .then((res) => {
-            if (res.status===200) {
-              toast.success(persianTexts.login.logginSuccess);
-              authContext.login(res.data.accessToken);
-              navigate("/");
-            }
-          })
-          .catch((err) => {
-            toast.error(persianTexts.login.logginError);
-          })
-          .finally(
-            resetForm()
-          )
+        const response = await axios.post("auth/login", userData);
+        if (response?.status === 200) {
+          toast.success(persianTexts.login.logginSuccess);
+          setAuth(prev=>({...prev,token:response.data.accessToken,isLogin:true}))
+          navigate("/");
+          resetForm();
+        } else {
+          toast.error(persianTexts.login.logginError);
+        }
       }}
     >
       {(formik) => (
@@ -98,10 +93,7 @@ export default function Login() {
                     >
                       ورود
                     </button>
-                    <button
-                      type="submit"
-                      className="login__btn login__btn--forget"
-                    >
+                    <button type="submit" className="login__forget">
                       فراموشی گذرواژه
                     </button>
                   </div>

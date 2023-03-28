@@ -18,55 +18,28 @@ import { persianTexts } from "../../text";
 import "./Register.css";
 
 export default function Register() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   return (
     <Formik
       initialValues={{
-        // registerPhoneNumber: "",
-        // registerUserName: "",
         registerEmail: "",
         registerPassword: "",
         registerConfirmPassword: "",
       }}
       validationSchema={RegisterSchema}
-      onSubmit={(values, { resetForm }) => {
+      onSubmit={async (values, { resetForm }) => {
         const userData = {
           email: values.registerEmail,
           pwd: values.registerPassword,
         };
-        axios
-          .post("auth/register", userData)
-          .then((res) => {
-            if (res.statusText) {
-              toast.success(persianTexts.register.registerSuccess, {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-              navigate("/login")
-            }
-          })
-          .catch((err) => {
-            toast.error(persianTexts.register.registerError, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          })
-          .finally(
-            resetForm()
-          )
-
+        const response = await axios.post("auth/register", userData);
+        if (response?.status === 200) {
+          toast.success(persianTexts.register.registerSuccess);
+          resetForm();
+          navigate("/login");
+        } else {
+          toast.error(persianTexts.register.registerError);
+        }
       }}
     >
       {(formik) => (
@@ -83,23 +56,6 @@ export default function Register() {
 
               <h4 className="auth__title">ثبت نام</h4>
               <Form className="auth__form">
-                {/* <FormControl
-               type="text"
-               label="شماره موبایل"
-               name="registerPhoneNumber"
-               icon=<HiOutlineDevicePhoneMobile className="formControl__icon" />
-
-
-             /> */}
-                {/* <FormControl
-               type="text"
-               label="نام کاربری"
-               name="registerUserName"
-               icon=<IoPersonOutline className="formControl__icon" />
-
-
-             /> */}
-
                 <FormControl
                   type="email"
                   label="ایمیل"

@@ -7,7 +7,7 @@ const Textarea = (props) => {
   return (
     <div className="formControl__wrapper">
       {props.label && (
-        <label htmlFor={field.name} className="formControl__label">
+        <label htmlFor={field.name} className={`formControl__label ${meta.touched && meta.error?"label--invalid":undefined}`}>
           {props.label}
         </label>
       )}

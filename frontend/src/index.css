@@ -167,8 +167,9 @@ a{
   --border-box: 0.5rem;
   --gold: #ffd300;
   /* --blue: #0183ff; */
-  --blue: #1463F3;
-  --blue-hover:#2343F2;
+  --blue: #1F75FE;
+  /* --blue-hover:#2343F2; */
+  --blue-hover:#0000D1;
   --green:#00cc67;
   --error-text: #e4b7b9;
   --gray:#eee;
@@ -178,10 +179,12 @@ a{
   --gray-25: #C0C0C0;
   --red:#c00;
   --red-50: #fee2e2;
-  --border-btn:1.5rem;
+  --border-btn:2.5rem;
   --box-shadow:0 5px 10px rgba(0,0,0,.1);
   --black-50:#1d1d1d;
   --admin-main:#00001c;
+  --linear:linear-gradient(45deg, #00BFFF,#007FFF, var(--blue-hover));
+  /* --linear--hover:linear-gradient(45deg,var(--blue-hover), #007FFF); */
   /* --admin-main:#234099; */
 }
 /* end variabels */
@@ -229,7 +232,7 @@ a {
 .auth{
   width: 100%;
   height: 100vh;
-  background: linear-gradient(90deg, var(--blue), var(--blue-hover));
+  background:var(--linear);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -238,8 +241,12 @@ a {
   width: 36rem;
   background: var(--white);
   border-radius: var(--border-box);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3) ;
-  overflow: hidden;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.5) ;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.auth__wrapper::-webkit-scrollbar{
+  display: none;
 }
 .auth__content{
   width: 100%;

@@ -1,23 +1,22 @@
 .register__btn{
     display: block;
     color: var(--white);
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-    border-radius: var(--border-box);
+    height: 4rem;
+    border-radius: var(--border-btn);
     border:none;
     outline: none;
-    margin:1.6rem 0 .8rem 0;
-    
-    transition: all .3s;
+    margin:1rem 0;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
   }
 .register__btn--active{
-    background: var(--blue);
+    background: var(--linear);
     cursor: pointer;
+    transition: all .3s;
+
   }
   .register__btn--disable{
     background: #848484;
   }
   .register__btn--active:hover{
     background: var(--blue-hover);
-    box-shadow: 0 1px 3px var(--blue-hover);
   }

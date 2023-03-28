@@ -1,13 +1,20 @@
 import React from "react";
 // packages
 import { Field, useField, useFormikContext } from "formik";
+// icons
+import {HiChevronDown} from 'react-icons/hi'
 
 const SelectBox = (props) => {
   const [field, meta, helpers] = useField(props);
   return (
     <div className="formControl__wrapper">
       {props.label && (
-        <label htmlFor={field.name} className="formControl__label">
+        <label
+          htmlFor={field.name}
+          className={`formControl__label ${
+            meta.touched && meta.error ? "label--invalid" : undefined
+          }`}
+        >
           {props.label}
         </label>
       )}
@@ -33,11 +40,11 @@ const SelectBox = (props) => {
               </option>
             ))}
         </Field>
-        {props.icon ? props.icon : null}
-        {meta.touched && meta.error && (
-          <span className="auth__error">{meta.error}</span>
-        )}
+        <HiChevronDown className="select__icon"/>
       </div>
+      {meta.touched && meta.error && (
+        <span className="auth__error">{meta.error}</span>
+      )}
     </div>
   );
 };
