@@ -8,7 +8,7 @@ const AuthContextProvider = ({ children }) => {
   const[auth,setAuth]=useState({
     token:null,
     isLogin:false,
-
+    role:null
   })
 
 

@@ -1,11 +1,12 @@
+// packages
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default axios.create({
     baseURL : "http://localhost:8000/",
 })
-export const axiosInterceptor=axios.create({
+export const privateAxios=axios.create({
     baseURL : "http://localhost:8000/",
-    headers:{"Content-Type":"application/json"},
     withCredentials:true
 })
 axios.interceptors.request.use(res=>res,async (err)=>{

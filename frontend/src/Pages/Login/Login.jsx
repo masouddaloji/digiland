@@ -1,15 +1,16 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 // Packages
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
-import axios from "axios";
+import jwt_decode from "jwt-decode";
 // icons
 import { BiShow } from "react-icons/bi";
 import { MdAlternateEmail } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
 // components
 import FormControl from "../../components/FormControl/FormControl";
+import axios from "../../api/Axios";
 // validator
 import { LoginSchema } from "../../components/Validator/Validator";
 
@@ -21,10 +22,13 @@ import useAuth from "../../hooks/useAuth";
 import "./Login.css";
 
 export default function Login() {
-  const inputRef = useRef();
+  const userNameRef = useRef();
 
   const navigate = useNavigate();
-const{setAuth}=useAuth
+  const { setAuth } = useAuth;
+  useEffect(() => {
+    // userNameRef.current.focus()
+  }, []);
   return (
     <Formik
       initialValues={{
@@ -33,19 +37,49 @@ const{setAuth}=useAuth
       }}
       validationSchema={LoginSchema}
       onSubmit={async (values, { resetForm }) => {
-        const userData = {
+      
+          const userData = {
           email: values.loginUserName,
           pwd: values.loginPassword,
-        };
-        const response = await axios.post("auth/login", userData);
-        if (response?.status === 200) {
-          toast.success(persianTexts.login.logginSuccess);
-          setAuth(prev=>({...prev,token:response.data.accessToken,isLogin:true}))
-          navigate("/");
-          resetForm();
-        } else {
-          toast.error(persianTexts.login.logginError);
         }
+          const response = await axios.post("auth/login", userData, {
+            withCredentials: true,
+          });
+          if(response?.status===200){
+            toast.success(persianTexts.login.logginSuccess)
+             const decode = jwt_decode(response.data.accessToken);
+             setAuth((prev) => ({
+               ...prev,
+               token: response.data.accessToken,
+               isLogin: true,
+               role: decode.role,
+             }))
+             resetForm()
+             decode.role === "superAdmin" || "admin"
+               ? navigate("/adminpanel/dashboard")
+               : navigate("/")
+          }else{
+            toast.error(persianTexts.login.logginError)
+          }
+        // try {
+        //   response.status === 200 &&
+        //     toast.success(persianTexts.login.logginSuccess)
+        //     const decode = await jwt_decode(response?.data?.accessToken);
+        //     setAuth((prev) => ({
+        //       ...prev,
+        //       token: response.data.accessToken,
+        //       isLogin: true,
+        //       role: decode.role,
+        //     }));
+        //     decode.role === "superAdmin" || "admin"
+        //       ? navigate("/adminpanel/dashboard")
+        //       : navigate("/");
+          
+        // } catch (err) {
+        //   toast.error(persianTexts.login.logginError);
+        // } finally {
+        //   resetForm();
+        // }
       }}
     >
       {(formik) => (
@@ -67,6 +101,7 @@ const{setAuth}=useAuth
                     type="text"
                     label="نام کاربری"
                     name="loginUserName"
+                    ref={userNameRef}
                     icon=<MdAlternateEmail className="formControl__icon" />
                   />
                   <FormControl
