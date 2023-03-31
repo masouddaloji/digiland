@@ -1,10 +1,11 @@
+import { Children } from "react";
+// components
 import Index from "./Pages/HomePage/Index";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Category from "./Pages/Category/Category";
 import ProductsCategory from "./Pages/ProductsCategory/ProductsCategory";
 import CategorizedProducts from "./Pages/CategorizedProducts/CategorizedProducts";
-import { Children } from "react";
 import Product from "./Pages/Product/Product";
 import UserBasket from "./Pages/UserBasket/UserBasket";
 import Cart from "./components/userBasket/userCart/Cart";
@@ -18,6 +19,7 @@ import AdminOrders from "./components/adminPanel/AdminOrders/AdminOrders";
 import AdminArticles from "./components/adminPanel/AdminArticles/AdminArticles";
 import AddProduct from "./components/adminPanel/AddProduct/AddProduct";
 import UserPanel from "./Pages/UserPanel/Index";
+import PersistLogin from "./components/PersistLogin/PersistLogin";
 
 const routes = (products, categories) => [
   { path: "/", element: <Index /> },
@@ -38,11 +40,14 @@ const routes = (products, categories) => [
   { path: "/product/:productId", element: <Product /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
-  { path: "/userpanel",
-  element: <UserPanel />,},
+  { path: "/userpanel", element: <UserPanel />,},
   {
     path: "/adminpanel",
-    element: <AdminPanel />,
+    element: 
+    <PersistLogin>
+    <AdminPanel />
+    </PersistLogin>
+    ,
     children: [
       { path: "dashboard", element: <MainAdmin /> },
       { path: "products", element: <AdminProducts /> },

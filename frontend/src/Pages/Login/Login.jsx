@@ -25,7 +25,7 @@ export default function Login() {
   const userNameRef = useRef();
 
   const navigate = useNavigate();
-  const { setAuth } = useAuth;
+  const { setAuth } = useAuth();
   useEffect(() => {
     // userNameRef.current.focus()
   }, []);
@@ -46,14 +46,14 @@ export default function Login() {
             withCredentials: true,
           });
           if(response?.status===200){
-            toast.success(persianTexts.login.logginSuccess)
-             const decode = jwt_decode(response.data.accessToken);
+             const accessToken=response?.data?.accessToken
+             const decode = jwt_decode(accessToken)
              setAuth((prev) => ({
                ...prev,
-               token: response.data.accessToken,
+               token:accessToken,
                isLogin: true,
-               role: decode.role,
              }))
+            toast.success(persianTexts.login.logginSuccess)
              resetForm()
              decode.role === "superAdmin" || "admin"
                ? navigate("/adminpanel/dashboard")
