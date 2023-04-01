@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 // icons
 import { MdAlternateEmail } from "react-icons/md";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 // components
 import FormControl from "../../components/FormControl/FormControl";
@@ -66,11 +67,13 @@ export default function Register() {
                   type="password"
                   label="رمز عبور"
                   name="registerPassword"
+                  icon=<RiLockPasswordLine className="formControl__icon"/>
                 />
                 <FormControl
                   type="password"
                   label="تکرار رمز عبور"
                   name="registerConfirmPassword"
+                  icon=<RiLockPasswordLine className="formControl__icon"/>
                 />
 
                 <button

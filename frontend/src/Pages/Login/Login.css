@@ -1,8 +1,6 @@
 .login__checkbox {
-  height: 3rem;
   display: flex;
   align-items: center;
-  margin: 1rem 0;
 }
 .login__checkboxText {
   font-size: 1.1rem;
@@ -12,9 +10,11 @@
   margin-right: 0.5rem;
 }
 .login__btns {
-  margin-top: 0.8rem;
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.8rem;
+    margin: 1rem 0;
 }
 .login__btn {
   height: 4rem;
@@ -47,12 +47,12 @@
   font-size: 1.3rem;
   outline: none;
   background: transparent;
-  text-align: start;
-  margin: 1rem 0;
+  font-family:var(--Iran-bold)
+
 }
 
 .login__forget:hover {
-  color: var(--blue-hover);
+  color: var(--blue);
 
 }
 .login__divider {

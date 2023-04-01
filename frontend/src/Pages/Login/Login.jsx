@@ -5,12 +5,12 @@ import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import jwt_decode from "jwt-decode";
 // icons
-import { BiShow } from "react-icons/bi";
 import { MdAlternateEmail } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
+import { RiLockPasswordLine } from "react-icons/ri";
 // components
 import FormControl from "../../components/FormControl/FormControl";
-import axios from "../../api/Axios";
+import axios from "../../api/axios";
 // validator
 import { LoginSchema } from "../../components/Validator/Validator";
 
@@ -25,10 +25,16 @@ export default function Login() {
   const userNameRef = useRef();
 
   const navigate = useNavigate();
-  const { setAuth } = useAuth();
+  const { setAuth,persist,setPersist } = useAuth();
+  const persistHandler=()=>{
+    setPersist(prev=>!prev)
+  }
   useEffect(() => {
     // userNameRef.current.focus()
   }, []);
+  useEffect(()=>{
+    localStorage.setItem("persist",persist)
+  },[persist])
   return (
     <Formik
       initialValues={{
@@ -61,25 +67,7 @@ export default function Login() {
           }else{
             toast.error(persianTexts.login.logginError)
           }
-        // try {
-        //   response.status === 200 &&
-        //     toast.success(persianTexts.login.logginSuccess)
-        //     const decode = await jwt_decode(response?.data?.accessToken);
-        //     setAuth((prev) => ({
-        //       ...prev,
-        //       token: response.data.accessToken,
-        //       isLogin: true,
-        //       role: decode.role,
-        //     }));
-        //     decode.role === "superAdmin" || "admin"
-        //       ? navigate("/adminpanel/dashboard")
-        //       : navigate("/");
-          
-        // } catch (err) {
-        //   toast.error(persianTexts.login.logginError);
-        // } finally {
-        //   resetForm();
-        // }
+
       }}
     >
       {(formik) => (
@@ -108,15 +96,19 @@ export default function Login() {
                     type="password"
                     label="رمز عبور"
                     name="loginPassword"
-                    icon=<BiShow className="formControl__icon" />
+                    icon=<RiLockPasswordLine className="formControl__icon" />
                   />
+                    <div className="login__btns">
                   <div className="login__checkbox">
-                    <input type="checkbox" name="saveme" id="" />
+                    <input type="checkbox" name="saveme" id="" checked={persist} onChange={persistHandler}/>
                     <span className="login__checkboxText">
                       مرا به خاطر بسپار
                     </span>
                   </div>
-                  <div className="login__btns">
+                  <button type="submit" className="login__forget">
+                      فراموشی گذرواژه
+                    </button>
+                    </div>
                     <button
                       disabled={!(formik.dirty && formik.isValid)}
                       type="submit"
@@ -128,10 +120,8 @@ export default function Login() {
                     >
                       ورود
                     </button>
-                    <button type="submit" className="login__forget">
-                      فراموشی گذرواژه
-                    </button>
-                  </div>
+                   
+                  
                 </div>
                 <span className="login__divider">
                   <i>یا</i>

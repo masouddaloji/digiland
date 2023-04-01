@@ -8,7 +8,6 @@ import axios from "axios";
 import Validator from "../Validator/Validator";
 import { persianTexts } from "../../text";
 import Uploader from "./Uploader";
-import PasswordInput from "./PasswordInput";
 import Input from "./Input";
 import SelectBox from "./SelectBox";
 import Textarea from "./Textarea";
@@ -28,15 +27,12 @@ import "./FormControl.css";
 function FormControl(props) {
 
   switch (props.type) {
-    case "password": {
-      return <PasswordInput {...props}/>
-    }
 
     case "file": {
      return <Uploader {...props}  />;
      
     }
-
+    case "password":
     case "email":
     case "text": {
       return <Input {...props} />

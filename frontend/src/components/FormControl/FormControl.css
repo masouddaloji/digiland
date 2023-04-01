@@ -8,7 +8,8 @@
   font-size: 1.2rem;
   line-height: 1.2;
   color: #666;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   position: absolute;
   background: var(--white);
   padding: 0 1rem;
@@ -24,7 +25,7 @@
 }
 
 .uploader {
-  border: 1px solid var(--gray);
+  border: 2px solid var(--gray);
   border-radius: var(--border-box);
   box-shadow: 0 1.2rem 1rem -1rem rgba(0, 0, 0, 0.4);
   padding: 0.5rem 1rem;
@@ -125,14 +126,14 @@
 .checkbox {
   width: 100%;
   height: 4rem;
-  border: 1px solid var(--gray);
+  border: 2px solid var(--gray);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
   padding: 0.5rem 1.5rem;
   color: var(--black-50);
   font-size: 1.2rem;
   font-family: var(--Iran-bold);
   outline: none;
-  border-radius: var(--border-btn);
+  border-radius: var(--border-box);
 }
 .ck.ck-editor {
   outline: none;
@@ -171,7 +172,7 @@
   background: #fbfbfb;
   width: 100%;
   height: 4rem;
-  border: 1px solid var(--gray);
+  border: 2px solid var(--gray);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
   padding: 0.5rem 1.5rem;
   color: var(--black-50);
@@ -240,15 +241,18 @@
 }
 .formControl--invalid {
   border-color: var(--red);
-  /* box-shadow: 0 1.2rem 1rem -1rem rgba(241, 52, 38, 0.3); */
+
 }
 .input:focus,
 .select:focus,
 .textarea:focus {
   border-color: var(--blue);
-  /* box-shadow: 0 1.2rem 1rem -1rem rgba(1, 131, 255, 0.4); */
 }
-.formControl__icon {
+.formControl__icon{
+  font-size: 1.4rem;
+  margin-left: 0.5rem;
+}
+.password__status {
   position: absolute;
   top: 50%;
   left: 1rem;

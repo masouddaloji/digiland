@@ -20,6 +20,7 @@ import AdminArticles from "./components/adminPanel/AdminArticles/AdminArticles";
 import AddProduct from "./components/adminPanel/AddProduct/AddProduct";
 import UserPanel from "./Pages/UserPanel/Index";
 import PersistLogin from "./components/PersistLogin/PersistLogin";
+import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 
 const routes = (products, categories) => [
   { path: "/", element: <Index /> },
@@ -40,14 +41,16 @@ const routes = (products, categories) => [
   { path: "/product/:productId", element: <Product /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
-  { path: "/userpanel", element: <UserPanel />,},
+  { path: "/userpanel", element: <UserPanel /> },
   {
     path: "/adminpanel",
-    element: 
-    <PersistLogin>
-    <AdminPanel />
-    </PersistLogin>
-    ,
+    element: (
+      <PersistLogin>
+        <PrivateRoute>
+          <AdminPanel />
+        </PrivateRoute>
+      </PersistLogin>
+    ),
     children: [
       { path: "dashboard", element: <MainAdmin /> },
       { path: "products", element: <AdminProducts /> },
