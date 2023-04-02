@@ -30,11 +30,12 @@ export default function Login() {
     setPersist(prev=>!prev)
   }
   useEffect(() => {
-    // userNameRef.current.focus()
+    // userNameRef?.current.focus()
   }, []);
   useEffect(()=>{
-    localStorage.setItem("persist",persist)
+    sessionStorage.setItem("persist",persist)
   },[persist])
+
   return (
     <Formik
       initialValues={{
@@ -61,9 +62,9 @@ export default function Login() {
              }))
             toast.success(persianTexts.login.logginSuccess)
              resetForm()
-             decode.role === "superAdmin" || "admin"
+             decode?.role === "superAdmin" || decode?.role ==="admin"
                ? navigate("/adminpanel/dashboard")
-               : navigate("/")
+               :navigate("/")
           }else{
             toast.error(persianTexts.login.logginError)
           }

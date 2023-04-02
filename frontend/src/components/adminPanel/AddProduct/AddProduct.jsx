@@ -3,10 +3,13 @@ import React, { useContext, useRef, useState } from "react";
 import { persianTexts } from "../../../text";
 // components
 import FormControl from "../../FormControl/FormControl";
+import { privateAxios } from "../../../api/axios";
 
 // packages
-import axios from "axios";
+import { toast } from "react-toastify";
 import { Form, Formik } from "formik";
+//hooks
+import useAuth from "../../../hooks/useAuth";
 // icons
 import { MdUploadFile, MdOutlineDriveFolderUpload } from "react-icons/md";
 // validator
@@ -15,13 +18,13 @@ import { addProductsSchema } from "../../Validator/Validator";
 import { AuthContext } from "../../../Context/AuthContext";
 // styles
 import "./AddProduct.css";
-import { toast } from "react-toastify";
 
 const AddProduct = () => {
   const authContext = useContext(AuthContext);
   const uploadRef = useRef();
   const [cover, setCover] = useState(null);
   const [gallery, setGallery] = useState([]);
+  const { auth } = useAuth();
   const ratingOptions = [
     { value: "", text: "لطفا امتیاز محصول را انتخاب کنید" },
     { value: 1, text: "بد" },
@@ -60,50 +63,54 @@ const AddProduct = () => {
     <Formik
       initialValues={{
         productTitle: "",
-        productPrice: "",
-        productRating: "",
-        productQantity: "",
+        productPrice: 0,
+        productRating: 0,
+        productQantity: 0,
         productCategory: "",
         productSegment: "",
-        productColors: null,
+        productColors: [],
         productBrand: "",
-        productOffPrice: "",
+        productOffPrice: 0,
         productShortDescription: "",
         productFullDescription: "",
         productCover: null,
-        productGallery: null,
+        productGallery: [],
       }}
       validationSchema={addProductsSchema}
       onSubmit={async (values, { resetForm }) => {
+        console.log("type",typeof gallery)
         const formdata = new FormData();
         formdata.append("title", values.productTitle);
         formdata.append("segment", values.productSegment);
         formdata.append("image", cover);
         formdata.append("gallery", gallery);
-        formdata.append("offPrice", values.productOffPrice);
-        formdata.append("price", values.productPrice);
-        formdata.append("rating", values.productRating);
-        formdata.append("quantity", values.productQantity);
+        formdata.append("offPrice", Number(values.productOffPrice));
+        formdata.append("price", Number(values.productPrice));
+        formdata.append("rating", Number(values.productRating));
+        formdata.append("quantity", Number(values.productQantity));
         formdata.append("colors", values.productColors);
         formdata.append("category", values.productCategory);
         formdata.append("shortDescription", values.productShortDescription);
         formdata.append("fullDescription", values.productFullDescription);
         formdata.append("brand", values.productBrand);
 
-        await axios
+        await privateAxios
           .post("products", formdata, {
-            headers: { Authorization: `Bearer ${authContext.getLocalToken()}`, "Content-Type":"application/json"},
+            headers: {
+              Authorization: `Bearer ${auth?.token}`,
+              "Content-Type": "application/json",
+            },
           })
           .then((res) => {
             if (res.status === 200) {
               toast.success("محصول با موفقیت افزوده شد");
+              resetForm();
             }
           })
           .catch((err) => {
             toast.error("ثبت محصول با خطا مواجه شد");
             console.log(err);
-          })
-          .finally(resetForm());
+          });
       }}
     >
       {(formik) => (

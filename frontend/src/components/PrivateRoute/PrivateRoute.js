@@ -9,14 +9,12 @@ const PrivateRoute = ({children}) => {
     const navigate=useNavigate()
     const {auth}=useAuth()
     const decode= jwtDecode(auth?.token)
-    const role=decode?.role
-    console.log("role",role)
-
-  return (
-    <>
-    {auth?.token && role==="admin"||auth?.token && role==="superAdmin"?<>{children} </>:navigate("/login")}
-    </>
-  )
-}
+  console.log("decode",decode)
+     if(decode?.role==="admin"||decode?.role==="superAdmin"){
+     return children
+    }else{
+      return navigate("/login")
+    }
+  }
 
 export default PrivateRoute

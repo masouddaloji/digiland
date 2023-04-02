@@ -16,8 +16,8 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <ul className="sidebar__lists">
-      {adminSidebarItems.map(item=>(
-        <SidebarItem key={item.title} {...item}/>
+      {adminSidebarItems.map((item,index)=>(
+        <SidebarItem key={index+1} {...item}/>
       ))}
       </ul>
     </div>

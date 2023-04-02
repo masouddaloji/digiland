@@ -1,12 +1,12 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 // packages
-import { useNavigate } from "react-router-dom";
+import { Redirect, useNavigate } from "react-router-dom";
 // hooks
 import useAuth from "../../hooks/useAuth";
 import useRefreshToken from "../../hooks/useRefreshToken";
 
-const PersistLogin = ({children}) => {
-  const { auth,persist } = useAuth();
+const PersistLogin = ({ children }) => {
+  const { auth, persist } = useAuth();
   const navigate = useNavigate();
 
   const refresh = useRefreshToken();
@@ -18,9 +18,9 @@ const PersistLogin = ({children}) => {
         console.log(error);
       }
     };
-    !auth?.token && persist ? verifyRefreshToken():navigate("/login")
+    !auth?.token && persist && verifyRefreshToken() 
   }, []);
-  return <>{auth?.token ? <>{children} </>: null}</>;
+  return <>{auth?.token ? <>{children}</> : navigate("/login")}</>;
 };
 
 export default PersistLogin;

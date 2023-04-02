@@ -1,7 +1,10 @@
 import React, { useContext, useRef, useState } from "react";
 // packages
 import { Field, useField, useFormikContext } from "formik";
-import axios from "axios";
+//components
+import { privateAxios } from "../../api/axios";
+//hooks
+import useAuth from "../../hooks/useAuth";
 // contexts
 import { AuthContext } from "../../Context/AuthContext";
 // icons
@@ -15,6 +18,7 @@ const Uploader = (props) => {
   const [resultUpload, setResultUpload] = useState(false);
   const uploaderRef = useRef();
   const authContext = useContext(AuthContext);
+  const {auth}=useAuth()
 
   const uploadHandler = (event) => {
     event.preventDefault()
@@ -25,18 +29,19 @@ const Uploader = (props) => {
 
   const uploadProduct = async (url, data) => {
   
-    await axios
+    await privateAxios
       .post(url, data, {
         onUploadProgress: (progress) => {
           const percent = Math.round((progress.loaded / progress.total)* 100 );
           setUploadImagePercent(percent);
         },
         headers: {
-          Authorization: `Bearer ${authContext.getLocalToken()}`,
+          Authorization: `Bearer ${auth?.token}`,
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
+        
         setResultUpload(true);
         if (props.multiple) {
           sendUploadUrl(res.data.galleryArray,"multi");
@@ -46,6 +51,7 @@ const Uploader = (props) => {
       })
       .catch((err) => {
         console.log("err", err);
+        setUploadImagePercent(0)
       });
   };
 

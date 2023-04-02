@@ -32,6 +32,7 @@ function FormControl(props) {
      return <Uploader {...props}  />;
      
     }
+    case "number":
     case "password":
     case "email":
     case "text": {
