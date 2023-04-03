@@ -33,7 +33,7 @@ export default function Login() {
     // userNameRef?.current.focus()
   }, []);
   useEffect(()=>{
-    sessionStorage.setItem("persist",persist)
+    localStorage.setItem("persist",JSON.stringify(persist))
   },[persist])
 
   return (
@@ -87,14 +87,14 @@ export default function Login() {
                 <h4 className="auth__title">ورود</h4>
                 <div className="auth__form">
                   <FormControl
-                    type="text"
+                    controler="text"
                     label="نام کاربری"
                     name="loginUserName"
                     ref={userNameRef}
                     icon=<MdAlternateEmail className="formControl__icon" />
                   />
                   <FormControl
-                    type="password"
+                    controler="password"
                     label="رمز عبور"
                     name="loginPassword"
                     icon=<RiLockPasswordLine className="formControl__icon" />

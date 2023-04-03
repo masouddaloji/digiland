@@ -13,6 +13,7 @@ import SelectBox from "./SelectBox";
 import Textarea from "./Textarea";
 import CheckBox from "./CheckBox";
 import Editor from "./Editor";
+import Select from "./Select";
 
 // contexts
 import { AuthContext } from "../../Context/AuthContext";
@@ -26,7 +27,7 @@ import "./FormControl.css";
 
 function FormControl(props) {
 
-  switch (props.type) {
+  switch (props.controler) {
 
     case "file": {
      return <Uploader {...props}  />;
@@ -39,7 +40,7 @@ function FormControl(props) {
       return <Input {...props} />
     }
     case "select": {
-      return <SelectBox {...props}/>
+      return <Select {...props}/>
     }
     case "textarea": {
       return <Textarea {...props} />
@@ -47,6 +48,9 @@ function FormControl(props) {
     case "checkbox": {
       return <CheckBox {...props}/>
     }
+    // case "selected": {
+    //   return <Select {...props}/>
+    // }
     case "editor": {
       return <Editor {...props} />
     }

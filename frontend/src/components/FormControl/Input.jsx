@@ -1,4 +1,4 @@
-import React, { useRef,useState } from "react";
+import React, { useRef, useState } from "react";
 // packages
 import { Field, useField, useFormikContext } from "formik";
 // icons
@@ -21,19 +21,24 @@ const Input = (props) => {
           {props.label}
         </label>
       )}
-      <div className="formControl__box">
+      <div
+        className={`formControl__box ${
+          meta.touched && meta.error ? "formControl--invalid" : undefined
+        }`}
+      >
         <input
-          
           ref={inputRef}
-          className={`input ${
-            meta.touched && meta.error ? "formControl--invalid" : undefined
-          }`}
+          className="input"
           autoComplete="off"
           id={field.name}
           {...props}
           {...field}
           type={
-          props?.type!=="password"?props.type:!isShowPassword?"password":"text"
+            props?.controler !== "password"
+              ? props.controler
+              : !isShowPassword
+              ? "password"
+              : "text"
           }
         />
         {props?.type === "password" && (

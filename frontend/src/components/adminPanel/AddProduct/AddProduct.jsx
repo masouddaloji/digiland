@@ -26,7 +26,6 @@ const AddProduct = () => {
   const [gallery, setGallery] = useState([]);
   const { auth } = useAuth();
   const ratingOptions = [
-    { value: "", text: "لطفا امتیاز محصول را انتخاب کنید" },
     { value: 1, text: "بد" },
     { value: 2, text: "معمولی" },
     { value: 3, text: "خوب" },
@@ -63,39 +62,40 @@ const AddProduct = () => {
     <Formik
       initialValues={{
         productTitle: "",
-        productPrice: 0,
-        productRating: 0,
-        productQantity: 0,
+        productPrice: "",
+        productRating: "",
+        productQantity: "",
         productCategory: "",
         productSegment: "",
-        productColors: [],
+        productColors: null,
         productBrand: "",
-        productOffPrice: 0,
+        productOffPrice: "",
         productShortDescription: "",
         productFullDescription: "",
         productCover: null,
-        productGallery: [],
+        productGallery: null,
       }}
       validationSchema={addProductsSchema}
       onSubmit={async (values, { resetForm }) => {
-        console.log("type",typeof gallery)
-        const formdata = new FormData();
-        formdata.append("title", values.productTitle);
-        formdata.append("segment", values.productSegment);
-        formdata.append("image", cover);
-        formdata.append("gallery", gallery);
-        formdata.append("offPrice", Number(values.productOffPrice));
-        formdata.append("price", Number(values.productPrice));
-        formdata.append("rating", Number(values.productRating));
-        formdata.append("quantity", Number(values.productQantity));
-        formdata.append("colors", values.productColors);
-        formdata.append("category", values.productCategory);
-        formdata.append("shortDescription", values.productShortDescription);
-        formdata.append("fullDescription", values.productFullDescription);
-        formdata.append("brand", values.productBrand);
+        console.log("gallery",gallery)
+        const data = {
+          title: values.productTitle,
+          segment: values.productSegment,
+          image: cover,
+          gallery: gallery,
+          offPrice: Number(values.productOffPrice),
+          price: Number(values.productPrice),
+          rating: Number(values.productRating),
+          quantity: Number(values.productQantity),
+          colors: values.productColors,
+          category: values.productCategory,
+          shortDescription: values.productShortDescription,
+          fullDescription: values.productFullDescription,
+          brand: values.productBrand,
+        };
 
         await privateAxios
-          .post("products", formdata, {
+          .post("products", JSON.stringify(data), {
             headers: {
               Authorization: `Bearer ${auth?.token}`,
               "Content-Type": "application/json",
@@ -131,7 +131,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderTitle
                       }
-                      type="text"
+                      controler="text"
                       name="productTitle"
                     />
                   </div>
@@ -142,7 +142,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderPrice
                       }
-                      type="text"
+                      controler="text"
                       name="productPrice"
                     />
                   </div>
@@ -153,11 +153,24 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderRating
                       }
-                      type="select"
+                      controler="select"
                       name="productRating"
                       options={ratingOptions}
                     />
                   </div>
+
+                  {/* <div className="col-md-6">
+                    <FormControl
+                      label={persianTexts.admin.products.label.inputLabelRating}
+                      placeholder={
+                        persianTexts.admin.products.placeholder
+                          .inputPlaceholderRating
+                      }
+                      type="select"
+                      name="productRating"
+                      options={ratingOptions}
+                    />
+                  </div> */}
                   <div className="col-md-6">
                     <FormControl
                       label={
@@ -167,7 +180,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderQuantity
                       }
-                      type="text"
+                      controler="text"
                       name="productQantity"
                     />
                   </div>
@@ -180,7 +193,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderCategory
                       }
-                      type="text"
+                      controler="text"
                       name="productCategory"
                     />
                   </div>
@@ -193,7 +206,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderSegment
                       }
-                      type="text"
+                      controler="text"
                       name="productSegment"
                     />
                   </div>
@@ -204,7 +217,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderColors
                       }
-                      type="checkbox"
+                      controler="checkbox"
                       name="productColors"
                       options={colorOptions}
                     />
@@ -217,7 +230,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderBrand
                       }
-                      type="text"
+                      controler="text"
                       name="productBrand"
                     />
                   </div>
@@ -230,7 +243,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderOffPrice
                       }
-                      type="text"
+                      controler="text"
                       name="productOffPrice"
                     />
                   </div>
@@ -244,7 +257,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderShortDescription
                       }
-                      type="text"
+                      controler="text"
                       name="productShortDescription"
                     />
                   </div>
@@ -259,7 +272,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderFullDescription
                       }
-                      type="editor"
+                      controler="editor"
                       name="productFullDescription"
                     />
                   </div>
@@ -272,7 +285,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderCover
                       }
-                      type="file"
+                      controler="file"
                       accept="image/*"
                       name="productCover"
                       icon={<MdUploadFile className="uploader__icon" />}
@@ -291,7 +304,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderGallery
                       }
-                      type="file"
+                      controler="file"
                       accept="image/*"
                       name="productGallery"
                       multiple
@@ -307,7 +320,7 @@ const AddProduct = () => {
                         : "btn--disable"
                     }`}
                     type="submit"
-                    // disabled={!(formik.dirty && formik.isValid)}
+                    disabled={!(formik.dirty && formik.isValid)}
                   >
                     {persianTexts.admin.products.btn}
                   </button>
