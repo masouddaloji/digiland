@@ -27,7 +27,7 @@
 }
 
 .headerTitle__link {
-  color: var(--black-500);
+  color: var(--black-50);
   margin-right: 0.7rem;
   font-size: 1.4rem;
   white-space: nowrap;
@@ -43,7 +43,7 @@
 }
 .headerTitle__btn {
   font-size: 1rem;
-  color: var(--black-500);
+  color: var(--black-50);
   display: flex;
   align-items: center;
   background: #ebebed;
@@ -53,7 +53,7 @@
   white-space: nowrap;
 }
 .headerTitle__btn:hover {
-  background-color: var(--black-500);
+  background-color: var(--black-50);
   color: var(--white);
 }
 .headerTitle__btnWrapper {

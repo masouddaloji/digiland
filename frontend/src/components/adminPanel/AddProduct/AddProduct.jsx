@@ -67,7 +67,8 @@ const AddProduct = () => {
         productQantity: "",
         productCategory: "",
         productSegment: "",
-        productColors: null,
+        // productColors: null,
+        colorstest: null,
         productBrand: "",
         productOffPrice: "",
         productShortDescription: "",
@@ -210,7 +211,7 @@ const AddProduct = () => {
                       name="productSegment"
                     />
                   </div>
-                  <div className="col-md-6">
+                  {/* <div className="col-md-6">
                     <FormControl
                       label={persianTexts.admin.products.label.inputLabelColors}
                       placeholder={
@@ -219,6 +220,17 @@ const AddProduct = () => {
                       }
                       controler="checkbox"
                       name="productColors"
+                      options={colorOptions}
+                    />
+                  </div> */}
+                  <div className="col-md-6">
+                    <FormControl
+                      label={"تست"}
+                      placeholder={
+                        "تست تست"
+                      }
+                      controler="CheckTest"
+                      name="colorstest"
                       options={colorOptions}
                     />
                   </div>
@@ -320,7 +332,7 @@ const AddProduct = () => {
                         : "btn--disable"
                     }`}
                     type="submit"
-                    disabled={!(formik.dirty && formik.isValid)}
+                    // disabled={!(formik.dirty && formik.isValid)}
                   >
                     {persianTexts.admin.products.btn}
                   </button>

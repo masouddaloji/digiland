@@ -3,7 +3,7 @@
   font-size: 1.4rem;
   height: 4rem;
   font-family: var(--Iran-bold);
-  color: var(--black-500);
+  color: var(--black-50);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

@@ -24,7 +24,7 @@ object-fit: cover;
 .articleBox__title{
 margin:1.5rem 0;
 font-family: var(--Iran-bold);
-color: var(--black-500);
+color: var(--black-50);
 font-size: 1.4rem;
 }
 .articleBox__details{

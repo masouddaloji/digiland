@@ -22,13 +22,13 @@ const Input = (props) => {
         </label>
       )}
       <div
-        className={`formControl__box ${
-          meta.touched && meta.error ? "formControl--invalid" : undefined
-        }`}
+        className={`formControl__box`}
       >
         <input
           ref={inputRef}
-          className="input"
+          className={`input  ${
+          meta.touched && meta.error ? "formControl--invalid" : undefined
+        }`}
           autoComplete="off"
           id={field.name}
           {...props}

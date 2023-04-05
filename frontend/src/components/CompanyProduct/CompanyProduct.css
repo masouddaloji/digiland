@@ -28,7 +28,7 @@
 .CompanyProduct__title {
   font-family: var(--Iran-bold);
   font-size: 1.2rem;
-  color: var(--black-500);
+  color: var(--black-50);
   margin-bottom: 1rem;
 }
 .companyProduct__details {

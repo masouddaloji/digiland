@@ -155,7 +155,7 @@ a{
 /* end css reset */
 /* start variabels */
 :root {
-  --black-500: #333;
+  --black-50: #333;
   /* --main-backgroundColor: #eff1f5; */
   --main-backgroundColor: #F1F1F1;
   --main-font: "IRANSans", sans-serif;
@@ -180,10 +180,11 @@ a{
   --red:#c00;
   --red-50: #fee2e2;
   --border-btn:2.5rem;
-  --box-shadow:0 5px 10px rgba(0,0,0,.1);
-  --black-50:#1d1d1d;
+  --box-shadow:0 .5rem 1rem rgba(0,0,0,.2);
+  /* --black-50:#1d1d1d; */
   --admin-main:#00001c;
-  --linear:linear-gradient(45deg, #00BFFF,#007FFF, var(--blue-hover));
+  /* --linear:linear-gradient(45deg, #00BFFF,#007FFF, var(--blue-hover)); */
+  --linear:linear-gradient(90deg, #0C97Fa,#16E1F5);
   /* --linear--hover:linear-gradient(45deg,var(--blue-hover), #007FFF); */
   /* --admin-main:#234099; */
 }
@@ -349,7 +350,7 @@ height: 3rem;
   font-family: var(--Iran-number);
   font-size: 1.3rem;
   margin-left: .3rem;
-  color: var(--black-500);
+  color: var(--black-50);
 }
 .emptyStar{
   fill: var(--gold);
@@ -363,7 +364,7 @@ height: 3rem;
 }
 .tooltip{
   position: absolute;
-  background-color: var(--black-500);
+  background-color: var(--black-50);
   bottom: 140%;
   left:50%;
   transform:translateX(-50%);
@@ -385,7 +386,7 @@ height: 3rem;
   margin-right: auto;
   transform:translateX(-50%);
   border: .7rem solid;
-  border-color: var(--black-500) transparent transparent transparent;
+  border-color: var(--black-50) transparent transparent transparent;
 
 }
 .mainHasTooltip:hover .tooltip{
@@ -425,7 +426,7 @@ height: 3rem;
 }
 .sectionHeader__icon{
   font-size: 2.6rem;
-  color: var(--black-500);
+  color: var(--black-50);
 }
 
 /* end helper */

@@ -39,7 +39,7 @@
 
 }
 .login__btn--active:hover {
-  background: var(--blue-hover);
+  filter: hue-rotate(25deg);
 }
 .login__forget {
   color: #848484;
