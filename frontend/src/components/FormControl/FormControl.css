@@ -17,7 +17,7 @@
   right: 2rem;
   z-index: 10;
 }
-.formControl__label.label--invalid {
+.label--invalid {
   color: var(--red);
 }
 .formControl__box {
@@ -165,7 +165,7 @@ border-radius: var(--border-box);
 position: relative;
 border: 2px solid var(--gray);
 }
-.checkbox.formControl--invalid{
+.formControl--invalid{
 border-color: var(--red);
 }
 .checkbox__header {

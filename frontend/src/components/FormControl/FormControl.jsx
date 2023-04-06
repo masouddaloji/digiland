@@ -9,7 +9,6 @@ import Validator from "../Validator/Validator";
 import { persianTexts } from "../../text";
 import Uploader from "./Uploader";
 import Input from "./Input";
-import SelectBox from "./SelectBox";
 import Textarea from "./Textarea";
 import CheckBox from "./CheckBox";
 import Editor from "./Editor";

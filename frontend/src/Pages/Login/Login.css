@@ -34,12 +34,12 @@
   cursor: default;
 }
 .login__btn--active {
-  background: var(--linear);
+  background: var(--blue);
   transition: all .3s;
 
 }
 .login__btn--active:hover {
-  filter: hue-rotate(25deg);
+  background: var(--blue-hover);
 }
 .login__forget {
   color: #848484;

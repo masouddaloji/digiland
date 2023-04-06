@@ -115,7 +115,7 @@ export const persianTexts = {
         inputPlaceholderPrice: "50,000,000",
         inputPlaceholderRating: "لطفا امتیاز محصول را انتخاب کنید",
         inputPlaceholderQuantity: 20,
-        inputPlaceholderCategory: "گوشی تلفن همراه",
+        inputPlaceholderCategory: "موبایل",
         inputPlaceholderSegment: "s23 ultra 256 gb",
         inputPlaceholderColors: "لطفا رنگ های محصول را انتخاب کنید",
         inputPlaceholderShortDescription: "توضیحات کوتاهی راجب محصول وارد کنید",

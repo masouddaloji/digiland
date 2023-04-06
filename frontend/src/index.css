@@ -169,7 +169,7 @@ a{
   /* --blue: #0183ff; */
   --blue: #1F75FE;
   /* --blue-hover:#2343F2; */
-  --blue-hover:#0000D1;
+  --blue-hover:#1C39BB;
   --green:#00cc67;
   --error-text: #e4b7b9;
   --gray:#eee;
@@ -177,8 +177,9 @@ a{
   --gray-100: #444;
   --gray-50: #d3d3d3;
   --gray-25: #C0C0C0;
-  --red:#c00;
-  --red-50: #fee2e2;
+  /* --red:#c00; */
+  --red:#A3080C;
+  --red-50: #DA291C;
   --border-btn:2.5rem;
   --box-shadow:0 .5rem 1rem rgba(0,0,0,.2);
   /* --black-50:#1d1d1d; */

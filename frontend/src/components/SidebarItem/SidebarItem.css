@@ -27,7 +27,7 @@
 }
 .sidebarLink:hover,
 .sidebarLink--active{
-    background: #044557;
+    background: var(--blue-hover);
 
 }
 .sidebarItem__mainIcon{
