@@ -1,49 +1,83 @@
-import React, { useRef } from "react";
-// packages
+import React, {  useRef, useState } from "react";
+//packages
 import { Field, useField, useFormikContext } from "formik";
+//icons
+import { HiChevronDown } from "react-icons/hi";
 
-const CheckBox = (props) => {
+
+const CheckBoxTest = (props) => {
   const [field, meta, helpers] = useField(props);
-  // const [isShowCheckBox, setIsShowCheckBox] = useState(false);
+  const [isShowOptions, setIsShowOptions] = useState(false);
+  const { setFieldTouched} = useFormikContext();
+  const tochedHandler=()=>{
+    setFieldTouched(field.name,true)
+  }
 
-  const checkboxRef = useRef();
+
   return (
     <div className="formControl__wrapper">
-      {props.label && (
-        <label htmlFor={field.name} className={`formControl__label ${meta.touched && meta.error?"label--invalid":undefined}`}>
-          {props.label}
-        </label>
-      )}
-      <div className="formControl__box">
-        <ul
-          className={`checkbox__lists ${
-            meta.touched && meta.error ? "formControl--invalid" : ""
+    {props.label && (
+      <label
+        htmlFor={field.name}
+        className={`formControl__label ${
+          meta.touched && meta.error ? "label--invalid" : undefined
+        }`}
+      >
+        {props?.icon ? props.icon : null}
+        {props.label}
+      </label>
+    )}
+    <div className="checkbox__wrapper" >
+      <div
+        className={`checkbox ${
+          meta.touched && meta.error && "formControl--invalid"
+        }`}
+        onClick={() =>setIsShowOptions(!isShowOptions)}
+      >
+        <span
+          className={`checkbox__header ${
+            meta.touched && meta.error ? "label--invalid" : undefined
           }`}
         >
-          {props.options &&
-            props.options.map((option) => (
-              <li className="checkbox__item" key={option.value}>
-                <Field
-                  className="checkboxInput"
-                  value={option.value}
-                  style={{
-                    backgroundColor: option.color,
-                  }}
-                  name={field.name}
-                  type="checkbox"
-                  id={option.value}
-                  title={option.text}
-                />
-              </li>
-            ))}
-        </ul>
-
-        {meta.touched && meta.error && (
-          <span className="auth__error">{meta.error}</span>
-        )}
+          {field?.value?.length?`${field.value.length} رنگ انتخاب شد`:props.placeholder}
+        </span>
+        <HiChevronDown className="dropdownIcon" />
       </div>
+      {props.options && (
+        <ul
+          className={`checkbox__lists ${
+            isShowOptions
+              ? "checkbox__lists checkbox__lists--show"
+              : "checkbox__lists"
+          }`}
+        >
+          {props?.options?.map((option, index) => (
+            <li className="checkbox__item" key={index + 2} onClick={tochedHandler}>
+              <Field
+                type="checkbox"
+                id={option.value}
+                value={option.value}
+                name={field.name}
+              />
+              <label htmlFor={option.value} className="checkbox__label">
+                {option.text}
+              </label>
+            </li>
+          ))}
+        </ul>
+      )}
+      {meta.touched && meta.error && (
+        <span className="auth__error">{meta.error}</span>
+      )}
+    </div>
     </div>
   );
 };
 
-export default CheckBox;
+export default CheckBoxTest;
+{
+  /* <input type="checkbox" name="colors" id={item.value} value={item.value} onChange={changeHandler}/>
+<label htmlFor={item.value} className="checkbox__label">
+{item.text}
+</label> */
+}

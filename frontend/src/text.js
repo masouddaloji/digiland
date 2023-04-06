@@ -113,11 +113,11 @@ export const persianTexts = {
       placeholder: {
         inputPlaceholderTitle: "گوشی سامسونگ s23 اولترا 256گیگ",
         inputPlaceholderPrice: "50,000,000",
-        inputPlaceholderRating: 5,
+        inputPlaceholderRating: "لطفا امتیاز محصول را انتخاب کنید",
         inputPlaceholderQuantity: 20,
         inputPlaceholderCategory: "گوشی تلفن همراه",
         inputPlaceholderSegment: "s23 ultra 256 gb",
-        inputPlaceholderColors: "زرد قرمز سبز آبی",
+        inputPlaceholderColors: "لطفا رنگ های محصول را انتخاب کنید",
         inputPlaceholderShortDescription: "توضیحات کوتاهی راجب محصول وارد کنید",
         inputPlaceholderFullDescription:
           "کلیه اطلاعات و توضیحات محصول را وارد کنید",

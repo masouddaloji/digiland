@@ -22,7 +22,7 @@ import { FiChevronDown } from "react-icons/fi";
 
 // styles
 import "./FormControl.css";
-import CheckBoxTest from "./CheckBoxTest";
+
 
 
 
@@ -48,9 +48,6 @@ function FormControl(props) {
     }
     case "checkbox": {
       return <CheckBox {...props}/>
-    }
-    case "CheckTest": {
-      return <CheckBoxTest {...props}/>
     }
     // case "selected": {
     //   return <Select {...props}/>
