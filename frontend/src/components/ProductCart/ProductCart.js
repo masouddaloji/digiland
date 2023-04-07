@@ -6,19 +6,19 @@ import { Link } from "react-router-dom";
 
 import "./ProductCart.css";
 
-export default function ProductCart({details}) {
-
+export default function ProductCart(props) {
+const{_id,title,image,offPrice,price,rating,colors}=props
   return (
      <div className="productBox">
-     <Link to={details.link}>
+     <Link to="/">
      <div className="product__imgBox">
- <img src={`http://localhost:1337${details.cover.data[0].attributes.url}`} alt="" className="product__img" />
+ <img src={`http://localhost:8000${image}`} alt="new product image" className="product__img" />
        </div>
        <h2 className="product__title">
-      {details.title}
+      {title}
        </h2>
        <div className="priceBox">
-         <bdi className="currentPrice">{details.price.toLocaleString()}
+         <bdi className="currentPrice">{price.toLocaleString()}
          <span className="toman">تومان</span>
          </bdi>
         

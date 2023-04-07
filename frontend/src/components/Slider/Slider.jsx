@@ -1,19 +1,23 @@
 import React from "react";
+//packages
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
-import "./Slider.css";
+//components
 import SuggestedProductBox from "../SuggestedProductBox/SuggestedProductBox";
 import CompanyProduct from "../CompanyProduct/CompanyProduct";
 import ArticleBox from "../ArticleBox/ArticleBox";
 import ProductCart from "../ProductCart/ProductCart";
 import BannerBox from "../BannerBox/BannerBox";
+// styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
-function Slider({numberSlidePreview,space,isLoop,isNavigation,timeAutoplay,center,className, array, slide }) {
+import "./Slider.css";
 
+
+function Slider(props) {
+const {numberSlidePreview,space,isLoop,isNavigation,timeAutoplay,center,className, array, slide }=props
   return (
     <Swiper
       dir="rtl"
@@ -55,7 +59,7 @@ function Slider({numberSlidePreview,space,isLoop,isNavigation,timeAutoplay,cente
     >
       {slide==="ProductCart"?(
         array.map(item=>(
-        <SwiperSlide key={item.id}>
+        <SwiperSlide key={item._id}>
         <ProductCart {...item} />
       </SwiperSlide>
     ))

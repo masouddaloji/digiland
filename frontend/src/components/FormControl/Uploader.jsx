@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 // packages
 import { Field, useField, useFormikContext } from "formik";
 //components
@@ -12,8 +12,8 @@ import { MdOutlineDriveFolderUpload } from "react-icons/md";
 
 const Uploader = (props) => {
   const [field, meta, helpers] = useField(props);
-  const { setFieldValue,setFieldTouched } = useFormikContext();
-  const [previewImage, setPreviewImage] = useState([]);
+  const { setFieldValue, setFieldTouched } = useFormikContext();
+  const [previewImage, setPreviewImage] = useState(field.value?field.value:[]);
   const [uploadImagePercent, setUploadImagePercent] = useState(null);
   const [isShowMessage, setIsShowMessage] = useState(false);
   const [images, setImages] = useState([]);
@@ -25,10 +25,9 @@ const Uploader = (props) => {
     multiple: "عکس های محصول آپلود شدند",
   };
 
-  const uploadHandler = async (event) => {
-    event.preventDefault();
-    setFieldTouched(field.name,true)
-    let files = await Array.from(event?.target?.files);
+  const uploadHandler =  (event) => {
+    setFieldTouched(field.name, true);
+    let files = Array.from(event?.target?.files);
     setImages(files);
   };
   const uploading = (e) => {
@@ -36,7 +35,7 @@ const Uploader = (props) => {
     const imageData = new FormData();
     if (!props.multiple) {
       imageData.append("image", images[0]);
-      setPreviewImage(images[0]);
+      setPreviewImage(images);
       uploadProduct("upload/prodimg", imageData);
     } else {
       images.map((img) => {
@@ -73,15 +72,14 @@ const Uploader = (props) => {
       });
   };
 
-  const sendUploadUrl = (url, type) => {
-    props.saveUploadHandler(url, type);
-  };
+
+
   return (
     <>
       <div className="formControl__wrapper">
         <div
           className={`uploader ${
-            meta.touched && meta.error ? "formControl--invalid" : undefined
+            meta.touched && meta.error && !images?.length ? "formControl--invalid" : undefined
           }`}
           ref={uploaderRef}
         >
@@ -101,7 +99,7 @@ const Uploader = (props) => {
           />
         </div>
 
-        {meta.touched && meta.error && (
+        {meta.touched && meta.error && !images?.length && (
           <span className="auth__error">{meta.error}</span>
         )}
       </div>
@@ -129,7 +127,7 @@ const Uploader = (props) => {
             {props?.multiple ? message.multiple : message.single}
           </p>
           <div className="upload__showImages">
-            {previewImage.length &&
+            {previewImage.length && field.value &&
               previewImage.map((item, index) => (
                 <img
                   className="upload__previewImage"

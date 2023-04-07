@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-// library
+// packages
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import { Link } from "react-router-dom";
@@ -8,6 +8,16 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./Index.css";
+//components
+import axios from "../../api/axios";
+import SuggestedProductBox from "../../components/SuggestedProductBox/SuggestedProductBox";
+import ProductCart from "../../components/ProductCart/ProductCart";
+import SectionHeader from "../../components/SectionHeader/SectionHeader";
+import CompanyProduct from "../../components/CompanyProduct/CompanyProduct";
+import ArticleBox from "../../components/ArticleBox/ArticleBox";
+import ProductsContext from "../../Context/ProductsContext";
+import ServiceBox from "../../components/ServiceBox/ServiceBox";
+import Slider from "../../components/Slider/Slider";
 // icons
 import { BsPrinter, BsTools } from "react-icons/bs";
 import { TbDeviceTvOld } from "react-icons/tb";
@@ -16,15 +26,7 @@ import { IoMdFootball, IoIosHourglass } from "react-icons/io";
 import { BiLayerPlus } from "react-icons/bi";
 import { AiFillApple } from "react-icons/ai";
 import { GrRss } from "react-icons/gr";
-import SuggestedProductBox from "../../components/SuggestedProductBox/SuggestedProductBox";
-import ProductCart from "../../components/ProductCart/ProductCart";
-import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import CompanyProduct from "../../components/CompanyProduct/CompanyProduct";
-import ArticleBox from "../../components/ArticleBox/ArticleBox";
-import ProductsContext from "../../Context/ProductsContext";
-import token from "../../utils/api";
-import ServiceBox from "../../components/ServiceBox/ServiceBox";
-import Slider from "../../components/Slider/Slider";
+
 import { services } from "../../Constants";
 
 export default function Index() {
@@ -101,7 +103,17 @@ const articles=Array(6).fill(0)
       percent: 7,
     },
   ];
-  const productsContext = useContext(ProductsContext);
+const [allProducts,setAllProducts]=useState([])
+const [newProducts, setNewProducts] = useState([])
+useEffect(()=>{
+  axios.get("products")
+  .then(res=>{
+    setAllProducts(res?.data?.data)
+    const newProductsSlice=res?.data?.data.slice(0,6)
+    setNewProducts(newProductsSlice)
+  })
+  .catch(error=>console.log(error))
+},[])
 
   return (
     <>
@@ -208,6 +220,11 @@ const articles=Array(6).fill(0)
                 link="/"
                 btnLink="/"
               />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12">
+            <Slider numberSlidePreview={5} space={15} isLoop={true} isNavigation={true} timeAutoplay={2500} array={newProducts} slide="ProductCart"/>
             </div>
           </div>
         </section>

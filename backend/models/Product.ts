@@ -15,17 +15,16 @@ const productSchema = new mongoose.Schema<IProduct>(
     image: {
       type: String,
     },
-    gallery: [
-      {
-        type: gallerySchema,
-        validate: {
-          validator: function (v: any) {
-            return v && v.length <= 6;
-          },
-          message: "Gallery can be a maximum of 6 images.",
+    gallery: {
+      type: [String],
+      default: undefined,
+      validate: {
+        validator: function (v: any) {
+          return v && v.length <= 6;
         },
+        message: "Gallery can be a maximum of 6 images.",
       },
-    ],
+    },
     offPrice: { type: Number, min: 0, max: 100 },
     price: { type: Number, required: true },
     rating: { type: Number, min: 0, max: 5 },

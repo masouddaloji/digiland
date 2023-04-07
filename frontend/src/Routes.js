@@ -46,9 +46,9 @@ const routes = (products, categories) => [
     path: "/adminpanel",
     element: (
       <PersistLogin>
-        <PrivateRoute>
+        {/* <PrivateRoute> */}
           <AdminPanel />
-        </PrivateRoute>
+        {/* </PrivateRoute> */}
       </PersistLogin>
     ),
     children: [

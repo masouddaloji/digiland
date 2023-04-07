@@ -75,14 +75,15 @@ const AddProduct = () => {
         };
 
         await privateAxios
-          .post("products", JSON.stringify(data), {
+          .post("products", data, {
             headers: {
               Authorization: `Bearer ${auth?.token}`,
               "Content-Type": "application/json",
             },
           })
           .then((res) => {
-            if (res.status === 200) {
+            console.log("res",res)
+            if (res.status === 201 || res.status === 200) {
               toast.success("محصول با موفقیت افزوده شد");
               resetForm();
             }
