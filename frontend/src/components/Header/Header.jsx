@@ -3,18 +3,13 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 // components
 import Navbar from "../Navbar/Navbar";
-// contexts 
-import {AuthContext} from "../../Context/AuthContext";
+// contexts
+import useAuth from "../../hooks/useAuth";
 // icons
 import { TfiSearch } from "react-icons/tfi";
 import { TbApps } from "react-icons/tb";
 import { IoPersonOutline } from "react-icons/io5";
 import { VscClose } from "react-icons/vsc";
-import {
-  AiFillCloseCircle,
-  AiOutlineCloseCircle,
-  AiOutlineHome,
-} from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -26,9 +21,9 @@ import { menus } from "../../Constants";
 // styles
 import "./Header.css";
 
-
 import ProductCount from "../ProductCount/ProductCount";
 import ProductsContext from "../../Context/ProductsContext";
+
 const MobileMenuItem = ({ menu }) => {
   const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
   console.log(menu);
@@ -78,34 +73,34 @@ export default function Header({ categories, isLoading }) {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [deviceWidth, setDeviceWidth] = useState({ width: window.innerWidth });
   const [isShowSideBarCart, setIsShowSideBarCart] = useState(false);
-  const authContext=useContext(AuthContext)
-
+  const { auth } = useAuth();
   const categoryRef = useRef();
   const btnCategoryRef = useRef();
   const btnMobileCategoryRef = useRef();
   const mobileCategoryRef = useRef();
   const maskRef = useRef();
+  const searchRef = useRef();
   const sideBarCartRef = useRef();
   const [count, setCount] = useState(1);
-const productContext=useContext(ProductsContext)
+  const productContext = useContext(ProductsContext);
   const resizaHandler = () => {
     setDeviceWidth({ width: window.innerWidth });
   };
-  const closecategory = (e) => {
-    if(showCategory){
-      e.target !== categoryRef.current && e.target !== btnCategoryRef.current &&
-      e.target !== btnMobileCategoryRef.current && e.target !== mobileCategoryRef.current && setShowCategory(false) 
-    }
-  };
+
   const closeSideBarBasket = (e) => {
     if (maskRef.current === e.target) {
       setIsShowSideBarCart(false);
     }
   };
   useEffect(() => {
-    document.body.addEventListener("click", closecategory);
+    const outsideClickHandler = (e) => {
+      if (!searchRef?.current.contains(e.target)) {
+        setShowCategory(false);
+      }
+    };
+    document.body.addEventListener("click", outsideClickHandler);
     return () => {
-      document.body.removeEventListener("click", closecategory);
+      document.body.removeEventListener("click", outsideClickHandler);
     };
   }, []);
 
@@ -244,7 +239,7 @@ const productContext=useContext(ProductsContext)
                 </div>
               </div>
               <div className="col-lg-6">
-                <div className="serach__wrapper">
+                <div className="serach__wrapper" ref={searchRef}>
                   <form
                     className="searchBox"
                     onSubmit={(e) => e.preventDefault()}
@@ -343,7 +338,7 @@ const productContext=useContext(ProductsContext)
                       </div>
                     )}
                   </form>
-                  <div className="searchBox__categoryBox"  >
+                  <div className="searchBox__categoryBox">
                     <TbApps
                       className="searchBox__categoryIcon"
                       onClick={() => setShowCategory(!showCategory)}
@@ -363,17 +358,22 @@ const productContext=useContext(ProductsContext)
                         }`}
                         onClick={(e) => {
                           setCurrentCategory("all");
+                          setShowCategory(false);
                         }}
                       >
                         تمام دسته ها
                       </li>
                       {menus.map((category) => (
                         <li
-                        key={category.shortLink}
+                          key={category.shortLink}
                           className={`category__item ${
-                            currentCategory === category.shortLink && "category--current"
-                        }`}
-                          onClick={() =>setCurrentCategory(category.shortLink)}
+                            currentCategory === category.shortLink &&
+                            "category--current"
+                          }`}
+                          onClick={() => {
+                            setCurrentCategory(category.shortLink);
+                            setShowCategory(false);
+                          }}
                         >
                           {category.title}
                         </li>
@@ -384,20 +384,24 @@ const productContext=useContext(ProductsContext)
               </div>
               <div className="col-lg-3">
                 <div className="header__leftBox">
-                {!authContext.isLogin ? (
-                   <Link className="header__authUser" to="/login">
-                    <div className="header__authUser-box">
-                      <IoPersonOutline className="fullIcon" />
-                    </div>
-                    <span className="header__authUser-text">ورود / عضویت</span>
-                  </Link>):(
+                  {!auth?.token ? (
+                    <Link className="header__authUser" to="/login">
+                      <div className="header__authUser-box">
+                        <IoPersonOutline className="fullIcon" />
+                      </div>
+                      <span className="header__authUser-text">
+                        ورود / عضویت
+                      </span>
+                    </Link>
+                  ) : (
                     <Link className="header__authUser" to="/userpanel">
-                    <div className="header__authUser-box">
-                      <IoPersonOutline className="fullIcon" />
-                    </div>
-                  </Link>
+                      <div className="header__authUser-box">
+                        <IoPersonOutline className="fullIcon" />
+                        masoud
+                      </div>
+                    </Link>
                   )}
-                 
+
                   <div
                     className="basket"
                     onClick={() => setIsShowSideBarCart(true)}
@@ -408,7 +412,7 @@ const productContext=useContext(ProductsContext)
                 </div>
               </div>
             </div>
-            <Navbar/>
+            <Navbar />
           </div>
         </header>
       ) : (
@@ -487,7 +491,10 @@ const productContext=useContext(ProductsContext)
             </div>
             <div className="row">
               <div className="col-12">
-                <form className="searchBoxMobile" onSubmit={e=> e.preventDefault()}>
+                <form
+                  className="searchBoxMobile"
+                  onSubmit={(e) => e.preventDefault()}
+                >
                   <Link className="searchBox__btn" to="/">
                     <TfiSearch className="searchBox__iconSearch" />
                   </Link>
@@ -508,9 +515,8 @@ const productContext=useContext(ProductsContext)
                   <div className="searchBox__categoryBox">
                     <TbApps
                       className="searchBox__categoryIcon"
-                      onClick={(e) =>setShowCategory(!showCategory)}
+                      onClick={(e) => setShowCategory(!showCategory)}
                       ref={btnMobileCategoryRef}
-
                     />
                   </div>
                   {!isLoading && showCategory && (
@@ -528,7 +534,7 @@ const productContext=useContext(ProductsContext)
                         </li>
                         {menus.map((category) => (
                           <li
-                          key={category.shortLink}
+                            key={category.shortLink}
                             className={`category__item ${
                               category === category.shortLink &&
                               "category--current"

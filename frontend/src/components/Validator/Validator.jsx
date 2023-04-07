@@ -73,7 +73,6 @@ export const addProductsSchema=Yup.object().shape({
   productTitle:Yup.string().required(persianTexts.error.addProducts.productTitle.required).min(4,persianTexts.error.addProducts.productTitle.min),
   productPrice:Yup.number(persianTexts.error.addProducts.productPrice.number).required(persianTexts.error.addProducts.productPrice.required).integer(persianTexts.error.addProducts.productPrice.integer).moreThan(10000,persianTexts.error.addProducts.productPrice.moreThan),
   productRating:Yup.number(persianTexts.error.addProducts.productRating.number).integer(persianTexts.error.addProducts.productRating.integer).moreThan(0,persianTexts.error.addProducts.productRating.moreThan).required(persianTexts.error.addProducts.productRating.required),
-  test:Yup.number(persianTexts.error.addProducts.productRating.number).integer(persianTexts.error.addProducts.productRating.integer).moreThan(0,persianTexts.error.addProducts.productRating.moreThan).required(persianTexts.error.addProducts.productRating.required),
   productQantity:Yup.number(persianTexts.error.addProducts.productQantity.number).moreThan(0,persianTexts.error.addProducts.productQantity.moreThan).integer(persianTexts.error.addProducts.productQantity.integer).required(persianTexts.error.addProducts.productQantity.required),
   productCategory:Yup.string().required(persianTexts.error.addProducts.productCategory.required),
   productSegment:Yup.string().required(persianTexts.error.addProducts.productSegment.required),

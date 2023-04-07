@@ -20,10 +20,7 @@ import { AuthContext } from "../../../Context/AuthContext";
 import "./AddProduct.css";
 
 const AddProduct = () => {
-  const authContext = useContext(AuthContext);
   const uploadRef = useRef();
-  const [cover, setCover] = useState(null);
-  const [gallery, setGallery] = useState([]);
   const { auth } = useAuth();
   const ratingOptions = [
     { value: 1, text: "بد" },
@@ -41,23 +38,7 @@ const AddProduct = () => {
     { value: "white", text: "سفید", color: "#FFF" },
     { value: "pink", text: "صورتی", color: "#FF69B4" },
   ];
-  const saveUploadHandler = (values, type) => {
-    console.log(values, type);
-    switch (type) {
-      case "multi": {
-        setGallery(values);
-        break;
-      }
 
-      case "single": {
-        setCover(values);
-        break;
-      }
-
-      default:
-        break;
-    }
-  };
   return (
     <Formik
       initialValues={{
@@ -77,12 +58,11 @@ const AddProduct = () => {
       }}
       validationSchema={addProductsSchema}
       onSubmit={async (values, { resetForm }) => {
-        console.log("gallery",gallery)
         const data = {
           title: values.productTitle,
           segment: values.productSegment,
-          image: cover,
-          gallery: gallery,
+          image: values.productCover,
+          gallery: values.productGallery,
           offPrice: Number(values.productOffPrice),
           price: Number(values.productPrice),
           rating: Number(values.productRating),
@@ -222,7 +202,6 @@ const AddProduct = () => {
                       options={colorOptions}
                     />
                   </div>
-                 
 
                   <div className="col-md-6">
                     <FormControl
@@ -290,7 +269,6 @@ const AddProduct = () => {
                       accept="image/*"
                       name="productCover"
                       icon={<MdUploadFile className="uploader__icon" />}
-                      saveUploadHandler={saveUploadHandler}
                     />
                   </div>
                   <div className="col-md-6">
@@ -309,7 +287,6 @@ const AddProduct = () => {
                       accept="image/*"
                       name="productGallery"
                       multiple
-                      saveUploadHandler={saveUploadHandler}
                     />
                   </div>
                 </div>

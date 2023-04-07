@@ -21,14 +21,13 @@ const Input = (props) => {
           {props.label}
         </label>
       )}
-      <div
-        className={`formControl__box`}
-      >
+      <div className={`formControl__box`}>
+      
         <input
           ref={inputRef}
           className={`input  ${
-          meta.touched && meta.error ? "formControl--invalid" : undefined
-        }`}
+            meta.touched && meta.error ? "formControl--invalid" : undefined
+          }`}
           autoComplete="off"
           id={field.name}
           {...props}
@@ -41,7 +40,7 @@ const Input = (props) => {
               : "text"
           }
         />
-        {props?.type === "password" && (
+        {props?.controler === "password" && (
           <>
             {!isShowPassword ? (
               <BiShow

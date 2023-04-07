@@ -2,7 +2,7 @@
     display: block;
     color: var(--white);
     height: 4rem;
-    border-radius: var(--border-btn);
+    border-radius: var(--border-box);
     border:none;
     outline: none;
     margin:1rem 0;

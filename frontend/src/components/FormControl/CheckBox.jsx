@@ -1,4 +1,4 @@
-import React, {  useRef, useState } from "react";
+import React, {  useEffect, useRef, useState } from "react";
 //packages
 import { Field, useField, useFormikContext } from "formik";
 //icons
@@ -9,13 +9,25 @@ const CheckBoxTest = (props) => {
   const [field, meta, helpers] = useField(props);
   const [isShowOptions, setIsShowOptions] = useState(false);
   const { setFieldTouched} = useFormikContext();
+  const containerRef=useRef()
   const tochedHandler=()=>{
     setFieldTouched(field.name,true)
   }
 
+  useEffect(() => {
+    const outsideClickHandler = (e) => {
+      if (!containerRef?.current.contains(e.target)) {
+        setIsShowOptions(false);
+      }
+    };
+    document.body.addEventListener("click", outsideClickHandler);
+    return () => {
+      document.body.removeEventListener("click", outsideClickHandler);
+    };
+  }, []);
 
   return (
-    <div className="formControl__wrapper">
+    <div className="formControl__wrapper" ref={containerRef}>
     {props.label && (
       <label
         htmlFor={field.name}

@@ -12,22 +12,22 @@ const Select = (props) => {
     setFieldTouched(field.name, true);
   };
   const [selectValue, setSelectValue] = useState("");
-  const inputRef = useRef();
+  const containerRef = useRef();
 
-  // useEffect(() => {
-  //   const outsideClickHandler = (e) => {
-  //     if (!inputRef?.current.contains(e.target)) {
-  //       setIsShowOptions(false);
-  //     }
-  //   };
-  //   document.body.addEventListener("click", outsideClickHandler);
-  //   return () => {
-  //     document.body.removeEventListener("click", outsideClickHandler);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const outsideClickHandler = (e) => {
+      if (!containerRef?.current.contains(e.target)) {
+        setIsShowOptions(false);
+      }
+    };
+    document.body.addEventListener("click", outsideClickHandler);
+    return () => {
+      document.body.removeEventListener("click", outsideClickHandler);
+    };
+  }, []);
 
   return (
-    <div className="formControl__wrapper">
+    <div className="formControl__wrapper" ref={containerRef}>
       {props?.label && (
         <label
           htmlFor={field.name}
@@ -54,28 +54,7 @@ const Select = (props) => {
         </span>
         <HiChevronDown className="dropdownIcon" />
       </div>
-      {/* {props.options && (
-        <ul
-          className={`select__options ${
-            isShowOptions ? "select__options--show" : undefined
-          }`}
-        >
-          {props.options.map((option) => (
-            <li
-              key={option.value}
-              value={option.value}
-              className="select__option"
-              onClick={() => {
-                setFieldValue(field.name, option.value);
-                setSelectValue(option.text);
-                setIsShowOptions(false);
-              }}
-            >
-              {option.text}
-            </li>
-          ))}
-        </ul>
-      )} */}
+
       {props.options && (
         <ul
           className={`checkbox__lists ${

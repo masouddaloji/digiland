@@ -15,24 +15,42 @@ const Uploader = (props) => {
   const { setFieldValue } = useFormikContext();
   const [previewImage, setPreviewImage] = useState([]);
   const [uploadImagePercent, setUploadImagePercent] = useState(null);
-  const [resultUpload, setResultUpload] = useState(false);
+  const [isShowMessage, setIsShowMessage] = useState(false);
+  const [images, setImages] = useState([]);
   const uploaderRef = useRef();
-  const authContext = useContext(AuthContext);
-  const {auth}=useAuth()
 
-  const uploadHandler = (event) => {
-    event.preventDefault()
-    let files = event.target.files;
-    let arrayFiles = Array.from(files);
-    setFieldValue(field.name, arrayFiles);
+  const { auth } = useAuth();
+  const message = {
+    single: "کاور محصول آپلود شد",
+    multiple: "عکس های محصول آپلود شدند",
+  };
+
+  const uploadHandler = async (event) => {
+    event.preventDefault();
+    let files = await Array.from(event?.target?.files);
+    setImages(files);
+  };
+  const uploading = (e) => {
+    e.preventDefault();
+    const imageData = new FormData();
+    if (!props.multiple) {
+      imageData.append("image", images[0]);
+      setPreviewImage(images[0]);
+      uploadProduct("upload/prodimg", imageData);
+    } else {
+      images.map((img) => {
+        imageData.append("images", img);
+      });
+      setPreviewImage(images);
+      uploadProduct("upload/prodgallery", imageData);
+    }
   };
 
   const uploadProduct = async (url, data) => {
-  
     await privateAxios
       .post(url, data, {
         onUploadProgress: (progress) => {
-          const percent = Math.round((progress.loaded / progress.total)* 100 );
+          const percent = Math.round((progress.loaded / progress.total) * 100);
           setUploadImagePercent(percent);
         },
         headers: {
@@ -41,42 +59,22 @@ const Uploader = (props) => {
         },
       })
       .then((res) => {
-        
-        setResultUpload(true);
+        setIsShowMessage(true);
         if (props.multiple) {
-          sendUploadUrl(res.data.galleryArray,"multi");
+          setFieldValue(field.name, res.data.galleryArray);
         } else {
-          sendUploadUrl(res.data.path,"single");
+          setFieldValue(field.name, res.data.path);
         }
       })
       .catch((err) => {
         console.log("err", err);
-        setUploadImagePercent(0)
+        setUploadImagePercent(0);
       });
   };
 
-  const uploading =  (e,files) => {
-    e.preventDefault()
-    if (!props.multiple) {
-      const coverData = new FormData();
-       coverData.append("image", files[0]);
-       setPreviewImage(files);
-      uploadProduct("upload/prodimg", coverData);
-    } else {
-      const galleryData = new FormData();
-      const arrayGalleries = [];
-      for (const item of files) {
-        galleryData.append("images", item);
-         arrayGalleries.push(item);
-      }
-       setPreviewImage(arrayGalleries);
-      uploadProduct("upload/prodgallery", galleryData);
-    }
+  const sendUploadUrl = (url, type) => {
+    props.saveUploadHandler(url, type);
   };
-
-  const sendUploadUrl=(url,type)=>{
-    props.saveUploadHandler(url,type)
-  }
   return (
     <>
       <div className="formControl__wrapper">
@@ -117,32 +115,29 @@ const Uploader = (props) => {
           style={{ width: `${uploadImagePercent}%` }}
         ></div>
       </div>
- 
+
       <button
-        onClick={(e) => uploading(e,meta.value)}
-        className={`uploader__btn ${meta.value && "uploader__btn--show"}`}
+        onClick={uploading}
+        className={`uploader__btn ${images?.length && "uploader__btn--show"}`}
       >
         آپلود
       </button>
-      {resultUpload && (
+      {isShowMessage && (
         <div className="uploadResult__wrapper">
-
-       
-          <p className="upload__resultText">عکس های محصول آپلود شدند</p>
+          <p className="upload__resultText">
+            {props?.multiple ? message.multiple : message.single}
+          </p>
           <div className="upload__showImages">
-
-    
-          {previewImage.length &&
-            previewImage.map((item, index) => (
-              <img
-              className="upload__previewImage"
-                key={index + 1}
-                src={URL.createObjectURL(item)}
-              />
-            ))}
-            </div>
-
-            </div>
+            {previewImage.length &&
+              previewImage.map((item, index) => (
+                <img
+                  className="upload__previewImage"
+                  key={index + 1}
+                  src={URL.createObjectURL(item)}
+                />
+              ))}
+          </div>
+        </div>
       )}
     </>
   );

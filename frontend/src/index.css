@@ -180,14 +180,14 @@ a{
   /* --red:#c00; */
   --red:#A3080C;
   --red-50: #DA291C;
+  --red-25:#FF4242;
   --border-btn:2.5rem;
   --box-shadow:0 .5rem 1rem rgba(0,0,0,.2);
   /* --black-50:#1d1d1d; */
   --admin-main:#00001c;
-  /* --linear:linear-gradient(45deg, #00BFFF,#007FFF, var(--blue-hover)); */
+
   --linear:linear-gradient(90deg, #0C97Fa,#16E1F5);
-  /* --linear--hover:linear-gradient(45deg,var(--blue-hover), #007FFF); */
-  /* --admin-main:#234099; */
+
 }
 /* end variabels */
 /* start default */
@@ -328,7 +328,7 @@ height: 3rem;
 }
 .productPrice {
   font-family: var(--Iran-number);
-  color: var(--gray-50);
+  color:var(--gray-text);
   font-size: 1.4rem;
   display: inline-block;
 }

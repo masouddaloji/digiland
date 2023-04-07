@@ -152,21 +152,11 @@ const articles=Array(6).fill(0)
         </div>
         <section className="amazinOffer">
           <div className="row">
-            <div className="col-12">
-              <div className="amazinOffer__header">
-                <div className="amazinOffer__iconBox">
-                  <IoIosHourglass className="fullIcon" />
-                </div>
-                <h3 className="amazinOffer__title">
-                  <span className="amazinOffer__goldText">پیشنهادات </span>شـگفت
-                  انگیز
-                </h3>
-              </div>
+            <div className="col-2">
+            <img src="/images/offer-spc.png" alt="" className="amazinOffer__img"/>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-12">
-            <Slider numberSlidePreview={5} space={15} isLoop={true} isNavigation={true} timeAutoplay={2500} array={suggestionProduct} slide="SuggestedProductBox"/>
+            <div className="col-10">
+            <Slider numberSlidePreview={4} space={15} isLoop={true} isNavigation={true} timeAutoplay={2500} array={suggestionProduct} slide="SuggestedProductBox"/>
             </div>
           </div>
         </section>

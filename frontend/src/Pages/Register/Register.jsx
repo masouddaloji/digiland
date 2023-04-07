@@ -58,19 +58,19 @@ export default function Register() {
               <h4 className="auth__title">ثبت نام</h4>
               <Form className="auth__form">
                 <FormControl
-                  type="email"
+                  controler="email"
                   label="ایمیل"
                   name="registerEmail"
                   icon=<MdAlternateEmail className="formControl__icon" />
                 />
                 <FormControl
-                  type="password"
+                  controler="password"
                   label="رمز عبور"
                   name="registerPassword"
                   icon=<RiLockPasswordLine className="formControl__icon"/>
                 />
                 <FormControl
-                  type="password"
+                  controler="password"
                   label="تکرار رمز عبور"
                   name="registerConfirmPassword"
                   icon=<RiLockPasswordLine className="formControl__icon"/>
