@@ -12,7 +12,7 @@ import { MdOutlineDriveFolderUpload } from "react-icons/md";
 
 const Uploader = (props) => {
   const [field, meta, helpers] = useField(props);
-  const { setFieldValue } = useFormikContext();
+  const { setFieldValue,setFieldTouched } = useFormikContext();
   const [previewImage, setPreviewImage] = useState([]);
   const [uploadImagePercent, setUploadImagePercent] = useState(null);
   const [isShowMessage, setIsShowMessage] = useState(false);
@@ -27,6 +27,7 @@ const Uploader = (props) => {
 
   const uploadHandler = async (event) => {
     event.preventDefault();
+    setFieldTouched(field.name,true)
     let files = await Array.from(event?.target?.files);
     setImages(files);
   };

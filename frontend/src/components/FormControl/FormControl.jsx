@@ -48,9 +48,7 @@ function FormControl(props) {
     case "checkbox": {
       return <CheckBox {...props}/>
     }
-    // case "selected": {
-    //   return <Select {...props}/>
-    // }
+
     case "editor": {
       return <Editor {...props} />
     }
