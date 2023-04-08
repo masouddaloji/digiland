@@ -1,14 +1,20 @@
-import React, { useContext, useRef, useState } from "react";
-import { TfiSearch } from "react-icons/tfi";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import ProductsContext from "../../Context/ProductsContext";
+import React, {  useEffect, useRef, useState } from "react";
+//packages
+import { Link, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, Thumbs, Zoom } from "swiper";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
-import "swiper/css/zoom";
-import { Link, useParams } from "react-router-dom";
+import domPurify from 'dompurify'
+//components
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+import SectionHeader from "../../components/SectionHeader/SectionHeader";
+import ProductCart from "../../components/ProductCart/ProductCart";
+import ProductCount from "../../components/ProductCount/ProductCount";
+import InputRating from "../../components/InputRating/InputRating";
+import axios from "../../api/axios";
+import Slider from "../../components/Slider/Slider";
+
+//icons
+import { TfiSearch } from "react-icons/tfi";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import {
@@ -27,15 +33,17 @@ import { BsCheck, BsPen, BsSortDown, BsQuestionSquare } from "react-icons/bs";
 import { IoMdClose, IoMdHeartEmpty } from "react-icons/io";
 import { CgChevronLeftO, CgList } from "react-icons/cg";
 import { TbChecklist, TbTriangle, TbTriangleInverted } from "react-icons/tb";
-import InputRating from "../../components/InputRating/InputRating";
-
+//styles//
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import "swiper/css/zoom";
 import "./Product.css";
-import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import ProductCart from "../../components/ProductCart/ProductCart";
-import ProductCount from "../../components/ProductCount/ProductCount";
+
 
 export default function Product() {
-  const productsContext = useContext(ProductsContext);
+  const [detailsProduct, setDetailsProduct] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   const [activeThumbs, setActiveThumbs] = useState();
   const { productId } = useParams();
   const [productCount, setProductCount] = useState(1);
@@ -50,8 +58,7 @@ export default function Product() {
   const [advantagesError, setAdvantagesError] = useState(false);
   const [disadvantagesError, setDisadvantagesError] = useState(false);
   const [magnifyStyle, setMagnifyStyle] = useState({
-    backgroundImage: `url(/images/phone/samsung/13promax-2.jpg)`,
-  });
+    backgroundImage: `url(/images/phone/samsung/13promax-2.jpg)`,});
   const maxValue = 10;
 
   const allInfosBtn = [
@@ -122,18 +129,26 @@ export default function Product() {
       opacity: "0",
     }));
   };
+  useEffect(()=>{
+    console.log("productId",productId)
+    axios.get(`products/reviews/${productId}`)
+    .then(res=>setDetailsProduct(res?.data?.data))
+    .catch(error=>console.log(error))
+  },[])
   return (
     <div className="product">
       <div className="container">
-        <Breadcrumb />
+      {/* bread crumbs */}
+        {/* <Breadcrumb /> */}
         <div className="product__wrapper">
           <div className="row">
             <div className="col-4">
               <div className="product__imagesBox">
                 <div className="product__largeImageBox">
+                {/* <Slider  space={15} isLoop={true} isNavigation={true} array={detailsProduct?.gallery} slide="image"/> */}
                   <Swiper
                     dir="rtl"
-                    // loop={true}
+                    loop={true}
                     spaceBetween={10}
                     navigation={true}
                     modules={[Navigation, Thumbs, Zoom]}
@@ -142,10 +157,10 @@ export default function Product() {
                     thumbs={{ swiper: activeThumbs }}
                     className="mySwiper"
                   >
-                    <SwiperSlide>
+                  {detailsProduct?.gallery?.map((item,index)=> <SwiperSlide key={index+1}>
                       <div className="largImage__wrapper">
                         <img
-                          src="/images/phone/samsung/13promax-2.jpg"
+                          src={`http://localhost:8000${item}`}
                           alt="product image"
                           className="product__smallImage"
                           onMouseMove={mouseMoveHandler}
@@ -156,23 +171,7 @@ export default function Product() {
                         />
                         <div className="zoomImage" style={magnifyStyle}></div>
                       </div>
-                    </SwiperSlide>
-                    {/* <SwiperSlide>
-                      <img
-                        src="/images/phone/samsung/13promax-2.jpg"
-                        alt="product image"
-                        className="product__smallImage"
-                        onMouseMove={(e)=>console.log(e.nativeEvent)}
-                      />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <img
-                        src="/images/phone/samsung/13promax-2.jpg"
-                        alt="product image"
-                        className="product__mainImage"
-                        onMouseMove={(e)=>console.log(e.nativeEvent)}
-                      />
-                    </SwiperSlide> */}
+                    </SwiperSlide> )}
                   </Swiper>
                   <div className="product__fullScrennImage">
                     <TfiSearch className="product__icon" />
@@ -182,49 +181,22 @@ export default function Product() {
                   <Swiper
                     onSwiper={setActiveThumbs}
                     dir="rtl"
-                    // loop={true}
+                    loop={true}
                     slidesPerView={4}
                     spaceBetween={10}
                     modules={[Navigation, Thumbs]}
                     className="mySwiper swiperThumbs"
                   >
-                    <SwiperSlide>
+                   {detailsProduct?.gallery?.map((item,index)=> <SwiperSlide key={index+1}>
                       <div className={`product__smallImagesBox`}>
                         <img
-                          src="/images/phone/samsung/13promax-2.jpg"
+                          src={`http://localhost:8000${item}`}
                           alt="product image"
                           className="product__smallImage"
                         />
                       </div>
-                    </SwiperSlide>
-
-                    {/* <SwiperSlide>
-                      <div className="product__smallImagesBox">
-                        <img
-                          src="/images/phone/samsung/13promax-2.jpg"
-                          alt=""
-                          className="product__smallImage"
-                        />
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <div className="product__smallImagesBox">
-                        <img
-                          src="/images/phone/samsung/13promax-2.jpg"
-                          alt=""
-                          className="product__smallImage"
-                        />
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <div className="product__smallImagesBox">
-                        <img
-                          src="/images/phone/samsung/13promax-2.jpg"
-                          alt=""
-                          className="product__smallImage"
-                        />
-                      </div>
-                    </SwiperSlide> */}
+                    </SwiperSlide>)}
+                    
                   </Swiper>
                 </div>
               </div>
@@ -232,8 +204,7 @@ export default function Product() {
             <div className="col-5">
               <div className="product__detailsBox">
                 <h2 className="product__detailsTitle">
-                  گوشی موبایل شیائومی مدل POCO X3 Pro M2102J20SG NFC دو سیم‌
-                  کارت ظرفیت 256
+                  {detailsProduct?.title}
                 </h2>
                 <span className="product__detailsSubtitle">
                   Xiaomi POCO X3 Pro M2102J20SG Dual SIM 256GB And 8GB RAM
@@ -271,16 +242,21 @@ export default function Product() {
                   </li>
                 </ul>
                 <div className="product__priceRange">
-                  <bdi className="product__prices">21,000,000
+                  <bdi className="product__prices">{detailsProduct?.price?.toLocaleString()}
                   <span className="toman">تومان</span>
                   </bdi>
-                  
+                  {detailsProduct?.offPrice?
+                  <>
                   <i>|</i>
                   <bdi className="product__prices">25,600,000
                   <span className="toman">تومان</span>
                   </bdi>
+                  </> 
+                  : null}
+                 
                   
                 </div>
+                {/* select colors product */}
                 <div className="product__colorBox">
                   <div className="product__currentColor">
                     <span> رنگ : </span>
@@ -288,18 +264,11 @@ export default function Product() {
                   </div>
 
                   <div className="product__allColors">
-                    <div>
-                      <span className="product__colorTitle">آبی</span>
-                      <span className="product__color" data-color="blue"></span>
-                    </div>
-                    <div>
-                      <span className="product__colorTitle">آبی</span>
-                      <span className="product__color" data-color="blue"></span>
-                    </div>
-                    <div>
-                      <span className="product__colorTitle">آبی</span>
-                      <span className="product__color" data-color="blue"></span>
-                    </div>
+                  {detailsProduct?.colors?.map(color=><div>
+                      <span className="product__colorTitle">{color}</span>
+                      <span className="product__color" data-color={color}></span>
+                    </div>)}
+                    
                   </div>
                   <div className="product__currentPrice">
                     <bdi className="product__prices">25,600,000
@@ -329,6 +298,7 @@ export default function Product() {
                 </div>
               </div>
             </div>
+            {/* colors */}
             <div className="col-3">
               <div className="product__availbleBox">
                 <div className="product__availbleWrapper">
@@ -431,29 +401,13 @@ export default function Product() {
                     نقد و بررسی اجمالی
                   </span>
                   <span className="allDetails__headingDesc">
-                    Xiaomi POCO X3 Pro M2102J20SG Dual SIM 256GB And 8GB RAM
-                    Mobile Phone
+                   {detailsProduct?.title}
                   </span>
                 </div>
               </div>
               <div className="allDetails__detailsBox">
                 <p className="allDetails__detailsText">
-                  گوشی موبایل شیائومی مدل Poco X3 Pro دو سیم‌ کارت ظرفیت 256
-                  گیگابایت از جمله محصولات برند شیائومی که در سال 2021 با فناوری
-                  NFC روانه بازار شده است. این محصول دارای ساختاری متوازن و
-                  خوش‌ساخت بدون پشتیبانی از تکنولوژی 5G روانه بازار شده است. این
-                  محصول از بدنه پلاستیکی ساخته شده است که قاب جلو شیشه‌ای جلوه
-                  ویژه‌ای به این مدل بخشیده است. صفحه‌نمایش گوشی موبایل شیائومی
-                  مدل POCO X3 Pro دو سیم‌ کارت ظرفیت 256گیگابایت در اندازه 6.67
-                  منتشر شده است. این صفحه‌نمایش کاملاً تمام‌صفحه است و در بالا
-                  وسط اثری از بریدگی یا حفره دوربین سلفی وجود دیده می‌شود.
-                  دوربین سلفی این محصول دارای حسگر 20 مگاپیکسلی است .صحفه‌نمایش
-                  گوشی موبایل شیائومی مدل POCO X3 با استفاده از فناوری Corning
-                  Gorilla Glass 6 در برابر خط‌وخش و صدمات احتمالی محافظت می‌شود.
-                  گفتنی است چهار دوربین که سنسور اصلی آن 48 مگاپیکسلی است در
-                  قسمت پشتی این گوشی جا خوش کرده‌اند. این دوربین‌ها قادر هستند
-                  ویدئوی 4K را ثبت و ضبط کنند. دوربین‌ سلفی این محصول هم به
-                  سنسوری 20 مگاپیکسلی مجهز شده است.
+                {detailsProduct?.shortDescription}
                 </p>
               </div>
             </div>
@@ -473,7 +427,8 @@ export default function Product() {
                   </span>
                 </div>
               </div>
-              <table className="productsTable">
+              <div className="details__tableWrapper" dangerouslySetInnerHTML={{__html:domPurify.sanitize(detailsProduct?.fullDescription)}}></div>
+              {/* <table className="productsTable">
                 <tbody>
                   <tr className="productsTable__mainHeader">
                     <th>
@@ -560,7 +515,7 @@ export default function Product() {
                     </td>
                   </tr>
                 </tbody>
-              </table>
+              </table> */}
             </div>
             {/* start userComments */}
             <div
@@ -1295,7 +1250,7 @@ export default function Product() {
         </div>
         <div className="row">
           <div className="col-12">
-            <Swiper
+            {/* <Swiper
               dir="rtl"
               slidesPerView={5}
               spaceBetween={15}
@@ -1303,14 +1258,14 @@ export default function Product() {
               loop={true}
               navigation={true}
               breakpoints={{
-                // when window width is >= 640px
+                
                 270: {
                   slidesPerView: 1,
                 },
                 600: {
                   slidesPerView: 2,
                 },
-                // when window width is >= 768px
+               
                 768: {
                   slidesPerView: 3,
                 },
@@ -1347,7 +1302,7 @@ export default function Product() {
                   {console.log("errorProducts", productsContext.errorProducts)}
                 </>
               )}
-            </Swiper>
+            </Swiper> */}
           </div>
         </div>
       </div>

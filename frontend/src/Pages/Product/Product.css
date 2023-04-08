@@ -197,6 +197,8 @@ align-items: center; */
 }
 .product__countAdd {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin: 1rem 0;
 }
 
@@ -402,6 +404,9 @@ table.productsTable {
   width: 100%;
   text-align: right;
   background: transparent;
+}
+.table table{
+  background: var(--gray);
 }
 .productsTable__mainHeader {
 }

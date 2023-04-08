@@ -87,7 +87,15 @@ const {numberSlidePreview,space,isLoop,isNavigation,timeAutoplay,center,classNam
         <BannerBox {...item} />
       </SwiperSlide>
     ))
-    ):null}
+    ):slide==="image"?
+    (
+        array.map((item,index)=>(
+        <SwiperSlide key={index+1}>
+        <img src={item} alt="gallery product" className="image__gallery" />
+      </SwiperSlide>
+    ))
+    )
+    :null}
 
     </Swiper>
   );

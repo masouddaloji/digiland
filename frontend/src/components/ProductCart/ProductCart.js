@@ -10,7 +10,7 @@ export default function ProductCart(props) {
 const{_id,title,image,offPrice,price,rating,colors}=props
   return (
      <div className="productBox">
-     <Link to="/">
+     <Link to={`/product/${_id}`}>
      <div className="product__imgBox">
  <img src={`http://localhost:8000${image}`} alt="new product image" className="product__img" />
        </div>

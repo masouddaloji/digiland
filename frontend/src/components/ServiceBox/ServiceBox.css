@@ -3,7 +3,7 @@
 
 .linkBox__link {
     width: 100%;
-    height: 9rem;
+    /* height: 9rem; */
     flex-grow: 1;
     padding: 1rem;
     display: flex;
@@ -14,13 +14,13 @@
     box-shadow: var(--box-shadow);
     background: var(--white);
     transition: all 0.3s;
-    border: 1px solid var(--gray);
+    border: 2px solid var(--gray);
 }
 .linkBox__link:hover {
     border-color: var(--blue);
   }
 .linkBox__iconBox {
-    margin-top: 1.5rem;
+    margin-top: 2.5rem;
   color: var(--black-50);
 }
 
