@@ -77,11 +77,11 @@ export const persianTexts = {
         integer: "درصد تخفیف را بصورت صحیح وارد کنید",
       },
       productShortDescription: {
-        required: "لطفا توضیحات کوتاهی راجب محصول بنویسید",
+        required: "لطفا توضیحاتی  راجب محصول بنویسید",
         min: "حداقل 10 کاراکتر داشته باشد ",
       },
       productFullDescription: {
-        required: "لطفا توضیحات کامل محصول را بنویسید",
+        required: "لطفا اطلاعات کامل محصول را بنویسید",
         min: "حداقل 20 کاراکتر داشته باشد ",
       },
       productCover: {
@@ -103,8 +103,8 @@ export const persianTexts = {
         inputLabelCategory: "دسته بندی محصول",
         inputLabelSegment: "نام مختصر محصول",
         inputLabelColors: "رنگ های محصول",
-        inputLabelShortDescription: "توضیحات اجمالی محصول",
-        inputLabelFullDescription: "توضیحات تکمیلی محصول",
+        inputLabelShortDescription: "توضیحات محصول",
+        inputLabelFullDescription: "اطلاعات محصول",
         inputLabelBrand: "برند محصول",
         inputLabelOffPrice: "درصد تخفیف محصول",
         inputLabelCover: "کاور اصلی محصول",
@@ -118,9 +118,9 @@ export const persianTexts = {
         inputPlaceholderCategory: "موبایل",
         inputPlaceholderSegment: "s23 ultra 256 gb",
         inputPlaceholderColors: "لطفا رنگ های محصول را انتخاب کنید",
-        inputPlaceholderShortDescription: "توضیحات کوتاهی راجب محصول وارد کنید",
+        inputPlaceholderShortDescription: "لطفا توضیحات محصول را وارد کنید",
         inputPlaceholderFullDescription:
-          "کلیه اطلاعات و توضیحات محصول را وارد کنید",
+          "لطفا اطلاعات محصول را وارد کنید",
         inputPlaceholderBrand: "samsung",
         inputPlaceholderOffPrice: 15,
         inputPlaceholderCover: "لطفا عکس اصلی محصول را انتخاب کنید",

@@ -8,7 +8,7 @@ import { HiChevronDown } from "react-icons/hi";
 const CheckBoxTest = (props) => {
   const [field, meta, helpers] = useField(props);
   const [isShowOptions, setIsShowOptions] = useState(false);
-  const { setFieldTouched} = useFormikContext();
+  const { setFieldTouched,handleBlur} = useFormikContext();
   const containerRef=useRef()
   const tochedHandler=()=>{
     setFieldTouched(field.name,true)
@@ -18,6 +18,7 @@ const CheckBoxTest = (props) => {
     const outsideClickHandler = (e) => {
       if (!containerRef?.current.contains(e.target)) {
         setIsShowOptions(false);
+        handleBlur(e)
       }
     };
     document.body.addEventListener("click", outsideClickHandler);

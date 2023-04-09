@@ -139,19 +139,6 @@ const AddProduct = () => {
                       options={ratingOptions}
                     />
                   </div>
-
-                  {/* <div className="col-md-6">
-                    <FormControl
-                      label={persianTexts.admin.products.label.inputLabelRating}
-                      placeholder={
-                        persianTexts.admin.products.placeholder
-                          .inputPlaceholderRating
-                      }
-                      type="select"
-                      name="productRating"
-                      options={ratingOptions}
-                    />
-                  </div> */}
                   <div className="col-md-6">
                     <FormControl
                       label={

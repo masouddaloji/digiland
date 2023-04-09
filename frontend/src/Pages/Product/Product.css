@@ -405,21 +405,56 @@ table.productsTable {
   text-align: right;
   background: transparent;
 }
-.table table{
+.details__tableWrapper{
+  position: relative;
+}
+.details__tableWrapper h4:first-child{
+  margin-top: 2rem;
+}
+.details__tableWrapper table{
+  margin: 1rem 0;
+  width: 100%;
+  font-size: 1.2rem;
+  font-family: var(--Iran-number);
+  background: var(--white);
+  color: var(--black-50);
+}
+.details__tableWrapper h4{
+  background-color:var(--gray-50);
+  padding: 0.5rem 2rem;
+  display: block;
+  font-size: 12px;
+  width: 100%;
+  border-radius: 1.5rem 0 1.5rem 0;
+  font-family: var(--Iran-bold);
+  color: var(--black-50);
+}
+.details__tableWrapper table th{
+  width: 16rem;
+  border: 1px solid var(--gray);
+  padding: 0.7rem .5rem;
+  border-radius: .4rem .4rem 2rem .4rem;
   background: var(--gray);
 }
+.details__tableWrapper table td{
+  width: calc(100% - 16rem);
+  border-right: 0.7rem solid var(--white);
+  background: var(--gray);
+  padding: 0.7rem 1rem;
+  border-radius: .4rem;
+}
+.details__tableWrapper table tr{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 0.5rem solid transparent;
+}
+
+
+
 .productsTable__mainHeader {
 }
-.productsTable__mainHeader > th {
-  border: 1px solid #eeeff1;
-  border-radius: 0.5rem 0.5rem 2rem 0.5rem;
-  padding: 0.8rem 1.5rem;
-  font-size: 1.2rem;
-  display: block;
-  width: 100%;
-  color: var(--black-50);
-  margin: 0.5rem 0;
-}
+
 .productsTable__icon {
   font-size: 1.6rem;
   color: var(--blue);

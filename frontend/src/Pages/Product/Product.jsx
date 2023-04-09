@@ -307,6 +307,7 @@ export default function Product() {
                     تاریخ بروزرسانی :<span>17 تیر 1401</span>
                   </div>
                   <div className="product__availbleItem">
+                  {/* {detailsProduct?.} */}
                     <BiCheckSquare className="product__availbleItemIcon available" />
                     موجود است
                   </div>

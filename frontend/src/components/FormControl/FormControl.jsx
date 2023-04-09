@@ -11,8 +11,9 @@ import Uploader from "./Uploader";
 import Input from "./Input";
 import Textarea from "./Textarea";
 import CheckBox from "./CheckBox";
-import Editor from "./Editor";
 import Select from "./Select";
+import TextEditor from "./TextEditor";
+
 
 // contexts
 import { AuthContext } from "../../Context/AuthContext";
@@ -50,7 +51,7 @@ function FormControl(props) {
     }
 
     case "editor": {
-      return <Editor {...props} />
+      return <TextEditor {...props} />
     }
     // case "password":
     //   break;

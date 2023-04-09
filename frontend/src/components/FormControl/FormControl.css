@@ -21,7 +21,7 @@
   color: var(--red);
 }
 .formControl__box {
-  height: 4.2rem;
+  height: 3.6rem;
   width: 100%;
   position: relative;
 }
@@ -138,23 +138,25 @@
   box-shadow: var(--box-shadow);
   border-radius: var(--border-box);
 }
-.ck.ck-editor {
+.tox-tinymce{
+  border: none!important;
+  border-radius: unset!important;
+}
+.editor__box {
   outline: none;
   padding: 0;
   margin: 0;
-  border: none;
+  border: 2px solid var(--gray);
+  border-radius: var(--border-box);
   box-shadow: 0 1.2rem 1rem -1rem rgba(0, 0, 0, 0.3);
-}
-.ck-editor__editable {
-  min-height: 12rem;
-  direction: rtl;
+  overflow: hidden;
 }
 .checkbox__wrapper{
   position: relative;
 }
 .checkbox {
 width: 100%;
-height: 4.2rem;
+height: 3.6rem;
 background: var(--white);
 display: flex;
 align-items: center;

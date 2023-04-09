@@ -1,7 +1,7 @@
 .register__btn{
     display: block;
     color: var(--white);
-    height: 4rem;
+    height: 3.6rem;
     border-radius: var(--border-box);
     border:none;
     outline: none;
