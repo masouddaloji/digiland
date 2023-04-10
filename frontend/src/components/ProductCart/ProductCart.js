@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+//packages
+import { Link } from "react-router-dom";
+
+//icons
 import { IoIosStar, IoIosStarOutline, IoMdHeartEmpty } from "react-icons/io";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { GiScales } from "react-icons/gi";
-import { Link } from "react-router-dom";
-
+//styles
 import "./ProductCart.css";
 
 export default function ProductCart(props) {

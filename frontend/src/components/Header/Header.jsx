@@ -94,7 +94,7 @@ export default function Header({ categories, isLoading }) {
   };
   useEffect(() => {
     const outsideClickHandler = (e) => {
-      if (!searchRef?.current.contains(e.target)) {
+      if (!searchRef?.current?.contains(e.target)) {
         setShowCategory(false);
       }
     };

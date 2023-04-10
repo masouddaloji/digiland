@@ -6,7 +6,7 @@ import "./SuggestedProductBox.css";
 
 export default function SuggestedProductBox(props) {
   const {id,title,cover,productPrice,currentPrice,link,offerTime,percent}=props
-  // console.log("props",props)
+
   return (
     <div className="productBox">
       <h2 className="suggestedproduct__title">
@@ -31,7 +31,7 @@ export default function SuggestedProductBox(props) {
           </bdi>
           <span className="toman">تومان</span>
         </del>
-        <bdi className="currentPrice"> {currentPrice.toLocaleString()}</bdi>
+        <bdi className="currentPrice"> {currentPrice?.toLocaleString()}</bdi>
         <span className="toman">تومان</span>
       </div>
       <div className="suggestedproduct__time-Percent">

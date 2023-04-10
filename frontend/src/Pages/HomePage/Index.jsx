@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 // packages
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper";
+import { Autoplay,Pagination, Navigation } from "swiper";
 import { Link } from "react-router-dom";
 // styles
 import "swiper/css";
@@ -10,19 +10,12 @@ import "swiper/css/navigation";
 import "./Index.css";
 //components
 import axios from "../../api/axios";
-import SuggestedProductBox from "../../components/SuggestedProductBox/SuggestedProductBox";
-import ProductCart from "../../components/ProductCart/ProductCart";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import CompanyProduct from "../../components/CompanyProduct/CompanyProduct";
-import ArticleBox from "../../components/ArticleBox/ArticleBox";
-import ProductsContext from "../../Context/ProductsContext";
 import ServiceBox from "../../components/ServiceBox/ServiceBox";
 import Slider from "../../components/Slider/Slider";
+import Loader from "./../../components/Loader/Loader";
 // icons
-import { BsPrinter, BsTools } from "react-icons/bs";
-import { TbDeviceTvOld } from "react-icons/tb";
-import { RiHeartPulseLine } from "react-icons/ri";
-import { IoMdFootball, IoIosHourglass } from "react-icons/io";
+
 import { BiLayerPlus } from "react-icons/bi";
 import { AiFillApple } from "react-icons/ai";
 import { GrRss } from "react-icons/gr";
@@ -30,6 +23,8 @@ import { GrRss } from "react-icons/gr";
 import { services } from "../../Constants";
 
 export default function Index() {
+  const [isLoading, setIsLoading] = useState(false)
+
   const banners=[
     {id:101,link:"/",cover:"/images/widget/widget-img-1.png"},
     {id:202,link:"/",cover:"/images/widget/widget-img-2.png"},
@@ -106,23 +101,26 @@ const articles=Array(6).fill(0)
 const [allProducts,setAllProducts]=useState([])
 const [newProducts, setNewProducts] = useState([])
 useEffect(()=>{
+  setIsLoading(true)
   axios.get("products")
   .then(res=>{
     setAllProducts(res?.data?.data)
     const newProductsSlice=res?.data?.data.slice(0,6)
     setNewProducts(newProductsSlice)
+    setIsLoading(false)
   })
   .catch(error=>console.log(error))
 },[])
 
   return (
     <>
-      <div className="container">
+     {isLoading? <Loader message="در حال دریافت اطلاعات"/>:
+     <div className="container">
         <div className="row">
           <div className="col-12 col-lg-9">
             <div className="widget">
             {/* banner */}
-            <Slider space={45}  isNavigation={true}  center={true} array={banners} slide="BannerBox"/>
+            <Slider  spaceBetween={45} loop={true} autoplay={2500} navigation={true}  array={banners} slide="BannerBox"/>
             </div>
           </div>
           {/* instantOffer */}
@@ -168,7 +166,7 @@ useEffect(()=>{
             <img src="/images/offer-spc.png" alt="" className="amazinOffer__img"/>
             </div>
             <div className="col-10">
-            <Slider numberSlidePreview={4} space={15} isLoop={true} isNavigation={true} timeAutoplay={2500} array={suggestionProduct} slide="SuggestedProductBox"/>
+            <Slider sliders={4}  spaceBetween={15} loop={true} navigation={true} autoplay={2500} array={suggestionProduct} slide="SuggestedProductBox"/>
             </div>
           </div>
         </section>
@@ -224,7 +222,7 @@ useEffect(()=>{
           </div>
           <div className="row">
             <div className="col-12">
-            <Slider numberSlidePreview={5} space={15} isLoop={true} isNavigation={true} timeAutoplay={2500} array={newProducts} slide="ProductCart"/>
+            <Slider sliders={5} spaceBetween={15} loop={true} navigation={true} autoplay={2500} array={newProducts} slide="ProductCart"/>
             </div>
           </div>
         </section>
@@ -279,11 +277,12 @@ useEffect(()=>{
           </div>
           <div className="row">
             <div className="col-12">
-            <Slider numberSlidePreview={5} space={15} isLoop={true} isNavigation={true} array={articles} slide="ArticleBox"/>
+            <Slider sliders={5} autoplay={2500} spaceBetween={15} loop={true} navigation={true} array={articles} slide="ArticleBox"/>
             </div>
           </div>
         </section>
       </div>
+     }
     </>
   );
 }
