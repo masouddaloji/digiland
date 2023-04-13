@@ -30,13 +30,13 @@ const AddProduct = () => {
     { value: 5, text: "عالی" },
   ];
   const colorOptions = [
-    { value: "red", text: "قرمز", color: "#FF0000" },
-    { value: "black", text: "مشکی", color: "#000" },
-    { value: "gold", text: "طلایی", color: "#ffd300" },
-    { value: "blue", text: "آبی", color: "#0000FF" },
-    { value: "green", text: "سبز", color: "#00FF00" },
-    { value: "white", text: "سفید", color: "#FFF" },
-    { value: "pink", text: "صورتی", color: "#FF69B4" },
+    { value: "قرمز", color: "#FF0000" },
+    { value: "مشکی", color: "#000" },
+    { value: "طلائی", color: "#ffd300" },
+    { value: "آبی", color: "#0000FF" },
+    { value: "سبز", color: "#00FF00" },
+    { value: "سفید", color: "#FFF" },
+    { value: "صورتی", color: "#FF69B4" },
   ];
 
   return (
@@ -82,7 +82,7 @@ const AddProduct = () => {
             },
           })
           .then((res) => {
-            console.log("res",res)
+            console.log("res", res);
             if (res.status === 201 || res.status === 200) {
               toast.success("محصول با موفقیت افزوده شد");
               resetForm();

@@ -23,7 +23,8 @@ import PersistLogin from "./components/PersistLogin/PersistLogin";
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 
 const routes = (products, categories) => [
-  { path: "/", element: <Index /> },
+
+  { path: "/", element:<PersistLogin><Index /></PersistLogin> },
   {
     path: "/products-category/:categoryName",
     element: <ProductsCategory products={products} categories={categories} />,
@@ -46,9 +47,9 @@ const routes = (products, categories) => [
     path: "/adminpanel",
     element: (
       <PersistLogin>
-        {/* <PrivateRoute> */}
+        <PrivateRoute>
           <AdminPanel />
-        {/* </PrivateRoute> */}
+        </PrivateRoute>
       </PersistLogin>
     ),
     children: [

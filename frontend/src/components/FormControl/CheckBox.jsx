@@ -73,7 +73,7 @@ const CheckBoxTest = (props) => {
                 name={field.name}
               />
               <label htmlFor={option.value} className="checkbox__label">
-                {option.text}
+                {option.value}
               </label>
             </li>
           ))}

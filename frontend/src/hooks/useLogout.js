@@ -5,18 +5,21 @@ import { toast } from "react-toastify";
 import axios from "../api/axios";
 // hooks
 import useAuth from "./useAuth";
+//persian texts
+import { persianTexts } from "../text";
 
 const useLogout = () => {
   const { setAuth } = useAuth();
   const logout = async () => {
     try {
       const response = await axios("auth/logout", { withCredentials: true });
+      console.log("response",response)
       if (response?.status === 200) {
-        setAuth((prev) => ({ ...prev, token: null, isLogin: false }));
-        toast.success("شما با موفقیت از حساب خود خارج شدید");
+        setAuth((prev) => ({ ...prev, token: null}));
+        toast.success(persianTexts.useLogout.logoutSuccess);
       }
     } catch (error) {
-      toast.error("خروج از حساب با مشکل مواجه شد لطفا دوباره تلاش نمایید");
+      toast.error(persianTexts.useLogout.logoutError);
       console.log(error);
     }
   };

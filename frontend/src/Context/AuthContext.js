@@ -7,7 +7,6 @@ export const AuthContext = createContext({});
 const AuthContextProvider = ({ children }) => {
   const[auth,setAuth]=useState({
     token:null,
-    isLogin:false,
   })
   const [persist,setPersist]=useState(JSON.parse(localStorage.getItem("persist"))|| false)
 

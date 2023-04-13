@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 // components
 import Navbar from "../Navbar/Navbar";
+//hooks
+import useLogout from '../../hooks/useLogout'
 // contexts
 import useAuth from "../../hooks/useAuth";
 // icons
@@ -74,6 +76,7 @@ export default function Header({ categories, isLoading }) {
   const [deviceWidth, setDeviceWidth] = useState({ width: window.innerWidth });
   const [isShowSideBarCart, setIsShowSideBarCart] = useState(false);
   const { auth } = useAuth();
+  const logout=useLogout()
   const categoryRef = useRef();
   const btnCategoryRef = useRef();
   const btnMobileCategoryRef = useRef();
@@ -92,6 +95,9 @@ export default function Header({ categories, isLoading }) {
       setIsShowSideBarCart(false);
     }
   };
+  const logoutHandler=()=>{
+    logout()
+  }
   useEffect(() => {
     const outsideClickHandler = (e) => {
       if (!searchRef?.current?.contains(e.target)) {
@@ -394,12 +400,23 @@ export default function Header({ categories, isLoading }) {
                       </span>
                     </Link>
                   ) : (
-                    <Link className="header__authUser" to="/userpanel">
+                    <div className="header__userInfo">
                       <div className="header__authUser-box">
                         <IoPersonOutline className="fullIcon" />
-                        masoud
                       </div>
-                    </Link>
+                      <span className="header__userName">خوش اومدی مسعود</span>
+                      <ul className="header__userOptions">
+                        <li className="header__userOption">
+                        حساب کاربری
+                        </li>
+                        <li className="header__userOption">
+                        سبد خرید
+                        </li>
+                        <li className="header__userOption" onClick={logoutHandler}>
+                        خروج
+                        </li>
+                      </ul>
+                    </div>
                   )}
 
                   <div

@@ -8,6 +8,7 @@ import CompanyProduct from "../CompanyProduct/CompanyProduct";
 import ArticleBox from "../ArticleBox/ArticleBox";
 import ProductCart from "../ProductCart/ProductCart";
 import BannerBox from "../BannerBox/BannerBox";
+import ProductGallery from "./ProductGallery";
 //icons
 import { TfiSearch } from "react-icons/tfi";
 
@@ -28,34 +29,7 @@ function Slider(props) {
     slide,
     array,
   } = props;
-  const [activeThumbs, setActiveThumbs] = useState();
-  const [activeImageIndex,setAactiveImageIndex]=useState()
-  const [magnifyStyle, setMagnifyStyle] = useState({});
-  const mouseMoveHandler = (e) => {
-    const { offsetX, offsetY, target } = e.nativeEvent;
-    const { offsetWidth, offsetHeight } = target;
-    const xPercent = (offsetX / offsetWidth) * 100;
-    const yPercent = (offsetY / offsetHeight) * 100;
-    setMagnifyStyle((prev) => ({
-      ...prev,
-      backgroundImage:array?.[activeImageIndex]&&`http://localhost:8000${array[0]}`,
-      visibility: "visible",
-      opacity: "1",
-      top: `${offsetY - 90}px`,
-      left: `${offsetX - 90}px`,
-      backgroundPosition: `${xPercent}% ${yPercent}%`,
-    }));
-  };
-  const mouseLeaveHandler = (e) => {
-    setMagnifyStyle((prev) => ({
-      ...prev,
-      visibility: "hidden",
-      opacity: "0",
-    }));
-  };
-useEffect(()=>{
-  setMagnifyStyle(prev=>({...prev,backgroundImage:`http://localhost:8000${array[activeImageIndex]}`}))
-},[activeImageIndex])
+
   switch (slide) {
     case "ProductCart":
       return (
@@ -266,66 +240,7 @@ useEffect(()=>{
         </Swiper>
       );
     case "thumb":
-            return (
-              <>
-                  <div className="product__largeImageBox">
-                  <Swiper
-                    dir="rtl"
-                    loop={true}
-                    spaceBetween={10}
-                    modules={[ Thumbs, Zoom]}
-                    grabCursor={true}
-                    zoom={{ maxRatio: 5, minRatio: 1 }}
-                    thumbs={{ swiper: activeThumbs }}
-                    className="mySwiper"
-                  >
-                  {array?.map((item,index)=> <SwiperSlide key={index+1}>
-                      <div className="largImage__wrapper">
-                        <img
-                          src={`http://localhost:8000${item}`}
-                          alt="product image"
-                          className="product__smallImage"
-                          onMouseMove={mouseMoveHandler}
-                          onMouseLeave={mouseLeaveHandler}
-                          onTouchMove={mouseMoveHandler}
-                          onTouchEnd={mouseLeaveHandler}
-                          draggable={false}
-                        />
-                        <div className="zoomImage" style={magnifyStyle}></div>
-                      </div>
-                    </SwiperSlide> )}
-                  </Swiper>
-                  <div className="product__fullScrennImage">
-                    <TfiSearch className="product__icon" />
-                  </div>
-                </div>
-                <div className="product__smallImagesWrapper">
-                  <Swiper
-                    onSwiper={(swiper)=>{
-                      setActiveThumbs(swiper)
-                      setAactiveImageIndex(swiper?.realIndex)
-                      console.log("swiper",swiper)}}
-                    dir="rtl"
-                    loop={true}
-                    slidesPerView={4}
-                    spaceBetween={10}
-                    modules={[Navigation, Thumbs]}
-                    className="mySwiper swiperThumbs"
-                  >
-                   {array?.map((item,index)=> <SwiperSlide key={index+1}>
-                      <div className={`product__smallImagesBox`}>
-                        <img
-                          src={`http://localhost:8000${item}`}
-                          alt="product image"
-                          className="product__smallImage"
-                        />
-                      </div>
-                    </SwiperSlide>)}
-                    
-                  </Swiper>
-                </div>
-              </>
-            )
+            return <ProductGallery {...props}/>
           
     default: {
       return null;

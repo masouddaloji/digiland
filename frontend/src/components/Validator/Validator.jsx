@@ -76,7 +76,7 @@ export const addProductsSchema=Yup.object().shape({
   productQantity:Yup.number(persianTexts.error.addProducts.productQantity.number).moreThan(0,persianTexts.error.addProducts.productQantity.moreThan).integer(persianTexts.error.addProducts.productQantity.integer).required(persianTexts.error.addProducts.productQantity.required),
   productCategory:Yup.string().required(persianTexts.error.addProducts.productCategory.required),
   productSegment:Yup.string().required(persianTexts.error.addProducts.productSegment.required),
-  productColors:Yup.array().required(persianTexts.error.addProducts.productColors.required).min(1,persianTexts.error.addProducts.productColors.min),
+  productColors:Yup.array().required(persianTexts.error.addProducts.productColors.required).min(1,persianTexts.error.addProducts.productColors.min).max(3,persianTexts.error.addProducts.productColors.max),
   productBrand:Yup.string().required(persianTexts.error.addProducts.productBrand.required),
   productOffPrice:Yup.number(persianTexts.error.addProducts.productOffPrice.number).moreThan(-1,persianTexts.error.addProducts.productOffPrice.moreThan).integer(persianTexts.error.addProducts.productOffPrice.integer),
   productShortDescription:Yup.string().required(persianTexts.error.addProducts.productShortDescription.required).min(10),

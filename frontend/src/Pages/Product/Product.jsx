@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 //packages
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import domPurify from "dompurify";
 //components
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
@@ -8,9 +9,11 @@ import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import ProductCart from "../../components/ProductCart/ProductCart";
 import ProductCount from "../../components/ProductCount/ProductCount";
 import InputRating from "../../components/InputRating/InputRating";
-import axios from "../../api/axios";
+import axios, { privateAxios } from "../../api/axios";
 import Slider from "../../components/Slider/Slider";
 import Loader from "../../components/Loader/Loader";
+//hooks
+import useAuth from './../../hooks/useAuth'
 //persianText
 import { persianTexts } from "../../text";
 //icons
@@ -27,12 +30,18 @@ import {
   BiCheckSquare,
   BiCommentDetail,
 } from "react-icons/bi";
-import { RiTruckLine } from "react-icons/ri";
-import { BsCheck, BsPen, BsSortDown, BsQuestionSquare } from "react-icons/bs";
-import { IoMdClose, IoMdHeartEmpty } from "react-icons/io";
+import { FaTruck,FaRegHeart } from "react-icons/fa";
+import {
+  BsCheckLg,
+  BsPen,
+  BsSortDown,
+  BsQuestionSquare,
+  BsXSquare,
+} from "react-icons/bs";
+import { IoMdClose } from "react-icons/io";
 import { CgList } from "react-icons/cg";
 import { TbChecklist, TbTriangle, TbTriangleInverted } from "react-icons/tb";
-//styles//
+//styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
@@ -42,7 +51,10 @@ import "./Product.css";
 export default function Product() {
   const [detailsProduct, setDetailsProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate=useNavigate()
   const { productId } = useParams();
+  const {auth}=useAuth()
+
   const [productCount, setProductCount] = useState(1);
   const [active, setActive] = useState("description");
   const [advantagesLists, setAdvantagesLists] = useState([]);
@@ -54,35 +66,30 @@ export default function Product() {
     useState(false);
   const [advantagesError, setAdvantagesError] = useState(false);
   const [disadvantagesError, setDisadvantagesError] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const persianNameColorHandler = () => {
-    switch (detailsProduct?.colors?.[0]) {
-      case "red":{setSelectedColor("قرمز")
-    break
-    }
-      case "black":{setSelectedColor("مشکی")
-    break
-    }
-      case "gold":{setSelectedColor("طلایی")
-    break
-    }
-      case "blue":{setSelectedColor("آبی")
-    break
-    }
-      case "green":{setSelectedColor("سبز")
-    break
-    }
-      case "white":{setSelectedColor("سفید")
-    break
-    }
-      case "pink":{setSelectedColor("صورتی")
-    break
-    }
+  const [selectedColor, setSelectedColor] = useState();
+  const [productUpdated, setProductUpdated] = useState();
+
+  const selectColorStyle = (persianColor) => {
+    switch (persianColor) {
+      case "قرمز":
+        return { backgroundColor: "red" };
+      case "مشکی":
+        return { backgroundColor: "black" };
+      case "طلائی":
+        return { backgroundColor: "gold" };
+      case "آبی":
+        return { backgroundColor: "blue" };
+      case "سبز":
+        return { backgroundColor: "green" };
+      case "سفید":
+        return { backgroundColor: "white" };
+      case "صورتی":
+        return { backgroundColor: "pink" };
+
       default:
         break;
     }
   };
-
   const maxValue = 10;
 
   const allInfosBtn = [
@@ -132,22 +139,46 @@ export default function Product() {
       disadvantagesLists.filter((item) => item.id !== pointID)
     );
   };
-
+   const convertDateFormat = () => {
+    const date = new Date(productUpdated);
+    const options = {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const persianDate = new Intl.DateTimeFormat("fa", options).format(date);
+    return persianDate;
+  };
+  const addToBasketHandler=async()=>{
+    if(auth?.token){
+      const response=await privateAxios.put(`basket/${productId}`)
+      if(response?.status===200){
+        toast.success(persianTexts.productInfo.addtobasketSuccess)
+      }else{
+        toast.error(persianTexts.productInfo.addtobasketError)
+      }
+    }else{
+      toast.warning(persianTexts.productInfo.firstTologin)
+      navigate("/login")
+    }
+  }
+  // getdata from server
   useEffect(() => {
     setIsLoading(true);
-    console.log("productId", productId);
     axios
       .get(`products/reviews/${productId}`)
       .then((res) => {
         setDetailsProduct(res?.data?.data);
+        setSelectedColor(res?.data?.data?.colors?.[0]);
+        setProductUpdated(res?.data?.data?.updatedAt);
         setIsLoading(false);
-       
       })
       .catch((error) => console.log(error));
   }, []);
-useEffect(()=>{
-  persianNameColorHandler()
-},[selectedColor])
+
+
+ 
+
   return (
     <>
       {isLoading ? (
@@ -172,8 +203,7 @@ useEffect(()=>{
                       {detailsProduct?.title}
                     </h2>
                     <span className="product__detailsSubtitle">
-                      Xiaomi POCO X3 Pro M2102J20SG Dual SIM 256GB And 8GB RAM
-                      Mobile Phone
+                      {detailsProduct?.segment}
                     </span>
                     <div className="product__detailsMeta">
                       <span className="product__detailsMetainfo">دسته : </span>
@@ -236,20 +266,22 @@ useEffect(()=>{
 
                       <div className="product__allColors">
                         {detailsProduct?.colors?.map((color) => (
-                          <div onClick={() => setSelectedColor(color)}>
-                            <span className="product__colorTitle">{color}</span>
-                            <span
-                              className="product__color"
-                              style={{ backgroundColor: color }}
-                            ></span>
+                          <div
+                            style={selectColorStyle(color)}
+                            className={`product__color ${
+                              selectedColor === color ? "colorSelected" : null
+                            } `}
+                            onClick={() => setSelectedColor(color)}
+                          >
+                            {selectedColor === color && (
+                              <BsCheckLg
+                                className={`colorSelecteor ${
+                                  selectedColor === "سفید" && "blacked"
+                                }`}
+                              />
+                            )}{" "}
                           </div>
                         ))}
-                      </div>
-                      <div className="product__currentPrice">
-                        <bdi className="product__prices">
-                          25,600,000
-                          <span className="toman">تومان</span>
-                        </bdi>
                       </div>
                     </div>
                     <div className="product__countAdd">
@@ -259,7 +291,7 @@ useEffect(()=>{
                         maxValue={10}
                         newValue={setProductCount}
                       />
-                      <button className="product__addToBasket">
+                      <button className="product__addToBasket" onClick={addToBasketHandler}>
                         <MdOutlineAddShoppingCart className="product__addIcon" />
                         افزودن به سبد خرید
                       </button>
@@ -268,7 +300,7 @@ useEffect(()=>{
                     <div className="product__warning">
                       <p className="product__warningText">
                         <HiOutlineBellAlert className="product__warningIcon" />
-                          {persianTexts.productInfo.warning}
+                        {persianTexts.productInfo.warning}
                       </p>
                     </div>
                   </div>
@@ -279,31 +311,31 @@ useEffect(()=>{
                     <div className="product__availbleWrapper">
                       <div className="product__availbleItem blue">
                         <BiCalendarCheck className="product__availbleItemIcon blue" />
-                        تاریخ بروزرسانی :<span>17 تیر 1401</span>
+                        تاریخ بروزرسانی :
+                        <span>{productUpdated && convertDateFormat()}</span>
                       </div>
+                      {detailsProduct?.quantity ? (
+                        <div className="product__availbleItem">
+                          <BiCheckSquare className="product__availbleItemIcon available" />
+                          موجود است
+                        </div>
+                      ) : (
+                        <div className="product__availbleItem">
+                          <BsXSquare className="product__availbleItemIcon notavailable" />
+                          اتمام موجودی
+                        </div>
+                      )}
+
                       <div className="product__availbleItem">
-                        {/* {detailsProduct?.quantity ? } */}
-                        <BiCheckSquare className="product__availbleItemIcon available" />
-                        موجود است
-                      </div>
-                      <div className="product__availbleItem">
-                        <RiTruckLine className="product__availbleItemIcon truck" />
+                        <FaTruck className="product__availbleItemIcon truck" />
                         ارسال از <span>3</span> روز کاری آینده
                       </div>
-                      <div className="product__btnWapper">
                         <div className="product__availbleItem">
                           <button className="product__availbleButton">
-                            <BsCheck className="product__availbleBtnIcon" />
-                            مقایسه
-                          </button>
-                        </div>
-                        <div className="product__availbleItem">
-                          <button className="product__availbleButton">
-                            <IoMdHeartEmpty className="product__availbleBtnIcon" />
+                            <FaRegHeart className="product__availbleBtnIcon" />
                             افزودن به علاقه مندی ها
                           </button>
                         </div>
-                      </div>
                     </div>
                     <div className="product__services">
                       <div className="product__servicesItem">
@@ -527,7 +559,7 @@ useEffect(()=>{
                       <div className="col-12 col-sm-6">
                         <div className="userComments__reviewRules">
                           <p className="userComments__rulesText">
-                          {persianTexts.productInfo.commentRules}
+                            {persianTexts.productInfo.commentRules}
                           </p>
                         </div>
                         <div className="resultReview__wrraper">

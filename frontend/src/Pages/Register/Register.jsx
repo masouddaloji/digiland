@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { toast } from "react-toastify";
-import axios from "axios";
+import axios from "./../../api/axios";
 // icons
 import { MdAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -34,12 +34,13 @@ export default function Register() {
           pwd: values.registerPassword,
         };
         const response = await axios.post("auth/register", userData);
-        if (response?.status === 200) {
+        if (response?.status === 200 ||response?.status === 201) {
           toast.success(persianTexts.register.registerSuccess);
           resetForm();
           navigate("/login");
         } else {
           toast.error(persianTexts.register.registerError);
+          console.log(response)
         }
       }}
     >

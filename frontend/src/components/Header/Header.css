@@ -343,7 +343,7 @@ color: #333;
   align-items: center;
   justify-content: flex-end;
 }
-.header__authUser {
+.header__authUser,.header__userInfo {
   background-color: var(--main-backgroundColor);
   margin-left: 2rem;
   height: 4rem;
@@ -352,12 +352,47 @@ color: #333;
   color: var(--black-50);
   border-radius: var(--border-box);
   padding: 0.5rem 1rem;
+  position: relative;
 }
 .header__authUser-box {
   width: 2.4rem;
   height: 2.4rem;
 }
+.header__userName{
+  font-family: var(--Iran-number);
+  font-size: 1.2rem;
+  margin: 0 0.5rem;
+  display: inline-block;
+  color: var(--black-50);
 
+}
+.header__userOptions{
+  position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    width: 100%;
+    background: var(--white);
+    text-align: center;
+    border-radius:var(--border-box);
+    font-size: 1.1rem;
+    visibility: hidden;
+    opacity: 0;
+}
+.header__userInfo:hover .header__userOptions{
+  visibility: visible;
+  opacity: 1
+}
+.header__userOption{
+  line-height: 2.5;
+  transition: all .3s;
+  cursor: pointer;
+}
+.header__userOption:hover{
+color: var(--gray-50);
+}
+.header__userOption:not(:last-child){
+  border-bottom: 1px dashed var(--gray-50);
+}
 .header__authUser-text {
   font-family: var(--Iran-bold);
   font-size: 1.2rem;

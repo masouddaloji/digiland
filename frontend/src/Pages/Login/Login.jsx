@@ -1,36 +1,41 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // Packages
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useLocation } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import jwt_decode from "jwt-decode";
-// icons
-import { MdAlternateEmail } from "react-icons/md";
-import { FiUserPlus } from "react-icons/fi";
-import { RiLockPasswordLine } from "react-icons/ri";
 // components
 import FormControl from "../../components/FormControl/FormControl";
 import axios from "../../api/axios";
 // validator
 import { LoginSchema } from "../../components/Validator/Validator";
+// hooks
+import useAuth from "../../hooks/useAuth";
+// icons
+import { MdAlternateEmail } from "react-icons/md";
+import { FiUserPlus } from "react-icons/fi";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 // persian texts
 import { persianTexts } from "../../text";
-// hooks
-import useAuth from "../../hooks/useAuth";
 // style
 import "./Login.css";
 
 export default function Login() {
   const userNameRef = useRef();
-
   const navigate = useNavigate();
+  const location=useLocation()
+
+  // const prevLocation = location.state && location.state.from;
+  const prevLocation = location.state 
+  console.log("Previous page:", prevLocation);
   const { setAuth,persist,setPersist } = useAuth();
+  console.log("location.state.from",location?.state?.from)
   const persistHandler=()=>{
     setPersist(prev=>!prev)
   }
   useEffect(() => {
-    // userNameRef?.current.focus()
+ 
   }, []);
   useEffect(()=>{
     localStorage.setItem("persist",JSON.stringify(persist))
@@ -58,13 +63,17 @@ export default function Login() {
              setAuth((prev) => ({
                ...prev,
                token:accessToken,
-               isLogin: true,
              }))
             toast.success(persianTexts.login.logginSuccess)
              resetForm()
-             decode?.role === "superAdmin" || decode?.role ==="admin"
-               ? navigate("/adminpanel/dashboard")
-               :navigate("/")
+             if(decode?.role !== "superAdmin" && decode?.role !=="admin"){
+               navigate(-1)
+             }else{
+                navigate("/adminpanel/dashboard")
+             }
+             
+          }else if(response?.status===401){
+            toast.error(persianTexts.login.loginNotMatch)
           }else{
             toast.error(persianTexts.login.logginError)
           }
