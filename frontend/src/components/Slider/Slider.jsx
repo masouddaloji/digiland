@@ -20,7 +20,7 @@ import "./Slider.css";
 
 function Slider(props) {
   const {
-    sliders,
+    slidesPerView,
     spaceBetween,
     loop,
     centeredSlides,
@@ -35,7 +35,7 @@ function Slider(props) {
       return (
         <Swiper
           dir="rtl"
-          slidesPerView={sliders}
+          slidesPerView={slidesPerView}
           spaceBetween={spaceBetween}
           centeredSlides={centeredSlides?true:false}
           autoplay={{ delay: autoplay, disableOnInteraction: false }}
@@ -55,7 +55,7 @@ function Slider(props) {
               slidesPerView: 4,
             },
             1200: {
-              slidesPerView: sliders,
+              slidesPerView: slidesPerView,
             },
           }}
           modules={[Autoplay, Navigation]}
@@ -72,7 +72,7 @@ function Slider(props) {
       return (
         <Swiper
           dir="rtl"
-          slidesPerView={sliders}
+          slidesPerView={slidesPerView}
           spaceBetween={spaceBetween }
           centeredSlides={centeredSlides?true:false}
           autoplay={{ delay: autoplay, disableOnInteraction: false }}
@@ -92,7 +92,7 @@ function Slider(props) {
               slidesPerView: 4,
             },
             1200: {
-              slidesPerView: sliders,
+              slidesPerView: slidesPerView,
             },
           }}
           modules={[Autoplay, Navigation]}
@@ -109,7 +109,7 @@ function Slider(props) {
       return (
         <Swiper
           dir="rtl"
-          slidesPerView={sliders}
+          slidesPerView={slidesPerView}
           spaceBetween={spaceBetween}
           centeredSlides={centeredSlides?true:false}
           autoplay={{ delay: autoplay, disableOnInteraction: false }}
@@ -129,7 +129,7 @@ function Slider(props) {
               slidesPerView: 4,
             },
             1200: {
-              slidesPerView: sliders,
+              slidesPerView: slidesPerView,
             },
           }}
           modules={[Autoplay, Navigation]}
@@ -146,7 +146,7 @@ function Slider(props) {
       return (
         <Swiper
           dir="rtl"
-          slidesPerView={sliders }
+          slidesPerView={slidesPerView }
           spaceBetween={spaceBetween}
           autoplay={{ delay: autoplay, disableOnInteraction: false }}
           loop={true}
@@ -165,7 +165,7 @@ function Slider(props) {
               slidesPerView: 4,
             },
             1200: {
-              slidesPerView: sliders,
+              slidesPerView: slidesPerView,
             },
           }}
           modules={[Autoplay, Navigation]}
@@ -202,7 +202,7 @@ function Slider(props) {
       return (
         <Swiper
           dir="rtl"
-          slidesPerView={sliders }
+          slidesPerView={slidesPerView }
           spaceBetween={spaceBetween }
           centeredSlides={centeredSlides?true:false}
           autoplay={{ delay: autoplay, disableOnInteraction: false }}
@@ -222,7 +222,7 @@ function Slider(props) {
               slidesPerView: 4,
             },
             1200: {
-              slidesPerView: sliders,
+              slidesPerView: slidesPerView,
             },
           }}
           modules={[Autoplay, Navigation]}

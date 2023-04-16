@@ -1,12 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 // packages
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay,Pagination, Navigation } from "swiper";
+import { v4 as uuidv4 } from 'uuid';
 import { Link } from "react-router-dom";
 // styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
 import "./Index.css";
 //components
 import axios from "../../api/axios";
@@ -154,7 +150,7 @@ useEffect(()=>{
         {/* services icon */}
         <div className="row">
           {services.map((service) => (
-            <div className="col-6 col-md-4 col-lg-2" key={service.id}>
+            <div className="col-6 col-md-4 col-lg-2" key={uuidv4()}>
               <ServiceBox {...service}
               />
             </div>
@@ -166,7 +162,7 @@ useEffect(()=>{
             <img src="/images/offer-spc.png" alt="" className="amazinOffer__img"/>
             </div>
             <div className="col-10">
-            <Slider sliders={4}  spaceBetween={15} loop={true} navigation={true} autoplay={2500} array={suggestionProduct} slide="SuggestedProductBox"/>
+            <Slider slidesPerView={4}  spaceBetween={15} loop={true} navigation={true} autoplay={2500} array={suggestionProduct} slide="SuggestedProductBox"/>
             </div>
           </div>
         </section>
@@ -222,7 +218,7 @@ useEffect(()=>{
           </div>
           <div className="row">
             <div className="col-12">
-            <Slider sliders={5} spaceBetween={15} loop={true} navigation={true} autoplay={2500} array={newProducts} slide="ProductCart"/>
+            <Slider slidesPerView={5} spaceBetween={15} loop={true} navigation={true} autoplay={2500} array={newProducts} slide="ProductCart"/>
             </div>
           </div>
         </section>
@@ -277,7 +273,7 @@ useEffect(()=>{
           </div>
           <div className="row">
             <div className="col-12">
-            <Slider sliders={5} autoplay={2500} spaceBetween={15} loop={true} navigation={true} array={articles} slide="ArticleBox"/>
+            <Slider slidesPerView={5} autoplay={2500} spaceBetween={15} loop={true} navigation={true} array={articles} slide="ArticleBox"/>
             </div>
           </div>
         </section>

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef } from "react";
 // variables
 import { persianTexts } from "../../../text";
 // components
@@ -96,8 +96,6 @@ const AddProduct = () => {
     >
       {(formik) => (
         <>
-          {/* {console.log("formik", formik)} */}
-
           <section className="adminSection">
             <div className="table__wrapper">
               <h2 className="table__header">
@@ -286,7 +284,7 @@ const AddProduct = () => {
                         : "btn--disable"
                     }`}
                     type="submit"
-                    // disabled={!(formik.dirty && formik.isValid)}
+                    disabled={!(formik.dirty && formik.isValid)}
                   >
                     {persianTexts.admin.products.btn}
                   </button>

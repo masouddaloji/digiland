@@ -24,7 +24,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 
 const routes = (products, categories) => [
 
-  { path: "/", element:<PersistLogin><Index /></PersistLogin> },
+  { path: "/", element:<Index />},
   {
     path: "/products-category/:categoryName",
     element: <ProductsCategory products={products} categories={categories} />,

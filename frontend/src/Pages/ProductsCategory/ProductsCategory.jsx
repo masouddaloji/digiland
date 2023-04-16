@@ -12,7 +12,6 @@ import "./ProductsCategory.css";
 import ProductsContext from "../../Context/ProductsContext";
 import { useContext } from "react";
 import ProductCart from "../../components/ProductCart/ProductCart";
-import useFetch from "./../../hooks/useFetch";
 import Error from "../../components/Error/Error";
 
 export default function ProductsCategory({ products, categories }) {
@@ -246,7 +245,7 @@ console.log("sortedProducts",sortedProducts)
             </div>
 
             <div className="allProduct__category">
-              {!productsContext.errorProducts ? (
+              {/* {!productsContext.errorProducts ? (
                 <>
                   {!productsContext.isLoadingProducts ? (
                     <>
@@ -271,9 +270,8 @@ console.log("sortedProducts",sortedProducts)
                 </>
               ) : (
                 <>
-                  {/* {console.log("errorProducts", productsContext.errorProducts)} */}
                 </>
-              )}
+              )} */}
             </div>
           </div>
         </div>

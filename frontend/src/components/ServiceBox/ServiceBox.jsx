@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom'
 
 import './ServiceBox.css'
 export default function ServiceBox({icon,title,link}) {
-// console.log("icon",icon)
+
   return (
     <Link className="linkBox__link" to={link}>
-
         <div className="linkBox__iconBox">
           {icon}
         </div>

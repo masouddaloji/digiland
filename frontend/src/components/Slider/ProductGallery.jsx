@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 //packages
 import { Swiper, SwiperSlide } from "swiper/react";
+import { v4 as uuidv4 } from 'uuid';
+
+
 //components
 import SwiperCore, {
   Autoplay,
@@ -79,7 +82,7 @@ const ProductGallery = (props) => {
           className="mySwiper"
         >
           {array?.map((item, index) => (
-            <SwiperSlide key={index + 1}>
+            <SwiperSlide key={uuidv4()}>
               <img
                 src={`http://localhost:8000${item}`}
                 alt="product image"
@@ -102,7 +105,7 @@ const ProductGallery = (props) => {
           className="mySwiper swiperThumbs"
         >
           {array?.map((item, index) => (
-            <SwiperSlide key={index + 1} onClick={() => setActiveIndex(index)}>
+            <SwiperSlide key={uuidv4()} onClick={() => setActiveIndex(index)}>
               <img
                 src={`http://localhost:8000${item}`}
                 alt="product image"

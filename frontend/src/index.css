@@ -149,7 +149,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-a{
+a {
   color: unset;
 }
 /* end css reset */
@@ -157,7 +157,7 @@ a{
 :root {
   --black-50: #333;
   /* --main-backgroundColor: #eff1f5; */
-  --main-backgroundColor: #F1F1F1;
+  --main-backgroundColor: #f1f1f1;
   --main-font: "IRANSans", sans-serif;
   --Iran-bold: "IRANSansMed", sans-serif;
   --Iran-number: "IRANSansnumer", sans-serif;
@@ -165,29 +165,28 @@ a{
   --black: #000;
   --padding: 1rem;
   --border-box: 0.5rem;
-  --gold: #ffd300;
-  /* --blue: #0183ff; */
-  --blue: #1F75FE;
+  --gold: #ff9529;
+  --yellow: #ffab00;
+  --blue: #1f75fe;
   /* --blue-hover:#2343F2; */
-  --blue-hover:#1C39BB;
-  --green:#00cc67;
+  --blue-hover: #1c39bb;
+  --green: #00cc67;
   --error-text: #e4b7b9;
-  --gray:#eee;
+  --gray: #eee;
   --gray-text: #6b6b6b;
   --gray-100: #444;
   --gray-50: #d3d3d3;
-  --gray-25: #C0C0C0;
+  --gray-25: #c0c0c0;
   /* --red:#c00; */
-  --red:#A3080C;
-  --red-50: #DA291C;
-  --red-25:#FF4242;
-  --border-btn:2.5rem;
-  --box-shadow:0 .5rem 1rem rgba(0,0,0,.2);
+  --red: #a3080c;
+  --red-50: #da291c;
+  --red-25: #ff4242;
+  --border-btn: 2.5rem;
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   /* --black-50:#1d1d1d; */
-  --admin-main:#00001c;
+  --admin-main: #00001c;
 
-  --linear:linear-gradient(90deg, #0C97Fa,#16E1F5);
-
+  --linear: linear-gradient(90deg, #0c97fa, #16e1f5);
 }
 /* end variabels */
 /* start default */
@@ -217,81 +216,79 @@ a {
 }
 /* end default */
 /* start helper */
-.full--width{
+.full--width {
   width: 100%;
 }
-.adminSection{
+.adminSection {
   margin-top: 5rem;
 }
 
-.f-24{
+.f-24 {
   font-size: 2.4rem;
   display: inline-block;
 }
 .btn--disable {
   background: var(--gray-25);
 }
-.auth{
+.auth {
   width: 100%;
   height: 100vh;
-  background:var(--linear);
+  background: var(--linear);
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.auth__wrapper{
+.auth__wrapper {
   width: 36rem;
   background: var(--white);
   border-radius: var(--border-box);
-  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.5) ;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
   overflow-x: hidden;
   overflow-y: scroll;
 }
-.auth__wrapper::-webkit-scrollbar{
+.auth__wrapper::-webkit-scrollbar {
   display: none;
 }
-.auth__content{
+.auth__content {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-.auth__logoBox{
-  margin: 2rem auto .5rem auto;
+.auth__logoBox {
+  margin: 2rem auto 0.5rem auto;
 }
-.auth__logoimg{
-max-width: 100%;
-height: 3rem;
+.auth__logoimg {
+  max-width: 100%;
+  height: 3rem;
 }
-.auth__title{
+.auth__title {
   color: var(--black-50);
   font-weight: 600;
   padding-right: 1.5rem;
   position: relative;
 }
-.auth__title::after{
+.auth__title::after {
   content: "";
   position: absolute;
   top: 0;
   right: 0;
   height: 100%;
-  width: .3rem;
+  width: 0.3rem;
   background: var(--blue);
   border-radius: var(--border-box);
-
 }
 
-.auth__form{
+.auth__form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 1rem 0 1rem 0; 
+  margin: 1rem 0 1rem 0;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 1rem 1.5rem 1rem 1rem;
-
 }
-.auth__form::-webkit-scrollbar{
+.auth__form::-webkit-scrollbar {
   display: none;
 }
 
@@ -308,7 +305,7 @@ height: 3rem;
 .product__imgBox {
   width: 100%;
   max-height: 19rem;
-  margin:auto;
+  margin: auto;
 }
 .product__img {
   max-width: 100%;
@@ -328,7 +325,7 @@ height: 3rem;
 }
 .productPrice {
   font-family: var(--Iran-number);
-  color:var(--gray-text);
+  color: var(--gray-text);
   font-size: 1.4rem;
   display: inline-block;
 }
@@ -339,59 +336,57 @@ height: 3rem;
   display: inline-block;
   /* margin-right: 1rem; */
 }
-.section__btn{
+.section__btn {
   color: var(--white);
   background: var(--blue);
   border-radius: 50%;
 }
-.fullStar{
+.star {
   color: var(--gold);
+  font-size: 1.8rem;
 }
-.starCount{
+.starCount {
   font-family: var(--Iran-number);
   font-size: 1.3rem;
-  margin-left: .3rem;
+  margin-left: 0.3rem;
   color: var(--black-50);
 }
-.emptyStar{
-  fill: var(--gold);
-}
-.priceBox{
+
+.priceBox {
   white-space: nowrap;
 }
-.mainHasTooltip{
+.mainHasTooltip {
   position: relative;
   transition: all 0.3s;
 }
-.tooltip{
+.tooltip {
   position: absolute;
   background-color: var(--black-50);
   bottom: 140%;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:9999;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
   color: var(--white);
-  padding: .25rem .5rem;
-  font-size: .8rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
   border-radius: var(--border-box);
   white-space: nowrap;
   transition: all 0.3s;
   opacity: 0;
   visibility: hidden;
 }
-.tooltip::after{
+.tooltip::after {
   content: "";
   position: absolute;
   top: 100%;
   left: 50%;
   margin-right: auto;
-  transform:translateX(-50%);
-  border: .7rem solid;
+  transform: translateX(-50%);
+  border: 0.7rem solid;
   border-color: var(--black-50) transparent transparent transparent;
-
 }
-.mainHasTooltip:hover .tooltip{
-  opacity:1;
+.mainHasTooltip:hover .tooltip {
+  opacity: 1;
   visibility: visible;
 }
 .starBox {
@@ -399,33 +394,33 @@ height: 3rem;
   height: 1.7rem;
   margin-right: 0.1rem;
 }
-.flex{
+.flex {
   display: flex;
-    align-items: center;
-    justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
 }
-.icon{
+.icon {
   font-size: 1.8rem;
   display: inline-block;
 }
-.iconRed{
+.iconRed {
   color: var(--red-50);
 }
-.acvtive{
+.acvtive {
   color: var(--gold);
 }
-.loadingSpiner{
+.loadingSpiner {
   width: 7rem;
   height: 7rem;
   border-radius: 50%;
   background: var(--gray);
-  border: .5rem solid #ddd;
-  border-top-color: rgba(0, 0, 0, .3);
+  border: 0.5rem solid #ddd;
+  border-top-color: rgba(0, 0, 0, 0.3);
   margin: 3rem auto;
-  transition: all .3s;
+  transition: all 0.3s;
   animation: spiner 1.3s linear infinite;
 }
-.sectionHeader__icon{
+.sectionHeader__icon {
   font-size: 2.6rem;
   color: var(--black-50);
 }
@@ -439,7 +434,7 @@ height: 3rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   margin-left: auto;
-  margin-right:auto;
+  margin-right: auto;
   /* position: relative; */
 }
 .row {
@@ -846,13 +841,12 @@ height: 3rem;
 }
 /*end responsive */
 /* start animation */
-@keyframes spiner{
-  0%{
+@keyframes spiner {
+  0% {
     transform: rotate(0);
   }
-  100%{
+  100% {
     transform: rotate(360deg);
-
   }
 }
 /* end animation */

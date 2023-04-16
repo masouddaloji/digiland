@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 import './BannerBox.css'
 
 function BannerBox(props) {
-    const {id,cover,link}=props
+    // const {cover,link}=props
   return (
     <div className="widget__imageBox">
-    <Link className="widget__link" to={link}>
+    <Link className="widget__link" to={props?.link}>
       <img
-        src={cover}
+        src={props?.cover}
         alt="banner img"
         className="widget__img"
       />

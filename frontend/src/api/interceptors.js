@@ -1,8 +1,8 @@
-import {axiosInstance,privateAxiosInstance} from './axiosInstance'
+import {privateAxiosInstance} from './axiosInstance'
 import useNavigation from './../hooks/useNavigation'
 const { goToLogin } = useNavigation();
 
-axiosInstance.interceptors.request.use(
+privateAxiosInstance.interceptors.request.use(
   (config) => config,
   (error) => {
     if (error.response.status === 403) {
@@ -12,7 +12,7 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-axiosInstance.interceptors.response.use(
+privateAxiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response.status === 401) {

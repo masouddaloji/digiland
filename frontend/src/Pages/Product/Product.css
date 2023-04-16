@@ -481,133 +481,7 @@ table.productsTable {
   font-family: var(--main-font);
 }
 
-.reviewForm__wrapper {
-  padding: 0.5rem 0;
-  font-size: 1.2rem;
-  color: var(--black-50);
-}
-.reviewForm {
-  font-family: var(--Iran-number);
-}
 
-.reviewForm__title {
-}
-.reviewForm__form {
-  padding: 1.5rem 0;
-}
-/* test */
-
-/* end test  */
-
-.reviewForm__ratingTitle {
-  display: block;
-  margin-bottom: 0.8rem;
-}
-.reviewForm__ratingStars {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-.reviewForm__ratingStar {
-  font-size: 1.4rem;
-  font-weight: 300;
-}
-.point__wrapper {
-}
-.addPoint__wrapper {
-  display: flex;
-  flex-direction: column;
-}
-.addPoint__title {
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-.addPoint__title::before {
-  content: "";
-  position: relative;
-  width: 0.7rem;
-  height: 0.7rem;
-  border-radius: 0.2rem;
-  vertical-align: middle;
-  display: inline-block;
-  margin-left: 0.7rem;
-}
-.advantages .addPoint__title::before {
-  background: #88ecb9;
-}
-.disadvantages .addPoint__title::before {
-  background: #ff9d9d;
-}
-.add__wrapper {
-  width: 100%;
-  position: relative;
-}
-.addPoint__input {
-  width: 100%;
-  border: 1px solid var(--gray);
-  border-radius: 2.5rem;
-  background: transparent;
-  padding: 0.5rem 1rem 0.5rem 3rem;
-  display: block;
-  color: #666;
-  font-size: 1.2rem;
-  font-family: var(--main-font);
-}
-.points__addBtn {
-  position: absolute;
-  display: inline-block;
-  top: 50%;
-  left: 0.7rem;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  color: #ccc;
-  cursor: pointer;
-  transition: all 0.3s;
-  visibility: hidden;
-  opacity: 0;
-}
-.points__addBtn--show {
-  visibility: visible;
-  opacity: 1;
-}
-
-.reviewForm__commentWrapper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 1.5rem 0;
-}
-.reviewForm__commentTitle {
-  margin-bottom: 0.5rem;
-}
-.reviewForm__commentTextArea {
-  width: 100%;
-  height: 11rem;
-  border-radius: var(--border-box);
-  padding: 0.7rem 1.5rem 0.5rem 1rem;
-  font-size: 1.2rem;
-  color: #666;
-  border: 1px solid var(--gray);
-  resize: none;
-  font-family: var(--main-font);
-}
-.reviewForm__submitWrapper {
-  display: block;
-}
-.reviewForm__submit {
-  color: var(--white);
-  background: #353a42;
-  border: none;
-  outline: none;
-  padding: 0.5rem 2rem;
-  border-radius: var(--border-box);
-  font-size: 1.2rem;
-  font-weight: 500;
-  transition: all 0.3s;
-}
-.reviewForm__submit:hover {
-  background: var(--blue);
-}
 .errorAddPoint {
   font-family: var(--Iran-number);
   font-size: 1.1rem;
@@ -672,6 +546,9 @@ table.productsTable {
   font-size: 1.4rem;
   font-weight: 500;
 }
+.resultReview__title span{
+  padding-right: .7rem;
+}
 .resultReview__points {
   border-radius: var(--border-box);
   background: rgba(236, 236, 236, 0.3);
@@ -693,7 +570,7 @@ table.productsTable {
   align-items: center;
 }
 .resultReview__pointProgress {
-  width: calc(100% - 5rem);
+  width: calc(100% - 8rem);
   height: 0.4rem;
   background: var(--white);
   border-radius: 1.6rem;
@@ -702,14 +579,13 @@ table.productsTable {
 .resultReview__pointProgressBar {
   position: absolute;
   height: 0.4rem;
-  width: 75%;
   border-radius: 1.6rem;
   top: 0;
   right: 0;
-  background: #a2a2a2;
+  background: var(--blue);
 }
 .resultReview__pointResultText {
-  margin-right: 1.5rem;
+  margin-right: 2rem;
   font-size: 1.1rem;
   color: var(--black-50);
 }
@@ -770,7 +646,7 @@ table.productsTable {
   border-bottom: 1px dashed #c6c6c6;
 }
 .comment__metaRating {
-  background: #3de074;
+  /* background: #3de074; */
   padding: 0.1rem 0.7rem;
   border-radius: var(--border-box);
   color: var(--white);
@@ -778,11 +654,20 @@ table.productsTable {
   font-family: var(--Iran-number);
   margin-left: 1rem;
 }
+.comment__metaRating.green{
+  background: var(--green);
+}
+.comment__metaRating.orange{
+  background: var(--gold);
+}
+.comment__metaRating.red{
+  background: var(--red);
+}
 
 .comment__metaIcon {
   display: inline-block;
   vertical-align: middle;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   margin-left: 0.5rem;
 }
 
@@ -798,68 +683,8 @@ table.productsTable {
   color: var(--black-50);
   font-weight: 500;
 }
-.comment__isRecommended {
-  padding: 0.5rem 1rem;
-  margin-top: 1rem;
-  font-size: 1.1rem;
-}
-.comment--recommended {
-  color: #4caf50;
-  display: block;
-}
-.comment--notRecommended {
-  color: #ec7168;
-  display: block;
-}
-.comment__iconIsRecommended {
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 1.5rem;
-  margin-left: 0.7rem;
-}
-.comment__pointWrapper {
-  display: flex;
-  align-items: flex-start;
-  font-size: 1.2rem;
-}
-.comment__pointTitle {
-  font-weight: 500;
-  white-space: nowrap;
-  margin: 0.5rem 0;
-}
-.comment__pointLists {
-  display: block;
-  margin-right: 5rem;
-}
-.comment__pointListItem {
-  margin: 0.5rem 0;
-  padding-right: 1.5rem;
-  position: relative;
-  color: #5f5f5f;
-}
-.advantagesList .comment__pointListItem::before,
-.disadvantages .comment__pointListItem::before {
-  position: absolute;
-  content: "";
-  width: 0.6rem;
-  height: 0.6rem;
-  border-radius: 50%;
-  top: 50%;
-  right: -1rem;
-  transform: translateY(-50%);
-}
-.advantagesList .comment__pointListItem::before {
-  background: #4dce8c;
-}
-.disadvantages .comment__pointListItem::before {
-  background: #fa7369;
-}
-.titleAd {
-  color: #43cc86;
-}
-.titleDisAd {
-  color: #f94c3f;
-}
+
+
 .comment__description {
   padding: 0.5rem 1rem;
   margin-top: 1rem;
@@ -901,130 +726,6 @@ table.productsTable {
 }
 
 /* end all comments */
-/* start question users */
-.question__lists {
-}
-.qustion__item {
-  margin-bottom: 1rem;
-  padding: 1rem 1.6rem;
-  background: rgba(236, 236, 236, 0.5);
-  border-radius: var(--border-box);
-  color: var(--black-50);
-  font-size: 1.2rem;
-}
-.question__header {
-  font-family: var(--Iran-number);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px dashed #ddd;
-  padding-bottom: 0.7rem;
-}
-.question__body {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.7rem 0;
-  font-family: var(--Iran-number);
-}
-.question__text {
-}
-.qusetion__answerBtn {
-  font-family: var(--Iran-bold);
-  border-radius: var(--border-box);
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  font-size: 1.1rem;
-  background: var(--white);
-  color: var(--gray-100);
-}
-.question__answerLists {
-  border-radius: var(--border-box);
-}
-.question__answerTitle {
-  padding: 0.7rem 0;
-  border-bottom: 1px dashed #ddd;
-  margin-bottom: 1.5rem;
-}
-.question__answerItem {
-  margin-bottom: 0.7rem;
-  background: var(--white);
-  padding: 1rem 1.5rem;
-  border-radius: var(--border-box);
-}
-.question__answer__header {
-  font-family: var(--Iran-number);
-  border-bottom: 1px dashed #ddd;
-  margin-bottom: 0.7rem;
-  padding-bottom: 0.7rem;
-}
-.question__answer__header span {
-  margin-left: 3rem;
-}
-.sendQuestion__wrapper {
-  font-size: 1.2rem;
-  color: var(--black-50);
-  margin: 1.5rem 0;
-}
-.sendQuestion__header {
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 1rem;
-}
-.sendQuestion__header::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 0.4rem;
-  border-top: 2px dotted rgba(0, 0, 0, 0.5);
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.3;
-}
-.sendQuestion__title {
-  font-size: 1.4rem;
-  background: transparent;
-  padding-left: 2rem;
-}
-.sendQuestion__body {
-}
-.sendQuestion__form {
-  padding: 0.5rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.sendQuestion__textArea {
-  border: 1px solid #eaeaea;
-  border-radius: var(--border-box);
-  padding: 0.6rem 1.2rem;
-  width: 100%;
-  height: 12rem;
-  background: var(--white);
-  resize: none;
-  margin-bottom: 1.5rem;
-  font-size: 1.2rem;
-  color: var(--black-50);
-}
-
-.sendQuestion__submitBtn {
-  background: #353a42;
-  border: none;
-  outline: none;
-  border-radius: var(--border-btn);
-  padding: 0.3rem 1.4rem;
-  cursor: pointer;
-  transition: all 0.3s;
-  color: var(--white);
-  font-size: 1.2rem;
-  margin: 0 0.5rem;
-}
-.sendQuestion__submitBtn:hover {
-  background: var(--blue);
-}
-/* end question users */
 /* start review */
 .reviews__wrapper {
   padding: 0.5rem 0;

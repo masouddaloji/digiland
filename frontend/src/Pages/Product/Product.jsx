@@ -8,12 +8,12 @@ import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import ProductCart from "../../components/ProductCart/ProductCart";
 import ProductCount from "../../components/ProductCount/ProductCount";
-import InputRating from "../../components/InputRating/InputRating";
+import InputRating from "../../components/Rating/Rating";
 import axios, { privateAxios } from "../../api/axios";
 import Slider from "../../components/Slider/Slider";
 import Loader from "../../components/Loader/Loader";
 //hooks
-import useAuth from './../../hooks/useAuth'
+import useAuth from "./../../hooks/useAuth";
 //persianText
 import { persianTexts } from "../../text";
 //icons
@@ -30,7 +30,7 @@ import {
   BiCheckSquare,
   BiCommentDetail,
 } from "react-icons/bi";
-import { FaTruck,FaRegHeart } from "react-icons/fa";
+import { FaTruck, FaRegHeart } from "react-icons/fa";
 import {
   BsCheckLg,
   BsPen,
@@ -47,13 +47,15 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/zoom";
 import "./Product.css";
+import Rating from "../../components/Rating/Rating";
+import Error from "../../components/Error/Error";
 
 export default function Product() {
   const [detailsProduct, setDetailsProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const { productId } = useParams();
-  const {auth}=useAuth()
+  const { auth } = useAuth();
 
   const [productCount, setProductCount] = useState(1);
   const [active, setActive] = useState("description");
@@ -61,14 +63,28 @@ export default function Product() {
   const [disadvantagesLists, setDisadvantagesLists] = useState([]);
   const [currentAdvantages, setCurrentAdvantages] = useState("");
   const [currentDisadvantages, setCurrentDisadvantages] = useState("");
-  const [isShowAddBtnAdvantages, setIsShowAddBtnAdvantages] = useState(false);
-  const [isShowAddBtnDisadvantages, setIsShowAddBtnDisadvantages] =
-    useState(false);
   const [advantagesError, setAdvantagesError] = useState(false);
   const [disadvantagesError, setDisadvantagesError] = useState(false);
   const [selectedColor, setSelectedColor] = useState();
   const [productUpdated, setProductUpdated] = useState();
 
+  const showRatingResultPersian = (rate) => {
+    switch (rate) {
+      case 5:
+        return "عالی";
+      case 4:
+        return "خیلی خوب";
+      case 3:
+        return "خوب";
+      case 2:
+        return "متوسط";
+      case 1:
+        return "بد";
+
+      default:
+        break;
+    }
+  };
   const selectColorStyle = (persianColor) => {
     switch (persianColor) {
       case "قرمز":
@@ -96,7 +112,6 @@ export default function Product() {
     { id: 1, titleFa: "توضیحات", titleEn: "description" },
     { id: 2, titleFa: "مشخصات", titleEn: "specifications" },
     { id: 3, titleFa: "نظرات کاربران", titleEn: "userComments" },
-    { id: 4, titleFa: "سوالات کاربران", titleEn: "userQuestions" },
     { id: 5, titleFa: " نقد و بررسی", titleEn: "review" },
   ];
   const optionRef = useRef();
@@ -139,8 +154,8 @@ export default function Product() {
       disadvantagesLists.filter((item) => item.id !== pointID)
     );
   };
-   const convertDateFormat = () => {
-    const date = new Date(productUpdated);
+  const convertDateFormat = (englishDate) => {
+    const date = new Date(englishDate);
     const options = {
       day: "numeric",
       month: "long",
@@ -149,19 +164,24 @@ export default function Product() {
     const persianDate = new Intl.DateTimeFormat("fa", options).format(date);
     return persianDate;
   };
-  const addToBasketHandler=async()=>{
-    if(auth?.token){
-      const response=await privateAxios.put(`basket/${productId}`)
-      if(response?.status===200){
-        toast.success(persianTexts.productInfo.addtobasketSuccess)
-      }else{
-        toast.error(persianTexts.productInfo.addtobasketError)
-      }
-    }else{
-      toast.warning(persianTexts.productInfo.firstTologin)
-      navigate("/login")
+  const addToBasketHandler = async () => {
+    if (auth?.token) {
+      await privateAxios.put(`basket/${productId}`,{},{
+        headers:{
+          Authorization:`Bearer ${auth?.token}`
+        }
+      }).then((res) => {
+        if (res?.status === 200 || res?.status === 201) {
+          toast.success(persianTexts.productInfo.addtobasketSuccess);
+        } else {
+          toast.error(persianTexts.productInfo.addtobasketError);
+        }
+      });
+    } else {
+      toast.warning(persianTexts.productInfo.firstTologin);
+      navigate("/login");
     }
-  }
+  };
   // getdata from server
   useEffect(() => {
     setIsLoading(true);
@@ -175,9 +195,6 @@ export default function Product() {
       })
       .catch((error) => console.log(error));
   }, []);
-
-
- 
 
   return (
     <>
@@ -291,7 +308,10 @@ export default function Product() {
                         maxValue={10}
                         newValue={setProductCount}
                       />
-                      <button className="product__addToBasket" onClick={addToBasketHandler}>
+                      <button
+                        className="product__addToBasket"
+                        onClick={addToBasketHandler}
+                      >
                         <MdOutlineAddShoppingCart className="product__addIcon" />
                         افزودن به سبد خرید
                       </button>
@@ -312,7 +332,9 @@ export default function Product() {
                       <div className="product__availbleItem blue">
                         <BiCalendarCheck className="product__availbleItemIcon blue" />
                         تاریخ بروزرسانی :
-                        <span>{productUpdated && convertDateFormat()}</span>
+                        <span>
+                          {productUpdated && convertDateFormat(productUpdated)}
+                        </span>
                       </div>
                       {detailsProduct?.quantity ? (
                         <div className="product__availbleItem">
@@ -330,12 +352,12 @@ export default function Product() {
                         <FaTruck className="product__availbleItemIcon truck" />
                         ارسال از <span>3</span> روز کاری آینده
                       </div>
-                        <div className="product__availbleItem">
-                          <button className="product__availbleButton">
-                            <FaRegHeart className="product__availbleBtnIcon" />
-                            افزودن به علاقه مندی ها
-                          </button>
-                        </div>
+                      <div className="product__availbleItem">
+                        <button className="product__availbleButton">
+                          <FaRegHeart className="product__availbleBtnIcon" />
+                          افزودن به علاقه مندی ها
+                        </button>
+                      </div>
                     </div>
                     <div className="product__services">
                       <div className="product__servicesItem">
@@ -411,7 +433,7 @@ export default function Product() {
                         نقد و بررسی اجمالی
                       </span>
                       <span className="allDetails__headingDesc">
-                        {detailsProduct?.title}
+                        {detailsProduct?.segment}
                       </span>
                     </div>
                   </div>
@@ -434,8 +456,7 @@ export default function Product() {
                         مشخصات کلی
                       </span>
                       <span className="allDetails__headingDesc">
-                        Xiaomi POCO X3 Pro M2102J20SG Dual SIM 256GB And 8GB RAM
-                        Mobile Phone
+                        {detailsProduct?.segment}
                       </span>
                     </div>
                   </div>
@@ -447,94 +468,6 @@ export default function Product() {
                       ),
                     }}
                   ></div>
-                  {/* <table className="productsTable">
-                <tbody>
-                  <tr className="productsTable__mainHeader">
-                    <th>
-                      <CgChevronLeftO className="productsTable__icon" />
-                      حافظه
-                    </th>
-                  </tr>
-                  <tr className="productsTable__rowInfos">
-                    <td>
-                      <table className="innerTable">
-                        <tbody>
-                          <tr className="innerTable__row">
-                            <th className="innerTable__attributesName">
-                              حافظه داخلي
-                            </th>
-                            <td className="innerTable__attributesInfo">
-                              <p>64 گيگابايت</p>
-                            </td>
-                          </tr>
-                          <tr className="innerTable__row">
-                            <th className="innerTable__attributesName">
-                              پشتيباني از کارت حافظه جانبي
-                            </th>
-                            <td className="innerTable__attributesInfo">
-                              <p>128 گيگابايت microSD</p>
-                            </td>
-                          </tr>
-                          <tr className="innerTable__row">
-                            <th className="innerTable__attributesName">
-                              مقدار RAM
-                            </th>
-                            <td className="innerTable__attributesInfo">
-                              <p>3 گيگابايت</p>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr className="productsTable__mainHeader">
-                    <th>
-                      <CgChevronLeftO className="productsTable__icon" />
-                      صفحه نمایش
-                    </th>
-                  </tr>
-                  <tr className="productsTable__rowInfos">
-                    <td>
-                      <table className="innerTable">
-                        <tbody>
-                          <tr className="innerTable__row">
-                            <th className="innerTable__attributesName">
-                              ابعاد
-                            </th>
-                            <td className="innerTable__attributesInfo">
-                              <p> 13 × 80 × 158.6 ميلي‌متر</p>
-                            </td>
-                          </tr>
-                          <tr className="innerTable__row">
-                            <th className="innerTable__attributesName">
-                              نوع صفحه نمایش
-                            </th>
-                            <td className="innerTable__attributesInfo">
-                              <p>LCD</p>
-                            </td>
-                          </tr>
-                          <tr className="innerTable__row">
-                            <th className="innerTable__attributesName">
-                              اندازه صفحه نمایش
-                            </th>
-                            <td className="innerTable__attributesInfo">
-                              <p>5.0اينچ</p>
-                            </td>
-                          </tr>
-                          <tr className="innerTable__row">
-                            <th className="innerTable__attributesName">
-                              رزولوشن
-                            </th>
-                            <td className="innerTable__attributesInfo">
-                              <p>1080 × 1920 FullHD</p>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                </tbody>
-              </table> */}
                 </div>
                 {/* start userComments */}
                 <div
@@ -549,8 +482,7 @@ export default function Product() {
                         نظرات کاربران
                       </span>
                       <span className="allDetails__headingDesc">
-                        Xiaomi POCO X3 Pro M2102J20SG Dual SIM 256GB And 8GB RAM
-                        Mobile Phone
+                        {detailsProduct?.segment}
                       </span>
                     </div>
                   </div>
@@ -564,72 +496,27 @@ export default function Product() {
                         </div>
                         <div className="resultReview__wrraper">
                           <h3 className="resultReview__title">
-                            امتیاز کاربران <span>3.9</span> از <span>2</span>{" "}
-                            دیدگاه
+                            {persianTexts.productInfo.productRatingFromUsers}
+                            <span>{detailsProduct?.rating}</span>
                           </h3>
                           <div className="resultReview__points">
                             <div className="resultReview__point">
                               <span className="resultReview__pointTitle">
-                                کیفیت ساخت
+                                امتیاز کالا
                               </span>
                               <div className="resultReview__pointWrapper">
                                 <div className="resultReview__pointProgress">
-                                  <span className="resultReview__pointProgressBar"></span>
+                                  <span
+                                    className="resultReview__pointProgressBar"
+                                    style={{
+                                      width: `${detailsProduct?.rating * 20}%`,
+                                    }}
+                                  ></span>
                                 </div>
                                 <span className="resultReview__pointResultText">
-                                  خوب
-                                </span>
-                              </div>
-                            </div>
-                            <div className="resultReview__point">
-                              <span className="resultReview__pointTitle">
-                                ارزش خرید به نسبت قیمت
-                              </span>
-                              <div className="resultReview__pointWrapper">
-                                <div className="resultReview__pointProgress">
-                                  <span className="resultReview__pointProgressBar"></span>
-                                </div>
-                                <span className="resultReview__pointResultText">
-                                  خوب
-                                </span>
-                              </div>
-                            </div>
-                            <div className="resultReview__point">
-                              <span className="resultReview__pointTitle">
-                                نوآوری
-                              </span>
-                              <div className="resultReview__pointWrapper">
-                                <div className="resultReview__pointProgress">
-                                  <span className="resultReview__pointProgressBar"></span>
-                                </div>
-                                <span className="resultReview__pointResultText">
-                                  خوب
-                                </span>
-                              </div>
-                            </div>
-                            <div className="resultReview__point">
-                              <span className="resultReview__pointTitle">
-                                امکانات و قابلیت ها
-                              </span>
-                              <div className="resultReview__pointWrapper">
-                                <div className="resultReview__pointProgress">
-                                  <span className="resultReview__pointProgressBar"></span>
-                                </div>
-                                <span className="resultReview__pointResultText">
-                                  خوب
-                                </span>
-                              </div>
-                            </div>
-                            <div className="resultReview__point">
-                              <span className="resultReview__pointTitle">
-                                سهولت استفاده
-                              </span>
-                              <div className="resultReview__pointWrapper">
-                                <div className="resultReview__pointProgress">
-                                  <span className="resultReview__pointProgressBar"></span>
-                                </div>
-                                <span className="resultReview__pointResultText">
-                                  خوب
+                                  {showRatingResultPersian(
+                                    detailsProduct?.rating
+                                  )}
                                 </span>
                               </div>
                             </div>
@@ -637,186 +524,7 @@ export default function Product() {
                         </div>
                       </div>
                       <div className="col-12 col-sm-6">
-                        <div className="reviewForm__wrapper">
-                          <div className="reviewForm">
-                            <span className="reviewForm__title">
-                              دیدگاه خود را بنویسید
-                            </span>
-                            <form
-                              className="reviewForm__form"
-                              onSubmit={(e) => e.preventDefault()}
-                            >
-                              <div className="reviewForm__ratingWrapper">
-                                <label className="reviewForm__ratingTitle">
-                                  امتیاز شما
-                                </label>
-                                <div className="reviewForm__ratingStars">
-                                  <AiOutlineStar className="reviewForm__ratingStar" />
-                                  <AiOutlineStar className="reviewForm__ratingStar" />
-                                  <AiOutlineStar className="reviewForm__ratingStar" />
-                                  <AiOutlineStar className="reviewForm__ratingStar" />
-                                  <AiOutlineStar className="reviewForm__ratingStar" />
-                                </div>
-                                <InputRating title="کیفیت ساخت" />
-                                <InputRating title="ارزش خرید به نسبت قیمت" />
-                                <InputRating title="نوآوری" />
-                                <InputRating title="امکانات و قابلیت ها " />
-                                <InputRating title="سهولت استفاده" />
-                              </div>
-                              <div className="row point__wrapper">
-                                <div className="col-12 col-sm-6 addPoint__wrapper advantages ">
-                                  <label
-                                    htmlFor="addPoint__input"
-                                    className="addPoint__title"
-                                  >
-                                    نقاط قوت
-                                  </label>
-                                  <div className="add__wrapper">
-                                    <input
-                                      type="text"
-                                      id="addPoint__input"
-                                      className="addPoint__input"
-                                      value={currentAdvantages}
-                                      onChange={(e) =>
-                                        setCurrentAdvantages(e.target.value)
-                                      }
-                                      onInput={(e) =>
-                                        setCurrentAdvantages(e.target.value)
-                                      }
-                                      onKeyUp={(e) => {
-                                        e.target.value.trim().length !== 0
-                                          ? setIsShowAddBtnAdvantages(true)
-                                          : setIsShowAddBtnAdvantages(false);
-                                        if (e.key === "Enter") {
-                                          addAdvantages();
-                                        }
-                                      }}
-                                    />
-                                    <AiOutlinePlusCircle
-                                      onClick={addAdvantages}
-                                      className={`points__addBtn ${
-                                        isShowAddBtnAdvantages
-                                          ? "points__addBtn--show"
-                                          : ""
-                                      } `}
-                                    />
-                                  </div>
-                                  {advantagesError && (
-                                    <span className="errorAddPoint">
-                                      لطفا از کلمات با معنی و حداقل طول چهار
-                                      استفاده کنید
-                                    </span>
-                                  )}
-
-                                  <div className="points__wrapper">
-                                    <ul className="points__lists">
-                                      {advantagesLists.map((advantage) => (
-                                        <li
-                                          className="points__item advantages__item"
-                                          key={advantage.id}
-                                        >
-                                          {advantage.title}
-                                          <IoMdClose
-                                            className="points__icon advantages__icon"
-                                            onClick={() =>
-                                              removeAdvantages(advantage.id)
-                                            }
-                                          />
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="col-12 col-sm-6 addPoint__wrapper disadvantages">
-                                  <label
-                                    htmlFor="disadvantages"
-                                    className="addPoint__title"
-                                  >
-                                    نقاط ضعف
-                                  </label>
-                                  <div className="add__wrapper">
-                                    <input
-                                      type="text"
-                                      id="disadvantages"
-                                      className="addPoint__input"
-                                      value={currentDisadvantages}
-                                      onChange={(e) =>
-                                        setCurrentDisadvantages(e.target.value)
-                                      }
-                                      onInput={(e) =>
-                                        setCurrentDisadvantages(e.target.value)
-                                      }
-                                      onKeyUp={(e) => {
-                                        e.target.value.trim().length !== 0
-                                          ? setIsShowAddBtnDisadvantages(true)
-                                          : setIsShowAddBtnDisadvantages(false);
-                                        if (e.key === "Enter") {
-                                          addDisadvantages();
-                                        }
-                                      }}
-                                    />
-                                    <AiOutlinePlusCircle
-                                      onClick={addDisadvantages}
-                                      className={`points__addBtn ${
-                                        isShowAddBtnDisadvantages
-                                          ? "points__addBtn--show"
-                                          : ""
-                                      } `}
-                                    />
-                                  </div>
-                                  {disadvantagesError && (
-                                    <span className="errorAddPoint">
-                                      لطفا از کلمات با معنی و حداقل طول چهار
-                                      استفاده کنید
-                                    </span>
-                                  )}
-
-                                  <div className="points__wrapper">
-                                    <ul className="points__lists">
-                                      {disadvantagesLists.map(
-                                        (disadvantage) => (
-                                          <li
-                                            className="points__item disadvantages__item"
-                                            key={disadvantage.id}
-                                          >
-                                            {disadvantage.title}
-                                            <IoMdClose
-                                              className="points__icon disadvantages__icon"
-                                              onClick={() =>
-                                                removeDisadvantages(
-                                                  disadvantage.id
-                                                )
-                                              }
-                                            />
-                                          </li>
-                                        )
-                                      )}
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="reviewForm__commentWrapper">
-                                  <label
-                                    className="reviewForm__commentTitle"
-                                    htmlFor="comment"
-                                  >
-                                    دیدگاه شما *
-                                  </label>
-                                  <textarea
-                                    className="reviewForm__commentTextArea"
-                                    id="comment"
-                                  ></textarea>
-                                </div>
-                                <div className="reviewForm__submitWrapper">
-                                  <input
-                                    type="submit"
-                                    value="ثبت"
-                                    className="reviewForm__submit"
-                                  />
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
+                        <Rating />
                       </div>
                     </div>
                     <div className="row">
@@ -824,7 +532,9 @@ export default function Product() {
                         <div className="allComments__header">
                           <h2 className="allComments__title">
                             نقد ها و بررسی ها
-                            <span>2</span>
+                            {detailsProduct?.reviews?.length > 0 && (
+                              <span>{detailsProduct.reviews.length}</span>
+                            )}
                           </h2>
                           <ul className="allComments__sorted">
                             <BsSortDown className="allComments__sorteIcon" />
@@ -838,293 +548,70 @@ export default function Product() {
                           </ul>
                         </div>
                         <ul className="userComment__wrapper">
-                          <li className="userComment__item">
-                            <div className="comment__content">
-                              <div className="comment__meta">
-                                <div className="comment__metaRating">
-                                  <AiOutlineStar className="comment__metaIcon" />
-                                  4.8
-                                </div>
-                                <span className="comment__metaAuthor">
-                                  محمد گراوند
-                                </span>
-                                <time
-                                  className="comment__time"
-                                  datetime="1397-12-22T15:36:15"
+                          {detailsProduct?.reviews?.length ? (
+                            <>
+                              {detailsProduct?.reviews?.map((review) => (
+                                <li
+                                  className="userComment__item"
+                                  key={review._id}
                                 >
-                                  ۲۲ اسفند ۱۳۹۷
-                                </time>
-                              </div>
-                              <div className="comment__isRecommended">
-                                <span className="comment--recommended">
-                                  <FaRegThumbsUp className="comment__iconIsRecommended" />
-                                  خرید این محصول را توصیه می‌کنم
-                                </span>
-                                <span className="comment--notRecommended">
-                                  <FaRegThumbsDown className="comment__iconIsRecommended" />
-                                  خرید این محصول را توصیه نمی‌کنم
-                                </span>
-                              </div>
-                              <div className="row">
-                                <div className="col-12 col-sm-6">
-                                  <div className="comment__pointWrapper">
-                                    <span className="comment__pointTitle titleAd">
-                                      نقاط قوت
-                                    </span>
-                                    <ul className="comment__pointLists  advantagesList">
-                                      <li className="comment__pointListItem">
-                                        صفحه نمایش با کیفیت
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        ظاهر زیبا و شکیل
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        مقاوم در برابر آب
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        دوربین با کیفیت
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        Face Id
-                                      </li>
-                                    </ul>
+                                  <div className="comment__content">
+                                    <div className="comment__meta">
+                                      <div
+                                        className={`comment__metaRating ${
+                                          review?.rating > 3
+                                            ? "green"
+                                            : review?.rating > 2
+                                            ? "orange"
+                                            : "red"
+                                        }`}
+                                      >
+                                        <AiOutlineStar className="comment__metaIcon" />
+                                        {review?.rating}
+                                      </div>
+                                      <span className="comment__metaAuthor">
+                                        {review?.userId?.email}
+                                      </span>
+                                      <time className="comment__time">
+                                        {convertDateFormat(review?.createdAt)}
+                                      </time>
+                                    </div>
+                                    <div className="comment__description">
+                                      <p className="comment__descriptionText">
+                                        {review?.description}
+                                      </p>
+                                    </div>
+                                    <div className="comment__isLikeWrapper">
+                                      <span className="comment__isLikeTitle">
+                                        آیا این نظر برایتان مفید بود؟
+                                      </span>
+                                      <div className="comment__isLikeBtnWrapper">
+                                        <span className="comment__isLikeBtn ">
+                                          <span className="likedCount">71</span>
+                                          بله
+                                        </span>
+                                        <span className="comment__isLikeBtn ">
+                                          <span className="likedCount">14</span>
+                                          خیر
+                                        </span>
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                  <div className="comment__pointWrapper">
-                                    <span className="comment__pointTitle titleDisAd">
-                                      نقاط ضعف
-                                    </span>
-                                    <ul className="comment__pointLists disadvantages">
-                                      <li className="comment__pointListItem">
-                                        باگ داشتنIOS11 و نبود آداپتور شارژ سریع
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        مشکل قرار گیری روی سطح صاف
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        عدم سازگاری برخی برنامه ها
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        حذف جک3.5 و اثر انگشت
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        قیمت بالا و عدم نشان دادن درصد شارژ
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="comment__description">
-                                <p className="comment__descriptionText">
-                                  گوشی عالی ایه ظاهر جلوش که فوق العادس فقط پشتش
-                                  رو شاید یکسری از دوستان نپسندند. سخت افزار
-                                  خیلی قوی ای داره و نرم افزار های سنگین خیلی
-                                  روان اجرا میشه اگه با قیمتش مشکلی ندارین خیلی
-                                  گوشی خوبیه و از سامسونگ خیلی بهتره(البته برای
-                                  کسایی که قبلا از اپل استفاده کرده باشن)
-                                </p>
-                              </div>
-                              <div className="comment__isLikeWrapper">
-                                <span className="comment__isLikeTitle">
-                                  آیا این نظر برایتان مفید بود؟
-                                </span>
-                                <div className="comment__isLikeBtnWrapper">
-                                  <span className="comment__isLikeBtn ">
-                                    <span className="likedCount">71</span>
-                                    بله
-                                  </span>
-                                  <span className="comment__isLikeBtn ">
-                                    <span className="likedCount">14</span>
-                                    خیر
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                          <li className="userComment__item">
-                            <div className="comment__content">
-                              <div className="comment__meta">
-                                <div className="comment__metaRating">
-                                  <AiOutlineStar className="comment__metaIcon" />
-                                  4.8
-                                </div>
-                                <span className="comment__metaAuthor">
-                                  محمد گراوند
-                                </span>
-                                <time
-                                  className="comment__time"
-                                  datetime="1397-12-22T15:36:15"
-                                >
-                                  ۲۲ اسفند ۱۳۹۷
-                                </time>
-                              </div>
-                              <div className="comment__isRecommended">
-                                <span className="comment--recommended">
-                                  <FaRegThumbsUp className="comment__iconIsRecommended" />
-                                  خرید این محصول را توصیه می‌کنم
-                                </span>
-                                <span className="comment--notRecommended">
-                                  <FaRegThumbsDown className="comment__iconIsRecommended" />
-                                  خرید این محصول را توصیه نمی‌کنم
-                                </span>
-                              </div>
-                              <div className="row">
-                                <div className="col-12 col-sm-6">
-                                  <div className="comment__pointWrapper">
-                                    <span className="comment__pointTitle titleAd">
-                                      نقاط قوت
-                                    </span>
-                                    <ul className="comment__pointLists  advantagesList">
-                                      <li className="comment__pointListItem">
-                                        صفحه نمایش با کیفیت
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        ظاهر زیبا و شکیل
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        مقاوم در برابر آب
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        دوربین با کیفیت
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        Face Id
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                  <div className="comment__pointWrapper">
-                                    <span className="comment__pointTitle titleDisAd">
-                                      نقاط ضعف
-                                    </span>
-                                    <ul className="comment__pointLists disadvantages">
-                                      <li className="comment__pointListItem">
-                                        باگ داشتنIOS11 و نبود آداپتور شارژ سریع
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        مشکل قرار گیری روی سطح صاف
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        عدم سازگاری برخی برنامه ها
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        حذف جک3.5 و اثر انگشت
-                                      </li>
-                                      <li className="comment__pointListItem">
-                                        قیمت بالا و عدم نشان دادن درصد شارژ
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="comment__description">
-                                <p className="comment__descriptionText">
-                                  گوشی عالی ایه ظاهر جلوش که فوق العادس فقط پشتش
-                                  رو شاید یکسری از دوستان نپسندند. سخت افزار
-                                  خیلی قوی ای داره و نرم افزار های سنگین خیلی
-                                  روان اجرا میشه اگه با قیمتش مشکلی ندارین خیلی
-                                  گوشی خوبیه و از سامسونگ خیلی بهتره(البته برای
-                                  کسایی که قبلا از اپل استفاده کرده باشن)
-                                </p>
-                              </div>
-                              <div className="comment__isLikeWrapper">
-                                <span className="comment__isLikeTitle">
-                                  آیا این نظر برایتان مفید بود؟
-                                </span>
-                                <div className="comment__isLikeBtnWrapper">
-                                  <span className="comment__isLikeBtn ">
-                                    <span className="likedCount">71</span>
-                                    بله
-                                  </span>
-                                  <span className="comment__isLikeBtn ">
-                                    <span className="likedCount">14</span>
-                                    خیر
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
+                                </li>
+                              ))}
+                            </>
+                          ) : (
+                            <Error
+                              title={persianTexts.productInfo.notFindReviews}
+                              type="warning"
+                            />
+                          )}
                         </ul>
                       </div>
                     </div>
                   </div>
                 </div>
                 {/*end userComments */}
-                {/* start question users */}
-                <div
-                  className={`allDetails ${
-                    active === "userQuestions" ? "allDetails--show" : ""
-                  }`}
-                >
-                  <div className="allDetails__headingWrapper">
-                    <BsQuestionSquare className="allDetails__headingIcon" />
-                    <div className="allDetails__headingLeft">
-                      <span className="allDetails__headingTitle">
-                        پرسش و پاسخ
-                      </span>
-                      <span className="allDetails__headingDesc">
-                        Xiaomi POCO X3 Pro M2102J20SG Dual SIM 256GB And 8GB RAM
-                        Mobile Phone
-                      </span>
-                    </div>
-                  </div>
-                  <ul className="question__lists">
-                    <li className="qustion__item">
-                      <div className="question__header">
-                        <span>مهرداد</span>
-                        <span>۱۵ آبان ۱۳۹۹</span>
-                      </div>
-                      <div className="question__body">
-                        <p className="question__text">
-                          باسلام من X دارم میخوام بدونم با یکبار شارژ چند ساعت
-                          کار میکنه؟
-                        </p>
-                        <button className="qusetion__answerBtn">
-                          پاسخ به این سوال
-                        </button>
-                      </div>
-
-                      <ul className="question__answerLists">
-                        <p className="question__answerTitle">پاسخ : </p>
-                        <li className="question__answerItem">
-                          <div className="question__answer__header">
-                            <span>علیرضا</span>
-                            <span>16 آبان 1399</span>
-                          </div>
-                          حدود دو ساعت
-                        </li>
-                        <li className="question__answerItem">
-                          <div className="question__answer__header">
-                            <span>حمید</span>
-                            <span>25 آبان 1399</span>
-                          </div>
-                          اگه نت گردی بکنی تا پنج شیش ساعت خوبه{" "}
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <div className="sendQuestion__wrapper">
-                    <div className="sendQuestion__header">
-                      <span className="sendQuestion__title">ارسال پرسش</span>
-                    </div>
-                    <div className="sendQuestion__body">
-                      <form className="sendQuestion__form">
-                        <textarea
-                          className="sendQuestion__textArea"
-                          placeholder="پرسش خود را بنوسید"
-                        ></textarea>
-                        <input
-                          type="submit"
-                          value="ارسال پرسش"
-                          className="sendQuestion__submitBtn"
-                        />
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                {/* end question users */}
                 {/* start review */}
                 <div
                   className={`allDetails ${
@@ -1138,8 +625,7 @@ export default function Product() {
                         نقد و بررسی
                       </span>
                       <span className="allDetails__headingDesc">
-                        Xiaomi POCO X3 Pro M2102J20SG Dual SIM 256GB And 8GB RAM
-                        Mobile Phone
+                        {detailsProduct?.segment}
                       </span>
                     </div>
                   </div>

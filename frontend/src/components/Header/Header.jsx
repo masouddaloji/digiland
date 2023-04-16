@@ -25,6 +25,7 @@ import "./Header.css";
 
 import ProductCount from "../ProductCount/ProductCount";
 import ProductsContext from "../../Context/ProductsContext";
+import { privateAxios } from "../../api/axios";
 
 const MobileMenuItem = ({ menu }) => {
   const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
@@ -114,6 +115,14 @@ export default function Header({ categories, isLoading }) {
     window.addEventListener("resize", resizaHandler);
     return () => window.removeEventListener("resize", resizaHandler);
   }, []);
+  useEffect(()=>{
+    privateAxios.get("basket",{
+      headers:{Authorization:`Bearer ${auth?.token}`}
+    })
+    .then(res=>{
+      console.log(res)
+    })
+  },[])
 
   return (
     <>

@@ -17,7 +17,7 @@ const{_id,title,image,offPrice,price,rating,colors}=props
      <div className="product__imgBox">
  <img src={`http://localhost:8000${image}`} alt="new product image" className="product__img" />
        </div>
-       <h2 className="product__title">
+       <h2 className="product__title" title={title}>
       {title}
        </h2>
        <div className="priceBox">
@@ -54,21 +54,9 @@ const{_id,title,image,offPrice,price,rating,colors}=props
 
          </div>
          <div className="product__leftBox">
-           <div className="starBox">
-             <IoIosStarOutline className="fullIcon emptyStar"/>
-           </div>
-           <div className="starBox">
-             <IoIosStarOutline className="fullIcon emptyStar"/>
-           </div>
-           <div className="starBox">
-             <IoIosStarOutline className="fullIcon emptyStar"/>
-           </div>
-           <div className="starBox">
-             <IoIosStar className="fullIcon fullStar"/>
-           </div>
-           <div className="starBox">
-             <IoIosStar className="fullIcon fullStar"/>
-           </div>
+         {Array(5-rating).fill(0).map((item,index)=><IoIosStarOutline className="star"/>)}
+         {Array(rating).fill(0).map((item,index)=><IoIosStar className="star"/>)}
+          
          </div>
        </div>
      </Link>
