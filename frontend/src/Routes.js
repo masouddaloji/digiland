@@ -20,29 +20,57 @@ import AdminArticles from "./components/adminPanel/AdminArticles/AdminArticles";
 import AddProduct from "./components/adminPanel/AddProduct/AddProduct";
 import UserPanel from "./Pages/UserPanel/Index";
 import PersistLogin from "./components/PersistLogin/PersistLogin";
-import PrivateRoute from './components/PrivateRoute/PrivateRoute'
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const routes = (products, categories) => [
-
-  { path: "/", element:<Index />},
+  {
+    path: "/",
+    element: (
+      <PersistLogin>
+        <Index />
+      </PersistLogin>
+    ),
+  },
   {
     path: "/products-category/:categoryName",
-    element: <ProductsCategory products={products} categories={categories} />,
+    element: (
+      <PersistLogin>
+        <ProductsCategory products={products} categories={categories} />{" "}
+      </PersistLogin>
+    ),
     children: [{ path: ":subCategory", element: <ProductsCategory /> }],
   },
   {
     path: "/basket",
-    element: <UserBasket />,
+    element: (
+      <PersistLogin>
+        <UserBasket />
+      </PersistLogin>
+    ),
     children: [
       { path: "", element: <Cart /> },
       { path: "check-information", element: <CheckInformation /> },
       { path: "order-pay", element: <SubmitOrder /> },
     ],
   },
-  { path: "/product/:productId", element: <Product /> },
+  {
+    path: "/product/:productId",
+    element: (
+      <PersistLogin>
+        <Product />
+      </PersistLogin>
+    ),
+  },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
-  { path: "/userpanel", element: <UserPanel /> },
+  {
+    path: "/userpanel",
+    element: (
+      <PersistLogin>
+        <UserPanel />
+      </PersistLogin>
+    ),
+  },
   {
     path: "/adminpanel",
     element: (

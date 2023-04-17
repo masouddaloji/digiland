@@ -24,13 +24,8 @@ import "./Login.css";
 export default function Login() {
   const userNameRef = useRef();
   const navigate = useNavigate();
-  const location=useLocation()
-
-  // const prevLocation = location.state && location.state.from;
-  const prevLocation = location.state 
-  console.log("Previous page:", prevLocation);
   const { setAuth,persist,setPersist } = useAuth();
-  console.log("location.state.from",location?.state?.from)
+
   const persistHandler=()=>{
     setPersist(prev=>!prev)
   }

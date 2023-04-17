@@ -1,8 +1,12 @@
 import React from "react";
+//packages
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+
+//icons
 import { FaFileInvoiceDollar } from "react-icons/fa";
 import { HiShoppingBag } from "react-icons/hi";
 import { TfiReceipt } from "react-icons/tfi";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+//styles
 import "./UserBasket.css";
 
 function UserBasket() {

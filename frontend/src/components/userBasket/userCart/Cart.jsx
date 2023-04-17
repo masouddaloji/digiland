@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
+//packages
 import {Link} from 'react-router-dom'
+//hooks
+import useBasket from '../../../hooks/useBasket'
+//compomemts
+import ProductCount from '../../ProductCount/ProductCount'
+//icons
+import { FaChevronLeft, FaShippingFast } from 'react-icons/fa'
 import {IoMdClose} from "react-icons/io"
+//styles
 import './Cart.css'
 
-import { FaChevronLeft, FaShippingFast } from 'react-icons/fa'
-import { CgChevronLeft } from 'react-icons/cg'
-import ProductCount from '../../ProductCount/ProductCount'
 function Cart() {
+  const {getUserBasket,removeItemFromBasket,addToBasketHandler,basketInfo, setBasketInfo}=useBasket()
   const [count,setCount]=useState(1)
   const [price,setPrice]=useState(14500000)
   const [postPrice,setPostPrice]=useState(10000)
@@ -27,20 +33,22 @@ function Cart() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
+              {basketInfo?.cartItems?.length?<>
+                {basketInfo?.cartItems?.map(item=> 
+                <tr key={item._id}>
                   <td>
-                    <IoMdClose className="cart__removeIcon"/>
+                    <IoMdClose className="cart__removeIcon" onClick={()=>removeItemFromBasket(item?.productId?._id)}/>
                   </td>
                   <td>
                     <Link to="/" className="cart__productImglink">
-                      <img src="/images/phone/phone1.jpg" alt="image products" className="cart__productImg" />
+                      <img src={`http://localhost:8000${item?.productId?.image}`} alt="image products" className="cart__productImg" />
                     </Link>
                   </td>
                   <td>
-                    <Link className='cart__productName' to="/">گوشی موبایل اپل مدل iPhone 12 A2404 دو سیم‌ کارت ظرفیت 128 گیگابایت</Link>
+                    <Link className='cart__productName' to="/">{item?.productId?.title}</Link>
                   </td>
                   <td>
-                    <bdi className='currentPrice'>{price.toLocaleString()}
+                    <bdi className='currentPrice'>{item?.productId?.price?.toLocaleString()}
                       <span className='toman'>تومان</span>
                     </bdi>
                   </td>
@@ -52,43 +60,15 @@ function Cart() {
                     </div>
                   </td>
                   <td >
-                  <bdi className='currentPrice changeable'>{(price*count).toLocaleString()}
+                  <bdi className='currentPrice changeable'>{item?.productId?.price?.toLocaleString()}
                       <span className='toman'>تومان</span>
                     </bdi>
 
                   </td>
-                </tr>
-                <tr>
-                  <td>
-                    <IoMdClose className="cart__removeIcon"/>
-                  </td>
-                  <td>
-                    <Link to="/" className="cart__productImglink">
-                      <img src="/images/phone/phone1.jpg" alt="image products" className="cart__productImg" />
-                    </Link>
-                  </td>
-                  <td>
-                    <Link className='cart__productName' to="/">گوشی موبایل اپل مدل iPhone 12 A2404 دو سیم‌ کارت ظرفیت 128 گیگابایت</Link>
-                  </td>
-                  <td>
-                    <bdi className='currentPrice'>{price.toLocaleString()}
-                      <span className='toman'>تومان</span>
-                    </bdi>
-                  </td>
-                  <td>
-                  <ProductCount value={count} minValue={1} maxValue={10} newValue={setCount} />
-                    <div className="cart__btnsCount">
-                      <buttom className="cart__btnCount"></buttom>
-                      <buttom className="cart__btnCount"></buttom>
-                    </div>
-                  </td>
-                  <td >
-                  <bdi className='currentPrice changeable'>{(price*count).toLocaleString()}
-                      <span className='toman'>تومان</span>
-                    </bdi>
+                </tr>)}
+              </>:null}
+               
 
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -137,13 +117,13 @@ function Cart() {
           <div className="totolaPrice__details">
           <div className="totolaPrice__item">
             <span>جمع جزء</span>
-            <bdi className='productPrice'>{price.toLocaleString()}
+            <bdi className='productPrice'>{basketInfo?.totalAmount?.toLocaleString()}
                       <span className='toman'>تومان</span>
                     </bdi>
           </div>
           <div className="totolaPrice__item">
             <span>مجموع</span>
-            <bdi className='productPrice'>{price.toLocaleString()}
+            <bdi className='productPrice'>{basketInfo?.totalAmount?.toLocaleString()}
                       <span className='toman'>تومان</span>
                     </bdi>
           </div>

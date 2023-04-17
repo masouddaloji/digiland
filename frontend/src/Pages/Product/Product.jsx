@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 //packages
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import domPurify from "dompurify";
 //components
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
@@ -12,33 +12,26 @@ import InputRating from "../../components/Rating/Rating";
 import axios, { privateAxios } from "../../api/axios";
 import Slider from "../../components/Slider/Slider";
 import Loader from "../../components/Loader/Loader";
+import Rating from "../../components/Rating/Rating";
+import Error from "../../components/Error/Error";
+
 //hooks
 import useAuth from "./../../hooks/useAuth";
+import useBasket from "./../../hooks/useBasket";
+
 //persianText
 import { persianTexts } from "../../text";
 //icons
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { HiOutlineBellAlert } from "react-icons/hi2";
-import {
-  AiOutlinePlusCircle,
-  AiOutlineRetweet,
-  AiOutlineStar,
-} from "react-icons/ai";
-import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
+import { AiOutlineRetweet, AiOutlineStar } from "react-icons/ai";
 import {
   BiCalendarCheck,
   BiCheckSquare,
   BiCommentDetail,
 } from "react-icons/bi";
 import { FaTruck, FaRegHeart } from "react-icons/fa";
-import {
-  BsCheckLg,
-  BsPen,
-  BsSortDown,
-  BsQuestionSquare,
-  BsXSquare,
-} from "react-icons/bs";
-import { IoMdClose } from "react-icons/io";
+import { BsCheckLg, BsPen, BsSortDown, BsXSquare } from "react-icons/bs";
 import { CgList } from "react-icons/cg";
 import { TbChecklist, TbTriangle, TbTriangleInverted } from "react-icons/tb";
 //styles
@@ -47,24 +40,16 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/zoom";
 import "./Product.css";
-import Rating from "../../components/Rating/Rating";
-import Error from "../../components/Error/Error";
 
 export default function Product() {
   const [detailsProduct, setDetailsProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+
   const { productId } = useParams();
   const { auth } = useAuth();
-
+  const { getUserBasket, addToBasketHandler } = useBasket();
   const [productCount, setProductCount] = useState(1);
   const [active, setActive] = useState("description");
-  const [advantagesLists, setAdvantagesLists] = useState([]);
-  const [disadvantagesLists, setDisadvantagesLists] = useState([]);
-  const [currentAdvantages, setCurrentAdvantages] = useState("");
-  const [currentDisadvantages, setCurrentDisadvantages] = useState("");
-  const [advantagesError, setAdvantagesError] = useState(false);
-  const [disadvantagesError, setDisadvantagesError] = useState(false);
   const [selectedColor, setSelectedColor] = useState();
   const [productUpdated, setProductUpdated] = useState();
 
@@ -106,8 +91,6 @@ export default function Product() {
         break;
     }
   };
-  const maxValue = 10;
-
   const allInfosBtn = [
     { id: 1, titleFa: "توضیحات", titleEn: "description" },
     { id: 2, titleFa: "مشخصات", titleEn: "specifications" },
@@ -115,45 +98,6 @@ export default function Product() {
     { id: 5, titleFa: " نقد و بررسی", titleEn: "review" },
   ];
   const optionRef = useRef();
-  const addAdvantages = () => {
-    if (currentAdvantages.trim().length > 3) {
-      const newAdvantages = {
-        id: advantagesLists.length
-          ? advantagesLists[advantagesLists.length - 1].id + 1
-          : advantagesLists.length + 1,
-        title: currentAdvantages,
-      };
-      setAdvantagesLists((prevValues) => [...prevValues, newAdvantages]);
-      setCurrentAdvantages("");
-    } else {
-      setAdvantagesError(true);
-      setTimeout(() => setAdvantagesError(false), 3000);
-    }
-  };
-  const addDisadvantages = () => {
-    if (currentDisadvantages.trim().length > 3) {
-      const newDisadvantages = {
-        id: disadvantagesLists.length
-          ? disadvantagesLists[disadvantagesLists.length - 1].id + 1
-          : disadvantagesLists.length + 1,
-        title: currentDisadvantages,
-      };
-      setDisadvantagesLists((prevValues) => [...prevValues, newDisadvantages]);
-      setCurrentDisadvantages("");
-    } else {
-      setDisadvantagesError(true);
-      setTimeout(() => setDisadvantagesError(false), 3000);
-    }
-  };
-
-  const removeAdvantages = (pointID) => {
-    setAdvantagesLists(advantagesLists.filter((item) => item.id !== pointID));
-  };
-  const removeDisadvantages = (pointID) => {
-    setDisadvantagesLists(
-      disadvantagesLists.filter((item) => item.id !== pointID)
-    );
-  };
   const convertDateFormat = (englishDate) => {
     const date = new Date(englishDate);
     const options = {
@@ -164,24 +108,7 @@ export default function Product() {
     const persianDate = new Intl.DateTimeFormat("fa", options).format(date);
     return persianDate;
   };
-  const addToBasketHandler = async () => {
-    if (auth?.token) {
-      await privateAxios.put(`basket/${productId}`,{},{
-        headers:{
-          Authorization:`Bearer ${auth?.token}`
-        }
-      }).then((res) => {
-        if (res?.status === 200 || res?.status === 201) {
-          toast.success(persianTexts.productInfo.addtobasketSuccess);
-        } else {
-          toast.error(persianTexts.productInfo.addtobasketError);
-        }
-      });
-    } else {
-      toast.warning(persianTexts.productInfo.firstTologin);
-      navigate("/login");
-    }
-  };
+
   // getdata from server
   useEffect(() => {
     setIsLoading(true);
@@ -310,7 +237,7 @@ export default function Product() {
                       />
                       <button
                         className="product__addToBasket"
-                        onClick={addToBasketHandler}
+                        onClick={() => addToBasketHandler(productId)}
                       >
                         <MdOutlineAddShoppingCart className="product__addIcon" />
                         افزودن به سبد خرید

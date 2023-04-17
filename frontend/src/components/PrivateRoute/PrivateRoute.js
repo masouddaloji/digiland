@@ -6,16 +6,22 @@ import jwtDecode from "jwt-decode";
 import useAuth from "../../hooks/useAuth";
 
 const PrivateRoute = ({ children }) => {
+  const navigateToLogin = () => {
+    navigate("/login", { replace: true });
+  };
+
   const { auth } = useAuth();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   if (!auth || !auth.token) {
-    return navigate("/login")
+    navigateToLogin();
+    return null;
   }
 
   const decode = jwtDecode(auth.token);
 
   if (decode.role !== "admin" && decode.role !== "superAdmin") {
-    return navigate("/login")
+    navigateToLogin();
+    return null;
   }
 
   return <>{children}</>;

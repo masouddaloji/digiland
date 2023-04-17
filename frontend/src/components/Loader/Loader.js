@@ -23,11 +23,11 @@ const Loader = (props) => {
             <span style={{"--pos":13}}></span>
             <span style={{"--pos":14}}></span>
             <span style={{"--pos":15}}></span>
-            <span style={{"--pos":16}}></span>
+            {/* <span style={{"--pos":16}}></span>
             <span style={{"--pos":17}}></span>
             <span style={{"--pos":18}}></span>
             <span style={{"--pos":19}}></span>
-            <span style={{"--pos":20}}></span>
+            <span style={{"--pos":20}}></span> */}
 
             </div>
                 <span className='loader__text'>{message}</span>

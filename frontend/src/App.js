@@ -9,6 +9,7 @@ import Footer from "./components/Footer/Footer";
 import axios from "./api/axios";
 // contexts
 import AuthContextProvider from "./Context/AuthContext";
+import UserBasketContextProvider from "./Context/UserBasketContext";
 //hooks
 import useAuth from "./hooks/useAuth";
 import useLogout from "./hooks/useLogout";
@@ -16,7 +17,6 @@ import useLogout from "./hooks/useLogout";
 import "./App.css";
 
 export default function App() {
-  const { setAuth } = useAuth();
   const logout = useLogout();
   const location = useLocation();
   const [products, setProducts] = useState([]);
@@ -28,6 +28,7 @@ export default function App() {
 
   return (
     <AuthContextProvider>
+    <UserBasketContextProvider>
       <div className="app">
         {location.pathname.includes("register") ||
         location.pathname.includes("login") ||
@@ -42,6 +43,7 @@ export default function App() {
           <Footer />
         )}
       </div>
+      </UserBasketContextProvider>
     </AuthContextProvider>
   );
 }

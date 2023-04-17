@@ -182,4 +182,7 @@ export const persianTexts = {
       warning:"برای امتیاز دادن ابتدا وارد حساب کاربری خود بشوید"
     }
   },
+  header:{
+    emptyBasket:"سبد خرید شما خالی می باشد"
+  }
 };

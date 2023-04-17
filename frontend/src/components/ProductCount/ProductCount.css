@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: center;
     height: inherit;
+    cursor: pointer;
   }
   .quantity__btnRight{
     border-left: 1px solid var(--gray);

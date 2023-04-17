@@ -9,7 +9,7 @@
 }
 .loder__box {
   position: absolute;
-  width: 20rem;
+  width: 17rem;
   /* height: 20rem; */
   top: 50%;
   left: 50%;
@@ -24,8 +24,8 @@
 .loader {
   position: relative;
   margin-top: 3.5rem;
-  width: 7rem;
-  height: 7rem;
+  width: 5rem;
+  height: 5rem;
 }
 .loader span {
   position: absolute;
@@ -33,22 +33,21 @@
   height: 100%;
   top: 0;
   left: 0;
-  transform: rotate(calc(18deg * var(--pos)));
+  transform: rotate(calc(24deg * var(--pos)));
 }
 .loader span::before {
   position: absolute;
   content: "";
   top: 0;
   left: 0;
-  width: 1rem;
-  height: 1rem;
+  width: .8rem;
+  height: .8rem;
   border-radius: 50%;
   background: var(--green);
   box-shadow: 0 0 1rem var(--green), 0 0 2rem var(--green),
     0 0 3rem var(--green);
-
-  animation: animate 2s linear infinite;
-  animation-delay: calc(0.1s * var(--pos));
+  animation: animate 2.25s linear infinite;
+  animation-delay: calc(0.15s * var(--pos));
 }
 .loader__text {
   margin: 3rem 0 1rem 0;

@@ -3,14 +3,16 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 // components
 import Navbar from "../Navbar/Navbar";
+
 //hooks
-import useLogout from '../../hooks/useLogout'
+import useLogout from "../../hooks/useLogout";
+import useBasket from "../../hooks/useBasket";
 // contexts
 import useAuth from "../../hooks/useAuth";
 // icons
 import { TfiSearch } from "react-icons/tfi";
 import { TbApps } from "react-icons/tb";
-import { IoPersonOutline } from "react-icons/io5";
+import { IoBagHandleOutline, IoPersonOutline } from "react-icons/io5";
 import { VscClose } from "react-icons/vsc";
 import { IoMdClose } from "react-icons/io";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
@@ -18,6 +20,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { CgShoppingBag } from "react-icons/cg";
 import { SiShopify } from "react-icons/si";
 import { CgCloseO } from "react-icons/cg";
+import { RiUserSettingsLine } from "react-icons/ri";
 // constans
 import { menus } from "../../Constants";
 // styles
@@ -25,7 +28,7 @@ import "./Header.css";
 
 import ProductCount from "../ProductCount/ProductCount";
 import ProductsContext from "../../Context/ProductsContext";
-import { privateAxios } from "../../api/axios";
+import { persianTexts } from "../../text";
 
 const MobileMenuItem = ({ menu }) => {
   const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
@@ -68,6 +71,7 @@ const MobileMenuItem = ({ menu }) => {
 };
 
 export default function Header({ categories, isLoading }) {
+  const { basketInfo, getUserBasket, removeItemFromBasket } = useBasket();
   const [showCategory, setShowCategory] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [currentCategory, setCurrentCategory] = useState("all");
@@ -77,7 +81,7 @@ export default function Header({ categories, isLoading }) {
   const [deviceWidth, setDeviceWidth] = useState({ width: window.innerWidth });
   const [isShowSideBarCart, setIsShowSideBarCart] = useState(false);
   const { auth } = useAuth();
-  const logout=useLogout()
+  const logout = useLogout();
   const categoryRef = useRef();
   const btnCategoryRef = useRef();
   const btnMobileCategoryRef = useRef();
@@ -96,9 +100,9 @@ export default function Header({ categories, isLoading }) {
       setIsShowSideBarCart(false);
     }
   };
-  const logoutHandler=()=>{
-    logout()
-  }
+  const logoutHandler = () => {
+    logout();
+  };
   useEffect(() => {
     const outsideClickHandler = (e) => {
       if (!searchRef?.current?.contains(e.target)) {
@@ -115,14 +119,11 @@ export default function Header({ categories, isLoading }) {
     window.addEventListener("resize", resizaHandler);
     return () => window.removeEventListener("resize", resizaHandler);
   }, []);
-  useEffect(()=>{
-    privateAxios.get("basket",{
-      headers:{Authorization:`Bearer ${auth?.token}`}
-    })
-    .then(res=>{
-      console.log(res)
-    })
-  },[])
+  useEffect(() => {
+    if (auth.token) {
+      getUserBasket();
+    }
+  }, [auth.token]);
 
   return (
     <>
@@ -143,80 +144,69 @@ export default function Header({ categories, isLoading }) {
             <div className="sideBarCart__header">
               <div>
                 <span>سبد خرید</span>
-                <span className="sideBarCart__headerCount">2</span>
+                <span className="sideBarCart__headerCount">
+                  {basketInfo?.totalQTY}
+                </span>
               </div>
               <IoMdClose
                 className="sideBarCart__headerCloseBtn"
                 onClick={() => setIsShowSideBarCart(false)}
               />
             </div>
-            <ul className="sideBarCart__Lists">
-              <li className="sideBarCart__ListsItem">
-                <div className="sideBarCart__imgBox">
-                  <Link to="/" className="sideBarCart__Link">
-                    <img
-                      src="./images/phone/samsung/13promax-1.jpg"
-                      alt="mini image products"
-                      className="sideBarCart__img"
-                    />
-                  </Link>
-                  <CgCloseO className="sideBarCart__removeIcon" />
-                </div>
-                <div className="sideBarCart__priceBox">
-                  <Link to="/" className="sideBarCart__LinkText">
-                    گوشی موبایل اپل مدل iPhone 12 A2404 دو سیم‌ کارت ظرفیت 128
-                    گیگابایت
-                  </Link>
-                  <div className="flex">
-                    <bdi className="currentPrice">
-                      14,500,000
-                      <span className="toman">تومان</span>
-                    </bdi>
-                    <ProductCount
-                      value={count}
-                      minValue={1}
-                      maxValue={10}
-                      newValue={setCount}
-                    />
-                  </div>
-                </div>
-              </li>
-              <li className="sideBarCart__ListsItem">
-                <div className="sideBarCart__imgBox">
-                  <Link to="/" className="sideBarCart__Link">
-                    <img
-                      src="./images/phone/samsung/13promax-1.jpg"
-                      alt="mini image products"
-                      className="sideBarCart__img"
-                    />
-                  </Link>
-                  <CgCloseO className="sideBarCart__removeIcon" />
-                </div>
-                <div className="sideBarCart__priceBox">
-                  <Link to="/" className="sideBarCart__LinkText">
-                    گوشی موبایل اپل مدل iPhone 12 A2404 دو سیم‌ کارت ظرفیت 128
-                    گیگابایت
-                  </Link>
-                  <div className="flex">
-                    <bdi className="currentPrice">
-                      14,500,000
-                      <span className="toman">تومان</span>
-                    </bdi>
-                    <ProductCount
-                      value={count}
-                      minValue={1}
-                      maxValue={10}
-                      newValue={setCount}
-                    />
-                  </div>
-                </div>
-              </li>
-            </ul>
+            {basketInfo?.cartItems?.length ? (
+              <ul className="sideBarCart__Lists">
+                {basketInfo?.cartItems?.map((item) => (
+                  <li className="sideBarCart__ListsItem" key={item._id}>
+                    <div className="sideBarCart__imgBox">
+                      <Link to="/" className="sideBarCart__Link">
+                        <img
+                          src={`http://localhost:8000${item?.productId?.image}`}
+                          alt="mini image products"
+                          className="sideBarCart__img"
+                        />
+                      </Link>
+                      <CgCloseO
+                        className="sideBarCart__removeIcon"
+                        onClick={() =>
+                          removeItemFromBasket(item?.productId?._id)
+                        }
+                      />
+                    </div>
+                    <div className="sideBarCart__priceBox">
+                      <Link to="/" className="sideBarCart__LinkText">
+                        {item?.productId?.title}
+                      </Link>
+                      <div className="flex">
+                        <bdi className="currentPrice">
+                          {item?.productId?.price?.toLocaleString()}
+                          <span className="toman">تومان</span>
+                        </bdi>
+                        <ProductCount
+                          value={item?.cartQuantity}
+                          minValue={1}
+                          maxValue={item?.productId?.quantity}
+                          newValue={setCount}
+                          productId={item?.productId?._id}
+                        />
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="emptyBasket">
+                <IoBagHandleOutline className="emptyBasket__icon" />
+                <span className="emptyBasket__text">
+                  {persianTexts.header.emptyBasket}
+                </span>
+              </div>
+            )}
+
             <div className="sideBarCart__totalPriceAndLinks">
               <div className="flex">
                 <span>جمع كل سبد خريد : </span>
                 <bdi className="currentPrice">
-                  14,500,000
+                  {basketInfo?.totalAmount?.toLocaleString()}
                   <span className="toman">تومان</span>
                 </bdi>
               </div>
@@ -411,18 +401,17 @@ export default function Header({ categories, isLoading }) {
                   ) : (
                     <div className="header__userInfo">
                       <div className="header__authUser-box">
-                        <IoPersonOutline className="fullIcon" />
+                        <RiUserSettingsLine className="fullIcon" />
                       </div>
                       <span className="header__userName">خوش اومدی مسعود</span>
                       <ul className="header__userOptions">
-                        <li className="header__userOption">
-                        حساب کاربری
-                        </li>
-                        <li className="header__userOption">
-                        سبد خرید
-                        </li>
-                        <li className="header__userOption" onClick={logoutHandler}>
-                        خروج
+                        <li className="header__userOption">حساب کاربری</li>
+                        <li className="header__userOption">سبد خرید</li>
+                        <li
+                          className="header__userOption"
+                          onClick={logoutHandler}
+                        >
+                          خروج
                         </li>
                       </ul>
                     </div>
@@ -433,7 +422,11 @@ export default function Header({ categories, isLoading }) {
                     onClick={() => setIsShowSideBarCart(true)}
                   >
                     <SiShopify className="basket__icon" />
-                    <span className="basket__counter">5</span>
+                    {basketInfo?.totalQTY ? (
+                      <span className="basket__counter">
+                        {basketInfo?.totalQTY}
+                      </span>
+                    ) : null}
                   </div>
                 </div>
               </div>

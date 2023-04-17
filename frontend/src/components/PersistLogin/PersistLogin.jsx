@@ -22,7 +22,7 @@ const PersistLogin = ({ children }) => {
       verifyRefreshToken();
     }
   }, []);
-  return <>{auth?.token ? <>{children}</> : navigate("/login")}</>;
+  return <>{auth?.token ? <>{children}</> : <>{children}</>}</>;
 };
 
 export default PersistLogin;

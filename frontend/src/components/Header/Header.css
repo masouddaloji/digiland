@@ -45,13 +45,18 @@
   padding: 1.5rem;
   border-bottom: 1px solid #eaeaec;
 }
+.sideBarCart__header div{
+  display: flex;
+  align-items: center;
+}
 .sideBarCart__headerCount{
   color: var(--white);
   background: var(--gold);
-  padding: 0 0.5rem;
   margin-right: 0.7rem;
-  display: inline-block;
-  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.6rem;
   line-height: 1.5rem;
   width: 1.6rem;
   border-radius: 0.2rem;
@@ -138,6 +143,27 @@ color: #333;
 }
 .sideBarCart__LinkBasket:nth-child(1){
   margin-left: 1.5rem;
+}
+
+.emptyBasket{
+  width: 90%;
+  height: 12rem;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+  border-radius: var(--border-box);
+}
+.emptyBasket__icon{
+  font-size: 3.2rem;
+  margin-bottom: 1rem;
+  color: #999;
+}
+.emptyBasket__text{
+  font-size: 1.1rem;
+  color: var(--black-50);
 }
 
 /* end sidebar basket */
@@ -414,15 +440,16 @@ color: var(--gray-50);
 }
 .basket__counter {
   position: absolute;
-  top: -0.4rem;
-  left: -0.7rem;
+  top: -0.7rem;
+  left: -1rem;
   color: var(--white);
   background-color: var(--black-50);
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
-  line-height: 1.2rem;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1rem;
   padding: 0.2rem;
   font-family: var(--Iran-number);
