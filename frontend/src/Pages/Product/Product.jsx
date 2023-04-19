@@ -39,6 +39,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/zoom";
 import "./Product.css";
+import ProductGallery from "../../components/adminPanel/Sidebar/ProductGallery";
 
 export default function Product() {
   const [detailsProduct, setDetailsProduct] = useState([]);
@@ -139,7 +140,7 @@ const getData=async()=>{
                 <div className="col-4">
                   <div className="product__imagesBox">
                     {!isLoading && (
-                      <Slider array={detailsProduct?.gallery} slide="thumb" />
+                      <ProductGallery array={detailsProduct?.gallery}/>
                     )}
                   </div>
                 </div>

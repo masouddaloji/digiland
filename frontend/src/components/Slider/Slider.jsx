@@ -8,7 +8,6 @@ import CompanyProduct from "../CompanyProduct/CompanyProduct";
 import ArticleBox from "../ArticleBox/ArticleBox";
 import ProductCart from "../ProductCart/ProductCart";
 import BannerBox from "../BannerBox/BannerBox";
-import ProductGallery from "./ProductGallery";
 //icons
 import { TfiSearch } from "react-icons/tfi";
 
@@ -239,8 +238,6 @@ function Slider(props) {
           ))}
         </Swiper>
       );
-    case "thumb":
-            return <ProductGallery {...props}/>
           
     default: {
       return null;

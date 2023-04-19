@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import "./CompanyProduct.css";
 
 export default function CompanyProduct(props) {
-  console.log(props)
   const{_id,title,image,price,offPrice,rating}=props
   return (
     <div className="companyProduct">

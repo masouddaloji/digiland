@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 //packages
 import { Swiper, SwiperSlide } from "swiper/react";
 import { v4 as uuidv4 } from 'uuid';
@@ -7,23 +7,12 @@ import { v4 as uuidv4 } from 'uuid';
 //components
 import SwiperCore, {
   Autoplay,
-  Pagination,
   Navigation,
-  Thumbs,
-  Zoom,
+  Thumbs
 } from "swiper";
 SwiperCore.use([Thumbs]);
-const ProductGallery = (props) => {
-  const {
-    sliders,
-    spaceBetween,
-    loop,
-    centeredSlides,
-    autoplay,
-    navigation,
-    slide,
-    array,
-  } = props;
+const ProductGallery = ({array}) => {
+
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState(null);
@@ -32,24 +21,26 @@ const ProductGallery = (props) => {
   const [size, setSize] = useState({ width: null, height: null });
   const [zoomLevel, setZoomLevel] = useState(2.5);
 
-  const mouseEnterHandler = (e) => {
-    setCurrentImage(e.currentTarget?.src);
+  const mouseEnterHandler = useCallback((e) => {
+    setCurrentImage(e.currentTarget?.src ?? null);
     const image = e.currentTarget;
     const { width, height } = image.getBoundingClientRect();
     setSize({ width, height });
     setIsShowMagnifier(true);
-  };
-  const mouseMoveHandler = (e) => {
+  }, []); 
+  
+  const mouseMoveHandler = useCallback((e) => {
     const image = e.currentTarget;
     const { top, left } = image.getBoundingClientRect();
     const x = e.pageX - left - window.pageXOffset;
     const y = e.pageY - top - window.pageYOffset;
     setMousePosition({ x, y });
-  };
-
-  const mouseLeaveHandler = () => {
+  }, []);
+  
+  const mouseLeaveHandler = useCallback(() => {
     setIsShowMagnifier(false);
-  };
+  }, []);
+
   return (
     <section className="product__gallery">
       <div className="product__largeImageBox">
@@ -86,7 +77,7 @@ const ProductGallery = (props) => {
               <img
                 src={`http://localhost:8000${item}`}
                 alt="product image"
-                className="product__smallImage"
+                className="product__largeImage"
                 onMouseMove={mouseMoveHandler}
                 onMouseLeave={mouseLeaveHandler}
                 onMouseEnter={mouseEnterHandler}

@@ -3,10 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useField, useFormikContext } from "formik";
 //icons
 import { HiChevronDown } from "react-icons/hi";
+//persian text
+import { persianTexts } from "../../text";
 
 const Select = (props) => {
   const [field, meta, helpers] = useField(props);
-  const { setFieldValue, setFieldTouched,resetForm } = useFormikContext();
+  const { setFieldValue, setFieldTouched, resetForm } = useFormikContext();
   const [isShowOptions, setIsShowOptions] = useState(false);
 
   const tochedHandler = () => {
@@ -27,15 +29,40 @@ const Select = (props) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   resetForm.subscribe(() => {
-  //     setSelectValue('');
-  //   });
+  useEffect(() => {
+    const convertRatingNumberToText = (number) => {
+      switch (number) {
+        case 1: {
+          setSelectValue("بد");
+          break;
+        }
+        case 2: {
+          setSelectValue("متوسط");
+          break;
+        }
+        case 3: {
+          setSelectValue("خوب");
+          break;
+        }
+        case 4: {
+          setSelectValue("خیلی خوب");
+          break;
+        }
+        case 5: {
+          setSelectValue("عالی");
+          break;
+        }
 
-  //   return () => {
-  //     resetForm.unsubscribe();
-  //   };
-  // }, [resetForm]);
+        default: {
+          setSelectValue(
+            persianTexts.admin.products.placeholder.inputPlaceholderRating
+          );
+          break;
+        }
+      }
+    };
+    convertRatingNumberToText(field.value);
+  }, [field.value]);
 
   return (
     <div className="formControl__wrapper" ref={containerRef}>
@@ -61,7 +88,7 @@ const Select = (props) => {
             meta.touched && meta.error ? "label--invalid" : undefined
           }`}
         >
-          {selectValue?selectValue: props.placeholder}
+          {selectValue ? selectValue : props.placeholder}
         </span>
         <HiChevronDown className="dropdownIcon" />
       </div>
@@ -75,13 +102,16 @@ const Select = (props) => {
           }`}
         >
           {props?.options?.map((option, index) => (
-            <li className="checkbox__item" key={option.value}  onClick={() => {
-                tochedHandler()
+            <li
+              className="checkbox__item"
+              key={option.value}
+              onClick={() => {
+                tochedHandler();
                 setFieldValue(field.name, option.value);
-                setSelectValue(option.text);
                 setIsShowOptions(false);
-              }}>
-            {option.text}
+              }}
+            >
+              {option.text}
             </li>
           ))}
         </ul>
