@@ -33,14 +33,9 @@ const schema = {
   },
   category: { type: "string", trim: true, min: 3 },
   tags: {
-    type: "array",
+    type: "string",
     optional: true,
-    max: 3,
-    items: {
-      type: "string",
-      trim: true,
-      min: 3,
-    },
+    min: 3
   },
   shortDescription: { type: "string", trim: true, min: 3 },
   fullDescription: { type: "string", trim: true, min: 3 },

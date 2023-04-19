@@ -1,49 +1,48 @@
 import React from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { IoIosStar } from "react-icons/io";
+import { IoIosStar, IoIosStarOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 import "./CompanyProduct.css";
 
-export default function CompanyProduct({details}) {
+export default function CompanyProduct(props) {
+  console.log(props)
+  const{_id,title,image,price,offPrice,rating}=props
   return (
     <div className="companyProduct">
-      <Link to={details.link} className="companyProduct__link">
+      <Link to={`/product/${_id}`} className="companyProduct__link">
         <div className="CompanyProduct__banner">
           <img
             className="CompanyProduct__img"
-            src={`http://localhost:1337${details.cover.data[0].attributes.url}`}
+            src={`http://localhost:8000${image}`}
             alt="CompanyProduct image"
           />
         </div>
         <div className="CompanyProduct__info">
           <h3 className="CompanyProduct__title">
-            {details.title}
+            {title}
           </h3>
           <div className="companyProduct__details">
             <div>
-            {details.currentPrice ? 
+            {offPrice ? 
             <>
             <del>
-                <bdi className="productPrice">{details.price.toLocaleString()}</bdi>
-                <span className="toman">تومان</span>
+                <bdi className="productPrice">{price.toLocaleString()}</bdi>
               </del>
-              <bdi className="currentPrice">{details.currentPrice.toLocaleString()}</bdi>
+              <bdi className="currentPrice">{(price-((price*offPrice)/100)).toLocaleString()}</bdi>
               <span className="toman">تومان</span>
             </>
               : 
               <>
-              <bdi className="currentPrice">{details.price.toLocaleString()}</bdi>
+              <bdi className="currentPrice">{price.toLocaleString()}</bdi>
                 <span className="toman">تومان</span>
               </>
               }
              
             </div>
-            <div className="flex">
-              <span className="starCount">4</span>
-              <div className="starBox">
-                <IoIosStar className="fullIcon fullStar" />
-              </div>
-            </div>
+                <div className="starDetails">
+                <IoIosStar className="star small__star" />
+                <span>{rating}</span>
+                </div>
           </div>
         </div>
         <div className="companyProduct__hoverBox">

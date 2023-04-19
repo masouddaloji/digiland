@@ -15,7 +15,7 @@ export default interface IProduct {
   quantity: number;
   colors?: [string];
   category?: string;
-  tags?: [string];
+  tags?: string;
   shortDescription?: string;
   fullDescription?: string;
   reviews?: Types.ObjectId;

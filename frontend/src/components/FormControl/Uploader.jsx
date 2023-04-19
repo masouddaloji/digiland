@@ -1,19 +1,20 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // packages
 import { Field, useField, useFormikContext } from "formik";
 //components
 import { privateAxios } from "../../api/axios";
 //hooks
 import useAuth from "../../hooks/useAuth";
-// contexts
-import { AuthContext } from "../../Context/AuthContext";
+
 // icons
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 
 const Uploader = (props) => {
   const [field, meta, helpers] = useField(props);
-  const { setFieldValue, setFieldTouched } = useFormikContext();
-  const [previewImage, setPreviewImage] = useState(field.value?field.value:[]);
+  const { setFieldValue, setFieldTouched,resetForm } = useFormikContext();
+  const [previewImage, setPreviewImage] = useState(
+    field.value ? field.value : []
+  );
   const [uploadImagePercent, setUploadImagePercent] = useState(null);
   const [isShowMessage, setIsShowMessage] = useState(false);
   const [images, setImages] = useState([]);
@@ -25,10 +26,12 @@ const Uploader = (props) => {
     multiple: "عکس های محصول آپلود شدند",
   };
 
-  const uploadHandler =  (event) => {
+  const uploadHandler = (event) => {
     setFieldTouched(field.name, true);
     let files = Array.from(event?.target?.files);
-    setImages(files);
+    if (files.length > 0) {
+      setImages(files);
+    }
   };
   const uploading = (e) => {
     e.preventDefault();
@@ -72,14 +75,30 @@ const Uploader = (props) => {
       });
   };
 
+  useEffect(() => {
+    if (!field.value) {
+      setIsShowMessage(false);
+    }
+  }, [field.value]);
 
+  useEffect(() => {
+    resetForm?.subscribe(() => {
+      setIsShowMessage(false);
+    });
+
+    return () => {
+      resetForm.unsubscribe();
+    };
+  }, [resetForm]);
 
   return (
     <>
       <div className="formControl__wrapper">
         <div
           className={`uploader ${
-            meta.touched && meta.error && !images?.length ? "formControl--invalid" : undefined
+            meta.touched && meta.error && !images?.length
+              ? "formControl--invalid"
+              : undefined
           }`}
           ref={uploaderRef}
         >
@@ -127,7 +146,8 @@ const Uploader = (props) => {
             {props?.multiple ? message.multiple : message.single}
           </p>
           <div className="upload__showImages">
-            {previewImage.length && field.value &&
+            {previewImage.length &&
+              field.value &&
               previewImage.map((item, index) => (
                 <img
                   className="upload__previewImage"

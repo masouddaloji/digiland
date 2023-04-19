@@ -8,7 +8,6 @@ import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import ProductCart from "../../components/ProductCart/ProductCart";
 import ProductCount from "../../components/ProductCount/ProductCount";
-import InputRating from "../../components/Rating/Rating";
 import axios, { privateAxios } from "../../api/axios";
 import Slider from "../../components/Slider/Slider";
 import Loader from "../../components/Loader/Loader";
@@ -47,7 +46,7 @@ export default function Product() {
 
   const { productId } = useParams();
   const { auth } = useAuth();
-  const { getUserBasket, addToBasketHandler } = useBasket();
+  const { addToFavorite, addToBasketHandler } = useBasket();
   const [productCount, setProductCount] = useState(1);
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
@@ -108,19 +107,22 @@ export default function Product() {
     const persianDate = new Intl.DateTimeFormat("fa", options).format(date);
     return persianDate;
   };
-
+const getData=async()=>{
+  await axios
+  .get(`products/reviews/${productId}`)
+  .then((res) => {
+    setDetailsProduct(res?.data?.data);
+    setSelectedColor(res?.data?.data?.colors?.[0]);
+    setProductUpdated(res?.data?.data?.updatedAt);
+    setIsLoading(false);
+  })
+  .catch((error) => console.log(error));
+}
   // getdata from server
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get(`products/reviews/${productId}`)
-      .then((res) => {
-        setDetailsProduct(res?.data?.data);
-        setSelectedColor(res?.data?.data?.colors?.[0]);
-        setProductUpdated(res?.data?.data?.updatedAt);
-        setIsLoading(false);
-      })
-      .catch((error) => console.log(error));
+    getData()
+
   }, []);
 
   return (
@@ -280,7 +282,7 @@ export default function Product() {
                         ارسال از <span>3</span> روز کاری آینده
                       </div>
                       <div className="product__availbleItem">
-                        <button className="product__availbleButton">
+                        <button className="product__availbleButton" onClick={()=>addToFavorite(productId)}>
                           <FaRegHeart className="product__availbleBtnIcon" />
                           افزودن به علاقه مندی ها
                         </button>
@@ -365,8 +367,7 @@ export default function Product() {
                     </div>
                   </div>
                   <div className="allDetails__detailsBox">
-                    <p className="allDetails__detailsText">
-                      {detailsProduct?.shortDescription}
+                    <p className="allDetails__detailsText" dangerouslySetInnerHTML={{__html:domPurify.sanitize(detailsProduct?.shortDescription)}}> 
                     </p>
                   </div>
                 </div>
@@ -451,7 +452,7 @@ export default function Product() {
                         </div>
                       </div>
                       <div className="col-12 col-sm-6">
-                        <Rating />
+                        <Rating getData={getData}/>
                       </div>
                     </div>
                     <div className="row">

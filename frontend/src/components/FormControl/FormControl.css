@@ -125,7 +125,6 @@
 }
 
 .input,
-.textarea,
 .select {
   width: 100%;
   height: 100%;
@@ -137,6 +136,19 @@
   outline: none;
   box-shadow: var(--box-shadow);
   border-radius: var(--border-box);
+}
+.textarea {
+  width: 100%;
+  height: 11rem;
+  border-radius: var(--border-box);
+  padding: 0.7rem 1.5rem 0.5rem 1rem;
+  font-size: 1.2rem;
+  color: #666;
+  border: 2px solid var(--gray);
+  resize: none;
+  font-family: var(--main-font);
+  background: var(--white);
+  box-shadow: var(--box-shadow);
 }
 .tox-tinymce{
   border: none!important;
@@ -244,10 +256,7 @@ color: var(--white);
 transform: scale(1);
 }
 
-.textarea {
-  resize: none;
-  height: 15rem;
-}
+
 
 .input:focus,
 .select:focus,
@@ -307,9 +316,6 @@ transform: scale(1);
   /* transition: background-color 5000s ease-in-out 0s; */
 }
 
-.ck-content {
-  border: none;
-}
 @media (max-width: 768px) {
   .auth__wrapper {
     width: 100%;

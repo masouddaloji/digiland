@@ -22,7 +22,6 @@ const Input = (props) => {
         </label>
       )}
       <div className={`formControl__box`}>
-      
         <input
           ref={inputRef}
           className={`input  ${

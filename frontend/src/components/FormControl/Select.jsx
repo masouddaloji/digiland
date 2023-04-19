@@ -6,8 +6,9 @@ import { HiChevronDown } from "react-icons/hi";
 
 const Select = (props) => {
   const [field, meta, helpers] = useField(props);
-  const { setFieldValue, setFieldTouched } = useFormikContext();
+  const { setFieldValue, setFieldTouched,resetForm } = useFormikContext();
   const [isShowOptions, setIsShowOptions] = useState(false);
+
   const tochedHandler = () => {
     setFieldTouched(field.name, true);
   };
@@ -25,6 +26,16 @@ const Select = (props) => {
       document.body.removeEventListener("click", outsideClickHandler);
     };
   }, []);
+
+  // useEffect(() => {
+  //   resetForm.subscribe(() => {
+  //     setSelectValue('');
+  //   });
+
+  //   return () => {
+  //     resetForm.unsubscribe();
+  //   };
+  // }, [resetForm]);
 
   return (
     <div className="formControl__wrapper" ref={containerRef}>

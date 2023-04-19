@@ -39,15 +39,16 @@ const productSchema = new mongoose.Schema<IProduct>(
       },
     },
     category: { type: String, trim: true },
-    tags: {
-      type: [String],
-      validate: {
-        validator: function (v: any) {
-          return v && v.length <= 3;
-        },
-        message: "tags can be a maximum of 3 items.",
-      },
-    },
+    // tags: {
+    //   type: [String],
+    //   validate: {
+    //     validator: function (v: any) {
+    //       return v && v.length <= 3;
+    //     },
+    //     message: "tags can be a maximum of 3 items.",
+    //   },
+    // },
+    tags:{ type: String, trim: true },
     shortDescription: { type: String, trim: true },
     fullDescription: { type: String, trim: true },
     reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],

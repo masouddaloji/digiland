@@ -182,10 +182,9 @@ export default function Header({ categories, isLoading }) {
                           <span className="toman">تومان</span>
                         </bdi>
                         <ProductCount
-                          value={item?.cartQuantity}
+                          value={item?.cartQuantity?item.cartQuantity:1}
                           minValue={1}
                           maxValue={item?.productId?.quantity}
-                          newValue={setCount}
                           productId={item?.productId?._id}
                         />
                       </div>
@@ -406,7 +405,7 @@ export default function Header({ categories, isLoading }) {
                       <span className="header__userName">خوش اومدی مسعود</span>
                       <ul className="header__userOptions">
                         <li className="header__userOption">حساب کاربری</li>
-                        <li className="header__userOption">سبد خرید</li>
+                        <li className="header__userOption"> <Link to="/basket">سبد خرید</Link></li>
                         <li
                           className="header__userOption"
                           onClick={logoutHandler}

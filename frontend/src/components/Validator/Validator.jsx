@@ -61,6 +61,9 @@ export const addProductsSchema = Yup.object().shape({
   productCategory: Yup.string().required(
     persianTexts.error.addProducts.productCategory.required
   ),
+  productSubCategory: Yup.string().required(
+    persianTexts.error.addProducts.productSubCategory.required
+  ),
   productSegment: Yup.string().required(
     persianTexts.error.addProducts.productSegment.required
   ),

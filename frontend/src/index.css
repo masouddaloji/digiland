@@ -334,7 +334,7 @@ a {
   font-size: 1.4rem;
   color: var(--blue);
   display: inline-block;
-  /* margin-right: 1rem; */
+  margin-right: .7rem;
 }
 .section__btn {
   color: var(--white);
@@ -344,6 +344,9 @@ a {
 .star {
   color: var(--gold);
   font-size: 1.8rem;
+}
+.small__star{
+  font-size: 1.4rem;
 }
 .starCount {
   font-family: var(--Iran-number);

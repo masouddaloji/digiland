@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import { TbDiscount2 } from "react-icons/tb";
+//packages
 import { Link, useLocation } from "react-router-dom";
+//hooks
+import useBasket from "../../../hooks/useBasket";
+//icons
+import { TbDiscount2 } from "react-icons/tb";
+//styles
 import "./CheckInformation.css";
 
 function CheckInformation() {
   const [showDiscount, setShowDiscount] = useState(false);
+  const {basketInfo}=useBasket()
   return (
     <div className="col-12">
       <div className="information">
@@ -160,19 +166,19 @@ function CheckInformation() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                  {basketInfo?.cartItems?.map(item=> <tr key={item._id}>
                       <td>
-                        گوشی موبایل اپل مدل iPhone 12 A2404 دو سیم‌ کارت ظرفیت
-                        128 گیگابایت
+                        {item?.productId?.title} <span>{item.cartQuantity?` x ${item.cartQuantity}`:null}</span>
                       </td>
                       <td>
                         <bdi class="productPrice">
-                          14,500,000
+                        {item?.productId?.price?.toLocaleString()}
                           <span class="toman">تومان</span>
                         </bdi>
                       </td>
-                    </tr>
-                    <tr>
+                    </tr>)}
+                   
+                    {/* <tr>
                       <td>
                         گوشی موبایل شیائومی مدل POCO X3 Pro M2102J20SG NFC دو
                         سیم‌ کارت ظرفیت 256
@@ -183,7 +189,7 @@ function CheckInformation() {
                           <span class="toman">تومان</span>
                         </bdi>
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                   <tfoot>
                     <tr>
@@ -191,7 +197,7 @@ function CheckInformation() {
                       <td>
                         <span>
                           <bdi class="productPrice">
-                            14,500,000
+                            {basketInfo?.totalAmount?.toLocaleString()}
                             <span class="toman">تومان</span>
                           </bdi>
                         </span>
@@ -200,13 +206,12 @@ function CheckInformation() {
                     <tr>
                       <th>هزینه حمل و نقل</th>
                       <td>
-                        {/* <span>
+                      {basketInfo?.totalAmount>1000000?" حمل و نقل رایگان":<span>
                           <bdi class="productPrice">
                             14,500,000
                             <span class="toman">تومان</span>
                           </bdi>
-                        </span> */}
-                        حمل و نقل رایگان
+                        </span>}                       
                       </td>
                     </tr>
                     <tr>
@@ -214,7 +219,7 @@ function CheckInformation() {
                       <td>
                         <span>
                           <bdi class="productPrice">
-                            14,500,000
+                          {basketInfo?.totalAmount?.toLocaleString()}
                             <span class="toman">تومان</span>
                           </bdi>
                         </span>

@@ -306,3 +306,19 @@ export const adminSidebarItems=[
   {icon:<MdOutlineAddShoppingCart className="sidebarItem__mainIcon" />, title:"سفارشات" ,link:"orders"},
   {icon:<RiArticleLine className="sidebarItem__mainIcon" /> ,title:"مقالات" ,link:"articles"},
 ]
+export const ratingOptions = [
+  { value: 1, text: "بد" },
+  { value: 2, text: "معمولی" },
+  { value: 3, text: "خوب" },
+  { value: 4, text: "خیلی خوب" },
+  { value: 5, text: "عالی" },
+];
+export  const colorOptions = [
+  { value: "قرمز", color: "#FF0000" },
+  { value: "مشکی", color: "#000" },
+  { value: "طلائی", color: "#ffd300" },
+  { value: "آبی", color: "#0000FF" },
+  { value: "سبز", color: "#00FF00" },
+  { value: "سفید", color: "#FFF" },
+  { value: "صورتی", color: "#FF69B4" },
+];

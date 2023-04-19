@@ -4,6 +4,7 @@
     align-items: center;
     border: 1px solid var(--gray);
     border-radius: var(--border-box);
+    position: relative;
   }
   .quantity__btn{
     padding: 0 0.4rem;

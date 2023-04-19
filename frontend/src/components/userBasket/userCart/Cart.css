@@ -141,12 +141,16 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.3rem;
+  font-size: 1.1rem;
 }
 .totolaPrice__icon {
   color: #4caf50;
   font-size: 1.9rem;
   margin-left: 1rem;
   vertical-align: middle;
+}
+.totolaPrice__postPrice{
+
 }
 .totolaPrice__postText {
   font-size: 1.1rem;

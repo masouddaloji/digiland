@@ -8,23 +8,23 @@ import { useNavigate, useParams } from "react-router-dom";
 import useAuth from "./../../hooks/useAuth";
 //components
 import { privateAxios } from "../../api/axios";
+import FormControl from "../FormControl/FormControl";
 //validators
 import { userRatingSchema } from "../Validator/Validator";
+//constannst
+import { ratingOptions } from "../../Constants";
 //persian text
 import { persianTexts } from "../../text";
-//icons
-import { IoIosStar, IoIosStarOutline } from "react-icons/io";
+
 //style
 import "./Rating.css";
 
-const Rating = () => {
-  const [rating, setRating] = useState(null);
-  const [hoverStar, setHoverStar] = useState(null);
+const Rating = ({getData}) => {
   const formikRef = useRef();
   const { auth } = useAuth();
   const navigate = useNavigate();
   const { productId } = useParams();
-
+ 
   return (
     <Formik
       ref={formikRef}
@@ -49,6 +49,7 @@ const Rating = () => {
             .then((res) => {
               if (res.status === 200 || res.status === 201) {
                 toast.success(persianTexts.rating.submit.success);
+                getData()
                 resetForm();
               }else{
                 toast.error(persianTexts.rating.submit.error)
@@ -65,68 +66,35 @@ const Rating = () => {
           <div className="reviewForm">
             <span className="reviewForm__title">دیدگاه خود را بنویسید</span>
             <Form className="reviewForm__form">
-              <div className="reviewForm__ratingWrapper">
-                <label className="reviewForm__ratingTitle">امتیاز شما * </label>
-              </div>
               <div className="row">
-                <div className="reatingStar__wrapper" name="userRating">
-                  {Array(5)
-                    .fill()
-                    .map((_, index) =>
-                      rating >= index + 1 || hoverStar >= index + 1 ? (
-                        <IoIosStar
-                          key={uuidv4()}
-                          className="star ratingSatr"
-                          onClick={() => {
-                            formik.setFieldTouched("userRating", true);
-                            formik.setFieldValue("userRating", index + 1);
-                            setRating(index + 1);
-                          }}
-                          onMouseOver={() => setHoverStar(index + 1)}
-                          onMouseLeave={() =>
-                            setHoverStar(formik.values.userRating)
-                          }
-                        />
-                      ) : (
-                        <IoIosStarOutline
-                          key={uuidv4()}
-                          className="star ratingSatr"
-                          onClick={() => {
-                            formik.setFieldTouched("userRating", true);
-                            formik.setFieldValue("userRating", index + 1);
-                            setRating(index + 1);
-                          }}
-                          onMouseOver={() => setHoverStar(index + 1)}
-                          onMouseLeave={() =>
-                            setHoverStar(formik.values.userRating)
-                          }
-                        />
-                      )
-                    )}
-                </div>
-                {formik.touched.userRating && formik.errors.userRating ? (
-                  <span>{formik.errors.userRating}</span>
-                ) : null}
+              <div className="col-12">
+                    <FormControl
+                      label="امتیاز شما *"
+                      placeholder={
+                        persianTexts.admin.products.placeholder
+                          .inputPlaceholderRating
+                      }
+                      controler="select"
+                      name="userRating"
+                      options={ratingOptions}
+                    />
+                  </div>
+              <div className="col-12">
+                    <FormControl
+                      label="دیدگاه شما *"
+                      placeholder="لطفا دیدگاه خود را وارد کنید"
+                      controler="textarea"
+                      name="userComment"
+                    />
+                  </div>
 
-                <div className="reviewForm__commentWrapper">
-                  <label className="reviewForm__commentTitle" htmlFor="comment">
-                    دیدگاه شما *
-                  </label>
-                  <textarea
-                    name="userComment"
-                    className="reviewForm__commentTextArea"
-                    {...formik.getFieldProps("userComment")}
-                  ></textarea>
-                  {formik.touched.userComment && formik.errors.userComment ? (
-                    <span>{formik.errors.userComment}</span>
-                  ) : null}
-                </div>
-                <div className="reviewForm__submitWrapper">
+                <div className="col-6">
                   <button type="submit" className="reviewForm__submit">
                     ثبت
                   </button>
                 </div>
-              </div>
+                  </div>
+
             </Form>
           </div>
         </div>

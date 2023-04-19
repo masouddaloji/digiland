@@ -14,30 +14,15 @@ import useAuth from "../../../hooks/useAuth";
 import { MdUploadFile, MdOutlineDriveFolderUpload } from "react-icons/md";
 // validator
 import { addProductsSchema } from "../../Validator/Validator";
-// contexts
-import { AuthContext } from "../../../Context/AuthContext";
+
+//constannst
+import { ratingOptions,colorOptions } from "../../../Constants";
 // styles
 import "./AddProduct.css";
 
 const AddProduct = () => {
   const uploadRef = useRef();
   const { auth } = useAuth();
-  const ratingOptions = [
-    { value: 1, text: "بد" },
-    { value: 2, text: "معمولی" },
-    { value: 3, text: "خوب" },
-    { value: 4, text: "خیلی خوب" },
-    { value: 5, text: "عالی" },
-  ];
-  const colorOptions = [
-    { value: "قرمز", color: "#FF0000" },
-    { value: "مشکی", color: "#000" },
-    { value: "طلائی", color: "#ffd300" },
-    { value: "آبی", color: "#0000FF" },
-    { value: "سبز", color: "#00FF00" },
-    { value: "سفید", color: "#FFF" },
-    { value: "صورتی", color: "#FF69B4" },
-  ];
 
   return (
     <Formik
@@ -46,10 +31,11 @@ const AddProduct = () => {
         productPrice: "",
         productRating: "",
         productQantity: "",
-        productCategory: "",
+        productCategory: null,
         productSegment: "",
         productColors: null,
         productBrand: "",
+        productSubCategory: "",
         productOffPrice: "",
         productShortDescription: "",
         productFullDescription: "",
@@ -68,7 +54,8 @@ const AddProduct = () => {
           rating: Number(values.productRating),
           quantity: Number(values.productQantity),
           colors: values.productColors,
-          category: values.productCategory,
+          category:values.productSubCategory,
+          tags:values.productCategory,
           shortDescription: values.productShortDescription,
           fullDescription: values.productFullDescription,
           brand: values.productBrand,
@@ -101,7 +88,7 @@ const AddProduct = () => {
               <h2 className="table__header">
                 {persianTexts.admin.products.label.addProductsTitle}
               </h2>
-              <Form className="admin__form">
+              <Form className="admin__form" onSubmit={formik.handleSubmit()}>
                 <div className="row">
                   <div className="col-md-6">
                     <FormControl
@@ -202,6 +189,17 @@ const AddProduct = () => {
                   </div>
                   <div className="col-md-6">
                     <FormControl
+                      label={persianTexts.admin.products.label.inputLabelSubCategory}
+                      placeholder={
+                        persianTexts.admin.products.placeholder
+                          .inputPlaceholderSubCategory
+                      }
+                      controler="text"
+                      name="productSubCategory"
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <FormControl
                       label={
                         persianTexts.admin.products.label.inputLabelOffPrice
                       }
@@ -213,7 +211,7 @@ const AddProduct = () => {
                       name="productOffPrice"
                     />
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-12">
                     <FormControl
                       label={
                         persianTexts.admin.products.label
@@ -223,7 +221,7 @@ const AddProduct = () => {
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderShortDescription
                       }
-                      controler="text"
+                      controler="editor"
                       name="productShortDescription"
                     />
                   </div>

@@ -1,0 +1,27 @@
+.spiner__wrapper{
+    width: 10rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--gray);
+    border-radius: var(--border-box);
+}
+.spiner{
+width: 2rem;
+height: 2rem;
+border-radius: 50%;
+border: 2px solid var(--gray-25);
+border-top-color: #888;
+transition: all .3s;
+animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    0%{
+        transform:rotate(0deg);
+    }
+    100%{
+        transform:rotate(360deg);
+    }
+}

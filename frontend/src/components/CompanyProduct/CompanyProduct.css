@@ -24,11 +24,11 @@
   display: flex;
   flex-direction: column;
   margin-right: 0.7rem;
+  color: var(--gray-text);
 }
 .CompanyProduct__title {
   font-family: var(--Iran-bold);
   font-size: 1.2rem;
-  color: var(--black-50);
   margin-bottom: 1rem;
 }
 .companyProduct__details {
@@ -65,4 +65,12 @@
 .companyProduct:hover .companyProduct__hoverBox{
     opacity: 1;
     visibility: visible;
+}
+.starDetails{
+  display: flex;
+    font-family: var(--Iran-number);
+    font-size: 1.2rem;
+}
+.starDetails span{
+  margin-right: .3rem;
 }

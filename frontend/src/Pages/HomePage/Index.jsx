@@ -10,12 +10,12 @@ import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import ServiceBox from "../../components/ServiceBox/ServiceBox";
 import Slider from "../../components/Slider/Slider";
 import Loader from "./../../components/Loader/Loader";
+import CompanyProduct from "../../components/CompanyProduct/CompanyProduct";
 // icons
 
 import { BiLayerPlus } from "react-icons/bi";
 import { AiFillApple } from "react-icons/ai";
 import { GrRss } from "react-icons/gr";
-
 import { services } from "../../Constants";
 
 export default function Index() {
@@ -96,13 +96,17 @@ const articles=Array(6).fill(0)
   ];
 const [allProducts,setAllProducts]=useState([])
 const [newProducts, setNewProducts] = useState([])
+const [appleProducts, setAppleProducts] = useState([])
+
 useEffect(()=>{
   setIsLoading(true)
   axios.get("products")
   .then(res=>{
     setAllProducts(res?.data?.data)
-    const newProductsSlice=res?.data?.data.slice(0,6)
+    const newProductsSlice= res?.data?.data.slice(0,6)
     setNewProducts(newProductsSlice)
+    const apple= res?.data?.data?.filter(item=>item.brand==="apple")
+    setAppleProducts(apple)
     setIsLoading(false)
   })
   .catch(error=>console.log(error))
@@ -233,30 +237,12 @@ useEffect(()=>{
             </div>
           </div>
           <div className="row">
-          {/* {!productsContext.errorProducts ? (
-                  <>
-                    {!productsContext.isLoadingProducts ? (
-                      <>
-                        {productsContext.products .filter(
-                (product) =>
-                  product.attributes.brand.data.attributes.title === "apple"
-              )
-              .map((product) => (
-                <div className="col-12 col-md-6 col-lg-4" key={product.id}>
-                  <CompanyProduct details={product.attributes} />
-                </div>
-              ))}
-                      </>
-                    ) : (
-                      <span>Loading ...</span>
-                    )}
-                  </>
-                ) : (
-                  <>
-                  {console.log("errorProducts", productsContext.errorProducts)}
-
-                  </>
-                )}  */}
+          {
+                appleProducts.length&&appleProducts.map(item=>
+                <div className="col-12 col-md-6 col-lg-4" key={item._id}>
+                  <CompanyProduct {...item} />
+                </div>)
+                }
           </div>
         </section>
         {/* articles */}
