@@ -43,8 +43,7 @@
   height: 1rem;
   border-radius: 50%;
   background: var(--blue);
-  box-shadow: 0 0 1rem var(--blue), 0 0 2rem var(--blue),
-    0 0 3rem var(--blue);
+  box-shadow: 0 0 1rem var(--blue), 0 0 2rem var(--blue);
   animation: animate 2.25s linear infinite;
   animation-delay: calc(0.15s * var(--pos));
 }

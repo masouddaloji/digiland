@@ -88,7 +88,7 @@ const AddProduct = () => {
               <h2 className="table__header">
                 {persianTexts.admin.products.label.addProductsTitle}
               </h2>
-              <Form className="admin__form" onSubmit={formik.handleSubmit()}>
+              <Form className="admin__form" >
                 <div className="row">
                   <div className="col-md-6">
                     <FormControl

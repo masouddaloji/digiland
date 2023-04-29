@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 //hooks
 import useBasket from "../../hooks/useBasket";
+//components
+import Star from "../Star/Star";
 //icons
-import { IoIosStar, IoIosStarOutline, IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeartEmpty } from "react-icons/io";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 //styles
@@ -61,16 +63,7 @@ export default function ProductCart(props) {
           </div>
         </div>
         <div className="product__leftBox">
-          {Array(5 - rating)
-            .fill(0)
-            .map((item, index) => (
-              <IoIosStarOutline className="star" />
-            ))}
-          {Array(rating)
-            .fill(0)
-            .map((item, index) => (
-              <IoIosStar className="star" />
-            ))}
+          {Star(rating)}
         </div>
       </div>
     </div>

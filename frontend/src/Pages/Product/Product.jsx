@@ -6,6 +6,7 @@ import domPurify from "dompurify";
 //components
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
+import ProductGallery from "../../components/adminPanel/Sidebar/ProductGallery";
 import ProductCart from "../../components/ProductCart/ProductCart";
 import ProductCount from "../../components/ProductCount/ProductCount";
 import axios, { privateAxios } from "../../api/axios";
@@ -17,7 +18,8 @@ import Error from "../../components/Error/Error";
 //hooks
 import useAuth from "./../../hooks/useAuth";
 import useBasket from "./../../hooks/useBasket";
-
+//constanst
+import { allInfosBtn } from "../../Constants";
 //persianText
 import { persianTexts } from "../../text";
 //icons
@@ -39,19 +41,19 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/zoom";
 import "./Product.css";
-import ProductGallery from "../../components/adminPanel/Sidebar/ProductGallery";
 
 export default function Product() {
+  const { basketInfo, getUserBasket } = useBasket();
   const [detailsProduct, setDetailsProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
   const { productId } = useParams();
   const { auth } = useAuth();
   const { addToFavorite, addToBasketHandler } = useBasket();
-  const [productCount, setProductCount] = useState(1);
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
   const [productUpdated, setProductUpdated] = useState();
+  const [relatedProduct, setRelatedProduct] = useState([]);
+  const [productCount, setProductCount] = useState(1);
 
   const showRatingResultPersian = (rate) => {
     switch (rate) {
@@ -91,12 +93,7 @@ export default function Product() {
         break;
     }
   };
-  const allInfosBtn = [
-    { id: 1, titleFa: "توضیحات", titleEn: "description" },
-    { id: 2, titleFa: "مشخصات", titleEn: "specifications" },
-    { id: 3, titleFa: "نظرات کاربران", titleEn: "userComments" },
-    { id: 5, titleFa: " نقد و بررسی", titleEn: "review" },
-  ];
+
   const optionRef = useRef();
   const convertDateFormat = (englishDate) => {
     const date = new Date(englishDate);
@@ -108,23 +105,48 @@ export default function Product() {
     const persianDate = new Intl.DateTimeFormat("fa", options).format(date);
     return persianDate;
   };
-const getData=async()=>{
-  await axios
-  .get(`products/reviews/${productId}`)
-  .then((res) => {
-    setDetailsProduct(res?.data?.data);
-    setSelectedColor(res?.data?.data?.colors?.[0]);
-    setProductUpdated(res?.data?.data?.updatedAt);
-    setIsLoading(false);
-  })
-  .catch((error) => console.log(error));
-}
+
+  const getData = async () => {
+    await axios
+      .get(`products/reviews/${productId}`)
+      .then((res) => {
+        setDetailsProduct(res?.data?.data);
+        setSelectedColor(res?.data?.data?.colors?.[0]);
+        setProductUpdated(res?.data?.data?.updatedAt);
+        setIsLoading(false);
+      })
+      .catch((error) => console.log(error));
+  };
+  const getRelatedProduct = () => {
+    axios
+      .get("products")
+      .then((res) => {
+        const filterproduct = res?.data?.data?.filter(
+          (item) => item.category === detailsProduct?.category
+        );
+        setRelatedProduct(filterproduct);
+      })
+      .catch((error) => console.log(error));
+  };
+  const getInfoProductFrombasket = () => {
+    basketInfo?.cartItems?.filter((item) => {
+      if (item._id === productId) {
+        console.log(item.cartQuantity)
+      }
+    });
+  };
   // getdata from server
   useEffect(() => {
     setIsLoading(true);
-    getData()
+    getData();
+    getUserBasket();
+  }, [productId]);
 
-  }, []);
+  useEffect(() => {
+    if (detailsProduct.length) {
+      getRelatedProduct();
+    }
+  }, [productId]);
 
   return (
     <>
@@ -138,14 +160,12 @@ const getData=async()=>{
             <div className="product__wrapper">
               <div className="row">
                 <div className="col-4">
-                  <div className="product__imagesBox">
-                    {!isLoading && (
-                      <ProductGallery array={detailsProduct?.gallery}/>
-                    )}
-                  </div>
+                  {!isLoading && (
+                    <ProductGallery array={detailsProduct?.gallery} />
+                  )}
                 </div>
                 <div className="col-5">
-                  <div className="product__detailsBox">
+                  <div>
                     <h2 className="product__detailsTitle">
                       {detailsProduct?.title}
                     </h2>
@@ -190,19 +210,32 @@ const getData=async()=>{
                       </li>
                     </ul>
                     <div className="product__priceRange">
+
+                    <del>
                       <bdi className="product__prices">
                         {detailsProduct?.price?.toLocaleString()}
                         <span className="toman">تومان</span>
                       </bdi>
+                      </del>
                       {detailsProduct?.offPrice ? (
                         <>
                           <i>|</i>
                           <bdi className="product__prices">
-                            25,600,000
+                          {(detailsProduct?.price - (detailsProduct?.price * detailsProduct?.offPrice) / 100).toLocaleString()}
                             <span className="toman">تومان</span>
                           </bdi>
                         </>
                       ) : null}
+
+
+
+
+
+                     
+
+
+
+
                     </div>
                     {/* select colors product */}
                     <div className="product__colorBox">
@@ -210,7 +243,7 @@ const getData=async()=>{
                         <span> رنگ : </span>
                         <span>{selectedColor}</span>
                       </div>
-
+                            <div className="colorAndAddTobasket__wrapper">
                       <div className="product__allColors">
                         {detailsProduct?.colors?.map((color) => (
                           <div
@@ -229,15 +262,8 @@ const getData=async()=>{
                             )}{" "}
                           </div>
                         ))}
+                       
                       </div>
-                    </div>
-                    <div className="product__countAdd">
-                      <ProductCount
-                        value={productCount}
-                        minValue={1}
-                        maxValue={10}
-                        newValue={setProductCount}
-                      />
                       <button
                         className="product__addToBasket"
                         onClick={() => addToBasketHandler(productId)}
@@ -245,7 +271,10 @@ const getData=async()=>{
                         <MdOutlineAddShoppingCart className="product__addIcon" />
                         افزودن به سبد خرید
                       </button>
+
                     </div>
+                    </div>
+
 
                     <div className="product__warning">
                       <p className="product__warningText">
@@ -283,7 +312,10 @@ const getData=async()=>{
                         ارسال از <span>3</span> روز کاری آینده
                       </div>
                       <div className="product__availbleItem">
-                        <button className="product__availbleButton" onClick={()=>addToFavorite(productId)}>
+                        <button
+                          className="product__availbleButton"
+                          onClick={() => addToFavorite(productId)}
+                        >
                           <FaRegHeart className="product__availbleBtnIcon" />
                           افزودن به علاقه مندی ها
                         </button>
@@ -368,8 +400,14 @@ const getData=async()=>{
                     </div>
                   </div>
                   <div className="allDetails__detailsBox">
-                    <p className="allDetails__detailsText" dangerouslySetInnerHTML={{__html:domPurify.sanitize(detailsProduct?.shortDescription)}}> 
-                    </p>
+                    <p
+                      className="allDetails__detailsText"
+                      dangerouslySetInnerHTML={{
+                        __html: domPurify.sanitize(
+                          detailsProduct?.shortDescription
+                        ),
+                      }}
+                    ></p>
                   </div>
                 </div>
                 {/* specifications */}
@@ -453,7 +491,7 @@ const getData=async()=>{
                         </div>
                       </div>
                       <div className="col-12 col-sm-6">
-                        <Rating getData={getData}/>
+                        <Rating getData={getData} />
                       </div>
                     </div>
                     <div className="row">
@@ -499,7 +537,7 @@ const getData=async()=>{
                                         {review?.rating}
                                       </div>
                                       <span className="comment__metaAuthor">
-                                        {review?.userId?.email}
+                                        {review?.userId?.email?.split("@")[0]}
                                       </span>
                                       <time className="comment__time">
                                         {convertDateFormat(review?.createdAt)}
@@ -671,64 +709,23 @@ const getData=async()=>{
                   title="محصولات مرتبط"
                   icon={<AiOutlineRetweet className="fullIcon" />}
                   link="/"
+                  bg="var(--white)"
                 />
               </div>
             </div>
             <div className="row">
               <div className="col-12">
-                {/* <Swiper
-              dir="rtl"
-              slidesPerView={5}
-              spaceBetween={15}
-              style={{ overflow: "hidden" }}
-              loop={true}
-              navigation={true}
-              breakpoints={{
-                
-                270: {
-                  slidesPerView: 1,
-                },
-                600: {
-                  slidesPerView: 2,
-                },
-               
-                768: {
-                  slidesPerView: 3,
-                },
-                992: {
-                  slidesPerView: 4,
-                },
-                1200: {
-                  slidesPerView: 5,
-                },
-              }}
-              modules={[Autoplay, Pagination, Navigation]}
-              className="mySwiper"
-            >
-              {!productsContext.errorProducts ? (
-                <>
-                  {!productsContext.isLoadingProducts ? (
-                    <>
-                      {productsContext.products
-                        .filter((product) => product.attributes.isNew)
-                        .map((product) => (
-                          <>
-                            <SwiperSlide key={product.id}>
-                              <ProductCart details={product.attributes} />
-                            </SwiperSlide>
-                          </>
-                        ))}
-                    </>
-                  ) : (
-                    <span>Loading ...</span>
-                  )}
-                </>
-              ) : (
-                <>
-                  {console.log("errorProducts", productsContext.errorProducts)}
-                </>
-              )}
-            </Swiper> */}
+                {relatedProduct.length > 0 ? (
+                  <Slider
+                    slidesPerView={5}
+                    spaceBetween={15}
+                    loop={true}
+                    navigation={true}
+                    autoplay={true}
+                    array={relatedProduct}
+                    slide="ProductCart"
+                  />
+                ) : null}
               </div>
             </div>
           </div>

@@ -3,32 +3,60 @@
   display: flex;
   width: 100%;
   height: 100vh;
+  position: relative;
 }
-.adminContent{
-  width: 100%;
-  padding-right: 25rem;
-  padding-left: 3rem;
+.admin__main{
+position: absolute;
+width: calc(100% - 30rem);
+min-height: 100vh;
+right: 30rem;
+transition: all .3s;
+background: var(--white);
+padding: 0 1rem;
+}
+.admin__main.active{
+  width: calc(100% - 6rem);
+  right: 6rem;
 }
 .admin__header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height:6rem;
+width: 100%;
+  height: 6rem;
+  margin-bottom: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--admin-main);
-  padding-left: 3rem;
-  z-index: 100;
 }
-  
-.adminHeader__imgLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 3rem;
+.admin__menuIcon{
+  font-size: 2.4rem;
+  cursor: pointer;
+  color: var(--gray-text);
 }
+.adminSearch{
+  width: 30rem;
+  position: relative;
+  height: 4rem;
+  border-radius: var(--border-btn);
+  overflow: hidden;
+  border: 1px solid var(--gray-50);
+}
+.adminSearch input{
+  border: none;
+  outline: none;
+  padding: .5rem 1rem;
+  width: 100%;
+  height: 100%;
+  font-size: 1.3rem;
+  color: var(--gray-text);
+}
+.adminSearch__icon{
+  position: absolute;
+  top: 50%;
+  left: 0.7rem;
+  font-size: 2rem;
+  color: var(--gray-text);
+  transform: translateY(-50%);
+}
+
 .admin__headerLink {
   margin-right: 1.5rem;
   border-radius: 1rem;
@@ -49,7 +77,7 @@
 }
 .admin__headerIcon {
   font-size: 2.4rem;
-  color: var(--white);
+  color: var(--gray-100);
   display: inline-block;
   vertical-align: middle;
 }

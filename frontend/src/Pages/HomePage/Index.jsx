@@ -120,7 +120,7 @@ useEffect(()=>{
           <div className="col-12 col-lg-9">
             <div className="widget">
             {/* banner */}
-            <Slider  spaceBetween={45} loop={true} autoplay={2500} navigation={true}  array={banners} slide="BannerBox"/>
+            <Slider  spaceBetween={45} loop={true} autoplay={true} navigation={true}  array={banners} slide="BannerBox"/>
             </div>
           </div>
           {/* instantOffer */}
@@ -166,7 +166,7 @@ useEffect(()=>{
             <img src="/images/offer-spc.png" alt="" className="amazinOffer__img"/>
             </div>
             <div className="col-10">
-            <Slider slidesPerView={4}  spaceBetween={15} loop={true} navigation={true} autoplay={2500} array={suggestionProduct} slide="SuggestedProductBox"/>
+            <Slider slidesPerView={5}  spaceBetween={15} loop={true} navigation={true} autoplay={true} array={suggestionProduct} slide="SuggestedProductBox"/>
             </div>
           </div>
         </section>
@@ -217,12 +217,13 @@ useEffect(()=>{
                 icon={<BiLayerPlus className="sectionHeader__icon" />}
                 link="/"
                 btnLink="/"
+                bg="var(--main-backgroundColor)"
               />
             </div>
           </div>
           <div className="row">
             <div className="col-12">
-            <Slider slidesPerView={5} spaceBetween={15} loop={true} navigation={true} autoplay={2500} array={newProducts} slide="ProductCart"/>
+            <Slider slidesPerView={5} spaceBetween={15} loop={true} navigation={true} autoplay={true} array={newProducts} slide="ProductCart"/>
             </div>
           </div>
         </section>
@@ -233,6 +234,7 @@ useEffect(()=>{
               <SectionHeader
                 title="محصولات اپل"
                 icon={<AiFillApple className="sectionHeader__icon" />}
+                bg="var(--main-backgroundColor)"
               />
             </div>
           </div>
@@ -253,13 +255,14 @@ useEffect(()=>{
                 title="دانش نامـه"
                 link="/"
                 btnLink="/"
+                bg="var(--main-backgroundColor)"
                 icon={<GrRss className="sectionHeader__icon" />}
               />
             </div>
           </div>
           <div className="row">
             <div className="col-12">
-            <Slider slidesPerView={5} autoplay={2500} spaceBetween={15} loop={true} navigation={true} array={articles} slide="ArticleBox"/>
+            <Slider slidesPerView={5} autoplay={true} spaceBetween={15} loop={true} navigation={true} array={articles} slide="ArticleBox"/>
             </div>
           </div>
         </section>

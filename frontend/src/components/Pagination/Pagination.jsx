@@ -9,9 +9,8 @@ import {
 // styles
 import "./Pagination.css";
 
-const Pagination = () => {
+const Pagination = ({data,countInPage}) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [countInPage, setCountInPage] = useState(10);
   const [pageCount, setPageCount] = useState(null);
   const [shownBtns, setShownBtns] = useState([]);
   const mainArray = [
@@ -130,7 +129,7 @@ const Pagination = () => {
 
   
   function generateBtn() {
-    let pageNumber = Math.ceil(mainArray.length / countInPage);
+    let pageNumber = Math.ceil(data.length / countInPage);
     setPageCount(pageNumber);
     let allBtns = Array.from({ length: pageNumber }, (_, index) => index + 1);
     let currentIndex = allBtns.findIndex((btn) => btn === currentPage);

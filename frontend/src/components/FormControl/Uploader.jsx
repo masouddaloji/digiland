@@ -81,15 +81,7 @@ const Uploader = (props) => {
     }
   }, [field.value]);
 
-  useEffect(() => {
-    resetForm?.subscribe(() => {
-      setIsShowMessage(false);
-    });
 
-    return () => {
-      resetForm.unsubscribe();
-    };
-  }, [resetForm]);
 
   return (
     <>
