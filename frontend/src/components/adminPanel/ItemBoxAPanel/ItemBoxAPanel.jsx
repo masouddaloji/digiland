@@ -10,10 +10,11 @@ const ItemBoxAPanel = (props) => {
     <div className="panelBox">
       <div className={`panelBox__iconWrapper ${color}`}>{icon}</div>
       <div className="panelBox__content">
-        <span className="panelBox__title">{title}</span>
-        <span className="panelBox__amount">{amount.toLocaleString()}</span>
+        <div className="flex">
+        
         {positive? 
         <span className="profitDetails panelBox__green">
+        
         <AiOutlineArrowUp className="panelBox__arrow"/>
         +
         {percent}
@@ -26,6 +27,9 @@ const ItemBoxAPanel = (props) => {
         {percent}
         <i>%</i>
         </span>}
+        <span className="panelBox__amount">{amount.toLocaleString()}</span>
+        </div>
+        <span className="panelBox__title">{title}</span>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ export default axios.create({
 })
 export const privateAxios=axios.create({
     baseURL : "http://localhost:8000/",
-    withCredentials:true
+    withCredentials:true,
 })
 axios.interceptors.request.use(res=>res,async (err)=>{
   const navigate = useNavigate();

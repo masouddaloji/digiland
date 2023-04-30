@@ -8,6 +8,7 @@ import { privateAxios } from "../../../api/axios";
 // packages
 import { toast } from "react-toastify";
 import { Form, Formik } from "formik";
+import { useNavigate } from "react-router-dom";
 //hooks
 import useAuth from "../../../hooks/useAuth";
 // icons
@@ -23,6 +24,7 @@ import "./AddProduct.css";
 const AddProduct = () => {
   const uploadRef = useRef();
   const { auth } = useAuth();
+  const navigate=useNavigate()
 
   return (
     <Formik
@@ -73,6 +75,7 @@ const AddProduct = () => {
             if (res.status === 201 || res.status === 200) {
               toast.success("محصول با موفقیت افزوده شد");
               resetForm();
+              navigate("/adminpanel/products")
             }
           })
           .catch((err) => {

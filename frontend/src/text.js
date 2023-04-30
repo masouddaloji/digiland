@@ -1,4 +1,11 @@
 export const persianTexts = {
+  adminpanel: {
+    productsNotFound: "هیچ محصولی یافت نشد",
+    removeProductSuccess:"محصول مورد نظر با موفقیت حذف شد",
+    removeProductError:"حذف محصول با مشکل مواجه شد لطفا دوباره تلاش نمایید",
+    editProductSuccess:"اطلاعات محصول مورد نظر با موفقیت ویرایش شد",
+    editProductError:"ویرایش اطلاعات محصول مورد نظر با مشکل مواجه شد لطفا دوباره تلاش نمایید",
+  },
   error: {
     register: {
       input: {
@@ -31,9 +38,7 @@ export const persianTexts = {
         },
       },
     },
-    adminpanel: {
-      products: "هیچ محصولی یافت نشد",
-    },
+   
     addProducts: {
       productTitle: {
         required: "وارد کردن نام محصول اجباری می باشد",

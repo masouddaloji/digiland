@@ -43,7 +43,7 @@ const MainAdmin = () => {
       </div>
       <div className="row">
         <div className="col-12">
-          <Table title="آخرین سفارشات" link="orders">
+          <Table title="جدیدترین محصولات" link="/adminpanel/products" linkTitle="نمایش همه">
             <table>
               <thead>
                 <tr>
@@ -63,7 +63,7 @@ const MainAdmin = () => {
                       <img src={`http://localhost:8000${item.image}`} alt="" className="table__img"/>
                     </div>
                   </td>
-                  <td>{item.title}</td>
+                  <td title={item.title}>{item.title}</td>
                   <td>{item.price.toLocaleString()}</td>
                   <td>{item.quantity}</td>
                   <td>{item.category}</td>

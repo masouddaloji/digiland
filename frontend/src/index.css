@@ -168,8 +168,9 @@ a {
   --gold: #FFC212;
   --yellow: #ffab00;
   --blue: #1f75fe;
-  /* --blue-hover:#2343F2; */
   --blue-hover: #1c39bb;
+  --purple:#77037B;
+  --purple-25:rgba(166,105,219,0.2);
   --green: #00cc67;
   --error-text: #e4b7b9;
   --gray: #eee;
@@ -180,11 +181,10 @@ a {
   /* --red:#c00; */
   --red: #a3080c;
   --red-50: #da291c;
-  --red-25: #ff4242;
+  --red-25: rgba(255,66,66,.2);
   --border-btn: 2.5rem;
-  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  --box-shadow: 0 0.7rem 2rem rgba(0, 0, 0, 0.1);
   /* --black-50:#1d1d1d; */
-  --admin-main: #00001c;
 
   --linear: linear-gradient(90deg, #0c97fa, #16e1f5);
 }
