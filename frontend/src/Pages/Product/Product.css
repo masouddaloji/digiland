@@ -85,7 +85,7 @@
   align-items: center;
 }
 .product__prices {
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   font-size: 1.7rem;
   font-weight: 500;
   color: var(--blue);
@@ -205,7 +205,7 @@ align-items: center; */
   color: var(--black-50);
 }
 .product__availbleItem span {
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   margin: 0 0.4rem;
 }
 .product__availbleItemIcon {
@@ -342,7 +342,7 @@ align-items: center; */
   line-height: 2.4;
   color: #686c6f;
   font-size: 1.4rem;
-  font-family: var(--main-font);
+  font-family: var(--iran);
 }
 /* table */
 table.productsTable {
@@ -361,7 +361,7 @@ table.productsTable {
   margin: 1rem 0;
   width: 100%;
   font-size: 1.2rem;
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   background: var(--white);
   color: var(--black-50);
 }
@@ -372,7 +372,7 @@ table.productsTable {
   font-size: 12px;
   width: 100%;
   border-radius: 1.5rem 0 1.5rem 0;
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
   color: var(--black-50);
 }
 .details__tableWrapper table th {
@@ -450,12 +450,12 @@ table.productsTable {
   text-align: justify;
   font-size: 1.2rem;
   color: var(--black-50);
-  font-family: var(--main-font);
+  font-family: var(--iran);
 }
 
 
 .errorAddPoint {
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   font-size: 1.1rem;
   font-weight: 500;
   margin: 1rem 0;
@@ -512,7 +512,7 @@ table.productsTable {
   padding: 1rem 0;
 }
 .resultReview__title {
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   margin-bottom: 1.5rem;
   color: var(--black-50);
   font-size: 1.4rem;
@@ -578,7 +578,7 @@ table.productsTable {
 }
 .allComments__title span {
   margin-right: 0.7rem;
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
 }
 .allComments__sorted {
   display: flex;
@@ -623,7 +623,7 @@ table.productsTable {
   border-radius: var(--border-box);
   color: var(--white);
   font-size: 1.2rem;
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   margin-left: 1rem;
 }
 .comment__metaRating.green{
@@ -650,7 +650,7 @@ table.productsTable {
   font-size: 1.2rem;
 }
 .comment__time {
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   font-size: 1.1rem;
   color: var(--black-50);
   font-weight: 500;
@@ -682,7 +682,7 @@ table.productsTable {
   font-size: 1.1rem;
 }
 .comment__isLikeBtn {
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   padding: 0.2rem 1.3rem;
   border: 1px solid #ededed;
   border-radius: var(--border-box);
@@ -752,7 +752,7 @@ table.productsTable {
   margin-bottom: 0.5rem;
 }
 .reviewprogress__header span {
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
 }
 .reviewprogress__progress {
   position: relative;

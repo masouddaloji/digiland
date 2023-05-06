@@ -15,7 +15,7 @@
   width: 100%;
   border: none;
   outline: none;
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
   border-collapse: collapse;
   text-align: center;
 }
@@ -24,7 +24,7 @@
   border-bottom: 1px solid var(--gray);
   color: #333;
   font-size: 1.3rem;
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
 }
 .cart__table th {
   padding: 0.7rem 1rem;
@@ -167,7 +167,7 @@
     padding-right:.8rem;
     border-radius: var(--border-btn);
     position: relative;
-    font-family: var(--Iran-number);
+    font-family: var(--iran);
 }
 .totolaPrice__postOffer::before{
     content: "%";

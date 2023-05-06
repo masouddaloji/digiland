@@ -33,15 +33,15 @@ export default function ProductCart(props) {
         {offPrice ? (
           <>
             <del>
-              <bdi className="productPrice">{price.toLocaleString()}</bdi>
+              <bdi className="productPrice ss02">{price.toLocaleString()}</bdi>
             </del>
-            <bdi className="currentPrice">
+           <span> <bdi className="currentPrice ss02">
               {(price - (price * offPrice) / 100).toLocaleString()}
             </bdi>
-            <span className="toman">تومان</span>
+            <span className="toman">تومان</span></span>
           </>
         ) : (
-          <bdi className="currentPrice">
+          <bdi className="currentPrice ss02">
             {price.toLocaleString()}
             <span className="toman">تومان</span>
           </bdi>

@@ -5,7 +5,7 @@
 .login__checkboxText {
   font-size: 1.1rem;
   color: var(--black-50);
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
   font-weight: 500;
   margin-right: 0.5rem;
 }
@@ -47,7 +47,7 @@
   font-size: 1.3rem;
   outline: none;
   background: transparent;
-  font-family:var(--Iran-bold)
+  font-family:var(--iran-bold)
 
 }
 

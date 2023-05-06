@@ -65,7 +65,7 @@ function Navbar() {
               </div>
               <div className="col-lg-2">
                 <div className="contact">
-                  <div className="contact__number">
+                  <div className="contact__number ss02">
                     <strong>42156644</strong>
                     <span>021</span>
                   </div>

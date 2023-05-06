@@ -16,7 +16,7 @@ display: flex;
 .breadcrumb__item{
 }
 .breadcrumb__link{
-    font-family: var(--Iran-bold);
+    font-family: var(--iran-bold);
 font-size: 1.1rem;
 color: var(--black-50);
 }

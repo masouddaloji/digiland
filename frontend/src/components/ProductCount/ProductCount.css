@@ -30,7 +30,7 @@
     text-align: center;
     border: none;
     background: transparent;
-    font-family: var(--Iran-number);
+    font-family: var(--iran);
     font-size: 1.4rem;
   }
  input[type="number"] {

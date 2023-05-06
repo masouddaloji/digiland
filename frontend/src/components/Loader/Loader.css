@@ -44,13 +44,13 @@
   border-radius: 50%;
   background: var(--blue);
   box-shadow: 0 0 1rem var(--blue), 0 0 2rem var(--blue);
-  animation: animate 2.25s linear infinite;
-  animation-delay: calc(0.15s * var(--pos));
+  animation: animate 1.8s linear infinite;
+  animation-delay: calc(0.12s * var(--pos));
 }
 .loader__text {
   margin: 3rem 0 1rem 0;
   font-size: 1.1rem;
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
   animation: showOrHide 2s linear infinite;
 }
 
@@ -59,12 +59,12 @@
 @keyframes animate {
   0% {
     transform: scale(1);
-    /* filter: hue-rotate(0deg); */
+    
   }
   80%,
   100% {
     transform: scale(0);
-    /* filter: hue-rotate(180deg); */
+
   }
 }
 @keyframes showOrHide{

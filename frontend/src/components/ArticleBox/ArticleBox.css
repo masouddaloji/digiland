@@ -23,9 +23,9 @@ object-fit: cover;
 }
 .articleBox__title{
 margin:1.5rem 0;
-font-family: var(--Iran-bold);
+font-family: var(--iran-bold);
 color: var(--black-50);
-font-size: 1.4rem;
+font-size: 1.2rem;
 }
 .articleBox__details{
     width: 100%;
@@ -49,7 +49,7 @@ overflow: hidden;
 margin-left: 1rem;
 }
 .articleBox__authorName{
-    font-family: var(--Iran-bold);
+    font-family: var(--iran-bold);
     color: #777;
     font-size: 1rem;
     padding-top: .5rem;

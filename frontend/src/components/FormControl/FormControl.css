@@ -131,7 +131,7 @@
   padding: 0.5rem 1.5rem;
   color: var(--gray-text);
   font-size: 1.2rem;
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
   border: 2px solid var(--gray);
   outline: none;
   box-shadow: var(--box-shadow);
@@ -146,7 +146,7 @@
   color: #666;
   border: 2px solid var(--gray);
   resize: none;
-  font-family: var(--main-font);
+  font-family: var(--iran);
   background: var(--white);
   box-shadow: var(--box-shadow);
 }

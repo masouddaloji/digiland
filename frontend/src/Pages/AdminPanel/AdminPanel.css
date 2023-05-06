@@ -12,7 +12,7 @@ min-height: 100vh;
 right: 30rem;
 transition: all .3s;
 background: var(--white);
-padding: 0 1rem;
+padding: 0 2rem;
 }
 .admin__main.active{
   width: calc(100% - 6rem);

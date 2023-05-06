@@ -30,4 +30,13 @@
     visibility: hidden; */
     display: none;
 }
+.customSwiper .swiper-pagination-bullet{
+  width: .5rem;
+  height: .3rem;
+  border-radius: unset;
+  border-radius: .4rem;
+}
+.customSwiper .swiper-pagination-bullet-active{
+  width: 1.5rem;
 
+}

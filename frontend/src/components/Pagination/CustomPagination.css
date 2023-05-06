@@ -1,0 +1,14 @@
+.pagination{
+    margin: 3rem 0;
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mui__pagination ul li button{
+    font-family: var(--iran);
+    font-size: 1.2rem;
+}
+.mui__pagination ul li button svg{
+    font-size: 1.5rem;
+}

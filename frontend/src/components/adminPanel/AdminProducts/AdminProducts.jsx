@@ -7,10 +7,10 @@ import { persianTexts } from "../../../text";
 // components
 import axios, { privateAxios } from "./../../../api/axios";
 import Error from "../../Error/Error";
-import Pagination from "../../Pagination/Pagination";
 import Table from "../Table/Table";
 import Star from "../../Star/Star";
 import FormControl from "../../FormControl/FormControl";
+import  CustomPagination  from "../../Pagination/CustomPagination";
 //hooks
 import useAuth from "../../../hooks/useAuth";
 // validator
@@ -25,6 +25,7 @@ import { ratingOptions, colorOptions } from "../../../Constants";
 
 // styles
 import "./AdminProducts.css";
+import LoaderComponent from "../../Loader/LoaderComponent";
 
 const AdminProducts = () => {
   const [pageInfo, setPageInfo] = useState({
@@ -41,6 +42,7 @@ const AdminProducts = () => {
   
   const getProducts = async () => {
     try {
+      setPageInfo((prev) => ({ ...prev, isLoading: true }));
       await axios
         .get(`products?page=${pageInfo.page}&limit=${pageInfo.pageSize}`)
         .then((res) =>
@@ -76,13 +78,12 @@ const AdminProducts = () => {
   };
 
   useEffect(() => {
-    setPageInfo((prev) => ({ ...prev, isLoading: true }));
     getProducts();
-  }, [pageInfo.page]);
+  }, [pageInfo.page,pageInfo.pageSize]);
 
   return (
-    <>
-      {/* modal for edit product  */}
+
+      <>
       {isShowEditModal && (
         <div
           className="edit__container"
@@ -388,6 +389,7 @@ const AdminProducts = () => {
               <td>عملیات</td>
             </tr>
           </thead>
+          {!pageInfo.isLoading?<>
           <tbody>
             {pageInfo.data.map((item) => (
               <tr key={item._id}>
@@ -430,9 +432,14 @@ const AdminProducts = () => {
               </tr>
             ))}
           </tbody>
+          </>:<LoaderComponent />}
+            
         </table>
       </Table>
-    </>
+      <CustomPagination setData={setPageInfo} total={pageInfo.total} countInPage={pageInfo.pageSize}/>
+      </>
+
+  
   );
 };
 

@@ -17,7 +17,7 @@
   max-width: 4rem;
 }
 .iconBoxes__caption {
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
   font-size: 1.1rem;
   color: #464c51;
   line-height: 2.5rem;
@@ -38,7 +38,7 @@
 }
 .footer__title {
   color: #454545;
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
 }
@@ -61,7 +61,7 @@
 
 .footer__Items {
   color: #454545;
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
   font-size: 1.1rem;
 }
 .footer__item {
@@ -104,7 +104,7 @@
 .footer__aboutText {
   font-size: 1.2rem;
   color: #454545;
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   text-align: justify;
 }
 .footer__imageBoxes {
@@ -132,7 +132,7 @@
 .footer__flexed {
   display: flex;
   align-items: center;
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   color: #454545;
   margin-top: 1rem;
 }
@@ -145,7 +145,7 @@
     font-size: 2.4rem;
 }
 .footer__address {
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   font-size: 1.2rem;
   color: #454545;
 }
@@ -166,7 +166,7 @@
 .footer__email {
   font-size: 1.2rem;
   color: var(--white);
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
 }
 .footer__copy {
   width: 100%;
@@ -189,7 +189,7 @@
 }
 .footer__copyText {
   color: #7a7a7a;
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   font-size: 1.2rem;
 }
 .goTopBox {

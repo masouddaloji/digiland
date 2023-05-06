@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 // components
 import Navbar from "../Navbar/Navbar";
+import MobileMenuItem from "./MobileMenuItem";
 
 //hooks
 import useLogout from "../../hooks/useLogout";
@@ -17,60 +18,22 @@ import { VscClose } from "react-icons/vsc";
 import { IoMdClose } from "react-icons/io";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { CgShoppingBag } from "react-icons/cg";
 import { SiShopify } from "react-icons/si";
 import { CgCloseO } from "react-icons/cg";
 import { RiUserSettingsLine } from "react-icons/ri";
+import { FiShoppingBag } from "react-icons/fi";
 // constans
 import { menus } from "../../Constants";
+//persian text
+import { persianTexts } from "../../text";
 // styles
 import "./Header.css";
 
 import ProductCount from "../ProductCount/ProductCount";
-import ProductsContext from "../../Context/ProductsContext";
-import { persianTexts } from "../../text";
 
-const MobileMenuItem = ({ menu }) => {
-  const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
-  console.log(menu);
-  return (
-    <div
-      className="mobileMenuLi"
-      onClick={() => setIsShowMobileMenu(!isShowMobileMenu)}
-    >
-      <Link className="mobileMenu__link" to={menu.link}>
-        {menu.title}
-      </Link>
-      {menu.sub_categories.data.length ? (
-        <>
-          {!isShowMobileMenu ? (
-            <FiChevronDown className="mobileMenu__dropdownIcon" />
-          ) : (
-            <FiChevronUp className="mobileMenu__dropdownIcon" />
-          )}
-          <ul
-            className={`mobileMenu__submenu ${
-              isShowMobileMenu && "mobileMenu__submenu--show"
-            }`}
-          >
-            {menu.sub_categories.data.map((subMenu) => (
-              <li className="mobileMenu__subItem" key={subMenu.id}>
-                <Link
-                  className="mobileMenu__subLink"
-                  to={subMenu.attributes.link}
-                >
-                  {subMenu.attributes.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : null}
-    </div>
-  );
-};
 
-export default function Header({ categories, isLoading }) {
+
+export default function Header({ }) {
   const { basketInfo, getUserBasket, removeItemFromBasket } = useBasket();
   const [showCategory, setShowCategory] = useState(false);
   const [showResult, setShowResult] = useState(false);
@@ -84,13 +47,10 @@ export default function Header({ categories, isLoading }) {
   const logout = useLogout();
   const categoryRef = useRef();
   const btnCategoryRef = useRef();
-  const btnMobileCategoryRef = useRef();
-  const mobileCategoryRef = useRef();
   const maskRef = useRef();
   const searchRef = useRef();
   const sideBarCartRef = useRef();
-  const [count, setCount] = useState(1);
-  const productContext = useContext(ProductsContext);
+
   const resizaHandler = () => {
     setDeviceWidth({ width: window.innerWidth });
   };
@@ -144,7 +104,7 @@ export default function Header({ categories, isLoading }) {
             <div className="sideBarCart__header">
               <div>
                 <span>سبد خرید</span>
-                <span className="sideBarCart__headerCount">
+                <span className="sideBarCart__headerCount ss02">
                   {basketInfo?.totalQTY}
                 </span>
               </div>
@@ -202,7 +162,7 @@ export default function Header({ categories, isLoading }) {
             )}
 
             <div className="sideBarCart__totalPriceAndLinks">
-              <div className="flex">
+              <div className="flex ss02">
                 <span>جمع كل سبد خريد : </span>
                 <bdi className="currentPrice">
                   {basketInfo?.totalAmount?.toLocaleString()}
@@ -436,6 +396,116 @@ export default function Header({ categories, isLoading }) {
       ) : (
         /* start mobile */
         <header className="mobileHeader">
+          {/* start basket sidebar in mobile */}
+
+        <div
+            className={`mask ${isShowSideBarCart ? "mask--show" : ""}`}
+            ref={maskRef}
+            onClick={closeSideBarBasket}
+          ></div>
+          <div
+            className={`sideBarCart ${
+              isShowSideBarCart ? "sideBarCart--show" : ""
+            }`}
+            ref={sideBarCartRef}
+          >
+            <div className="sideBarCart__header">
+              <div>
+                <span>سبد خرید</span>
+                <span className="sideBarCart__headerCount ss02">
+                  {basketInfo?.totalQTY?basketInfo.totalQTY:0}
+                </span>
+              </div>
+              <IoMdClose
+                className="sideBarCart__headerCloseBtn"
+                onClick={() => setIsShowSideBarCart(false)}
+              />
+            </div>
+            {auth.token?
+            <>
+            {basketInfo?.cartItems?.length ? (
+              <ul className="sideBarCart__Lists">
+                {basketInfo?.cartItems?.map((item) => (
+                  <li className="sideBarCart__ListsItem" key={item._id}>
+                    <div className="sideBarCart__imgBox">
+                      <Link to="/" className="sideBarCart__Link">
+                        <img
+                          src={`http://localhost:8000${item?.productId?.image}`}
+                          alt="mini image products"
+                          className="sideBarCart__img"
+                        />
+                      </Link>
+                      <CgCloseO
+                        className="sideBarCart__removeIcon"
+                        onClick={() =>
+                          removeItemFromBasket(item?.productId?._id)
+                        }
+                      />
+                    </div>
+                    <div className="sideBarCart__priceBox">
+                      <Link to="/" className="sideBarCart__LinkText">
+                        {item?.productId?.title}
+                      </Link>
+                      <div className="flex">
+                        <bdi className="currentPrice">
+                          {item?.productId?.price?.toLocaleString()}
+                          <span className="toman">تومان</span>
+                        </bdi>
+                        <ProductCount
+                          value={item?.cartQuantity?item.cartQuantity:1}
+                          minValue={1}
+                          maxValue={item?.productId?.quantity}
+                          productId={item?.productId?._id}
+                        />
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="emptyBasket">
+                <IoBagHandleOutline className="emptyBasket__icon" />
+                <span className="emptyBasket__text">
+                  {persianTexts.header.emptyBasket}
+                </span>
+              </div>
+            )}
+
+            <div className="sideBarCart__totalPriceAndLinks">
+              <div className="flex ss02">
+                <span>جمع كل سبد خريد : </span>
+                <bdi className="currentPrice">
+                  {basketInfo?.totalAmount?.toLocaleString()}
+                  <span className="toman">تومان</span>
+                </bdi>
+              </div>
+              <div className="sideBarCart__Links">
+                <Link
+                  className="sideBarCart__LinkBasket"
+                  to="/basket"
+                  onClick={() => setIsShowSideBarCart(false)}
+                >
+                  مشاهده سبد خرید
+                </Link>
+                <Link
+                  className="sideBarCart__LinkBasket"
+                  to="/basket/check-information"
+                  onClick={() => setIsShowSideBarCart(false)}
+                >
+                  تسویه حساب
+                </Link>
+              </div>
+            </div>
+            </>
+            : <div className="emptyBasket">
+                <IoBagHandleOutline className="emptyBasket__icon" />
+                <span className="emptyBasket__text">
+                  {persianTexts.header.notLoginInBasket}
+                </span>
+              </div>}
+          
+          </div>
+          {/* end basket sidebar in mobile */}
           <div
             className={`${
               showMobileMenu ? "mobileMenu mobileMenu--show" : "mobileMenu"
@@ -450,9 +520,9 @@ export default function Header({ categories, isLoading }) {
               </div>
             </div>
             <ul className="mobileMenu__lists">
-              {categories.map((menu) => (
+              {menus.map((menu) => (
                 <li className="mobileMenu__item" key={menu.id}>
-                  <MobileMenuItem menu={menu.attributes} />
+                  <MobileMenuItem {...menu} />
                 </li>
               ))}
 
@@ -495,21 +565,44 @@ export default function Header({ categories, isLoading }) {
               </div>
               <div className="col-4 col-md-6">
                 <div className="mobileHeader__leftBox">
-                  <div className="mobileHeader__authBox">
-                    <IoPersonOutline className="mobileHeader__authIcon fullIcon" />
-                  </div>
-                  <Link className="mobileHeader__basket" to="/">
-                    <div className="mobileHeader__basketBox">
-                      <CgShoppingBag className="mobileHeader__basketIcon fullIcon" />
+                {!auth?.token ? (
+                    <Link className="mobileHeader__authUser" to="/login">
+                      <div className="header__authUser-box">
+                        <IoPersonOutline className="fullIcon" />
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className="mobileHeader__userInfo">
+                      <div className="header__authUser-box">
+                        <RiUserSettingsLine className="fullIcon" />
+                      </div>
+                      <ul className="header__userOptions">
+                        <li className="header__userOption">حساب کاربری</li>
+                        <li className="header__userOption"> <Link to="/basket">سبد خرید</Link></li>
+                        <li
+                          className="header__userOption"
+                          onClick={logoutHandler}
+                        >
+                          خروج
+                        </li>
+                      </ul>
                     </div>
-                    <span className="mobileHeader__basketCounter">5</span>
-                  </Link>
+                  )}
+                  
+                    <div className="mobileHeader__basket" onClick={()=>setIsShowSideBarCart(true)}>
+                      <FiShoppingBag className="mobileHeader__basketIcon" />
+                      {basketInfo?.totalQTY ? (
+                      <span className="mobileHeader__basketCounter ss02">
+                        {basketInfo?.totalQTY}
+                      </span>
+                    ) : null}
+                    </div>
                 </div>
               </div>
             </div>
             <div className="row">
-              <div className="col-12">
-                <form
+              <div className="col">
+                {/* <form
                   className="searchBoxMobile"
                   onSubmit={(e) => e.preventDefault()}
                 >
@@ -568,100 +661,7 @@ export default function Header({ categories, isLoading }) {
                     </div>
                   )}
 
-                  {/* {showCategory && (
-                    <div className={`category`}>
-                      <ul className="category__lists">
-                        <li
-                          className={`category__item ${
-                            category === "all" && "category--current"
-                          }`}
-                          onClick={(e) => {
-                            changeCategory(e);
-                            setStatus(e.target.textContent);
-                          }}
-                        >
-                          تمام دسته ها
-                        </li>
-                        <li
-                          className={`category__item ${
-                            category === "Electronic" && "category--current"
-                          }`}
-                          onClick={(e) => {
-                            changeCategory(e);
-                            setStatus(e.target.textContent);
-                          }}
-                        >
-                          ابزار و الکترونیک
-                        </li>
-                        <li
-                          className={`category__item ${
-                            category === "Digital" && "category--current"
-                          }`}
-                          onClick={(e) => {
-                            changeCategory(e);
-                            setStatus(e.target.textContent);
-                          }}
-                        >
-                          دیجیتال
-                        </li>
-                        <li
-                          className={`category__item ${
-                            category === "Beauty" && "category--current"
-                          }`}
-                          onClick={(e) => {
-                            changeCategory(e);
-                            setStatus(e.target.textContent);
-                          }}
-                        >
-                          زیبایی و سلامت
-                        </li>
-                        <li
-                          className={`category__item ${
-                            category === "offer" && "category--current"
-                          }`}
-                          onClick={(e) => {
-                            changeCategory(e);
-                            setStatus(e.target.textContent);
-                          }}
-                        >
-                          طرح تخفیف
-                        </li>
-                        <li
-                          className={`category__item ${
-                            category === "HomeAppliances" && "category--current"
-                          }`}
-                          onClick={(e) => {
-                            changeCategory(e);
-                            setStatus(e.target.textContent);
-                          }}
-                        >
-                          لوازم خانگی
-                        </li>
-                        <li
-                          className={`category__item ${
-                            category === "Child" && "category--current"
-                          }`}
-                          onClick={(e) => {
-                            changeCategory(e);
-                            setStatus(e.target.textContent);
-                          }}
-                        >
-                          مادر و کودک
-                        </li>
-                        <li
-                          className={`category__item ${
-                            category === "Sport" && "category--current"
-                          }`}
-                          onClick={(e) => {
-                            setStatus(e.target.textContent);
-                            changeCategory(e);
-                          }}
-                        >
-                          ورزش و سرگرمی
-                        </li>
-                      </ul>
-                    </div>
-                  )} */}
+
                   {showResult && (
                     <div className="search-box__result-wrapper">
                       {showLoader && <div className="search-box__loader"></div>}
@@ -725,7 +725,149 @@ export default function Header({ categories, isLoading }) {
                       )}
                     </div>
                   )}
-                </form>
+                </form> */}
+                <div className="serach__wrapper" ref={searchRef}>
+                  <form
+                    className="searchBox"
+                    onSubmit={(e) => e.preventDefault()}
+                  >
+                    <Link className="searchBox__btn" to="/">
+                      <TfiSearch className="searchBox__iconSearch" />
+                    </Link>
+                    <input
+                      type="text"
+                      className="searchBox__input"
+                      placeholder="کلید واژه مورد نظر..."
+                    />
+
+                    {showResult && (
+                      <VscClose
+                        className="search-box__btn--close"
+                        onClick={() => setShowResult(false)}
+                      />
+                    )}
+
+                    {showResult && (
+                      <div className="search-box__result-wrapper">
+                        {showLoader && (
+                          <div className="search-box__loader"></div>
+                        )}
+                        {seeSearchResult ? (
+                          <>
+                            <div className="search-box__result-box">
+                              <div className="search-box__result-banner">
+                                <img
+                                  src="/images/search-result.png"
+                                  alt="Photo search result"
+                                  className="search-box__result-img"
+                                />
+                              </div>
+                              <div className="search-box__result-info">
+                                <Link
+                                  className="search-box__result-link"
+                                  to="/"
+                                >
+                                  گوشی موبايل سامسونگ مدل Galaxy S8 Plus
+                                  SM-G955FD دو سيم کارت
+                                </Link>
+                              </div>
+                            </div>
+                            <div className="search-box__result-box">
+                              <div className="search-box__result-banner">
+                                <img
+                                  src="/images/search-result.png"
+                                  alt="Photo search result"
+                                  className="search-box__result-img"
+                                />
+                              </div>
+                              <div className="search-box__result-info">
+                                <Link
+                                  className="search-box__result-link"
+                                  to="/"
+                                >
+                                  گوشی موبايل سامسونگ مدل Galaxy S8 Plus
+                                  SM-G955FD دو سيم کارت
+                                </Link>
+                              </div>
+                            </div>
+                            <div className="search-box__result-box">
+                              <div className="search-box__result-banner">
+                                <img
+                                  src="/images/search-result.png"
+                                  alt="Photo search result"
+                                  className="search-box__result-img"
+                                />
+                              </div>
+                              <div className="search-box__result-info">
+                                <Link
+                                  className="search-box__result-link"
+                                  to="/"
+                                >
+                                  گوشی موبايل سامسونگ مدل Galaxy S8 Plus
+                                  SM-G955FD دو سيم کارت
+                                </Link>
+                              </div>
+                            </div>
+                            <div className="search-box__result-btn">
+                              <Link
+                                to="/"
+                                className="search-box__result-seeAll"
+                              >
+                                مشاهده همه نتایج
+                              </Link>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="search-box__error-box">
+                            <span>نتیجه ای یافت نشد</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </form>
+                  <div className="searchBox__categoryBox">
+                    <TbApps
+                      className="searchBox__categoryIcon"
+                      onClick={() => setShowCategory(!showCategory)}
+                      ref={btnCategoryRef}
+                    />
+                  </div>
+                  <div
+                    className={`category ${
+                      showCategory ? "category--show" : ""
+                    }`}
+                    ref={categoryRef}
+                  >
+                    <ul className="category__lists">
+                      <li
+                        className={`category__item ${
+                          currentCategory === "all" && "category--current"
+                        }`}
+                        onClick={(e) => {
+                          setCurrentCategory("all");
+                          setShowCategory(false);
+                        }}
+                      >
+                        تمام دسته ها
+                      </li>
+                      {menus.map((category) => (
+                        <li
+                          key={category.shortLink}
+                          className={`category__item ${
+                            currentCategory === category.shortLink &&
+                            "category--current"
+                          }`}
+                          onClick={() => {
+                            setCurrentCategory(category.shortLink);
+                            setShowCategory(false);
+                          }}
+                        >
+                          {category.title}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

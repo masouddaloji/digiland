@@ -18,7 +18,7 @@
     padding:0 2rem;
     text-align: center;
     font-size: 1.3rem;
-    font-family: var(--Iran-number);
+    font-family: var(--iran);
 }
 .submitOrder__item:not(:last-child){
     border-left: 1px dashed #d3ced2;

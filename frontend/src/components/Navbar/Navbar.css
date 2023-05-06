@@ -1,6 +1,7 @@
 
 .navbar{
     display: flex;
+    align-items: center;
     width: 100%;
     margin-top: 1rem;
 }
@@ -22,9 +23,8 @@
     height: 100%;
   }
   .menus__link {
-    font-family: var(--Iran-bold);
-    font-size: 1.3rem;
-    font-weight: 500;
+    font-family: var(--iran-bold);
+    font-size: 1.2rem;
     color: var(--black-50);
     display: flex;
     align-items: center;
@@ -71,7 +71,7 @@
   }
   .submenu__Link,
   .submenu__link-leftmenu {
-    font-family: var(--Iran-bold);
+    font-family: var(--iran-bold);
     font-size: 1.3rem;
     color: var(--black-50);
     transition: all 0.3s;
@@ -87,7 +87,7 @@
     justify-content: flex-end;
   }
   .contact__number {
-    font-family: var(--Iran-number);
+    font-family: var(--iran);
     font-size: 1.5rem;
     display: flex;
     flex-direction: row;

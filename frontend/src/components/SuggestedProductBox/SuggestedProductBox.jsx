@@ -7,33 +7,32 @@ import { BsClockHistory } from "react-icons/bs";
 import "./SuggestedProductBox.css";
 
 export default function SuggestedProductBox(props) {
-  const { title, cover, productPrice, currentPrice, link, offerTime, percent } =
-    props;
-// console.log(props)
+  const { _id, title, image, offPrice, price, rating } = props;
   return (
 
     <div className="productBox">
-      <h2 className="suggestedproduct__title">
-        <Link className="suggestedproduct__link" to={link}>
+      <h2 className="suggestedproduct__title" title={title}>
+        <Link className="suggestedproduct__link" to={`/product/${_id}`}>
           {title}
         </Link>
       </h2>
       <div className="product__imgBox">
-        <Link to={link}>
-          <img src={cover} alt="" className="product__img" />
+        <Link to={`/product/${_id}`}>
+          <img src={`http://localhost:8000${image}`} alt="off product image" className="product__img" />
         </Link>
       </div>
       <div className="suggestedproduct__priceBox">
         <del>
-          <bdi className="productPrice">{productPrice.toLocaleString()}</bdi>
-          <span className="toman">تومان</span>
+          <bdi className="productPrice ss02 ">{price.toLocaleString()}</bdi>
         </del>
-        <bdi className="currentPrice"> {currentPrice?.toLocaleString()}</bdi>
+        <span>
+        <bdi className="currentPrice ss02 "> {(price - (price * offPrice) / 100).toLocaleString()}</bdi>
         <span className="toman">تومان</span>
+        </span>
       </div>
       <div className="suggestedproduct__time-Percent">
         <div className="suggestedproduct__percent">
-          <span>{percent}%</span>
+          <span>{offPrice}%</span>
         </div>
         <div className="suggestedproduct__time">
           <span className="timer">38</span>:<span className="timer">08</span>:

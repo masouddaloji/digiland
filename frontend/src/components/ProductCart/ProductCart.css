@@ -2,14 +2,14 @@
 .product__title {
   font-size: 1.4rem;
   height: 4rem;
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
   color: var(--black-50);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin: 1rem 0;
+  margin-bottom: 1.5rem;
   transition: all 0.3s;
 }
 
@@ -18,7 +18,7 @@
 }
 .product__quickAccessBox {
   display: flex;
-  margin: 1rem auto;
+  margin: 1.5rem 0;
   align-items: center;
   justify-content: space-between;
 }
@@ -58,5 +58,11 @@
   display: flex;
   align-items: center;
   padding-left: 1rem;
+}
+/* responsiv */
+@media screen and (max-width: 57rem) {
+  .product__rightBox{
+    padding-right: 0;
+  }
 }
 

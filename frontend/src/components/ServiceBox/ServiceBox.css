@@ -2,8 +2,6 @@
 
 
 .linkBox__link {
-    width: 100%;
-    /* height: 9rem; */
     flex-grow: 1;
     padding: 1rem;
     display: flex;
@@ -15,6 +13,7 @@
     background: var(--white);
     transition: all 0.3s;
     border: 2px solid var(--gray);
+    overflow: hidden;
 }
 .linkBox__link:hover {
     border-color: var(--blue);
@@ -27,11 +26,15 @@
 .linkBox__title {
   display: block;
   color: var(--black-50);
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
   font-size: 1.3rem;
-  margin: 1rem;
+  margin: 1rem 0;
   transition: all 0.3s;
 }
 .linkBox__link:hover .linkBox__title {
   color: var(--blue);
+}
+.linkBox__link span{
+  font-size: 1.1rem;
+  color: #7e7e7e;
 }

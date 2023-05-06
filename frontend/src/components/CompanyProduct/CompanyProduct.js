@@ -17,7 +17,8 @@ export default function CompanyProduct(props) {
           />
         </div>
         <div className="CompanyProduct__info">
-          <h3 className="CompanyProduct__title">
+        <div>
+          <h3 className="CompanyProduct__title" title={title}>
             {title}
           </h3>
           <div className="companyProduct__details">
@@ -25,23 +26,24 @@ export default function CompanyProduct(props) {
             {offPrice ? 
             <>
             <del>
-                <bdi className="productPrice">{price.toLocaleString()}</bdi>
+                <bdi className="productPrice ss02">{price.toLocaleString()}</bdi>
               </del>
-              <bdi className="currentPrice">{(price-((price*offPrice)/100)).toLocaleString()}</bdi>
+              <bdi className="currentPrice ss02">{(price-((price*offPrice)/100)).toLocaleString()}</bdi>
               <span className="toman">تومان</span>
             </>
               : 
               <>
-              <bdi className="currentPrice">{price.toLocaleString()}</bdi>
+              <bdi className="currentPrice ss02">{price.toLocaleString()}</bdi>
                 <span className="toman">تومان</span>
               </>
               }
              
             </div>
                 <div className="starDetails">
+                <span className="ss02">{rating}</span>
                 <IoIosStar className="star small__star" />
-                <span>{rating}</span>
                 </div>
+          </div>
           </div>
         </div>
         <div className="companyProduct__hoverBox">

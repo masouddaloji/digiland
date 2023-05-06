@@ -82,7 +82,7 @@ pointer-events: auto;
 .priceSlider__priceInfo{
   font-size: 1.2rem;
   color: var(--black-50);
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
 }
 .priceSlider__priceInfo span{
   margin: 0 0.4rem;

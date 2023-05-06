@@ -1,11 +1,11 @@
 
 .suggestedproduct__title {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   width: 100%;
   height: 2.4rem;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
 }
 .suggestedproduct__link {
     display: block;
@@ -13,16 +13,20 @@
   overflow: hidden;
   color: var(--black-50);
   font-size: 1.3rem;
-  margin: 0 0 1rem 0;
   text-overflow: ellipsis;
 }
-
+.suggestedproduct__priceBox{
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .suggestedproduct__time-Percent {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
 }
 .suggestedproduct__percent {
   background: var(--red-50);
@@ -37,11 +41,11 @@
 }
 .suggestedproduct__percent span {
   color: var(--white);
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   display: block;
 }
 .suggestedproduct__time {
-  font-family: var(--Iran-number);
+  font-family: var(--iran);
   font-size: 1.2rem;
   color: #828282;
 }
@@ -57,4 +61,13 @@
   width: 1.8rem;
   height: 1.8rem;
   color: #c7c7c7;
+}
+
+/* 
+==================
+responsive
+=================== 
+*/
+@media (max-width: 576px) {
+
 }

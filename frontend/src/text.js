@@ -187,7 +187,8 @@ export const persianTexts = {
     }
   },
   header:{
-    emptyBasket:"سبد خرید شما خالی می باشد"
+    emptyBasket:"سبد خرید شما خالی می باشد",
+    notLoginInBasket:"لطفا وارد حساب کاربری خود شوید"
   }
 };
 

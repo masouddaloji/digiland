@@ -2,17 +2,24 @@
   background: var(--white);
   border-radius: var(--border-box);
   max-width: 100%;
+  height: 9.5rem;
   padding: 1rem;
   box-shadow: 0 0.2rem 1rem -1rem rgba(0, 0, 0, 0.3);
   position: relative;
   transition: all .3s;
 }
 .companyProduct__link {
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .CompanyProduct__banner {
   height: 100%;
+  display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .CompanyProduct__img {
   max-width: 7.5rem;
@@ -23,13 +30,24 @@
 .CompanyProduct__info {
   display: flex;
   flex-direction: column;
-  margin-right: 0.7rem;
+  margin-right: 1rem;
   color: var(--gray-text);
+  width: 100%;
+}
+.CompanyProduct__info + div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 .CompanyProduct__title {
-  font-family: var(--Iran-bold);
+  font-family: var(--iran-bold);
   font-size: 1.2rem;
   margin-bottom: 1rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: pre-wrap;
 }
 .companyProduct__details {
   display: flex;
@@ -68,7 +86,7 @@
 }
 .starDetails{
   display: flex;
-    font-family: var(--Iran-number);
+    font-family: var(--iran);
     font-size: 1.2rem;
 }
 .starDetails span{

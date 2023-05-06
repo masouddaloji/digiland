@@ -12,6 +12,7 @@ export default function ServiceBox({icon,title,link}) {
           {icon}
         </div>
         <h4 className="linkBox__title">{title}</h4>
+        <span className='ss02'>+10 محصول</span>
     </Link>
 
   )
