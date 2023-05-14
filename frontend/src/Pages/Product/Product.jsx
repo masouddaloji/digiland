@@ -6,7 +6,7 @@ import domPurify from "dompurify";
 //components
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import ProductGallery from "../../components/adminPanel/Sidebar/ProductGallery";
+import ProductGallery from "../../components/Slider/ProductGallery";
 import ProductCart from "../../components/ProductCart/ProductCart";
 import ProductCount from "../../components/ProductCount/ProductCount";
 import axios, { privateAxios } from "../../api/axios";
@@ -139,7 +139,7 @@ export default function Product() {
   useEffect(() => {
     setIsLoading(true);
     getData();
-    // getUserBasket();
+    getUserBasket();
   }, [productId]);
 
   useEffect(() => {
@@ -159,12 +159,12 @@ export default function Product() {
             {/* <Breadcrumb /> */}
             <div className="product__wrapper">
               <div className="row">
-                <div className="col-4">
-                  {!isLoading && (
-                    <ProductGallery array={detailsProduct?.gallery} />
-                  )}
+                {/* product images */}
+                <div className="col-12 col-md-4 col-lg-4">
+                  <ProductGallery array={detailsProduct?.gallery} />
                 </div>
-                <div className="col-5">
+                {/* product details */}
+                <div className="col-12 col-md-4 col-lg-5">
                   <div>
                     <h2 className="product__detailsTitle">
                       {detailsProduct?.title}
@@ -209,27 +209,33 @@ export default function Product() {
                         <span className="product__infosAnswer">2G، 3G، 4G</span>
                       </li>
                     </ul>
-                    <div className="product__priceRange">
-                      <del>
-                        <bdi className="product__prices">
+                    <div className="productBox">
+                      {detailsProduct?.offPrice ? (
+                        <>
+                          <del>
+                            <bdi className="product_info__price productPrice ss02">
+                              {detailsProduct?.price.toLocaleString()}
+                            </bdi>
+                          </del>
+                          <span>
+                            {" "}
+                            <bdi className="product_info__price currentPrice ss02">
+                              {(
+                                detailsProduct?.price -
+                                (detailsProduct?.price *
+                                  detailsProduct?.offPrice) /
+                                  100
+                              ).toLocaleString()}
+                            </bdi>
+                            <span className="toman">تومان</span>
+                          </span>
+                        </>
+                      ) : (
+                        <bdi className="product_info__price currentPrice ss02">
                           {detailsProduct?.price?.toLocaleString()}
                           <span className="toman">تومان</span>
                         </bdi>
-                      </del>
-                      {detailsProduct?.offPrice ? (
-                        <>
-                          <i>|</i>
-                          <bdi className="product__prices">
-                            {(
-                              detailsProduct?.price -
-                              (detailsProduct?.price *
-                                detailsProduct?.offPrice) /
-                                100
-                            ).toLocaleString()}
-                            <span className="toman">تومان</span>
-                          </bdi>
-                        </>
-                      ) : null}
+                      )}
                     </div>
                     {/* select colors product */}
                     <div className="product__colorBox">
@@ -275,17 +281,10 @@ export default function Product() {
                     </div>
                   </div>
                 </div>
-                {/* colors */}
-                <div className="col-3">
+                {/* details send */}
+                <div className="col-12 col-md-4 col-lg-3">
                   <div className="product__availbleBox">
                     <div className="product__availbleWrapper">
-                      <div className="product__availbleItem blue">
-                        <BiCalendarCheck className="product__availbleItemIcon blue" />
-                        تاریخ بروزرسانی :
-                        <span>
-                          {productUpdated && convertDateFormat(productUpdated)}
-                        </span>
-                      </div>
                       {detailsProduct?.quantity ? (
                         <div className="product__availbleItem">
                           <BiCheckSquare className="product__availbleItemIcon available" />
@@ -446,11 +445,16 @@ export default function Product() {
                   </div>
                   <div className="userComments__wrapper">
                     <div className="row">
-                      <div className="col-12 col-sm-6">
+                      <div className="col-12 col-md-6">
                         <div className="userComments__reviewRules">
-                          <p className="userComments__rulesText">
-                            {persianTexts.productInfo.commentRules}
-                          </p>
+                          <p
+                            className="userComments__rulesText"
+                            dangerouslySetInnerHTML={{
+                              __html: domPurify.sanitize(
+                                persianTexts.productInfo.commentRules
+                              ),
+                            }}
+                          ></p>
                         </div>
                         <div className="resultReview__wrraper">
                           <h3 className="resultReview__title">
@@ -481,7 +485,7 @@ export default function Product() {
                           </div>
                         </div>
                       </div>
-                      <div className="col-12 col-sm-6">
+                      <div className="col-12 col-md-6">
                         <Rating getData={getData} />
                       </div>
                     </div>
@@ -500,9 +504,6 @@ export default function Product() {
                               جدیدترین
                             </li>
                             <li className="allComments__sorteItem">مفیدترین</li>
-                            <li className="allComments__sorteItem">
-                              دیدگاه خریداران
-                            </li>
                           </ul>
                         </div>
                         <ul className="userComment__wrapper">

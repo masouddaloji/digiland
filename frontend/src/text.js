@@ -1,10 +1,11 @@
 export const persianTexts = {
   adminpanel: {
     productsNotFound: "هیچ محصولی یافت نشد",
-    removeProductSuccess:"محصول مورد نظر با موفقیت حذف شد",
-    removeProductError:"حذف محصول با مشکل مواجه شد لطفا دوباره تلاش نمایید",
-    editProductSuccess:"اطلاعات محصول مورد نظر با موفقیت ویرایش شد",
-    editProductError:"ویرایش اطلاعات محصول مورد نظر با مشکل مواجه شد لطفا دوباره تلاش نمایید",
+    removeProductSuccess: "محصول مورد نظر با موفقیت حذف شد",
+    removeProductError: "حذف محصول با مشکل مواجه شد لطفا دوباره تلاش نمایید",
+    editProductSuccess: "اطلاعات محصول مورد نظر با موفقیت ویرایش شد",
+    editProductError:
+      "ویرایش اطلاعات محصول مورد نظر با مشکل مواجه شد لطفا دوباره تلاش نمایید",
   },
   error: {
     register: {
@@ -38,7 +39,7 @@ export const persianTexts = {
         },
       },
     },
-   
+
     addProducts: {
       productTitle: {
         required: "وارد کردن نام محصول اجباری می باشد",
@@ -63,7 +64,7 @@ export const persianTexts = {
         required: "وارد کردن تعداد محصول اجباری می باشد",
       },
       productCategory: {
-        required:"لطفا دسته بندی محصول را مشخص کنید",
+        required: "لطفا دسته بندی محصول را مشخص کنید",
       },
       productSegment: {
         required: "وارد کردن نام مختصر محصول الزامی می باشد",
@@ -77,7 +78,7 @@ export const persianTexts = {
         required: "لطفا برند محصول را مشخص کنید",
       },
       productSubCategory: {
-        required:"لطفا زیر مجوعه را انتخاب نمایید",
+        required: "لطفا زیر مجوعه را انتخاب نمایید",
       },
       productOffPrice: {
         number: "درصد تخفیف را بصورت عدد وارد کنید",
@@ -99,7 +100,6 @@ export const persianTexts = {
         required: " مجموعه عکس های محصول را وارد کنید",
       },
     },
-   
   },
   admin: {
     products: {
@@ -109,7 +109,7 @@ export const persianTexts = {
         inputLabelPrice: "قیمت محصول",
         inputLabelRating: "امتیاز محصول",
         inputLabelQuantity: "تعداد محصول",
-        inputLabelCategory:"دسته بندی محصول",
+        inputLabelCategory: "دسته بندی محصول",
         inputLabelSubCategory: "زیر مجموعه محصول",
         inputLabelSegment: "نام مختصر محصول",
         inputLabelColors: "رنگ های محصول",
@@ -125,7 +125,7 @@ export const persianTexts = {
         inputPlaceholderPrice: "50,000,000",
         inputPlaceholderRating: "لطفا امتیاز محصول را انتخاب کنید",
         inputPlaceholderQuantity: 20,
-        inputPlaceholderCategory:"الکترونیک",
+        inputPlaceholderCategory: "الکترونیک",
         inputPlaceholderSubCategory: "موبایل",
         inputPlaceholderSegment: "s23 ultra 256 gb",
         inputPlaceholderColors: "لطفا رنگ های محصول را انتخاب کنید",
@@ -156,14 +156,15 @@ export const persianTexts = {
     تصویری در آدرس اینترنتی hmti.ir/06 امکان برگشت کالا در
     گروه موبایل با دلیل انصراف از خرید تنها در صورتی مورد
     قبول است که پلمپ کالا باز نشده باشد.`,
-    commentRules:"لطفا پیش از ارسال نظر، خلاصه قوانین زیر را مطالعه کنید: &zwnj;",
+    commentRules:'خلاصه قوانین زیر را مطالعه کنید:<br /><br /> فارسی بنویسید و از کیبورد فارسی استفاده کنید. بهتر است از فضای خالی (Space) بیش&zwnj;از&zwnj;حدِ معمول، شکلک یا ایموجی استفاده نکنید و از کشیدن حروف یا کلمات با صفحه&zwnj;کلید بپرهیزید.<br /><br /> نظرات خود را براساس تجربه و استفاده&zwnj;ی عملی و با دقت به نکات فنی ارسال کنید؛ بدون تعصب به محصول خاص، مزایا و معایب را بازگو کنید و بهتر است از ارسال نظرات چندکلمه&zwnj;&zwnj;ای خودداری کنید.<br /><br /> بهتر است در نظرات خود از تمرکز روی عناصر متغیر مثل قیمت، پرهیز کنید.<br /><br /> به کاربران و سایر اشخاص احترام بگذارید. پیام&zwnj;هایی که شامل محتوای توهین&zwnj;آمیز و کلمات نامناسب باشند، حذف می&zwnj;شوند.',
     addtobasketSuccess: "محصول مورد نظر به سبد خرید شما افزوده شد",
     addtobasketError: "افزودن محصول مورد نظر به سبد خرید با مشکل مواجه شد",
     addtofavorateSuccess: "محصول مورد نظر به لیست علاقه مندی های شما افزوده شد",
-    addtofavorateError: "افزودن محصول مورد نظر به لیست علاقه مندی ها با مشکل مواجه شد",
+    addtofavorateError:
+      "افزودن محصول مورد نظر به لیست علاقه مندی ها با مشکل مواجه شد",
     firstTologin: "ابتدا وارد حساب کاربری خود شوید",
-    notFindReviews:"هیچ نظری یافت نشد",
-    productRatingFromUsers:"امتیاز کالا از دیدگاه کاربران"
+    notFindReviews: "هیچ نظری یافت نشد",
+    productRatingFromUsers: "امتیاز کالا از دیدگاه کاربران",
   },
   useLogout: {
     logoutSuccess: "شما با موفقیت از حساب خود خارج شدید",
@@ -180,15 +181,14 @@ export const persianTexts = {
       required: "وارد کردن کامنت الزامی میباشد",
       min: "حداقل تعداد کاراکتر 8 می باشد",
     },
-    submit:{
-      success:"امتیاز شما با موفقیت ثبت شد",
-      error:"ثبت امتیاز شما با مشکل مواجه شد لطفا دوباره تلاش نمایید",
-      warning:"برای امتیاز دادن ابتدا وارد حساب کاربری خود بشوید"
-    }
+    submit: {
+      success: "امتیاز شما با موفقیت ثبت شد",
+      error: "ثبت امتیاز شما با مشکل مواجه شد لطفا دوباره تلاش نمایید",
+      warning: "برای امتیاز دادن ابتدا وارد حساب کاربری خود بشوید",
+    },
   },
-  header:{
-    emptyBasket:"سبد خرید شما خالی می باشد",
-    notLoginInBasket:"لطفا وارد حساب کاربری خود شوید"
-  }
+  header: {
+    emptyBasket: "سبد خرید شما خالی می باشد",
+    notLoginInBasket: "لطفا وارد حساب کاربری خود شوید",
+  },
 };
-

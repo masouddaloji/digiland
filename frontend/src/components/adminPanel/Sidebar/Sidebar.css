@@ -47,7 +47,6 @@
   position: relative;
   color: var(--white);
   padding-right: 1.5rem;
-  /* transition: 0.3s; */
   border-top-right-radius: var(--border-btn);
   border-bottom-right-radius: var(--border-btn);
   white-space: nowrap;

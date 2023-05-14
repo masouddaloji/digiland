@@ -16,13 +16,12 @@
   z-index: 200;
 }
 .edit__content{
-
   width: 60%;
   height: 90%;
   padding: 3rem 1rem;
   margin: 3rem auto 1rem;
   background: var(--white);
-  z-index: 100;
+  z-index: 300;
   border-radius: var(--border-box);
   box-shadow: var(--box-shadow);
   overflow-y: scroll;

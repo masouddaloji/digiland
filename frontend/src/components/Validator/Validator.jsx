@@ -99,5 +99,5 @@ export const userRatingSchema = Yup.object().shape({
     .max(5, persianTexts.rating.userRating.max),
   userComment: Yup.string(persianTexts.rating.userComment.string)
     .required(persianTexts.rating.userComment.required)
-    .min(8, persianTexts.rating.userComment.min),
+    .min(5, persianTexts.rating.userComment.min),
 });

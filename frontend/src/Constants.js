@@ -1,8 +1,9 @@
+//packages
+
 // import icons
 import { BiDollar } from "react-icons/bi";
 import { BsBoxSeam, BsCreditCard, BsFillCartCheckFill, BsPrinter, BsTools } from "react-icons/bs";
-import { FaBoxes, FaClipboardList, FaRegUser } from "react-icons/fa";
-import {BiHome} from 'react-icons/bi'
+import {FaRegUser } from "react-icons/fa";
 import {  FaLaptopCode } from 'react-icons/fa';
 import { FiCamera } from 'react-icons/fi';
 import { IoAmericanFootballOutline, IoGridOutline } from 'react-icons/io5';
@@ -26,13 +27,6 @@ export const services=[
 ]
 export const menus = [
   {
-    id: 1,
-    title: "خانه",
-    link: "/",
-    shortLink: "home",
-    icon:<BiHome className="icon" />
-  },
-  {
     id: 2,
     title: "دیجیتال",
     link: "/products-category/digital",
@@ -50,28 +44,28 @@ export const menus = [
       {
         id: 22,
         title: "دوربین",
-        link: "/products-category/digital/tablet",
+        link: "/products-category/digital/camera",
         shortLink: "tablet",
         img:"/images/submenu/camera.png"
       },
       {
         id: 23,
         title: "ماشین های اداری",
-        link: "/products-category/digital/tablet",
+        link: "/products-category/digital/workstation",
         shortLink: "tablet",
         img:"/images/submenu/workstation.png"
       },
       {
         id: 24,
         title: "لپ تاپ",
-        link: "/products-category/digital/tablet",
+        link: "/products-category/digital/laptop",
         shortLink: "tablet",
         img:"/images/submenu/laptop.png"
       },
       {
         id: 25,
         title: "موبایل",
-        link: "/products-category/digital/tablet",
+        link: "/products-category/digital/phone",
         shortLink: "tablet",
         img:"/images/submenu/phone.png"
       },
@@ -320,8 +314,23 @@ export  const colorOptions = [
   { value: "صورتی", color: "#FF69B4" },
 ];
 export const allInfosBtn = [
-  { id: 1, titleFa: "توضیحات", titleEn: "description" },
-  { id: 2, titleFa: "مشخصات", titleEn: "specifications" },
-  { id: 3, titleFa: "نظرات کاربران", titleEn: "userComments" },
-  { id: 5, titleFa: " نقد و بررسی", titleEn: "review" },
+  { id: "info-btn-1", titleFa: "توضیحات", titleEn: "description" },
+  { id: "info-btn-2", titleFa: "مشخصات", titleEn: "specifications" },
+  { id: "info-btn-3", titleFa: "نظرات کاربران", titleEn: "userComments" },
+  { id: "info-btn-4", titleFa: " نقد و بررسی", titleEn: "review" },
 ];
+export const footerSliderItems=[
+{id:"footer-slider-1",title:"بسته بندی زیبا",img:"/images/footer/gift.webp"},
+{id:"footer-slider-2",title:"ارسال به تمام نقاط",img:"/images/footer/map.webp"},
+{id:"footer-slider-3",title:"ضمانت اصل بودن",img:"/images/footer/secure.webp"},
+{id:"footer-slider-4",title:"تضمین بهترین قیمت",img:"/images/footer/credit-card.webp"},
+{id:"footer-slider-5",title:"پرداخت در محل",img:"/images/footer/wallet.webp"},
+{id:"footer-slider-6",title:"ضمانت بازگشت",img:"/images/footer/money.webp"},
+{id:"footer-slider-7",title:"تحویل اکسپرس",img:"/images/footer/packaging-6.webp"}
+]
+export const sortedProductsItems=[
+  {id:"sorte_products_items_1",title:"مرتب‌ سازی براساس امتیاز",sortedBy:"rating"},
+  {id:"sorte_products_items_2",title:"مرتب‌ سازی براساس جدیدترین",sortedBy:"latest"},
+  {id:"sorte_products_items_3",title:"مرتب‌ سازی براساس ارزان ترین",sortedBy:"price-low-to-high"},
+  {id:"sorte_products_items_4",title:"مرتب‌ سازی براساس گران ترین",sortedBy:"price-high-to-low"},
+]

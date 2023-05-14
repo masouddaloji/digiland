@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 // packages
 import { Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 // components
 import Navbar from "../Navbar/Navbar";
 import MobileMenuItem from "./MobileMenuItem";
@@ -31,9 +32,7 @@ import "./Header.css";
 
 import ProductCount from "../ProductCount/ProductCount";
 
-
-
-export default function Header({ }) {
+export default function Header({}) {
   const { basketInfo, getUserBasket, removeItemFromBasket } = useBasket();
   const [showCategory, setShowCategory] = useState(false);
   const [showResult, setShowResult] = useState(false);
@@ -50,7 +49,6 @@ export default function Header({ }) {
   const maskRef = useRef();
   const searchRef = useRef();
   const sideBarCartRef = useRef();
-
   const resizaHandler = () => {
     setDeviceWidth({ width: window.innerWidth });
   };
@@ -63,6 +61,7 @@ export default function Header({ }) {
   const logoutHandler = () => {
     logout();
   };
+
   useEffect(() => {
     const outsideClickHandler = (e) => {
       if (!searchRef?.current?.contains(e.target)) {
@@ -80,6 +79,7 @@ export default function Header({ }) {
     return () => window.removeEventListener("resize", resizaHandler);
   }, []);
   useEffect(() => {
+
     if (auth.token) {
       getUserBasket();
     }
@@ -142,7 +142,7 @@ export default function Header({ }) {
                           <span className="toman">تومان</span>
                         </bdi>
                         <ProductCount
-                          value={item?.cartQuantity?item.cartQuantity:1}
+                          value={item?.cartQuantity ? item.cartQuantity : 1}
                           minValue={1}
                           maxValue={item?.productId?.quantity}
                           productId={item?.productId?._id}
@@ -353,7 +353,7 @@ export default function Header({ }) {
                       <div className="header__authUser-box">
                         <IoPersonOutline className="fullIcon" />
                       </div>
-                      <span className="header__authUser-text">
+                      <span className="header__authUser-text"> 
                         ورود / عضویت
                       </span>
                     </Link>
@@ -364,8 +364,17 @@ export default function Header({ }) {
                       </div>
                       <span className="header__userName">خوش اومدی مسعود</span>
                       <ul className="header__userOptions">
+                        {jwt_decode(auth?.token)?.role === "superAdmin" ||
+                          (jwt_decode(auth?.token)?.role === "admin" && (
+                            <li className="header__userOption"> 
+                            <Link to="/adminpanel/dashboard">پنل مدیریت</Link>
+                            </li>
+                          ))}
                         <li className="header__userOption">حساب کاربری</li>
-                        <li className="header__userOption"> <Link to="/basket">سبد خرید</Link></li>
+                        <li className="header__userOption">
+                          {" "}
+                          <Link to="/basket">سبد خرید</Link>
+                        </li>
                         <li
                           className="header__userOption"
                           onClick={logoutHandler}
@@ -398,7 +407,7 @@ export default function Header({ }) {
         <header className="mobileHeader">
           {/* start basket sidebar in mobile */}
 
-        <div
+          <div
             className={`mask ${isShowSideBarCart ? "mask--show" : ""}`}
             ref={maskRef}
             onClick={closeSideBarBasket}
@@ -413,7 +422,7 @@ export default function Header({ }) {
               <div>
                 <span>سبد خرید</span>
                 <span className="sideBarCart__headerCount ss02">
-                  {basketInfo?.totalQTY?basketInfo.totalQTY:0}
+                  {basketInfo?.totalQTY ? basketInfo.totalQTY : 0}
                 </span>
               </div>
               <IoMdClose
@@ -421,89 +430,90 @@ export default function Header({ }) {
                 onClick={() => setIsShowSideBarCart(false)}
               />
             </div>
-            {auth.token?
-            <>
-            {basketInfo?.cartItems?.length ? (
-              <ul className="sideBarCart__Lists">
-                {basketInfo?.cartItems?.map((item) => (
-                  <li className="sideBarCart__ListsItem" key={item._id}>
-                    <div className="sideBarCart__imgBox">
-                      <Link to="/" className="sideBarCart__Link">
-                        <img
-                          src={`http://localhost:8000${item?.productId?.image}`}
-                          alt="mini image products"
-                          className="sideBarCart__img"
-                        />
-                      </Link>
-                      <CgCloseO
-                        className="sideBarCart__removeIcon"
-                        onClick={() =>
-                          removeItemFromBasket(item?.productId?._id)
-                        }
-                      />
-                    </div>
-                    <div className="sideBarCart__priceBox">
-                      <Link to="/" className="sideBarCart__LinkText">
-                        {item?.productId?.title}
-                      </Link>
-                      <div className="flex">
-                        <bdi className="currentPrice">
-                          {item?.productId?.price?.toLocaleString()}
-                          <span className="toman">تومان</span>
-                        </bdi>
-                        <ProductCount
-                          value={item?.cartQuantity?item.cartQuantity:1}
-                          minValue={1}
-                          maxValue={item?.productId?.quantity}
-                          productId={item?.productId?._id}
-                        />
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+            {auth.token ? (
+              <>
+                {basketInfo?.cartItems?.length ? (
+                  <ul className="sideBarCart__Lists">
+                    {basketInfo?.cartItems?.map((item) => (
+                      <li className="sideBarCart__ListsItem" key={item._id}>
+                        <div className="sideBarCart__imgBox">
+                          <Link to="/" className="sideBarCart__Link">
+                            <img
+                              src={`http://localhost:8000${item?.productId?.image}`}
+                              alt="mini image products"
+                              className="sideBarCart__img"
+                            />
+                          </Link>
+                          <CgCloseO
+                            className="sideBarCart__removeIcon"
+                            onClick={() =>
+                              removeItemFromBasket(item?.productId?._id)
+                            }
+                          />
+                        </div>
+                        <div className="sideBarCart__priceBox">
+                          <Link to="/" className="sideBarCart__LinkText">
+                            {item?.productId?.title}
+                          </Link>
+                          <div className="flex">
+                            <bdi className="currentPrice">
+                              {item?.productId?.price?.toLocaleString()}
+                              <span className="toman">تومان</span>
+                            </bdi>
+                            <ProductCount
+                              value={item?.cartQuantity ? item.cartQuantity : 1}
+                              minValue={1}
+                              maxValue={item?.productId?.quantity}
+                              productId={item?.productId?._id}
+                            />
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="emptyBasket">
+                    <IoBagHandleOutline className="emptyBasket__icon" />
+                    <span className="emptyBasket__text">
+                      {persianTexts.header.emptyBasket}
+                    </span>
+                  </div>
+                )}
+
+                <div className="sideBarCart__totalPriceAndLinks">
+                  <div className="flex ss02">
+                    <span>جمع كل سبد خريد : </span>
+                    <bdi className="currentPrice">
+                      {basketInfo?.totalAmount?.toLocaleString()}
+                      <span className="toman">تومان</span>
+                    </bdi>
+                  </div>
+                  <div className="sideBarCart__Links">
+                    <Link
+                      className="sideBarCart__LinkBasket"
+                      to="/basket"
+                      onClick={() => setIsShowSideBarCart(false)}
+                    >
+                      مشاهده سبد خرید
+                    </Link>
+                    <Link
+                      className="sideBarCart__LinkBasket"
+                      to="/basket/check-information"
+                      onClick={() => setIsShowSideBarCart(false)}
+                    >
+                      تسویه حساب
+                    </Link>
+                  </div>
+                </div>
+              </>
             ) : (
               <div className="emptyBasket">
                 <IoBagHandleOutline className="emptyBasket__icon" />
                 <span className="emptyBasket__text">
-                  {persianTexts.header.emptyBasket}
+                  {persianTexts.header.notLoginInBasket}
                 </span>
               </div>
             )}
-
-            <div className="sideBarCart__totalPriceAndLinks">
-              <div className="flex ss02">
-                <span>جمع كل سبد خريد : </span>
-                <bdi className="currentPrice">
-                  {basketInfo?.totalAmount?.toLocaleString()}
-                  <span className="toman">تومان</span>
-                </bdi>
-              </div>
-              <div className="sideBarCart__Links">
-                <Link
-                  className="sideBarCart__LinkBasket"
-                  to="/basket"
-                  onClick={() => setIsShowSideBarCart(false)}
-                >
-                  مشاهده سبد خرید
-                </Link>
-                <Link
-                  className="sideBarCart__LinkBasket"
-                  to="/basket/check-information"
-                  onClick={() => setIsShowSideBarCart(false)}
-                >
-                  تسویه حساب
-                </Link>
-              </div>
-            </div>
-            </>
-            : <div className="emptyBasket">
-                <IoBagHandleOutline className="emptyBasket__icon" />
-                <span className="emptyBasket__text">
-                  {persianTexts.header.notLoginInBasket}
-                </span>
-              </div>}
-          
           </div>
           {/* end basket sidebar in mobile */}
           <div
@@ -565,7 +575,7 @@ export default function Header({ }) {
               </div>
               <div className="col-4 col-md-6">
                 <div className="mobileHeader__leftBox">
-                {!auth?.token ? (
+                  {!auth?.token ? (
                     <Link className="mobileHeader__authUser" to="/login">
                       <div className="header__authUser-box">
                         <IoPersonOutline className="fullIcon" />
@@ -578,7 +588,10 @@ export default function Header({ }) {
                       </div>
                       <ul className="header__userOptions">
                         <li className="header__userOption">حساب کاربری</li>
-                        <li className="header__userOption"> <Link to="/basket">سبد خرید</Link></li>
+                        <li className="header__userOption">
+                          {" "}
+                          <Link to="/basket">سبد خرید</Link>
+                        </li>
                         <li
                           className="header__userOption"
                           onClick={logoutHandler}
@@ -588,81 +601,25 @@ export default function Header({ }) {
                       </ul>
                     </div>
                   )}
-                  
-                    <div className="mobileHeader__basket" onClick={()=>setIsShowSideBarCart(true)}>
-                      <FiShoppingBag className="mobileHeader__basketIcon" />
-                      {basketInfo?.totalQTY ? (
+
+                  <div
+                    className="mobileHeader__basket"
+                    onClick={() => setIsShowSideBarCart(true)}
+                  >
+                    <FiShoppingBag className="mobileHeader__basketIcon" />
+                    {basketInfo?.totalQTY ? (
                       <span className="mobileHeader__basketCounter ss02">
                         {basketInfo?.totalQTY}
                       </span>
                     ) : null}
-                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="row">
               <div className="col">
-                {/* <form
-                  className="searchBoxMobile"
-                  onSubmit={(e) => e.preventDefault()}
-                >
-                  <Link className="searchBox__btn" to="/">
-                    <TfiSearch className="searchBox__iconSearch" />
-                  </Link>
-                  <input
-                    type="text"
-                    className="searchBox__input"
-                    placeholder="کلید واژه مورد نظر..."
-                  />
 
-                  {showResult && (
-                    <VscClose
-                      className="search-box__btn--close"
-                      onClick={(e) => {
-                        setShowResult(false);
-                      }}
-                    />
-                  )}
-                  <div className="searchBox__categoryBox">
-                    <TbApps
-                      className="searchBox__categoryIcon"
-                      onClick={(e) => setShowCategory(!showCategory)}
-                      ref={btnMobileCategoryRef}
-                    />
-                  </div>
-                  {!isLoading && showCategory && (
-                    <div className={`category`} ref={mobileCategoryRef}>
-                      <ul className="category__lists">
-                        <li
-                          className={`category__item ${
-                            currentCategory === "all" && "category--current"
-                          }`}
-                          onClick={(e) => {
-                            setCurrentCategory("all");
-                          }}
-                        >
-                          تمام دسته ها
-                        </li>
-                        {menus.map((category) => (
-                          <li
-                            key={category.shortLink}
-                            className={`category__item ${
-                              category === category.shortLink &&
-                              "category--current"
-                            }`}
-                            onClick={() => {
-                              setCurrentCategory(category.shortLink);
-                            }}
-                          >
-                            {category.title}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-
-                  {showResult && (
+                  {/* {showResult && (
                     <div className="search-box__result-wrapper">
                       {showLoader && <div className="search-box__loader"></div>}
                       {seeSearchResult ? (
@@ -724,8 +681,8 @@ export default function Header({ }) {
                         </div>
                       )}
                     </div>
-                  )}
-                </form> */}
+                  )} */}
+  
                 <div className="serach__wrapper" ref={searchRef}>
                   <form
                     className="searchBox"

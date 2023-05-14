@@ -1,0 +1,14 @@
+.footerSlide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding:.5rem;
+  }
+  .footerSlide__img {
+  }
+  .footerSlide__caption {
+    font-family: var(--iran-bold);
+    font-size: 1.1rem;
+    color: #464c51;
+    line-height: 2.5rem;
+  }

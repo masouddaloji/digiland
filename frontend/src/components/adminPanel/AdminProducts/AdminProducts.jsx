@@ -87,9 +87,9 @@ const AdminProducts = () => {
       {isShowEditModal && (
         <div
           className="edit__container"
-          onClick={(e) => {
-            if (!e.target.contains(editRef?.current)) {
-              setIsShowEditModal(false);
+          onClick={(e)=>{
+            if(e.target!==editRef?.current){
+              setIsShowEditModal(false)
             }
           }}
         >

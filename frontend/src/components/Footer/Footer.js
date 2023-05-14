@@ -1,15 +1,18 @@
 import React from "react";
+//packages
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
+//components
+import Slider from "../Slider/Slider";
+//icons
 import { SiGooglemaps } from "react-icons/si";
 import { SlCallIn } from "react-icons/sl";
 import { BsInfo } from "react-icons/bs";
 import { IoIosArrowUp } from "react-icons/io";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
+//Constants
+import { footerSliderItems } from "../../Constants";
+//styles
 import "./Footer.css";
 
 export default function Footer() {
@@ -18,104 +21,13 @@ export default function Footer() {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <div className="iconBoxes">
-              <Swiper
-                dir="rtl"
-                slidesPerView={6}
-                spaceBetween={15}
-                style={{ overflow: "hidden" }}
-                loop={true}
-                breakpoints={{
-                  // when window width is >= 768px
-                  768: {
-                    slidesPerView: 5,
-                  },
-                  992: {
-                    slidesPerView: 6,
-                  },
-                  1200: {
-                    slidesPerView: 6,
-                  },
-                }}
-                modules={[Autoplay, Pagination, Navigation]}
-                className="mySwiper"
-              >
-                <SwiperSlide>
-                  <Link to="/" className="iconBoxes__box">
-                    <img
-                      src="/images/footer/gift.webp"
-                      alt="footer img"
-                      className="iconBoxes__img"
-                    />
-                    <span className="iconBoxes__caption">بسته بندی زیبا</span>
-                  </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Link to="/" className="iconBoxes__box">
-                    <img
-                      src="/images/footer/map.webp"
-                      alt="footer img"
-                      className="iconBoxes__img"
-                    />
-                    <span className="iconBoxes__caption">
-                      ارسال به تمام نقاط
-                    </span>
-                  </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Link to="/" className="iconBoxes__box">
-                    <img
-                      src="/images/footer/secure.webp"
-                      alt="footer img"
-                      className="iconBoxes__img"
-                    />
-                    <span className="iconBoxes__caption">ضمانت اصل بودن</span>
-                  </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Link to="/" className="iconBoxes__box">
-                    <img
-                      src="/images/footer/credit-card.webp"
-                      alt="footer img"
-                      className="iconBoxes__img"
-                    />
-                    <span className="iconBoxes__caption">
-                      تضمین بهترین قیمت
-                    </span>
-                  </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Link to="/" className="iconBoxes__box">
-                    <img
-                      src="/images/footer/wallet.webp"
-                      alt="footer img"
-                      className="iconBoxes__img"
-                    />
-                    <span className="iconBoxes__caption">پرداخت در محل</span>
-                  </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Link to="/" className="iconBoxes__box">
-                    <img
-                      src="/images/footer/money.webp"
-                      alt="footer img"
-                      className="iconBoxes__img"
-                    />
-                    <span className="iconBoxes__caption">ضمانت بازگشت</span>
-                  </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Link to="/" className="iconBoxes__box">
-                    <img
-                      src="/images/footer/packaging-6.webp"
-                      alt="footer img"
-                      className="iconBoxes__img"
-                    />
-                    <span className="iconBoxes__caption">تحویل اکسپرس</span>
-                  </Link>
-                </SwiperSlide>
-              </Swiper>
-            </div>
+            <Slider
+              slide="footerSlider"
+              array={footerSliderItems}
+              slidesPerView={7}
+              spaceBetween={15}
+              loop={true}
+            />
           </div>
         </div>
         <div className="row">
@@ -183,42 +95,61 @@ export default function Footer() {
                   <h6 className="footer__title">درباره ماهدیس وب</h6>
                 </div>
                 <div>
-                <p className="footer__aboutText">
-                  گروه ماهدیس وب از سال 1390 فعالیت خود را در زمینه طراحی و
-                  توسعه نرم افزارهای تحت وب با توجه به استانداردها و متدولوژی
-                  های روز دنیا و مد نظر قرار دادن ارزش ها و باورهای حرفه ای و
-                  نیز مطالعات کیفی و کمی در زمینه سیستم های یکپارچه مدیریت تحت
-                  وب , به منظور طرح,توسعه کاربرد نرم افزارهای مبتنی بر وب اغاز
-                  نمود.
-                </p>
-                <p className="footer__aboutText">
-                  شرکت طراحی سایت ماهدیس وب با طراحی چندین سایت اینترنتی در
-                  زمینه های طراحی سایت (فروشگاهی ، طراحی سایت خبری، طراحی سایت
-                  شرکتی و طراحی سایت خدماتی و..) با بهره گیری از بروزترین
-                  تکنولوژی های طراحی سایت به همراه بهترین خدمات جانبی طراحی سایت
-                  نظیر طراحی پوسته وردپرس (فروشگاهی – خبری و آموزش آنلاین ) سئو
-                  و بهینه سازی سایت و طراحی سایت ریسپانسیو با افتخار در کنار
-                  شماست.
-                </p>
+                  <p className="footer__aboutText">
+                    گروه ماهدیس وب از سال 1390 فعالیت خود را در زمینه طراحی و
+                    توسعه نرم افزارهای تحت وب با توجه به استانداردها و متدولوژی
+                    های روز دنیا و مد نظر قرار دادن ارزش ها و باورهای حرفه ای و
+                    نیز مطالعات کیفی و کمی در زمینه سیستم های یکپارچه مدیریت تحت
+                    وب , به منظور طرح,توسعه کاربرد نرم افزارهای مبتنی بر وب اغاز
+                    نمود.
+                  </p>
+                  <p className="footer__aboutText">
+                    شرکت طراحی سایت ماهدیس وب با طراحی چندین سایت اینترنتی در
+                    زمینه های طراحی سایت (فروشگاهی ، طراحی سایت خبری، طراحی سایت
+                    شرکتی و طراحی سایت خدماتی و..) با بهره گیری از بروزترین
+                    تکنولوژی های طراحی سایت به همراه بهترین خدمات جانبی طراحی
+                    سایت نظیر طراحی پوسته وردپرس (فروشگاهی – خبری و آموزش آنلاین
+                    ) سئو و بهینه سازی سایت و طراحی سایت ریسپانسیو با افتخار در
+                    کنار شماست.
+                  </p>
                 </div>
-               <div className="footer__imageBoxes">
-                    <div className="footer__imageBox">
-                      <img className="footer__image" src="/images/footer/about1.webp" alt="" />
-                    </div>
-                    <div className="footer__imageBox">
-                      <img className="footer__image" src="/images/footer/about2.webp" alt="" />
-                    </div>
-                    <div className="footer__imageBox">
-                      <img className="footer__image" src="/images/footer/about3.webp" alt="" />
-                    </div>
-                    <div className="footer__imageBox">
-                      <img className="footer__image" src="/images/footer/about4.webp" alt="" />
-                    </div>
-                    <div className="footer__imageBox">
-                      <img className="footer__image" src="/images/footer/about5.webp" alt="" />
-                    </div>
-               </div>
-
+                <div className="footer__imageBoxes">
+                  <div className="footer__imageBox">
+                    <img
+                      className="footer__image"
+                      src="/images/footer/about1.webp"
+                      alt=""
+                    />
+                  </div>
+                  <div className="footer__imageBox">
+                    <img
+                      className="footer__image"
+                      src="/images/footer/about2.webp"
+                      alt=""
+                    />
+                  </div>
+                  <div className="footer__imageBox">
+                    <img
+                      className="footer__image"
+                      src="/images/footer/about3.webp"
+                      alt=""
+                    />
+                  </div>
+                  <div className="footer__imageBox">
+                    <img
+                      className="footer__image"
+                      src="/images/footer/about4.webp"
+                      alt=""
+                    />
+                  </div>
+                  <div className="footer__imageBox">
+                    <img
+                      className="footer__image"
+                      src="/images/footer/about5.webp"
+                      alt=""
+                    />
+                  </div>
+                </div>
               </div>
               <div className="footer__leftBox">
                 <h5 className="footer__title">تماس با ما</h5>
@@ -227,8 +158,8 @@ export default function Footer() {
                     <div className="footer_iconBox">
                       <SiGooglemaps className="fullIcon mapIcon" />
                     </div>
-                    <span className="footer__address">
-                      همـدان ، خیابان بوعلـی ، کوچه مشکی ، پلاک 10
+                    <span className="footer__address ss02">
+                      کوهدشت ، شهرک شهید رجایی ، پلاک 85
                     </span>
                   </div>
                 </div>
@@ -236,31 +167,36 @@ export default function Footer() {
                   <div className="footer__iconBox">
                     <SlCallIn className="fullIcon mapIcon" />
                   </div>
-                  <span>
+                  <span className="ss02">
                     <strong>021-</strong>
                     23456788
                   </span>
                 </div>
                 <div className="footer__emailBox">
-                  <span className="footer__email">
-                    demosmahdisweb@gmail.com
-                  </span>
+                  <span className="footer__email">masouddaloji@gmail.com</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="footer__copy">
-              <div className="footer__copyImageBox">
-                <img src="/images/footer/footerimage.webp" alt="" className="footer__copyImage" />
-              </div>
-              <div className="footer__copyTextBox">
-                <p className="footer__copyText">کلیه حقوق مادی و معنوی برای این سایت محفوظ می باشد و هرگونه کپی برداری شامل پیگرد قانونی می باشد.</p>
-              </div>
-              <div className="goTopBox">
-                  <IoIosArrowUp className="goTop" />
-              </div>
-            </div>
+          <div className="footer__copyImageBox">
+            <img
+              src="/images/footer/footerimage.webp"
+              alt=""
+              className="footer__copyImage"
+            />
+          </div>
+          <div className="footer__copyTextBox">
+            <p className="footer__copyText">
+              کلیه حقوق مادی و معنوی برای این سایت محفوظ می باشد و هرگونه کپی
+              برداری شامل پیگرد قانونی می باشد.
+            </p>
+          </div>
+          <div className="goTopBox">
+            <IoIosArrowUp className="goTop" />
+          </div>
+        </div>
       </div>
     </div>
   );

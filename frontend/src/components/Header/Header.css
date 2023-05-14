@@ -402,7 +402,7 @@
   opacity: 0;
   z-index: 100;
 }
-.header__userInfo:hover .header__userOptions {
+.header__userInfo:hover .header__userOptions,.mobileHeader__userInfo:hover .header__userOptions{
   visibility: visible;
   opacity: 1;
 }

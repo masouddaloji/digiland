@@ -35,7 +35,7 @@ const routes = (products, categories) => [
     path: "/products-category/:categoryName",
     element: (
       <PersistLogin>
-        <ProductsCategory products={products} categories={categories} />{" "}
+        <ProductsCategory />
       </PersistLogin>
     ),
     children: [{ path: ":subCategory", element: <ProductsCategory /> }],

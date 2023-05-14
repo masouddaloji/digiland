@@ -21,7 +21,8 @@
   background: #353a42;
   border: none;
   outline: none;
-  padding: .7rem 3rem;
+  padding: 1rem 0;
+  width: 15rem;
   border-radius: var(--border-box);
   font-size: 1.2rem;
   font-weight: 500;
