@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 // components
 import App from "./App";
 // package
-import { BrowserRouter, useNavigate } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 // styles
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
@@ -20,7 +21,7 @@ root.render(
     <App />
     <ToastContainer
       position="top-right"
-      autoClose={3000}
+      autoClose={2000}
       hideProgressBar={false}
       newestOnTop
       closeOnClick
@@ -30,5 +31,6 @@ root.render(
       pauseOnHover
       theme="light"
     />
+    <ScrollToTop/>
   </BrowserRouter>
 );

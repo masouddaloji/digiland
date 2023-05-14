@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 //packages
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import domPurify from "dompurify";
 //components
@@ -131,7 +131,7 @@ export default function Product() {
   const getInfoProductFrombasket = () => {
     basketInfo?.cartItems?.filter((item) => {
       if (item._id === productId) {
-        console.log(item.cartQuantity)
+        console.log(item.cartQuantity);
       }
     });
   };
@@ -139,7 +139,7 @@ export default function Product() {
   useEffect(() => {
     setIsLoading(true);
     getData();
-    getUserBasket();
+    // getUserBasket();
   }, [productId]);
 
   useEffect(() => {
@@ -210,32 +210,26 @@ export default function Product() {
                       </li>
                     </ul>
                     <div className="product__priceRange">
-
-                    <del>
-                      <bdi className="product__prices">
-                        {detailsProduct?.price?.toLocaleString()}
-                        <span className="toman">تومان</span>
-                      </bdi>
+                      <del>
+                        <bdi className="product__prices">
+                          {detailsProduct?.price?.toLocaleString()}
+                          <span className="toman">تومان</span>
+                        </bdi>
                       </del>
                       {detailsProduct?.offPrice ? (
                         <>
                           <i>|</i>
                           <bdi className="product__prices">
-                          {(detailsProduct?.price - (detailsProduct?.price * detailsProduct?.offPrice) / 100).toLocaleString()}
+                            {(
+                              detailsProduct?.price -
+                              (detailsProduct?.price *
+                                detailsProduct?.offPrice) /
+                                100
+                            ).toLocaleString()}
                             <span className="toman">تومان</span>
                           </bdi>
                         </>
                       ) : null}
-
-
-
-
-
-                     
-
-
-
-
                     </div>
                     {/* select colors product */}
                     <div className="product__colorBox">
@@ -243,38 +237,35 @@ export default function Product() {
                         <span> رنگ : </span>
                         <span>{selectedColor}</span>
                       </div>
-                            <div className="colorAndAddTobasket__wrapper">
-                      <div className="product__allColors">
-                        {detailsProduct?.colors?.map((color) => (
-                          <div
-                            style={selectColorStyle(color)}
-                            className={`product__color ${
-                              selectedColor === color ? "colorSelected" : null
-                            } `}
-                            onClick={() => setSelectedColor(color)}
-                          >
-                            {selectedColor === color && (
-                              <BsCheckLg
-                                className={`colorSelecteor ${
-                                  selectedColor === "سفید" && "blacked"
-                                }`}
-                              />
-                            )}{" "}
-                          </div>
-                        ))}
-                       
+                      <div className="colorAndAddTobasket__wrapper">
+                        <div className="product__allColors">
+                          {detailsProduct?.colors?.map((color) => (
+                            <div
+                              style={selectColorStyle(color)}
+                              className={`product__color ${
+                                selectedColor === color ? "colorSelected" : null
+                              } `}
+                              onClick={() => setSelectedColor(color)}
+                            >
+                              {selectedColor === color && (
+                                <BsCheckLg
+                                  className={`colorSelecteor ${
+                                    selectedColor === "سفید" && "blacked"
+                                  }`}
+                                />
+                              )}{" "}
+                            </div>
+                          ))}
+                        </div>
+                        <button
+                          className="product__addToBasket"
+                          onClick={() => addToBasketHandler(productId)}
+                        >
+                          <MdOutlineAddShoppingCart className="product__addIcon" />
+                          افزودن به سبد خرید
+                        </button>
                       </div>
-                      <button
-                        className="product__addToBasket"
-                        onClick={() => addToBasketHandler(productId)}
-                      >
-                        <MdOutlineAddShoppingCart className="product__addIcon" />
-                        افزودن به سبد خرید
-                      </button>
-
                     </div>
-                    </div>
-
 
                     <div className="product__warning">
                       <p className="product__warningText">
@@ -703,6 +694,7 @@ export default function Product() {
                 {/* end review */}
               </div>
             </div>
+            {/* related products */}
             <div className="row">
               <div className="col-12">
                 <SectionHeader
@@ -715,7 +707,7 @@ export default function Product() {
             </div>
             <div className="row">
               <div className="col-12">
-                {relatedProduct.length > 0 ? (
+                {/* {relatedProduct.length > 0 ? (
                   <Slider
                     slidesPerView={5}
                     spaceBetween={15}
@@ -725,7 +717,7 @@ export default function Product() {
                     array={relatedProduct}
                     slide="ProductCart"
                   />
-                ) : null}
+                ) : null} */}
               </div>
             </div>
           </div>

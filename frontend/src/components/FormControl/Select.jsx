@@ -19,7 +19,7 @@ const Select = (props) => {
 
   useEffect(() => {
     const outsideClickHandler = (e) => {
-      if (!containerRef?.current.contains(e.target)) {
+      if (!containerRef?.current?.contains(e.target)) {
         setIsShowOptions(false);
       }
     };

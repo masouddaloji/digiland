@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // packages
-import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
+import Skeleton from "@mui/material/Skeleton";
+import { Box, Stack } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
 // styles
 import "./Index.css";
 //components
 import axios from "../../api/axios";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import Slider from "../../components/Slider/Slider";
-import Loader from "./../../components/Loader/Loader";
 import CompanyProduct from "../../components/CompanyProduct/CompanyProduct";
 // icons
-
 import { BiLayerPlus } from "react-icons/bi";
 import { AiFillApple } from "react-icons/ai";
 import { GrRss } from "react-icons/gr";
@@ -28,70 +28,6 @@ export default function Index() {
   ];
   const articles = Array(6).fill(0);
 
-  const suggestionProduct = [
-    {
-      id: 1,
-      title: "گوشی موبايل سامسونگ مدل Galaxy S8 Plus SM-G955FD دو سيم کارت",
-      cover: "./images/sug/sug6.jpg",
-      productPrice: 15000000,
-      currentPrice: 13800000,
-      link: "/",
-      offerTime: { day: 5, hour: 14 },
-      percent: 8,
-    },
-    {
-      id: 2,
-      title:
-        "گوشی موبایل اپل مدل iPhone 12 A2404 دو سیم‌ کارت ظرفیت 128 گیگابایت",
-      cover: "./images/sug/sug4.jpg",
-      productPrice: 17200000,
-      currentPrice: 16400000,
-      link: "/",
-      offerTime: { day: 3, hour: 1 },
-      percent: 5,
-    },
-    {
-      id: 3,
-      title:
-        "گوشی موبایل اپل مدل iPhone 12 A2404 دو سیم‌ کارت ظرفیت 128 گیگابایت",
-      cover: "./images/sug/sug5.webp",
-      productPrice: 21000000,
-      currentPrice: 19900000,
-      link: "/",
-      offerTime: { day: 1, hour: 14 },
-      percent: 5,
-    },
-    {
-      id: 4,
-      title: "لپ تاپ 17 اينچي الين وير مدل 17 AW17R3",
-      cover: "./images/sug/sug1.jpg",
-      productPrice: 36000000,
-      currentPrice: 35100000,
-      link: "/",
-      offerTime: { day: 3, hour: 21 },
-      percent: 2.5,
-    },
-    {
-      id: 5,
-      title: "تلويزيون ال اي دي هوشمند خميده سامسونگ مدل 88KS9800 سايز 88 اينچ",
-      cover: "./images/sug/sug2.jpg",
-      productPrice: 15000000,
-      currentPrice: 1400000,
-      link: "/",
-      offerTime: { day: 1, hour: 1 },
-      percent: 7,
-    },
-    {
-      id: 6,
-      title: "دوربین ديجيتال نيکون مدل Coolpix P900",
-      cover: "./images/sug/sug3.jpg",
-      productPrice: 8000000,
-      currentPrice: 6700000,
-      link: "/",
-      offerTime: { day: 1, hour: 4 },
-      percent: 7,
-    },
-  ];
   const [allProducts, setAllProducts] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
   const [appleProducts, setAppleProducts] = useState([]);
@@ -120,7 +56,55 @@ export default function Index() {
   return (
     <>
       {isLoading ? (
-        <Loader message="در حال دریافت اطلاعات" />
+        <div className="container">
+          {/* banner slider skeleton */}
+          <div className="row">
+            <div className="col-12 col-lg-9">
+              <Skeleton
+                animation="wave"
+                variant="rounded"
+                width={"100%"}
+                height={"42rem"}
+              />
+            </div>
+            <div className="col-lg-3 hideninstantOffer">
+              <Box
+                sx={{
+                  width: "100%",
+                  height: "42rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  background: "var(--white)",
+                  padding: "0 1rem 3rem",
+                }}
+              >
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  width={"75%"}
+                  height={"6rem"}
+                  style={{ textAlign: "center" }}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="rounded"
+                  height={"20rem"}
+                  width={"100%"}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  width={"100%"}
+                  height={"6rem"}
+                />
+                <Skeleton animation="wave" variant="text" width={"60%"} />
+              </Box>
+            </div>
+          </div>
+          {/* services box slider skeleton */}
+        </div>
       ) : (
         <div className="container">
           {/* header slider */}
@@ -158,10 +142,9 @@ export default function Index() {
           <div className="row">
             <div className="col">
               <Slider
-                slidesPerView={5}
+                slidesPerView={8}
                 spaceBetween={15}
                 loop={true}
-                navigation={true}
                 autoplay={true}
                 array={services}
                 slide="serviceBox"

@@ -2,10 +2,15 @@
   width: 100%;
   height: auto;
 }
+.headerSliderLoading{
+  width: 100%;
+  height: 45rem;
+}
 .widget {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  box-shadow: var(--box-shadow);
 }
 .instantOffer__wrapper{
   width: 100%;

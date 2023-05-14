@@ -208,8 +208,9 @@ a {
 }
 
 .f-24 {
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   display: inline-block;
+  vertical-align: middle;
 }
 .btn--disable {
   background: var(--gray-25);

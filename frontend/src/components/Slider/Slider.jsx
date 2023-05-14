@@ -25,17 +25,17 @@ function Slider({ array, slide, ...restprops }) {
   const selectslide = (item) => {
     switch (slide) {
       case "SuggestedProductBox":
-        return <SuggestedProductBox key={item._id} {...item} {...restprops} />;
+        return <SuggestedProductBox  {...item} {...restprops} />;
       case "CompanyProduct":
-        return <CompanyProduct key={item._id} {...item} {...restprops} />;
+        return <CompanyProduct  {...item} {...restprops} />;
       case "ArticleBox":
-        return <ArticleBox key={item._id} {...item} {...restprops} />;
+        return <ArticleBox  {...item} {...restprops} />;
       case "ProductCart":
-        return <ProductCart key={item._id} {...item} {...restprops} />;
+        return <ProductCart  {...item} {...restprops} />;
       case "BannerBox":
-        return <BannerBox key={item._id} {...item} {...restprops} />;
+        return <BannerBox  {...item} {...restprops} />;
         case "serviceBox":
-          return <ServiceBox key={item._id} {...item} {...restprops} />
+          return <ServiceBox  {...item} {...restprops} />
           case "instantOffer":
             return <InstantOffer {...item} {...restprops}/>
       default:
@@ -64,13 +64,13 @@ function Slider({ array, slide, ...restprops }) {
           slidesPerView:slide==="SuggestedProductBox"?1:slide==="serviceBox"?3:2
         },
         576:{
-          slidesPerView:slide==="SuggestedProductBox"?2:slide==="serviceBox"?4:slide==="ArticleBox"?2:3
+          slidesPerView:slide==="SuggestedProductBox"?2:slide==="serviceBox"?5:slide==="ArticleBox"?2:3
         },
         768:{
-          slidesPerView:slide==="serviceBox"?4:slide==="SuggestedProductBox"?3:slide==="ArticleBox"?3:4
+          slidesPerView:slide==="serviceBox"?6:slide==="SuggestedProductBox"?3:slide==="ArticleBox"?3:4
         },
         992:{
-          slidesPerView:slide==="serviceBox"?5:restprops.slidesPerView-1
+          slidesPerView:slide==="serviceBox"?7:restprops.slidesPerView-1
         },
         1100:{
           slidesPerView:restprops.slidesPerView

@@ -3,7 +3,7 @@
 
 .linkBox__link {
     flex-grow: 1;
-    padding: 1rem;
+    padding-bottom: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,7 +12,7 @@
     box-shadow: var(--box-shadow);
     background: var(--white);
     transition: all 0.3s;
-    border: 2px solid var(--gray);
+    border: 1px solid var(--gray);
     overflow: hidden;
 }
 .linkBox__link:hover {
@@ -27,7 +27,7 @@
   display: block;
   color: var(--black-50);
   font-family: var(--iran-bold);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin: 1rem 0;
   transition: all 0.3s;
 }
