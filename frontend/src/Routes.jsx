@@ -1,9 +1,7 @@
-import { Children } from "react";
 // components
 import Index from "./Pages/HomePage/Index";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
-import Category from "./Pages/Category/Category";
 import ProductsCategory from "./Pages/ProductsCategory/ProductsCategory";
 import CategorizedProducts from "./Pages/CategorizedProducts/CategorizedProducts";
 import Product from "./Pages/Product/Product";
@@ -22,7 +20,7 @@ import UserPanel from "./Pages/UserPanel/Index";
 import PersistLogin from "./components/PersistLogin/PersistLogin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
-const routes = (products, categories) => [
+const routes = () => [
   {
     path: "/",
     element: (

@@ -23,10 +23,16 @@ export default function ProductsCategory() {
   const [sortBy, setSortBy] = useState("");
   const [sortedStatus, setSortedStatus] = useState("");
   const { categoryName, subCategory } = useParams();
+
+
   const [minPrice, setMinPrice] = useState(parseInt(0));
   const [maxPrice, setMaxPrice] = useState(parseInt(100000));
   const [lowestPrice, setLowestPrice] = useState(parseInt(0));
   const [highestPrice, setHighestPrice] = useState(parseInt(100000));
+
+
+
+
   const [pageInfo, setPageInfo] = useState({
     isLoading: false,
     data: [],
@@ -35,10 +41,11 @@ export default function ProductsCategory() {
   });
   const getProductsBy=async()=>{
     setPageInfo(prev=>({...prev,isLoading:true}))
-    await axios.get(`products?page=${pageInfo.page}&limit=${pageInfo.pageSize}`)
+    await axios.get(`products?page=${pageInfo.page}&limit=${pageInfo.pageSize}&category=${categoryName}`)
+    .then(res=>console.log("res",res))
   }
 useEffect(()=>{
-
+  getProductsBy()
 },[pageInfo.page,pageInfo.pageSize])
   useEffect(() => {
     console.log("sortBy", sortBy);

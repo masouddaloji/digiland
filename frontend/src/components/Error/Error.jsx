@@ -1,4 +1,3 @@
-import React from "react";
 //icons
 import {IoWarningOutline} from 'react-icons/io5'
 import { BiErrorAlt } from "react-icons/bi";

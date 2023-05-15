@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 //hooks
 import useAuth from "../hooks/useAuth";
 //persianText
-import { persianTexts } from "./../text";
+import { persianTexts } from "../text";
 
 export const UserBasketContext = createContext({});
 

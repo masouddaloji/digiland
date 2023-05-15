@@ -15,7 +15,7 @@
   z-index: 99;
   background: rgba(0, 0, 0, 0.25);
   transition: all 0.3s;
-  cursor: url("./../../../public/images/close.png"), default;
+  cursor: url("./images/close.png"), default;
 }
 /* start sidebar basket */
 .mask--show {

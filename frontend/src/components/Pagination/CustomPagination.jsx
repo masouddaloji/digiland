@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 //packages
 import Pagination from "@mui/material/Pagination";
 import { PaginationItem } from "@mui/material";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // library
 import { Link, NavLink, Outlet } from "react-router-dom";
 // icons

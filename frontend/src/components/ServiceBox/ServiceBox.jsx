@@ -1,5 +1,4 @@
-import React from "react";
-// library
+// packages
 import { Link } from "react-router-dom";
 //styles
 import "./ServiceBox.css";

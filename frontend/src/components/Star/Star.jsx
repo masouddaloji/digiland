@@ -1,4 +1,3 @@
-import React from 'react'
 //icons
 import { IoIosStar, IoIosStarOutline } from 'react-icons/io'
 //styles

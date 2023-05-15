@@ -1,4 +1,3 @@
-import React from "react";
 // packages
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";

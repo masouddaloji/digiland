@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 //component
 import { privateAxios } from "../../api/axios";
 import Spiner from "../Spiner/Spiner";

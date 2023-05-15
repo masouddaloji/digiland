@@ -1,8 +1,8 @@
-import React from "react";
 //packages
 import { v4 as uuidv4 } from "uuid";
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+//swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";

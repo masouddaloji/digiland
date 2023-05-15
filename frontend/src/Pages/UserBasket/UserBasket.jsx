@@ -1,4 +1,3 @@
-import React from "react";
 //packages
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 

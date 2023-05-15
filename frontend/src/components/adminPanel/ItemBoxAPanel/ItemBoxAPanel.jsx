@@ -1,4 +1,3 @@
-import React from "react";
 // icons
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 // styles

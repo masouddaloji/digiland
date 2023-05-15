@@ -3,15 +3,15 @@
   font-family: "IRANSans";
   font-style: normal;
   font-weight: normal;
-  src: url("./../public/fonts/IRANSansX-Regular.woff") format("woff"),
-    url("./../public/fonts/IRANSansX-Regular.woff2") format("woff2");
+  src: url("./fonts/IRANSansX-Regular.woff") format("woff"),
+    url("./fonts/IRANSansX-Regular.woff2") format("woff2");
 }
 @font-face {
   font-family: "IRANSansMed";
   font-style: normal;
   font-weight: 500;
-  src: url("./../public/fonts/IRANSansX-Medium.woff") format("woff"),
-    url("./../public/fonts/IRANSansX-Medium.woff2") format("woff2");
+  src: url("./fonts/IRANSansX-Medium.woff") format("woff"),
+    url("./fonts/IRANSansX-Medium.woff2") format("woff2");
 }
 
 /* end font face */

@@ -1,8 +1,5 @@
-import React from "react";
 //packages
 import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper";
 //components
 import Slider from "../Slider/Slider";
 //icons

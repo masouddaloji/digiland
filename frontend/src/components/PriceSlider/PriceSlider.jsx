@@ -43,7 +43,9 @@
 //     </Box>
 //   );
 // }
-import React, { useRef, useState } from "react";
+
+import { useState } from "react";
+//styles
 import "./PriceSlider.css";
 
 export default function PriceSlider({minPrice,setMinPrice,maxPrice,setMaxPrice,lowestPrice,highestPrice}) {

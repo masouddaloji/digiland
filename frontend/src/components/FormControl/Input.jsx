@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import  { useRef, useState } from "react";
 // packages
-import { Field, useField, useFormikContext } from "formik";
+import { useField } from "formik";
 // icons
 import { BiHide, BiShow } from "react-icons/bi";
 

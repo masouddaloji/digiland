@@ -1,14 +1,15 @@
-import React from 'react'
+//packages
 import { Link } from 'react-router-dom'
+//styles
 import './BannerBox.css'
 
 function BannerBox(props) {
-    // const {cover,link}=props
+    const {cover,link}=props
   return (
     <div className="widget__imageBox">
-    <Link className="widget__link" to={props?.link}>
+    <Link className="widget__link" to={link}>
       <img
-        src={props?.cover}
+        src={cover}
         alt="banner img"
         className="widget__img"
       />

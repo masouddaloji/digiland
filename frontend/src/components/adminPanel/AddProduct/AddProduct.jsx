@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 // variables
 import { persianTexts } from "../../../text";
 // components

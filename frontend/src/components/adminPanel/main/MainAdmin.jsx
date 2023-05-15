@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // components
 import Chart from "../Chart/Chart";
 import ItemBoxAPanel from "../ItemBoxAPanel/ItemBoxAPanel";

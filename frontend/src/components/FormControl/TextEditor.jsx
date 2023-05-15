@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import  { useEffect, useRef } from "react";
 // packages
 import { useField, useFormikContext } from "formik";
 import { Editor } from "@tinymce/tinymce-react";

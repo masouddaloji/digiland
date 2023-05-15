@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 // Packages
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
@@ -24,15 +24,15 @@ import "./Login.css";
 export default function Login() {
   const userNameRef = useRef();
   const navigate = useNavigate();
-  const { setAuth,persist,setPersist } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
 
-  const persistHandler=()=>{
-    setPersist(prev=>!prev)
-  }
+  const persistHandler = () => {
+    setPersist((prev) => !prev);
+  };
 
-  useEffect(()=>{
-    localStorage.setItem("persist",JSON.stringify(persist))
-  },[persist])
+  useEffect(() => {
+    localStorage.setItem("persist", JSON.stringify(persist));
+  }, [persist]);
 
   return (
     <Formik
@@ -42,35 +42,32 @@ export default function Login() {
       }}
       validationSchema={LoginSchema}
       onSubmit={async (values, { resetForm }) => {
-      
-          const userData = {
+        const userData = {
           email: values.loginUserName,
           pwd: values.loginPassword,
-        }
-          const response = await axios.post("auth/login", userData, {
-            withCredentials: true,
-          });
-          if(response?.status===200){
-             const accessToken=response?.data?.accessToken
-             const decode = jwt_decode(accessToken)
-             setAuth((prev) => ({
-               ...prev,
-               token:accessToken,
-             }))
-            toast.success(persianTexts.login.logginSuccess)
-             resetForm()
-             if(decode?.role !== "superAdmin" && decode?.role !=="admin"){
-               navigate(-1)
-             }else{
-                navigate("/adminpanel/dashboard")
-             }
-             
-          }else if(response?.status===401){
-            toast.error(persianTexts.login.loginNotMatch)
-          }else{
-            toast.error(persianTexts.login.logginError)
+        };
+        const response = await axios.post("auth/login", userData, {
+          withCredentials: true,
+        });
+        if (response?.status === 200) {
+          const accessToken = response?.data?.accessToken;
+          const decode = jwt_decode(accessToken);
+          setAuth((prev) => ({
+            ...prev,
+            token: accessToken,
+          }));
+          toast.success(persianTexts.login.logginSuccess);
+          resetForm();
+          if (decode?.role !== "superAdmin" && decode?.role !== "admin") {
+            navigate(-1);
+          } else {
+            navigate("/adminpanel/dashboard");
           }
-
+        } else if (response?.status === 401) {
+          toast.error(persianTexts.login.loginNotMatch);
+        } else {
+          toast.error(persianTexts.login.logginError);
+        }
       }}
     >
       {(formik) => (
@@ -93,38 +90,42 @@ export default function Login() {
                     label="نام کاربری"
                     name="loginUserName"
                     ref={userNameRef}
-                    icon=<MdAlternateEmail className="formControl__icon" />
+                    icon={<MdAlternateEmail className="formControl__icon" />}
                   />
                   <FormControl
                     controler="password"
                     label="رمز عبور"
                     name="loginPassword"
-                    icon=<RiLockPasswordLine className="formControl__icon" />
+                    icon={<RiLockPasswordLine className="formControl__icon" />}
                   />
-                    <div className="login__btns">
-                  <div className="login__checkbox">
-                    <input type="checkbox" name="saveme" id="" checked={persist} onChange={persistHandler}/>
-                    <span className="login__checkboxText">
-                      مرا به خاطر بسپار
-                    </span>
-                  </div>
-                  <button type="submit" className="login__forget">
+                  <div className="login__btns">
+                    <div className="login__checkbox">
+                      <input
+                        type="checkbox"
+                        name="saveme"
+                        id=""
+                        checked={persist}
+                        onChange={persistHandler}
+                      />
+                      <span className="login__checkboxText">
+                        مرا به خاطر بسپار
+                      </span>
+                    </div>
+                    <button type="submit" className="login__forget">
                       فراموشی گذرواژه
                     </button>
-                    </div>
-                    <button
-                      disabled={!(formik.dirty && formik.isValid)}
-                      type="submit"
-                      className={`login__btn ${
-                        formik.dirty && formik.isValid
-                          ? "login__btn--active"
-                          : "login__btn--disable"
-                      }`}
-                    >
-                      ورود
-                    </button>
-                   
-                  
+                  </div>
+                  <button
+                    disabled={!(formik.dirty && formik.isValid)}
+                    type="submit"
+                    className={`login__btn ${
+                      formik.dirty && formik.isValid
+                        ? "login__btn--active"
+                        : "login__btn--disable"
+                    }`}
+                  >
+                    ورود
+                  </button>
                 </div>
                 <span className="login__divider">
                   <i>یا</i>

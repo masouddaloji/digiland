@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 //packages
 import { Link, useLocation } from "react-router-dom";
 //hooks

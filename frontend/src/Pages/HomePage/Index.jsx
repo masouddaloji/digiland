@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // packages
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";

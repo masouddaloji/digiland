@@ -1,4 +1,4 @@
-import React from 'react'
+//styles
 import './Brands.css'
 
 export default function Brands() {

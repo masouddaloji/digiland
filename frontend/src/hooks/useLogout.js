@@ -1,4 +1,3 @@
-import React from "react";
 // packages
 import { toast } from "react-toastify";
 // components

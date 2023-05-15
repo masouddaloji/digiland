@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 // packages
 import { useLocation, useRoutes } from "react-router-dom";
 

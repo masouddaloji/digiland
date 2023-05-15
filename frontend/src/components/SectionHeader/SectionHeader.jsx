@@ -1,7 +1,8 @@
-import React from "react";
-import { HiChevronLeft } from "react-icons/hi";
+//packages
 import { Link } from "react-router-dom";
-
+//icons
+import { HiChevronLeft } from "react-icons/hi";
+//styles
 import "./SectionHeader.css";
 
 export default function SectionHeader({ title, link, icon, btnLink,bg }) {

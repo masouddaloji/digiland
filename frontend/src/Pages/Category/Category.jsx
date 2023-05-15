@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import ShowCategory from "../../components/ShowCategory/ShowCategory";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";

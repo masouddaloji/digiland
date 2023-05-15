@@ -1,4 +1,3 @@
-import React, { useState, useRef } from "react";
 // packages
 import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
@@ -34,13 +33,13 @@ export default function Register() {
           pwd: values.registerPassword,
         };
         const response = await axios.post("auth/register", userData);
-        if (response?.status === 200 ||response?.status === 201) {
+        if (response?.status === 200 || response?.status === 201) {
           toast.success(persianTexts.register.registerSuccess);
           resetForm();
           navigate("/login");
         } else {
           toast.error(persianTexts.register.registerError);
-          console.log(response)
+          console.log(response);
         }
       }}
     >
@@ -52,8 +51,7 @@ export default function Register() {
                 <img
                   className="auth__logoimg"
                   src="./images/logo-mobile.png"
-                  alt=""
-                />
+                  alt="auth logo image"/>
               </div>
 
               <h4 className="auth__title">ثبت نام</h4>
@@ -62,19 +60,19 @@ export default function Register() {
                   controler="email"
                   label="ایمیل"
                   name="registerEmail"
-                  icon=<MdAlternateEmail className="formControl__icon" />
+                  icon={<MdAlternateEmail className="formControl__icon" />}
                 />
                 <FormControl
                   controler="password"
                   label="رمز عبور"
                   name="registerPassword"
-                  icon=<RiLockPasswordLine className="formControl__icon"/>
+                  icon={<RiLockPasswordLine className="formControl__icon" />}
                 />
                 <FormControl
                   controler="password"
                   label="تکرار رمز عبور"
                   name="registerConfirmPassword"
-                  icon=<RiLockPasswordLine className="formControl__icon"/>
+                  icon={<RiLockPasswordLine className="formControl__icon" />}
                 />
 
                 <button

@@ -1,12 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
-// packages
-import { Field, useField, useFormikContext } from "formik";
-import { Link } from "react-router-dom";
-import axios from "axios";
-
 // components
-import Validator from "../Validator/Validator";
-import { persianTexts } from "../../text";
 import Uploader from "./Uploader";
 import Input from "./Input";
 import Textarea from "./Textarea";
@@ -14,44 +6,32 @@ import CheckBox from "./CheckBox";
 import Select from "./Select";
 import TextEditor from "./TextEditor";
 
-
-// contexts
-import { AuthContext } from "../../Context/AuthContext";
-// icons
-import { FiChevronDown } from "react-icons/fi";
-
 // styles
 import "./FormControl.css";
 
-
-
-
 function FormControl(props) {
-
   switch (props.controler) {
-
     case "file": {
-     return <Uploader {...props}  />;
-     
+      return <Uploader {...props} />;
     }
     case "number":
     case "password":
     case "email":
     case "text": {
-      return <Input {...props} />
+      return <Input {...props} />;
     }
     case "select": {
-      return <Select {...props}/>
+      return <Select {...props} />;
     }
     case "textarea": {
-      return <Textarea {...props} />
+      return <Textarea {...props} />;
     }
     case "checkbox": {
-      return <CheckBox {...props}/>
+      return <CheckBox {...props} />;
     }
 
     case "editor": {
-      return <TextEditor {...props} />
+      return <TextEditor {...props} />;
     }
     // case "password":
     //   break;
@@ -59,7 +39,6 @@ function FormControl(props) {
     default:
       return null;
   }
-
 }
 
 export default FormControl;
