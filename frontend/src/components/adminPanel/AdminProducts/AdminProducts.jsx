@@ -31,9 +31,9 @@ const AdminProducts = () => {
   const [pageInfo, setPageInfo] = useState({
     isLoading: false,
     data: [],
-    total: 0,
     page: 1,
     pageSize: 10,
+    pageCount:null
   });
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [productEditDetails, setProductEditDetails] = useState({});
@@ -50,7 +50,7 @@ const AdminProducts = () => {
             ...prev,
             isLoading: false,
             data: res.data.data,
-            total: res.data.total,
+            pageCount: res.data.lastPage,
           }))
         );
     } catch (err) {
@@ -436,7 +436,7 @@ const AdminProducts = () => {
             
         </table>
       </Table>
-      <CustomPagination setData={setPageInfo} total={pageInfo.total} countInPage={pageInfo.pageSize}/>
+      <CustomPagination setData={setPageInfo} page={pageInfo.page} count={pageInfo.pageCount}/>
       </>
 
   

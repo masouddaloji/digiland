@@ -171,9 +171,9 @@ function CheckInformation() {
                         {item?.productId?.title} <span>{item.cartQuantity?` x ${item.cartQuantity}`:null}</span>
                       </td>
                       <td>
-                        <bdi class="productPrice">
+                        <bdi className="productPrice">
                         {item?.productId?.price?.toLocaleString()}
-                          <span class="toman">تومان</span>
+                          <span className="toman">تومان</span>
                         </bdi>
                       </td>
                     </tr>)}
@@ -184,9 +184,9 @@ function CheckInformation() {
                         سیم‌ کارت ظرفیت 256
                       </td>
                       <td>
-                        <bdi class="productPrice">
+                        <bdi className="productPrice">
                           4,100,000
-                          <span class="toman">تومان</span>
+                          <span className="toman">تومان</span>
                         </bdi>
                       </td>
                     </tr> */}
@@ -196,9 +196,9 @@ function CheckInformation() {
                       <th>جمع جزء</th>
                       <td>
                         <span>
-                          <bdi class="productPrice">
+                          <bdi className="productPrice">
                             {basketInfo?.totalAmount?.toLocaleString()}
-                            <span class="toman">تومان</span>
+                            <span className="toman">تومان</span>
                           </bdi>
                         </span>
                       </td>
@@ -207,9 +207,9 @@ function CheckInformation() {
                       <th>هزینه حمل و نقل</th>
                       <td>
                       {basketInfo?.totalAmount>1000000?" حمل و نقل رایگان":<span>
-                          <bdi class="productPrice">
+                          <bdi className="productPrice">
                             14,500,000
-                            <span class="toman">تومان</span>
+                            <span className="toman">تومان</span>
                           </bdi>
                         </span>}                       
                       </td>
@@ -218,9 +218,9 @@ function CheckInformation() {
                       <th>مجموع</th>
                       <td>
                         <span>
-                          <bdi class="productPrice">
+                          <bdi className="productPrice">
                           {basketInfo?.totalAmount?.toLocaleString()}
-                            <span class="toman">تومان</span>
+                            <span className="toman">تومان</span>
                           </bdi>
                         </span>
                       </td>
@@ -229,9 +229,9 @@ function CheckInformation() {
                       <th>تخفیف شما از این خرید </th>
                       <td>
                         <span>
-                          <bdi class="productPrice">
+                          <bdi className="productPrice">
                             500,000
-                            <span class="toman">تومان</span>
+                            <span className="toman">تومان</span>
                           </bdi>
                         </span>
                       </td>

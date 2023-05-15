@@ -191,4 +191,7 @@ export const persianTexts = {
     emptyBasket: "سبد خرید شما خالی می باشد",
     notLoginInBasket: "لطفا وارد حساب کاربری خود شوید",
   },
+  productsCategory:{
+    noProducts:"محصولی پیدا نشد"
+  }
 };

@@ -3,15 +3,15 @@
   font-family: "IRANSans";
   font-style: normal;
   font-weight: normal;
-  src: url("./fonts/IRANSansX-Regular.woff") format("woff"),
-    url("./fonts/IRANSansX-Regular.woff2") format("woff2");
+  src: url("/fonts/IRANSansX-Regular.woff") format("woff"),
+    url("/fonts/IRANSansX-Regular.woff2") format("woff2");
 }
 @font-face {
   font-family: "IRANSansMed";
   font-style: normal;
   font-weight: 500;
-  src: url("./fonts/IRANSansX-Medium.woff") format("woff"),
-    url("./fonts/IRANSansX-Medium.woff2") format("woff2");
+  src: url("/fonts/IRANSansX-Medium.woff") format("woff"),
+    url("/fonts/IRANSansX-Medium.woff2") format("woff2");
 }
 
 /* end font face */
@@ -203,6 +203,9 @@ a {
 }
 /* end default */
 /* start helper */
+.row_reverce{
+  flex-direction: row-reverse;
+}
 .full--width {
   width: 100%;
 }
@@ -285,7 +288,7 @@ a {
   background: var(--white);
   padding: 1rem 1.2rem 1rem 1.2rem;
   text-align: center;
-  box-shadow: 0 0.2rem 1rem -1rem rgba(0, 0, 0, 0.3);
+  box-shadow: var(--box-shadow)
 }
 .product__imgBox {
   width: 100%;

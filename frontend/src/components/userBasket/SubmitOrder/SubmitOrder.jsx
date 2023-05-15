@@ -17,9 +17,9 @@ function SubmitOrder() {
             </li>
             <li className='submitOrder__item'>
                 <span>قیمت نهایی : </span>
-                <bdi class="productPrice">
+                <bdi className="productPrice">
                             500,000
-                            <span class="toman">تومان</span>
+                            <span className="toman">تومان</span>
                           </bdi>
             </li>
         </ul>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 // packages
 import { Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
@@ -17,7 +17,6 @@ import { TbApps } from "react-icons/tb";
 import { IoBagHandleOutline, IoPersonOutline } from "react-icons/io5";
 import { VscClose } from "react-icons/vsc";
 import { IoMdClose } from "react-icons/io";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { SiShopify } from "react-icons/si";
 import { CgCloseO } from "react-icons/cg";

@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from "react";
 //packages
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 //constants
 import { menus } from "../../Constants";
 //styles
@@ -12,7 +13,7 @@ export default function ShowCategory({ categoryName, subCategory }) {
       {categoryName && !subCategory ? (
         <>
           {menus.map((category) => (
-            <>
+            <div key={uuidv4()}>
               {category.shortLink === categoryName &&
               category.subMenu.length > 0 ? (
                 <div className="product-category">
@@ -23,7 +24,7 @@ export default function ShowCategory({ categoryName, subCategory }) {
                     ></span>
                     <ul className="product-category__Lists">
                       {category.subMenu.map((sub) => (
-                        <li className="product-category__Item" key={sub.id}>
+                        <li className="product-category__Item" key={uuidv4()}>
                           <Link
                             className="product-category__link"
                             to={sub.link}
@@ -49,7 +50,7 @@ export default function ShowCategory({ categoryName, subCategory }) {
                   </div>
                 </div>
               ) : null}
-            </>
+            </div>
           ))}
         </>
       ) : null}

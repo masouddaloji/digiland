@@ -86,10 +86,10 @@ export default function PriceSlider({minPrice,setMinPrice,maxPrice,setMaxPrice,l
   return (
     <div className="priceSlider">
     <span className="priceSlider__title">فیلتر براساس قیمت : </span>
-      <div class="progress">
-        <div class="progressBar" style={progressBarStyle}></div>
+      <div className="progress">
+        <div className="progressBar" style={progressBarStyle}></div>
         <input
-          class="progress__input min__range"
+          className="progress__input min__range"
           type="range"
           min={lowestPrice}
           max={highestPrice}
@@ -98,7 +98,7 @@ export default function PriceSlider({minPrice,setMinPrice,maxPrice,setMaxPrice,l
           onInput={changeInputMin}
         />
         <input
-          class="progress__input max__range"
+          className="progress__input max__range"
           type="range"
           min={lowestPrice}
           max={highestPrice}

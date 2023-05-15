@@ -100,9 +100,3 @@ border-top: 2px dotted #C8C9CD;
 z-index: -1;
 margin-top: -.15rem;
 }
-.allProduct__category{
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-}
