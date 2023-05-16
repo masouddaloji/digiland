@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import { Box, Stack } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
+import { useDispatch } from "react-redux";
 // styles
 import "./Index.css";
 //components
@@ -11,6 +12,8 @@ import axios from "../../api/axios";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import Slider from "../../components/Slider/Slider";
 import CompanyProduct from "../../components/CompanyProduct/CompanyProduct";
+//redux actions
+import { getProducts } from "../../features/productsSlice";
 // icons
 import { BiLayerPlus } from "react-icons/bi";
 import { AiFillApple } from "react-icons/ai";
@@ -18,6 +21,7 @@ import { GrRss } from "react-icons/gr";
 import { services } from "../../Constants";
 
 export default function Index() {
+  const dispatch=useDispatch()
   const [isLoading, setIsLoading] = useState(false);
 
   const banners = [
@@ -34,6 +38,7 @@ export default function Index() {
   const [amazinOffer, setAmazinOffer] = useState([]);
 
   useEffect(() => {
+    dispatch(getProducts(200))
     setIsLoading(true);
     axios
       .get("products?limit={200}")
@@ -51,6 +56,7 @@ export default function Index() {
         setIsLoading(false);
       })
       .catch((error) => console.log(error));
+
   }, []);
 
   return (

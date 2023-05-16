@@ -1,6 +1,6 @@
 import { useState } from "react";
 //packages
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 //icons
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { BsFolder } from "react-icons/bs";
@@ -8,36 +8,45 @@ import { BsFolder } from "react-icons/bs";
 import "./MenuItem.css";
 
 export default function MenuItem({ category }) {
-  const categoryLocation = useParams();
-
+  const { categoryName, subCategory } = useParams();
   const [isShowSubMenu, setIsShowSubMenu] = useState(false);
   return (
-    <div className="menuItem" onClick={() => setIsShowSubMenu(!isShowSubMenu)}>
-      <span
-        className={`${
-          categoryLocation.categoryName === category.shortLink
-            ? "acvtive"
-            : null
-        }`}
+    <div className="menuItem">
+      <Link
+        to={category.link}
+        className={`${ category.shortLink===categoryName ? "category__item--acvtive" : null}`}
       >
         <BsFolder className="menuItem__itemIcon" />
         {category.title}
-      </span>
-      {category.sub_categories.data.length ? (
+      </Link>
+      {category.subMenu.length > 0 ? (
         <>
           {!isShowSubMenu ? (
-            <AiOutlinePlusCircle className={`menuItem__openIcon `} />
+            <AiOutlinePlusCircle
+              className={`menuItem__openIcon `}
+              onClick={() => setIsShowSubMenu(true)}
+            />
           ) : (
-            <AiOutlineMinusCircle className="menuItem__closeIcon" />
+            <AiOutlineMinusCircle
+              className="menuItem__closeIcon"
+              onClick={() => setIsShowSubMenu(false)}
+            />
           )}
           <ul
             className={`menuItem__subLists ${
               isShowSubMenu && "menuItem__subLists--show"
             }`}
           >
-            {category.sub_categories.data.map((subCategory) => (
-              <li className="menuItem__subItem">
-                {subCategory.attributes.title}
+            {category.subMenu.map((sub) => (
+              <li
+                className={`menuItem__subItem ${
+                  sub.shortLink === subCategory
+                    ? "menuItem__subItem--active"
+                    : null
+                }`}
+                key={sub.id}
+              >
+                <Link to={sub.link}>{sub.title}</Link>
               </li>
             ))}
           </ul>

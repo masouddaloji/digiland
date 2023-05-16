@@ -45,28 +45,28 @@ export const menus = [
         id: 22,
         title: "دوربین",
         link: "/products-category/digital/camera",
-        shortLink: "tablet",
+        shortLink: "camera",
         img:"/images/submenu/camera.png"
       },
       {
         id: 23,
         title: "ماشین های اداری",
         link: "/products-category/digital/workstation",
-        shortLink: "tablet",
+        shortLink: "workstation",
         img:"/images/submenu/workstation.png"
       },
       {
         id: 24,
         title: "لپ تاپ",
         link: "/products-category/digital/laptop",
-        shortLink: "tablet",
+        shortLink: "laptop",
         img:"/images/submenu/laptop.png"
       },
       {
         id: 25,
         title: "موبایل",
         link: "/products-category/digital/phone",
-        shortLink: "tablet",
+        shortLink: "phone",
         img:"/images/submenu/phone.png"
       },
     ],
@@ -81,35 +81,35 @@ export const menus = [
       {
         id: 31,
         title: "تلوزیون",
-        link: "/products-category/digital/television",
+        link: "/products-category/household-appliances/television",
         shortLink: "television",
         img:"/images/submenu/tv.png"
       },
       {
         id: 32,
         title: "کنسول بازی",
-        link: "/products-category/digital/game-console",
+        link: "/products-category/household-appliances/game-console",
         shortLink: "game-console",
         img:"/images/submenu/xbox.png"
       },
       {
         id: 33,
         title: "یخچال و فریزر",
-        link: "/products-category/digital/refrigerator-freezer",
+        link: "/products-category/household-appliances/refrigerator-freezer",
         shortLink: "refrigerator-freezer",
         img:"/images/submenu/fridge.png"
       },
       {
         id: 34,
         title: "لوازم شستشو و نظافت",
-        link: "/products-category/digital/washing-cleaning",
+        link: "/products-category/household-appliances/washing-cleaning",
         shortLink: "washing-cleaning",
         img:"/images/submenu/washing-machine.png"
       },
       {
         id: 35,
         title: "لوازم پخت و پز",
-        link: "/products-category/digital/cooking",
+        link: "/products-category/household-appliances/cooking",
         shortLink: "cooking",
         img:"/images/submenu/cooking.png"
       },
@@ -125,35 +125,35 @@ export const menus = [
         {
             id:41,
             title: "آرایشی",
-            link: "/products-category/digital/cosmetic",
+            link: "/products-category/beauty-health/cosmetic",
             shortLink: "cosmetic",
             img:"/images/submenu/powder.png"
           },
           {
             id: 42,
             title: "زیور آلات",
-            link: "/products-category/digital/ornaments",
+            link: "/products-category/beauty-health/ornaments",
             shortLink: "ornaments",
             img:"/images/submenu/ring.png"
           },
           {
             id: 43,
             title: "ساعت",
-            link: "/products-category/digital/watch",
+            link: "/products-category/beauty-health/watch",
             shortLink: "watch",
             img:"/images/submenu/watch.png"
           },
           {
             id: 44,
             title: "عطر",
-            link: "/products-category/digital/perfume",
+            link: "/products-category/beauty-health/perfume",
             shortLink: "perfume",
             img:"/images/submenu/perfume.png"
           },
           {
             id: 45,
             title: "عینک آفتابی",
-            link: "/products-category/digital/sunglasses",
+            link: "/products-category/beauty-health/sunglasses",
             shortLink: "sunglasses",
             img:"/images/submenu/sun-glasses.png"
           },
@@ -169,35 +169,35 @@ export const menus = [
         {
             id:51,
             title: "ایمنی و مراقبت",
-            link: "/products-category/digital/safety-care",
+            link: "/products-category/mother-child/safety-care",
             shortLink: "safety-care",
             img:"/images/submenu/mother-room.png"
           },
           {
             id: 52,
             title: "بهداشت و حمام",
-            link: "/products-category/digital/health-bathroom",
+            link: "/products-category/mother-child/health-bathroom",
             shortLink: "health-bathroom",
             img:"/images/submenu/bathtub.png"
           },
           {
             id: 53,
             title: "خواب کودک",
-            link: "/products-category/digital/childs-sleep",
+            link: "/products-category/mother-child/childs-sleep",
             shortLink: "childs-sleep",
             img:"/images/submenu/bed.png"
           },
           {
             id: 54,
             title: "غذا خوری",
-            link: "/products-category/digital/eating",
+            link: "/products-category/mother-child/eating",
             shortLink: "eating",
             img:"/images/submenu/breakfast.png"
           },
           {
             id: 55,
             title: "لوازم شخصی",
-            link: "/products-category/digital/personal-stuff",
+            link: "/products-category/mother-child/personal-stuff",
             shortLink: "personal-stuff",
             img:"/images/submenu/bib.png"
           },
@@ -213,28 +213,28 @@ export const menus = [
         {
             id:61,
             title: "پوشاک ورزشی",
-            link: "/products-category/digital/sportswear",
+            link: "/products-category/sport-entertainment/sportswear",
             shortLink: "sportswear",
             img:"/images/submenu/wear.png"
           },
           {
             id: 62,
             title: "تجهیزات سفر",
-            link: "/products-category/digital/travel-equipment",
+            link: "/products-category/sport-entertainment/travel-equipment",
             shortLink: "travel-equipment",
             img:"/images/submenu/trekking.png"
           },
           {
             id: 63,
             title: "کفش ورزشی",
-            link: "/products-category/digital/sport-shoes",
+            link: "/products-category/sport-entertainment/sport-shoes",
             shortLink: "sport-shoes",
             img:"/images/submenu/trainers.png"
           },
           {
             id: 64,
             title: "لوازم ورزشی",
-            link: "/products-category/digital/Sporting-goods",
+            link: "/products-category/sport-entertainment/Sporting-goods",
             shortLink: "Sporting-goods",
             img:"/images/submenu/sports.png"
           },
@@ -251,14 +251,14 @@ export const menus = [
         {
             id:71,
             title: "ابزار برقی و شارژی",
-            link: "/products-category/digital/electric-rechargeable-tools",
+            link: "/products-category/tools-electronics/electric-rechargeable-tools",
             shortLink: "electric-rechargeable-tools",
             img:"/images/submenu/grinding-machine.png"
           },
           {
             id: 72,
             title: "تجهیزات سفر",
-            link: "/products-category/digital/non-electrical-tools",
+            link: "/products-category/tools-electronics/non-electrical-tools",
             shortLink: "non-electrical-tools",
             img:"/images/submenu/tools.png"
           },

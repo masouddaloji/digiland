@@ -4,6 +4,7 @@
   box-shadow: var(--box-shadow);
   border-radius: var(--border-box);
   margin: 1.2rem 0;
+  user-select: none;
 }
 .categoryFilter__lists {
 padding: 1rem 1.5rem 1rem 1rem;

@@ -13,7 +13,7 @@ export default function ShowCategory({ categoryName, subCategory }) {
       {categoryName && !subCategory ? (
         <>
           {menus.map((category) => (
-            <div key={uuidv4()}>
+            <>
               {category.shortLink === categoryName &&
               category.subMenu.length > 0 ? (
                 <div className="product-category">
@@ -50,7 +50,7 @@ export default function ShowCategory({ categoryName, subCategory }) {
                   </div>
                 </div>
               ) : null}
-            </div>
+            </>
           ))}
         </>
       ) : null}
