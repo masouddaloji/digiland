@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 import useRefreshToken from "./useRefreshToken";
 // axios
 import axios from "../api/axios";
-import { privateAxios } from "../api/Axios";
+import privateAxios from "../api/privateAxios";
 
 const usePrivateAxios = () => {
   const refresh = useRefreshToken();

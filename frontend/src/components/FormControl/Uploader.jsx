@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 // packages
 import { Field, useField, useFormikContext } from "formik";
 //components
-import { privateAxios } from "../../api/axios";
+import privateAxios from "../../api/privateAxios";
 //hooks
 import useAuth from "../../hooks/useAuth";
 
@@ -76,9 +76,8 @@ const Uploader = (props) => {
   };
 
   useEffect(() => {
-    if (!field.value) {
+    
       setIsShowMessage(false);
-    }
   }, [field.value]);
 
 

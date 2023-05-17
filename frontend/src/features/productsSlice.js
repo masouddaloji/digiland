@@ -1,50 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../api/axios";
+import { toast } from "react-toastify";
+import privateAxios from "../api/privateAxios";
 
 const initialState = {
-  mainData: [],
-  paginatedData: [],
-  filteredData: [],
+  data: [],
   status: "idle",
   error: null,
   createStatus: "idle",
   updateStatus: "idle",
   deleteStatus: "idle",
+  createError: "",
+  updateError: "",
+  deleteError: "",
 };
+
 export const getProducts = createAsyncThunk(
   "products/getProducts",
-  async (limit, { rejectWithValue }) => {
-    try {
-      const response = await axios.get("product", {
-        params: {
-          limit,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      console.log("ERROR", error.response.data);
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-export const getProductsByPage = createAsyncThunk(
-  "products/getProductsByPage",
-  async (page, limit, { rejectWithValue }) => {
-    try {
-      const response = await axios.get("products", {
-        params: {
-          page,
-          limit,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-export const getProductsByFilter = createAsyncThunk(
-  "products/getProductsByFilter",
   async (data, { rejectWithValue }) => {
     try {
       const { page, limit, category, color, tags, sort, price } = data;
@@ -61,7 +33,51 @@ export const getProductsByFilter = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      return error.response.data;
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
+export const createProduct = createAsyncThunk(
+  "products/createProduct",
+  async ({ data, token }, { rejectWithValue }) => {
+    try {
+      const response = await privateAxios.post("products", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
+export const updateProduct = createAsyncThunk(
+  "products/updateProduct",
+  async ({ data, token, id }, { rejectWithValue }) => {
+    try {
+      const response = await privateAxios.put(`products/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+export const deleteProduct = createAsyncThunk(
+  "products/deleteProduct",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await privateAxios.delete(`products/${id}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -72,38 +88,54 @@ const productsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getProducts.pending, (state, action) => {
+      .addCase(getProducts.pending, (state) => {
         state.status = "loading";
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.status = "success";
-        state.mainData = action.payload.data;
+        state.data = action.payload.data;
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.status = "failed";
+        state.error = action.payload.message;
+      })
+      .addCase(createProduct.pending, (state) => {
+        state.createStatus = "loading";
+      })
+      .addCase(createProduct.fulfilled, (state, action) => {
+        state.createStatus = "success";
+        toast.success("محصول تستی با موفقیت افزوده شد");
+      })
+      .addCase(createProduct.rejected, (state, action) => {
+        state.createStatus = "failed";
         state.error = action.payload;
+        toast.error("افزودن محصول تستی با مشکل مواجه شد لطفا دوباره تلاش کنید");
       })
-      .addCase(getProductsByPage.pending, (state, action) => {
-        state.status = "loading";
+      .addCase(updateProduct.pending, (state) => {
+        state.updateStatus = "loading";
       })
-      .addCase(getProductsByPage.fulfilled, (state, action) => {
-        state.status = "success";
-        state.paginatedData = action.payload.data;
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        state.updateStatus = "success";
+        toast.success("اطلاعات محصول تستی با موفقیت تغییر کرد");
       })
-      .addCase(getProductsByPage.rejected, (state, action) => {
-        state.status = "failed";
+      .addCase(updateProduct.rejected, (state, action) => {
+        state.updateStatus = "failed";
         state.error = action.payload;
+        toast.error(
+          "تغییر اطلاعات محصول تستی با مشکل مواجه شد لطفا دوباره تلاش کنید"
+        );
       })
-      .addCase(getProductsByFilter.pending, (state, action) => {
-        state.status = "loading";
+      .addCase(deleteProduct.pending, (state) => {
+        state.deleteStatus = "loading";
       })
-      .addCase(getProductsByFilter.fulfilled, (state, action) => {
-        state.status = "success";
-        state.filteredData = action.payload.data;
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.deleteStatus = "success";
+        toast.success(" محصول تستی با موفقیت  حذف شد");
       })
-      .addCase(getProductsByFilter.rejected, (state, action) => {
-        state.status = "failed";
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.deleteStatus = "failed";
         state.error = action.payload;
+        toast.error("حذف محصول تستی با مشکل مواجه شد لطفا دوباره تلاش کنید");
       });
   },
 });

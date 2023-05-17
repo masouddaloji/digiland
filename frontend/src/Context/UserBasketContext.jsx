@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 // components
-import { privateAxios } from "../api/axios";
+import privateAxios from "../api/privateAxios";
 //packages
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";

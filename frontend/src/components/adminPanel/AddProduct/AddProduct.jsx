@@ -3,8 +3,10 @@ import { useRef } from "react";
 import { persianTexts } from "../../../text";
 // components
 import FormControl from "../../FormControl/FormControl";
-import { privateAxios } from "../../../api/axios";
-
+import  privateAxios  from "../../../api/privateAxios";
+//redux
+import {useDispatch} from 'react-redux'
+import { createProduct } from "../../../features/productsSlice";
 // packages
 import { toast } from "react-toastify";
 import { Form, Formik } from "formik";
@@ -22,6 +24,7 @@ import { ratingOptions,colorOptions } from "../../../Constants";
 import "./AddProduct.css";
 
 const AddProduct = () => {
+  const dispatch=useDispatch()
   const uploadRef = useRef();
   const { auth } = useAuth();
   const navigate=useNavigate()
@@ -62,26 +65,26 @@ const AddProduct = () => {
           fullDescription: values.productFullDescription,
           brand: values.productBrand,
         };
-
-        await privateAxios
-          .post("products", data, {
-            headers: {
-              Authorization: `Bearer ${auth?.token}`,
-              "Content-Type": "application/json",
-            },
-          })
-          .then((res) => {
-            console.log("res", res);
-            if (res.status === 201 || res.status === 200) {
-              toast.success("محصول با موفقیت افزوده شد");
-              resetForm();
-              navigate("/adminpanel/products")
-            }
-          })
-          .catch((err) => {
-            toast.error("ثبت محصول با خطا مواجه شد");
-            console.log(err);
-          });
+        dispatch(createProduct({data,token:auth?.token}))
+        // await privateAxios
+        //   .post("products", data, {
+        //     headers: {
+        //       Authorization: `Bearer ${auth?.token}`,
+        //       "Content-Type": "application/json",
+        //     },
+        //   })
+        //   .then((res) => {
+        //     console.log("res", res);
+        //     if (res.status === 201 || res.status === 200) {
+        //       toast.success("محصول با موفقیت افزوده شد");
+        //       resetForm();
+        //       navigate("/adminpanel/products")
+        //     }
+        //   })
+        //   .catch((err) => {
+        //     toast.error("ثبت محصول با خطا مواجه شد");
+        //     console.log(err);
+        //   });
       }}
     >
       {(formik) => (

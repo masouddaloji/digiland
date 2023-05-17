@@ -1,6 +1,6 @@
 import { useState } from "react";
 //component
-import { privateAxios } from "../../api/axios";
+import privateAxios from "../../api/privateAxios";
 import Spiner from "../Spiner/Spiner";
 //hooks
 import useAuth from "../../hooks/useAuth";

@@ -4,8 +4,12 @@ import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 // variables
 import { persianTexts } from "../../../text";
+//redux
+import { useDispatch } from "react-redux";
+import { updateProduct } from "../../../features/productsSlice";
 // components
-import axios, { privateAxios } from "./../../../api/axios";
+import axios from "./../../../api/axios";
+import privateAxios from "../../../api/privateAxios"; 
 import Error from "../../Error/Error";
 import Table from "../Table/Table";
 import Star from "../../Star/Star";
@@ -28,6 +32,7 @@ import "./AdminProducts.css";
 import LoaderComponent from "../../Loader/LoaderComponent";
 
 const AdminProducts = () => {
+  const dispatch=useDispatch()
   const [pageInfo, setPageInfo] = useState({
     isLoading: false,
     data: [],
@@ -87,11 +92,11 @@ const AdminProducts = () => {
       {isShowEditModal && (
         <div
           className="edit__container"
-          onClick={(e)=>{
-            if(e.target!==editRef?.current){
-              setIsShowEditModal(false)
-            }
-          }}
+          // onClick={(e)=>{
+          //   if(e.target!==editRef?.current){
+          //     setIsShowEditModal(false)
+          //   }
+          // }}
         >
           <div className="edit__content" ref={editRef}>
             <Formik
@@ -129,23 +134,24 @@ const AdminProducts = () => {
                   fullDescription: values.productFullDescription,
                   brand: values.productBrand,
                 };
-                await privateAxios
-                  .put(`products/${productEditDetails?._id}`, data, {
-                    headers: {
-                      Authorization: `Bearer ${auth?.token}`,
-                      "Content-Type": "application/json",
-                    },
-                  })
-                  .then((res) => {
-                    if (res.status === 200) {
-                      toast.success(persianTexts.adminpanel.editProductSuccess);
-                      setIsShowEditModal(false);
-                      getProducts();
-                    } else {
-                      toast.error(persianTexts.adminpanel.editProductError);
-                    }
-                  })
-                  .catch((err) => console.log(err));
+                  dispatch(updateProduct({data,token:auth?.token,id:productEditDetails?._id}))
+                // await privateAxios
+                //   .put(`products/${productEditDetails?._id}`, data, {
+                //     headers: {
+                //       Authorization: `Bearer ${auth?.token}`,
+                //       "Content-Type": "application/json",
+                //     },
+                //   })
+                //   .then((res) => {
+                //     if (res.status === 200) {
+                //       toast.success(persianTexts.adminpanel.editProductSuccess);
+                //       setIsShowEditModal(false);
+                //       getProducts();
+                //     } else {
+                //       toast.error(persianTexts.adminpanel.editProductError);
+                //     }
+                //   })
+                //   .catch((err) => console.log(err));
               }}
             >
               {(formik) => (

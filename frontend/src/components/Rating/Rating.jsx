@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 //hooks
 import useAuth from "./../../hooks/useAuth";
 //components
-import { privateAxios } from "../../api/axios";
+import privateAxios from "../../api/privateAxios";
 import FormControl from "../FormControl/FormControl";
 //validators
 import { userRatingSchema } from "../Validator/Validator";
