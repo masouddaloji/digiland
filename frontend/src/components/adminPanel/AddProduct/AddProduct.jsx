@@ -3,12 +3,10 @@ import { useRef } from "react";
 import { persianTexts } from "../../../text";
 // components
 import FormControl from "../../FormControl/FormControl";
-import  privateAxios  from "../../../api/privateAxios";
 //redux
-import {useDispatch} from 'react-redux'
-import { createProduct } from "../../../features/productsSlice";
+import { useDispatch } from "react-redux";
+import { createProduct, getProducts } from "../../../features/productsSlice";
 // packages
-import { toast } from "react-toastify";
 import { Form, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 //hooks
@@ -19,16 +17,36 @@ import { MdUploadFile, MdOutlineDriveFolderUpload } from "react-icons/md";
 import { addProductsSchema } from "../../Validator/Validator";
 
 //constannst
-import { ratingOptions,colorOptions } from "../../../Constants";
+import { ratingOptions, colorOptions } from "../../../Constants";
 // styles
 import "./AddProduct.css";
 
 const AddProduct = () => {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const uploadRef = useRef();
   const { auth } = useAuth();
-  const navigate=useNavigate()
-
+  const navigate = useNavigate();
+  const createnewProduct = (productinfos) => {
+    const data = {
+      title: productinfos.productTitle,
+      segment: productinfos.productSegment,
+      image: productinfos.productCover,
+      gallery: productinfos.productGallery,
+      offPrice: Number(productinfos.productOffPrice),
+      price: Number(productinfos.productPrice),
+      rating: Number(productinfos.productRating),
+      quantity: Number(productinfos.productQantity),
+      colors: productinfos.productColors,
+      category: productinfos.productCategory,
+      tags: productinfos.productSubCategory,
+      shortDescription: productinfos.productShortDescription,
+      fullDescription: productinfos.productFullDescription,
+      brand: productinfos.productBrand,
+    };
+    dispatch(createProduct({ data, token: auth?.token })).then(() => {
+      dispatch(getProducts());
+    });
+  };
   return (
     <Formik
       initialValues={{
@@ -49,42 +67,8 @@ const AddProduct = () => {
       }}
       validationSchema={addProductsSchema}
       onSubmit={async (values, { resetForm }) => {
-        const data = {
-          title: values.productTitle,
-          segment: values.productSegment,
-          image: values.productCover,
-          gallery: values.productGallery,
-          offPrice: Number(values.productOffPrice),
-          price: Number(values.productPrice),
-          rating: Number(values.productRating),
-          quantity: Number(values.productQantity),
-          colors: values.productColors,
-          category:values.productCategory,
-          tags:values.productSubCategory,
-          shortDescription: values.productShortDescription,
-          fullDescription: values.productFullDescription,
-          brand: values.productBrand,
-        };
-        dispatch(createProduct({data,token:auth?.token}))
-        // await privateAxios
-        //   .post("products", data, {
-        //     headers: {
-        //       Authorization: `Bearer ${auth?.token}`,
-        //       "Content-Type": "application/json",
-        //     },
-        //   })
-        //   .then((res) => {
-        //     console.log("res", res);
-        //     if (res.status === 201 || res.status === 200) {
-        //       toast.success("محصول با موفقیت افزوده شد");
-        //       resetForm();
-        //       navigate("/adminpanel/products")
-        //     }
-        //   })
-        //   .catch((err) => {
-        //     toast.error("ثبت محصول با خطا مواجه شد");
-        //     console.log(err);
-        //   });
+        await createnewProduct(values);
+        resetForm();
       }}
     >
       {(formik) => (
@@ -94,7 +78,7 @@ const AddProduct = () => {
               <h2 className="table__header">
                 {persianTexts.admin.products.label.addProductsTitle}
               </h2>
-              <Form className="admin__form" >
+              <Form className="admin__form">
                 <div className="row">
                   <div className="col-md-6">
                     <FormControl
@@ -195,7 +179,9 @@ const AddProduct = () => {
                   </div>
                   <div className="col-md-6">
                     <FormControl
-                      label={persianTexts.admin.products.label.inputLabelSubCategory}
+                      label={
+                        persianTexts.admin.products.label.inputLabelSubCategory
+                      }
                       placeholder={
                         persianTexts.admin.products.placeholder
                           .inputPlaceholderSubCategory

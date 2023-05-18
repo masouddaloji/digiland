@@ -5,22 +5,23 @@ import { toast } from "react-toastify";
 // variables
 import { persianTexts } from "../../../text";
 //redux
-import { useDispatch } from "react-redux";
-import { updateProduct } from "../../../features/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateProduct,
+  getProducts,
+  deleteProduct,
+} from "../../../features/productsSlice";
 // components
-import axios from "./../../../api/axios";
-import privateAxios from "../../../api/privateAxios"; 
 import Error from "../../Error/Error";
 import Table from "../Table/Table";
 import Star from "../../Star/Star";
 import FormControl from "../../FormControl/FormControl";
-import  CustomPagination  from "../../Pagination/CustomPagination";
+import CustomPagination from "../../Pagination/CustomPagination";
 //hooks
 import useAuth from "../../../hooks/useAuth";
 // validator
 import { addProductsSchema } from "../../Validator/Validator";
 //icons
-import { IoMdClose } from "react-icons/io";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { MdUploadFile, MdOutlineDriveFolderUpload } from "react-icons/md";
@@ -32,63 +33,61 @@ import "./AdminProducts.css";
 import LoaderComponent from "../../Loader/LoaderComponent";
 
 const AdminProducts = () => {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
+  const { status, error, updateStatus, deleteStatus } = useSelector(
+    (state) => state.products
+  );
+  const { data, hasNextPage, currentPage, lastPage, total } = useSelector(
+    (state) => state.products.data
+  );
+
   const [pageInfo, setPageInfo] = useState({
-    isLoading: false,
-    data: [],
     page: 1,
-    pageSize: 10,
-    pageCount:null
+    countInPage: 10,
   });
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [productEditDetails, setProductEditDetails] = useState({});
   const editRef = useRef();
   const { auth } = useAuth();
-  
-  const getProducts = async () => {
-    try {
-      setPageInfo((prev) => ({ ...prev, isLoading: true }));
-      await axios
-        .get(`products?page=${pageInfo.page}&limit=${pageInfo.pageSize}`)
-        .then((res) =>
-          setPageInfo((prev) => ({
-            ...prev,
-            isLoading: false,
-            data: res.data.data,
-            pageCount: res.data.lastPage,
-          }))
-        );
-    } catch (err) {
-      toast.error("Error fetching products");
-    }
+  const removeProductHandler = (id) => {
+    dispatch(deleteProduct({id,token:auth?.token})).then(() =>
+      dispatch(
+        getProducts({ page: pageInfo.page, limit: pageInfo.countInPage })
+      )
+    );
   };
-
-  const removeProductHandler = async (productID) => {
-    try {
-      await privateAxios
-        .delete(`products/${productID}`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
-        })
-        .then((res) => {
-          if (res.status === 200 || res.status === 201) {
-            toast.success(persianTexts.adminpanel.removeProductSuccess);
-            getProducts();
-          } else {
-            toast.error(persianTexts.adminpanel.removeProductError);
-          }
-        });
-    } catch (error) {
-      toast.error("Error removing product");
-    }
+  const updateProductHandler = (productInfos) => {
+    const data = {
+      title: productInfos.productTitle,
+      segment: productInfos.productSegment,
+      image: productInfos.productCover,
+      gallery: productInfos.productGallery,
+      offPrice: Number(productInfos.productOffPrice),
+      price: Number(productInfos.productPrice),
+      rating: Number(productInfos.productRating),
+      quantity: Number(productInfos.productQantity),
+      colors: productInfos.productColors,
+      category: productInfos.productSubCategory,
+      tags: productInfos.productCategory,
+      shortDescription: productInfos.productShortDescription,
+      fullDescription: productInfos.productFullDescription,
+      brand: productInfos.productBrand,
+    };
+    dispatch(
+      updateProduct({ data, token: auth?.token, id: productEditDetails?._id })
+    ).then(() =>
+      getProducts({
+        page: pageInfo.page,
+        limit: pageInfo.countInPage,
+      })
+    );
   };
-
   useEffect(() => {
-    getProducts();
-  }, [pageInfo.page,pageInfo.pageSize]);
+    dispatch(getProducts({ page: pageInfo.page, limit: pageInfo.countInPage }));
+  }, [pageInfo.page, pageInfo.countInPage]);
 
   return (
-
-      <>
+    <>
       {isShowEditModal && (
         <div
           className="edit__container"
@@ -117,42 +116,7 @@ const AdminProducts = () => {
                 productGallery: productEditDetails?.gallery,
               }}
               validationSchema={addProductsSchema}
-              onSubmit={async (values, { resetForm }) => {
-                const data = {
-                  title: values.productTitle,
-                  segment: values.productSegment,
-                  image: values.productCover,
-                  gallery: values.productGallery,
-                  offPrice: Number(values.productOffPrice),
-                  price: Number(values.productPrice),
-                  rating: Number(values.productRating),
-                  quantity: Number(values.productQantity),
-                  colors: values.productColors,
-                  category: values.productSubCategory,
-                  tags: values.productCategory,
-                  shortDescription: values.productShortDescription,
-                  fullDescription: values.productFullDescription,
-                  brand: values.productBrand,
-                };
-                  dispatch(updateProduct({data,token:auth?.token,id:productEditDetails?._id}))
-                // await privateAxios
-                //   .put(`products/${productEditDetails?._id}`, data, {
-                //     headers: {
-                //       Authorization: `Bearer ${auth?.token}`,
-                //       "Content-Type": "application/json",
-                //     },
-                //   })
-                //   .then((res) => {
-                //     if (res.status === 200) {
-                //       toast.success(persianTexts.adminpanel.editProductSuccess);
-                //       setIsShowEditModal(false);
-                //       getProducts();
-                //     } else {
-                //       toast.error(persianTexts.adminpanel.editProductError);
-                //     }
-                //   })
-                //   .catch((err) => console.log(err));
-              }}
+              onSubmit={(values) => updateProductHandler(values)}
             >
               {(formik) => (
                 <>
@@ -395,57 +359,64 @@ const AdminProducts = () => {
               <td>عملیات</td>
             </tr>
           </thead>
-          {!pageInfo.isLoading?<>
-          <tbody>
-            {pageInfo.data.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  <div className="table__imageBox">
-                    <img
-                      src={`http://localhost:8000${item.image}`}
-                      alt="product image"
-                      className="table__img"
-                    />
-                  </div>
-                </td>
-                <td title={item.title}>{item.title}</td>
-                <td>{item.price.toLocaleString()}</td>
-                <td>{item.quantity}</td>
-                <td>{item.category}</td>
-                <td>{item.brand}</td>
-                <td>{Star(item.rating)}</td>
-                <td>
-                  <div className="actionBtns">
-                    <span
-                      className="edit"
-                      title="ویرایش"
-                      onClick={() => {
-                        setIsShowEditModal(true);
-                        setProductEditDetails({ ...item });
-                      }}
-                    >
-                      <FiEdit className="actions__icon" />
-                    </span>
-                    <span
-                      className="delete"
-                      title="حذف"
-                      onClick={() => removeProductHandler(item._id)}
-                    >
-                      <RiDeleteBinLine className="actions__icon" />
-                    </span>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-          </>:<LoaderComponent />}
-            
+          {status === "success" ? (
+            <>
+              <tbody>
+                {data.map((item) => (
+                  <tr key={item._id}>
+                    <td>
+                      <div className="table__imageBox">
+                        <img
+                          src={`http://localhost:8000${item.image}`}
+                          alt="product image"
+                          className="table__img"
+                        />
+                      </div>
+                    </td>
+                    <td title={item.title}>{item.title}</td>
+                    <td>{item.price.toLocaleString()}</td>
+                    <td>{item.quantity}</td>
+                    <td>{item.category}</td>
+                    <td>{item.brand}</td>
+                    <td>{Star(item.rating)}</td>
+                    <td>
+                      <div className="actionBtns">
+                        <span
+                          className="edit"
+                          title="ویرایش"
+                          onClick={() => {
+                            setIsShowEditModal(true);
+                            setProductEditDetails({ ...item });
+                          }}
+                        >
+                          <FiEdit className="actions__icon" />
+                        </span>
+                        <span
+                          className="delete"
+                          title="حذف"
+                          onClick={() => removeProductHandler(item._id)}
+                        >
+                          <RiDeleteBinLine className="actions__icon" />
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </>
+          ) : (
+            <LoaderComponent />
+          )}
         </table>
       </Table>
-      <CustomPagination setData={setPageInfo} page={pageInfo.page} count={pageInfo.pageCount}/>
-      </>
-
-  
+      {hasNextPage && (
+        <CustomPagination
+          setData={setPageInfo}
+          page={currentPage}
+          count={lastPage}
+        />
+      )}
+    </>
   );
 };
 
