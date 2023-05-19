@@ -175,6 +175,7 @@ a {
   --border-btn: 2.5rem;
   --box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
   --linear: linear-gradient(90deg, #0c97fa, #16e1f5);
+  --skeleton:#0000001c;
 }
 /* end variabels */
 /* start default */
@@ -202,6 +203,7 @@ body {
 a {
   text-decoration: none;
 }
+
 /* end default */
 /* start helper */
 .row_reverce{

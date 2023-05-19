@@ -1,19 +1,17 @@
-
+//packages
+import { Skeleton, Stack } from "@mui/material";
 //styles
-import './FooterSlider.css'
+import "./FooterSlider.css";
 
 const FooterSlider = (props) => {
-    const {title,img}=props
+  const { title, img } = props;
   return (
-    <div className="footerSlide">
-    <img
-      src={img}
-      alt="footer img"
-      className="footerSlide__img"
-    />
-    <span className="footerSlide__caption">{title}</span>
-  </div>
-  )
-}
+        <div className="footerSlide">
+          <img src={img} alt="footer img" className="footerSlide__img" />
+          <span className="footerSlide__caption">{title}</span>
+        </div>
 
-export default FooterSlider
+  );
+};
+
+export default FooterSlider;

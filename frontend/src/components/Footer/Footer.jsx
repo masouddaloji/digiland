@@ -24,6 +24,7 @@ export default function Footer() {
               slidesPerView={7}
               spaceBetween={15}
               loop={true}
+              status={"success"}
             />
           </div>
         </div>

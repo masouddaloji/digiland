@@ -29,6 +29,7 @@ export default function App() {
   return (
     <AuthContextProvider>
     <UserBasketContextProvider>
+      <div className="app__wrapper">
       <div className="app">
         {location.pathname.includes("register") ||
         location.pathname.includes("login") ||
@@ -42,6 +43,7 @@ export default function App() {
         location.pathname.includes("adminpanel") ? null : (
           <Footer />
         )}
+      </div>
       </div>
       </UserBasketContextProvider>
     </AuthContextProvider>

@@ -5,6 +5,7 @@
     padding:.5rem;
   }
   .footerSlide__img {
+    max-width: 4rem;
   }
   .footerSlide__caption {
     font-family: var(--iran-bold);

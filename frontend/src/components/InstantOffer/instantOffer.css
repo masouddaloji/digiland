@@ -7,6 +7,9 @@
   text-align: center;
   padding: 0 1rem 1rem;
 }
+.instantOffer--skeleton{
+  width: 100%;
+}
 .instantOffer__titleBox {
   background: var(--blue);
   padding: 0.6rem 2rem;

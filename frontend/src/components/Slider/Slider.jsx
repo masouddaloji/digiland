@@ -1,7 +1,7 @@
 //packages
-import { v4 as uuidv4 } from "uuid";
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { nanoid } from "@reduxjs/toolkit";
 //swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -15,32 +15,31 @@ import BannerBox from "../BannerBox/BannerBox";
 import ServiceBox from "../../components/ServiceBox/ServiceBox";
 import InstantOffer from "../InstantOffer/InstantOffer";
 import FooterSlider from "../FooterSlider/FooterSlider";
-//icons
-import { TfiSearch } from "react-icons/tfi";
+
 // styles
 import "./Slider.css";
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
-function Slider({ array, slide, ...restprops }) {
+function Slider({ array, slide, status,slidesPerView=1, ...restprops }) {
   const selectslide = (item) => {
     switch (slide) {
       case "SuggestedProductBox":
-        return <SuggestedProductBox {...item} {...restprops} />;
+        return <SuggestedProductBox {...item} status={status} />;
       case "CompanyProduct":
-        return <CompanyProduct {...item} {...restprops} />;
+        return <CompanyProduct {...item} status={status} />;
       case "ArticleBox":
-        return <ArticleBox {...item} {...restprops} />;
+        return <ArticleBox {...item} status={status} />;
       case "ProductCart":
-        return <ProductCart {...item} {...restprops} />;
+        return <ProductCart {...item} status={status} />;
       case "BannerBox":
-        return <BannerBox {...item} {...restprops} />;
+        return <BannerBox {...item} status={status} />;
       case "serviceBox":
-        return <ServiceBox {...item} {...restprops} />;
+        return <ServiceBox {...item} status={status} />;
       case "instantOffer":
-        return <InstantOffer {...item} {...restprops} />;
+        return <InstantOffer {...item} status={status} />;
       case "footerSlider":
-        return <FooterSlider {...item} {...restprops} />;
+        return <FooterSlider {...item} status={status} />;
       default:
         return null;
     }
@@ -59,7 +58,7 @@ function Slider({ array, slide, ...restprops }) {
           : false
       }
       breakpoints={
-        restprops.slidesPerView > 1
+        slidesPerView > 1
           ? {
               300: {
                 slidesPerView:
@@ -99,22 +98,29 @@ function Slider({ array, slide, ...restprops }) {
                 slidesPerView:
                   slide === "serviceBox" || slide === "footerSlider"
                     ? 7
-                    : restprops.slidesPerView - 1,
+                    : slidesPerView - 1,
               },
               1100: {
-                slidesPerView: restprops.slidesPerView,
+                slidesPerView: slidesPerView,
               },
               1200: {
-                slidesPerView: restprops.slidesPerView,
+                slidesPerView: slidesPerView,
               },
             }
           : null
       }
       className="customSwiper"
     >
-      {array?.map((item) => (
-        <SwiperSlide key={uuidv4()}>{selectslide(item)}</SwiperSlide>
-      ))}
+      {/* */}
+      { status==="success"?array?.map((item) => (
+        <SwiperSlide key={nanoid()}>{selectslide(item)}</SwiperSlide>
+      )):status === "loading"
+        ? Array(slidesPerView ?? 1)
+            .fill(0)
+            .map(() => (
+              <SwiperSlide key={nanoid()}>{selectslide()}</SwiperSlide>
+            ))
+        : null}
     </Swiper>
   );
 }

@@ -1,5 +1,6 @@
 //packages
 import { Link } from "react-router-dom";
+import { Skeleton, Stack } from "@mui/material";
 //icons
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoIosStar } from "react-icons/io";
@@ -7,9 +8,10 @@ import { IoIosStar } from "react-icons/io";
 import "./CompanyProduct.css";
 
 export default function CompanyProduct(props) {
-  const { _id, title, image, price, offPrice, rating } = props;
+  const { _id, title, image, price, offPrice, rating,status } = props;
   return (
-    <div className="companyProduct">
+   <>
+    {status==="success"? <div className="companyProduct">
       <Link to={`/product/${_id}`} className="companyProduct__link">
         <div className="CompanyProduct__banner">
           <img
@@ -59,6 +61,20 @@ export default function CompanyProduct(props) {
           </div>
         </div>
       </Link>
-    </div>
+    </div>:
+    <div className="companyProduct--skeleton">
+    <Stack sx={{display:"flex",flexDirection:"row",alignItems:"center",gap:"1rem"}}>
+
+            <Skeleton variant="rounded" animation="wave" height="6rem" width="6rem" />
+            <div className="CompanyProduct__info">
+            <Stack spacing={1}>
+            <Skeleton animation="wave" height="2rem" width="100%" />
+            <Skeleton animation="wave" height="2rem" width="100%" />
+            </Stack>
+            </div>
+            </Stack>
+            </div>
+    }
+   </>
   );
 }

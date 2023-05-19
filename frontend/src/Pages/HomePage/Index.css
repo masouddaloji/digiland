@@ -40,11 +40,16 @@ del::after {
   width: 2.4rem;
   height: 2.4rem;
 }
+
 .amazinOffer {
   width: 100%;
   background: var(--red-50);
   border-radius: var(--border-box);
   padding: 0 0.7rem;
+}
+.amazinOffer--skeleton{
+  background: var(--skeleton);
+
 }
 .amazinOffer__imgBox {
   width: 100%;

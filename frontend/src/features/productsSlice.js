@@ -32,10 +32,9 @@ export const getProducts = createAsyncThunk(
           price,
         },
       });
-      console.log("response",response)
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -51,7 +50,7 @@ export const createProduct = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -67,21 +66,21 @@ export const updateProduct = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
 
 export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
-  async ({id,token}, { rejectWithValue }) => {
+  async ({ id, token }, { rejectWithValue }) => {
     try {
-      const response = await privateAxios.delete(`products/${id}`,{
+      const response = await privateAxios.delete(`products/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
-        }
-      })
+        },
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -115,7 +114,7 @@ const productsSlice = createSlice({
       })
       .addCase(createProduct.rejected, (state, action) => {
         state.createStatus = "failed";
-        state.error = action.payload;
+        state.error = action.payload.message;
         toast.error(persianTexts.adminpanel.createProductError);
       })
       .addCase(updateProduct.pending, (state) => {
@@ -127,8 +126,8 @@ const productsSlice = createSlice({
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.updateStatus = "failed";
-        state.error = action.payload;
-        console.log("action.payload update reject",action.payload)
+        state.error = action.payload.message;
+        console.log("action.payload update reject", action.payload);
         toast.error(persianTexts.adminpanel.editProductError);
       })
       .addCase(deleteProduct.pending, (state) => {
@@ -140,10 +139,9 @@ const productsSlice = createSlice({
       })
       .addCase(deleteProduct.rejected, (state, action) => {
         state.deleteStatus = "failed";
-        state.error = action.payload;
+        state.error = action.payload.message;
         toast.error(persianTexts.adminpanel.removeProductError);
       });
   },
 });
-export const selectProduct=state=>state.data.data
 export default productsSlice.reducer;
