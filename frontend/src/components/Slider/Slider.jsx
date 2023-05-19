@@ -1,5 +1,5 @@
 //packages
-import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
+import  { Autoplay, Pagination, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { nanoid } from "@reduxjs/toolkit";
 //swiper styles
@@ -19,7 +19,6 @@ import FooterSlider from "../FooterSlider/FooterSlider";
 // styles
 import "./Slider.css";
 
-SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 function Slider({ array, slide, status,slidesPerView=1, ...restprops }) {
   const selectslide = (item) => {

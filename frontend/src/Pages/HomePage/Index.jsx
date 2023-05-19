@@ -32,25 +32,19 @@ export default function Index() {
     appleProducts: [],
     amazinOffer: [],
   });
-  const setDataForPage = () => {
-    const newProducts = data.slice(0, 6);
-    const appleProducts = data.filter((item) => item.brand === "apple").slice(0, 6);
-    const amazinOffer = data.filter((product) => product.offPrice >= 10);
-    setPageInfos((prev) => ({
-      ...prev,
-      newProducts,
-      appleProducts,
-      amazinOffer,
-    }));
-  };
   useEffect(() => {
-    dispatch(getProductsMain({ limit: 200 })).then(() => {
-      setDataForPage();
-    });
+    dispatch(getProductsMain({ limit: 200 }));
   }, []);
   useEffect(() => {
-    setDataForPage();
-  }, [data]);
+    if (status === "success") {
+      const newProducts = data.slice(0, 6);
+      const appleProducts = data
+        .filter((item) => item.brand === "apple")
+        .slice(0, 6);
+      const amazinOffer = data.filter((product) => product.offPrice >= 10);
+      setPageInfos({ newProducts, appleProducts, amazinOffer });
+    }
+  }, [data, status]);
 
   return (
     <div className="container">
