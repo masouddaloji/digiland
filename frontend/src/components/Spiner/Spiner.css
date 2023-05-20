@@ -1,6 +1,6 @@
 .spiner__wrapper{
-    width: 10rem;
-    height: 3rem;
+    width: inherit;
+    height: inherit;
     display: flex;
     align-items: center;
     justify-content: center;

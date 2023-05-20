@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 // packages
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
-import { v4 as uuidv4 } from "uuid";
-import { useDispatch, useSelector } from "react-redux";
 //components
 import axios from "../../api/axios";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import Slider from "../../components/Slider/Slider";
 import CompanyProduct from "../../components/CompanyProduct/CompanyProduct";
-//redux actions
+//redux 
+import { useDispatch, useSelector } from "react-redux";
 import { getProductsMain } from "../../features/mainPageSlice";
+import { nanoid } from "@reduxjs/toolkit";
 // icons
 import { BiLayerPlus } from "react-icons/bi";
 import { AiFillApple } from "react-icons/ai";
@@ -202,7 +202,7 @@ export default function Index() {
                 </div>
               ))
             : articles.map((item) => (
-                <div className="col-12 col-md-6 col-lg-4" key={item._id}>
+                <div className="col-12 col-md-6 col-lg-4" key={nanoid()}>
                   <CompanyProduct status={status} />
                 </div>
               ))}

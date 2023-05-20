@@ -5,6 +5,7 @@
     border: 1px solid var(--gray);
     border-radius: var(--border-box);
     position: relative;
+    margin: 0 .5rem;
   }
   .quantity__btn{
     padding: 0 0.4rem;
@@ -23,15 +24,14 @@
   }
   .quantity__input {
     height: 100%;
-    max-width: 5rem;
+    max-width: 4rem;
     display: inline-block;
     color: var(--black-50);
-    padding: 0.5rem;
+    padding: 0.3rem;
     text-align: center;
     border: none;
     background: transparent;
-    font-family: var(--iran);
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
  input[type="number"] {
     -webkit-appearance: textfield;

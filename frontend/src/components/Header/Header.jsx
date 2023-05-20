@@ -5,10 +5,14 @@ import jwt_decode from "jwt-decode";
 // components
 import Navbar from "../Navbar/Navbar";
 import MobileMenuItem from "./MobileMenuItem";
+import ProductCount from "../ProductCount/ProductCount";
+import Spiner from "../Spiner/Spiner";
 
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { getBasket, multiRemoveFromBasket } from "../../features/basketSlice";
 //hooks
 import useLogout from "../../hooks/useLogout";
-import useBasket from "../../hooks/useBasket";
 // contexts
 import useAuth from "../../hooks/useAuth";
 // icons
@@ -29,10 +33,9 @@ import { persianTexts } from "../../text";
 // styles
 import "./Header.css";
 
-import ProductCount from "../ProductCount/ProductCount";
-
 export default function Header({}) {
-  const { basketInfo, getUserBasket, removeItemFromBasket } = useBasket();
+  const dispatch = useDispatch();
+  const { data, status, error,updateBasketStatus,removeFromBasketStatus } = useSelector((state) => state.basket);
   const [showCategory, setShowCategory] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [currentCategory, setCurrentCategory] = useState("all");
@@ -60,6 +63,9 @@ export default function Header({}) {
   const logoutHandler = () => {
     logout();
   };
+  const removeProductFromBasketHandler=(id)=>{
+    dispatch(multiRemoveFromBasket({id,token:auth?.token})).then(()=>dispatch(getBasket(auth?.token)))
+  }
 
   useEffect(() => {
     const outsideClickHandler = (e) => {
@@ -78,9 +84,8 @@ export default function Header({}) {
     return () => window.removeEventListener("resize", resizaHandler);
   }, []);
   useEffect(() => {
-
     if (auth.token) {
-      getUserBasket();
+      dispatch(getBasket(auth?.token));
     }
   }, [auth.token]);
 
@@ -104,7 +109,7 @@ export default function Header({}) {
               <div>
                 <span>سبد خرید</span>
                 <span className="sideBarCart__headerCount ss02">
-                  {basketInfo?.totalQTY}
+                  {data?.data?.totalQTY}
                 </span>
               </div>
               <IoMdClose
@@ -112,42 +117,50 @@ export default function Header({}) {
                 onClick={() => setIsShowSideBarCart(false)}
               />
             </div>
-            {basketInfo?.cartItems?.length ? (
+            {data?.data?.cartItems?.length > 0 ? (
               <ul className="sideBarCart__Lists">
-                {basketInfo?.cartItems?.map((item) => (
+                {data.data.cartItems.map((item) => (
                   <li className="sideBarCart__ListsItem" key={item._id}>
-                    <div className="sideBarCart__imgBox">
-                      <Link to="/" className="sideBarCart__Link">
-                        <img
-                          src={`http://localhost:8000${item?.productId?.image}`}
-                          alt="mini image products"
-                          className="sideBarCart__img"
-                        />
-                      </Link>
-                      <CgCloseO
-                        className="sideBarCart__removeIcon"
-                        onClick={() =>
-                          removeItemFromBasket(item?.productId?._id)
-                        }
-                      />
-                    </div>
-                    <div className="sideBarCart__priceBox">
-                      <Link to="/" className="sideBarCart__LinkText">
-                        {item?.productId?.title}
-                      </Link>
-                      <div className="flex">
-                        <bdi className="currentPrice">
-                          {item?.productId?.price?.toLocaleString()}
-                          <span className="toman">تومان</span>
-                        </bdi>
-                        <ProductCount
-                          value={item?.cartQuantity ? item.cartQuantity : 1}
-                          minValue={1}
-                          maxValue={item?.productId?.quantity}
-                          productId={item?.productId?._id}
-                        />
-                      </div>
-                    </div>
+                    {updateBasketStatus === "loading" ? (
+                      <Spiner />
+                    ) : (
+                      <>
+                        {" "}
+                        <div className="sideBarCart__imgBox">
+                          <Link
+                            to={`/product/${item._id}`}
+                            className="sideBarCart__Link"
+                          >
+                            <img
+                              src={`http://localhost:8000${item?.productId?.image}`}
+                              alt="mini image products"
+                              className="sideBarCart__img"
+                            />
+                          </Link>
+                          <CgCloseO
+                            className="sideBarCart__removeIcon"
+                            onClick={()=>removeProductFromBasketHandler(item?.productId?._id)}
+                          />
+                        </div>
+                        <div className="sideBarCart__priceBox">
+                          <Link to="/" className="sideBarCart__LinkText">
+                            {item?.productId?.title}
+                          </Link>
+                          <div className="flex">
+                            <bdi className="currentPrice ss02">
+                              {item?.productId?.price?.toLocaleString()}
+                              <span className="toman">تومان</span>
+                            </bdi>
+                            <ProductCount
+                              value={item?.cartQuantity?? 1}
+                              minValue={1}
+                              maxValue={item?.productId?.quantity}
+                              productId={item?.productId?._id}
+                            />
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -164,7 +177,7 @@ export default function Header({}) {
               <div className="flex ss02">
                 <span>جمع كل سبد خريد : </span>
                 <bdi className="currentPrice">
-                  {basketInfo?.totalAmount?.toLocaleString()}
+                  {data?.data?.totalAmount?.toLocaleString()}
                   <span className="toman">تومان</span>
                 </bdi>
               </div>
@@ -352,7 +365,7 @@ export default function Header({}) {
                       <div className="header__authUser-box">
                         <IoPersonOutline className="fullIcon" />
                       </div>
-                      <span className="header__authUser-text"> 
+                      <span className="header__authUser-text">
                         ورود / عضویت
                       </span>
                     </Link>
@@ -365,8 +378,8 @@ export default function Header({}) {
                       <ul className="header__userOptions">
                         {jwt_decode(auth?.token)?.role === "superAdmin" ||
                           (jwt_decode(auth?.token)?.role === "admin" && (
-                            <li className="header__userOption"> 
-                            <Link to="/adminpanel/dashboard">پنل مدیریت</Link>
+                            <li className="header__userOption">
+                              <Link to="/adminpanel/dashboard">پنل مدیریت</Link>
                             </li>
                           ))}
                         <li className="header__userOption">حساب کاربری</li>
@@ -389,9 +402,9 @@ export default function Header({}) {
                     onClick={() => setIsShowSideBarCart(true)}
                   >
                     <SiShopify className="basket__icon" />
-                    {basketInfo?.totalQTY ? (
+                    {data?.data?.totalQTY ? (
                       <span className="basket__counter">
-                        {basketInfo?.totalQTY}
+                       {data.data.totalQTY}
                       </span>
                     ) : null}
                   </div>
@@ -421,7 +434,7 @@ export default function Header({}) {
               <div>
                 <span>سبد خرید</span>
                 <span className="sideBarCart__headerCount ss02">
-                  {basketInfo?.totalQTY ? basketInfo.totalQTY : 0}
+                  {data?.data?.totalQTY??0}
                 </span>
               </div>
               <IoMdClose
@@ -431,12 +444,15 @@ export default function Header({}) {
             </div>
             {auth.token ? (
               <>
-                {basketInfo?.cartItems?.length ? (
+                {data?.data?.cartItems?.length ? (
                   <ul className="sideBarCart__Lists">
-                    {basketInfo?.cartItems?.map((item) => (
+                    {data.data.cartItems.map((item) => (
                       <li className="sideBarCart__ListsItem" key={item._id}>
                         <div className="sideBarCart__imgBox">
-                          <Link to="/" className="sideBarCart__Link">
+                          <Link
+                            to={`/product/${item._id}`}
+                            className="sideBarCart__Link"
+                          >
                             <img
                               src={`http://localhost:8000${item?.productId?.image}`}
                               alt="mini image products"
@@ -445,9 +461,7 @@ export default function Header({}) {
                           </Link>
                           <CgCloseO
                             className="sideBarCart__removeIcon"
-                            onClick={() =>
-                              removeItemFromBasket(item?.productId?._id)
-                            }
+                            onClick={()=>removeProductFromBasketHandler(item?.productId?._id)}
                           />
                         </div>
                         <div className="sideBarCart__priceBox">
@@ -460,7 +474,7 @@ export default function Header({}) {
                               <span className="toman">تومان</span>
                             </bdi>
                             <ProductCount
-                              value={item?.cartQuantity ? item.cartQuantity : 1}
+                              value={item?.cartQuantity?? 1}
                               minValue={1}
                               maxValue={item?.productId?.quantity}
                               productId={item?.productId?._id}
@@ -483,7 +497,7 @@ export default function Header({}) {
                   <div className="flex ss02">
                     <span>جمع كل سبد خريد : </span>
                     <bdi className="currentPrice">
-                      {basketInfo?.totalAmount?.toLocaleString()}
+                      {data?.data?.totalAmount?.toLocaleString()}
                       <span className="toman">تومان</span>
                     </bdi>
                   </div>
@@ -606,9 +620,9 @@ export default function Header({}) {
                     onClick={() => setIsShowSideBarCart(true)}
                   >
                     <FiShoppingBag className="mobileHeader__basketIcon" />
-                    {basketInfo?.totalQTY ? (
+                    {data?.data?.totalQTY ? (
                       <span className="mobileHeader__basketCounter ss02">
-                        {basketInfo?.totalQTY}
+                        {data?.data?.totalQTY}
                       </span>
                     ) : null}
                   </div>
@@ -617,8 +631,7 @@ export default function Header({}) {
             </div>
             <div className="row">
               <div className="col">
-
-                  {/* {showResult && (
+                {/* {showResult && (
                     <div className="search-box__result-wrapper">
                       {showLoader && <div className="search-box__loader"></div>}
                       {seeSearchResult ? (
@@ -681,7 +694,7 @@ export default function Header({}) {
                       )}
                     </div>
                   )} */}
-  
+
                 <div className="serach__wrapper" ref={searchRef}>
                   <form
                     className="searchBox"

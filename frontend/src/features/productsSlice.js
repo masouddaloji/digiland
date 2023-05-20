@@ -11,9 +11,7 @@ const initialState = {
   createStatus: "idle",
   updateStatus: "idle",
   deleteStatus: "idle",
-  createError: "",
-  updateError: "",
-  deleteError: "",
+
 };
 
 export const getProducts = createAsyncThunk(

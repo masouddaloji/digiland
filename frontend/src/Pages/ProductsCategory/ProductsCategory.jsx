@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 //packages
 import { useParams } from "react-router-dom";
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../features/productsSlice";
+import { nanoid } from "@reduxjs/toolkit";
 //components
 import ShowCategory from "../../components/ShowCategory/ShowCategory";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
@@ -9,10 +13,8 @@ import CategoryFilter from "../../components/CategoryFilter/CategoryFilter";
 import Brands from "../../components/Brands/Brands";
 import ProductCart from "../../components/ProductCart/ProductCart";
 import Error from "../../components/Error/Error";
-import axios from "../../api/axios";
 import CustomPagination from "./../../components/Pagination/CustomPagination";
 //icons
-
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import { BiPoll } from "react-icons/bi";
 import { FaSortAmountDown } from "react-icons/fa";
@@ -25,70 +27,37 @@ import { persianTexts } from "../../text";
 import "./ProductsCategory.css";
 
 export default function ProductsCategory() {
+  const dispatch = useDispatch();
+  const { data, status, error } = useSelector((state) => state.products);
   const { categoryName, subCategory } = useParams();
   const [isShowSortList, setIsShowSortList] = useState(false);
   const [isShowFilterOptions, setIsShowFilterOptions] = useState(false);
-  const [sortBy, setSortBy] = useState({
-    category: categoryName ? categoryName : "",
-    tags: subCategory ? subCategory : "",
+  const [sortStatusPersian, setSortStatusPersian] = useState("");
+
+  const [pageInfo, setPageInfo] = useState({
+    page: 1,
+    limit: 12,
+    category: categoryName ?? "",
+    tags: subCategory ?? "",
     price: "",
     color: "",
     sort: "",
   });
-  const [sortStatusPersian, setSortStatusPersian] = useState("");
-
-  const [pageInfo, setPageInfo] = useState({
-    isLoading: false,
-    data: [],
-    page: 1,
-    pageSize: 12,
-    isShowPagination: false,
-    pageCount: null,
-    maxPrice: null,
-  });
-  const getProductsBy = async () => {
-    setPageInfo((prev) => ({ ...prev, isLoading: true }));
-    await axios
-      .get(`products`, {
-        params: {
-          page: pageInfo.page,
-          limit: pageInfo.pageSize,
-          category: sortBy.category,
-          color: sortBy.color,
-          tags: sortBy.tags,
-          sort: sortBy.sort,
-          price: sortBy.price,
-        },
-      })
-      .then((res) => {
-        const prices = res?.data?.data?.map((product) => product.price);
-        const maxPriceinProduct = Math.max(...prices);
-        setPageInfo((prev) => ({
-          ...prev,
-          isLoading: false,
-          data: res.data?.data ?? [],
-          isShowPagination: res.data?.hasNextPage,
-          pageCount: res.data?.lastPage ?? null,
-          maxPrice: maxPriceinProduct,
-        }));
-
-        console.log(res);
-      });
-  };
+  
   useEffect(() => {
-    if (subCategory) {
-      return setSortBy((prev) => ({
-        ...prev,
-        category: categoryName,
-        tags: subCategory,
-      }));
-    }
-    return setSortBy((prev) => ({ ...prev, category: categoryName }));
+    setPageInfo((prev) => ({
+      ...prev,
+      category: categoryName ?? "",
+      tags: subCategory ?? "",
+    }));
   }, [categoryName, subCategory]);
-  useEffect(() => {
-    getProductsBy();
-  }, [sortBy, pageInfo.page, pageInfo.pageSize]);
 
+  useEffect(() => {
+    console.log("pageInfo", { ...pageInfo });
+    dispatch(
+      getProducts({...pageInfo})
+    );
+  }, [pageInfo]);
   return (
     <div className="container">
       <div className="row">
@@ -96,14 +65,17 @@ export default function ProductsCategory() {
         <ShowCategory categoryName={categoryName} subCategory={subCategory} />
       </div>
       <div className="row">
-       <div className="col-lg-3">
-       <div className={`filtered__options ${isShowFilterOptions?"filtered__options--show":null}`}>
-          <PriceSlider setSortBy={setSortBy} max={pageInfo.maxPrice} />
-          <CategoryFilter category={categoryName} setCategory={setSortBy} />
-          <Brands />
-
+        <div className="col-lg-3">
+          <div
+            className={`filtered__options ${
+              isShowFilterOptions ? "filtered__options--show" : null
+            }`}
+          >
+            <PriceSlider setPageInfo={setPageInfo} />
+            <CategoryFilter category={categoryName} setCategory={setPageInfo} />
+            <Brands />
+          </div>
         </div>
-       </div>
         <div className="col-lg-9">
           <div className="pageTitle">
             <div className="pageTitle__box">
@@ -118,7 +90,7 @@ export default function ProductsCategory() {
           <div>
             <div className="productsCategory__sortedBox">
               <div className="productsCategory__sortWrapper">
-                <FaSortAmountDown className="sort__icon"/>
+                <FaSortAmountDown className="sort__icon" />
                 <div
                   className="productsCategory__showedBox"
                   onClick={() => setIsShowSortList(!isShowSortList)}
@@ -144,7 +116,7 @@ export default function ProductsCategory() {
                       key={item.id}
                       className="productsCategory__sorteItem"
                       onClick={() => {
-                        setSortBy((prev) => ({
+                        setPageInfo((prev) => ({
                           ...prev,
                           sort: item.sortedBy,
                         }));
@@ -157,23 +129,25 @@ export default function ProductsCategory() {
                   ))}
                 </ul>
               </div>
-              <span onClick={()=>setIsShowFilterOptions(!isShowFilterOptions)}> 
-              <BsSliders className="filter__icon" />
-              فیلتر
+              <span
+                onClick={() => setIsShowFilterOptions(!isShowFilterOptions)}
+              >
+                <BsSliders className="filter__icon" />
+                فیلتر
               </span>
             </div>
           </div>
           {/* end sorted products */}
           {/* start show products */}
           <div className="row row_reverce">
-            {!pageInfo.isLoading ? (
-              pageInfo.data.length > 0 ? (
-                pageInfo.data.map((product) => (
+            {status === "success" &&
+              (data.data.length > 0 ? (
+                data.data.map((product) => (
                   <div
                     className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3"
                     key={product._id}
                   >
-                    <ProductCart {...product} />
+                    <ProductCart {...product} status={status} />
                   </div>
                 ))
               ) : (
@@ -181,17 +155,26 @@ export default function ProductsCategory() {
                   title={persianTexts.productsCategory.noProducts}
                   type="warning"
                 />
-              )
-            ) : (
-              <p>Loading...</p>
-            )}
+              ))}
+            {status === "loading" &&
+              Array(pageInfo.limit)
+                .fill(0)
+                .map((product) => (
+                  <div
+                    className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3"
+                    key={nanoid}
+                  >
+                    <ProductCart status={status} />
+                  </div>
+                ))}
+            {error && <Error title="خطا در ارتباط با سرور" type="warning" />}
           </div>
 
           {/* end show products */}
           {/* start pagination */}
-          {!pageInfo.isLoading && (
+          {data?.lastPage > 1 && (
             <CustomPagination
-              count={pageInfo.pageCount}
+              count={data.lastPage}
               setData={setPageInfo}
               page={pageInfo.page}
             />

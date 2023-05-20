@@ -1,3 +1,5 @@
+//redux
+import { nanoid } from '@reduxjs/toolkit'
 //icons
 import { IoIosStar, IoIosStarOutline } from 'react-icons/io'
 //styles
@@ -9,12 +11,12 @@ const Star = (rating) => {
        {Array(5 - rating)
             .fill(0)
             .map((item, index) => (
-              <IoIosStarOutline className="star" />
+              <IoIosStarOutline className="star" key={nanoid()}/>
             ))}
           {Array(rating)
             .fill(0)
             .map((item, index) => (
-              <IoIosStar className="star" />
+              <IoIosStar className="star" key={nanoid()}/>
             ))}
     </>
   )

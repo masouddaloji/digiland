@@ -1,10 +1,13 @@
 //packages
 import { Link } from "react-router-dom";
 import { Skeleton, Stack } from "@mui/material";
-//hooks
-import useBasket from "../../hooks/useBasket";
+//redux
+import { useDispatch } from "react-redux";
+import { addToBasket, getBasket } from "../../features/basketSlice";
 //components
 import Star from "../Star/Star";
+//hooks
+import useAuth from "../../hooks/useAuth";
 //icons
 import { IoMdHeartEmpty } from "react-icons/io";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
@@ -13,8 +16,14 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import "./ProductCart.css";
 
 export default function ProductCart(props) {
+  const dispatch = useDispatch();
+  const { auth } = useAuth();
   const { _id, title, image, offPrice, price, rating, status } = props;
-  const { addToBasketHandler, addToFavorite } = useBasket();
+  const addToBasketHandler = () => {
+    dispatch(addToBasket({ id: _id, token: auth?.token })).then(() =>
+      dispatch(getBasket(auth?.token))
+    );
+  };
   return (
     <>
       {status === "success" ? (
@@ -58,7 +67,7 @@ export default function ProductCart(props) {
             <div className="product__rightBox">
               <div
                 className="product__addToBasketBox mainHasTooltip"
-                onClick={() => addToBasketHandler(_id)}
+                onClick={addToBasketHandler}
               >
                 <MdOutlineAddShoppingCart className="Product__addToBasketIcon" />
                 <span className="tooltip">افزودن به سبد خرید</span>
@@ -77,7 +86,7 @@ export default function ProductCart(props) {
         </div>
       ) : (
         <div className="productBox">
-        <Stack spacing={1}>
+          <Stack spacing={1}>
             <Skeleton
               animation="wave"
               height="16rem"

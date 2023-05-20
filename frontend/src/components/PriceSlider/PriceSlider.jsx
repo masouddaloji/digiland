@@ -2,13 +2,14 @@ import { useState, useCallback, useEffect, useMemo } from "react";
 //styles
 import "./PriceSlider.css";
 
-export default function PriceSlider({setSortBy, max}) {
+export default function PriceSlider({ setPageInfo }) {
   const gap = 100000;
-  const [filterPrice, setFilterPrice] = useState([0, gap]);
+  const maxPrice = 300000000;
+  const [filterPrice, setFilterPrice] = useState([0, maxPrice]);
 
   const [progressBarStyle, setProgressBarStyle] = useState({
-    left: `${(filterPrice[0] / max) * 100}%`,
-    right: `${100 - (filterPrice[1] / max) * 100}%`,
+    left: `${(filterPrice[0] / maxPrice) * 100}%`,
+    right: `${100 - (filterPrice[1] / maxPrice) * 100}%`,
   });
 
   const changeInputMin = useCallback(
@@ -34,17 +35,17 @@ export default function PriceSlider({setSortBy, max}) {
   );
 
   const filteredByPrices = () =>
-    setSortBy((prev) => ({
+    setPageInfo((prev) => ({
       ...prev,
       price: `${filterPrice[0]}/${filterPrice[1]}`,
     }));
 
   useEffect(() => {
     setProgressBarStyle({
-      left: `${(filterPrice[0] / max) * 100}%`,
-      right: `${100 - (filterPrice[1] / max) * 100}%`,
+      left: `${(filterPrice[0] / maxPrice) * 100}%`,
+      right: `${100 - (filterPrice[1] / maxPrice) * 100}%`,
     });
-  }, [filterPrice, max]);
+  }, [filterPrice, maxPrice]);
 
   return (
     <div className="priceSlider">
@@ -55,7 +56,7 @@ export default function PriceSlider({setSortBy, max}) {
           className="progress__input min__range"
           type="range"
           min={0}
-          max={max}
+          max={maxPrice}
           step={10000}
           value={filterPrice[0]}
           onInput={changeInputMin}
@@ -64,7 +65,7 @@ export default function PriceSlider({setSortBy, max}) {
           className="progress__input max__range"
           type="range"
           min={gap}
-          max={max}
+          max={maxPrice}
           step={10000}
           value={filterPrice[1]}
           onInput={changeInputMax}
