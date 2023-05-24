@@ -161,11 +161,11 @@ export default function Product() {
             <div className="product__wrapper">
               <div className="row">
                 {/* product images */}
-                <div className="col-12 col-md-4 col-lg-4">
+                <div className="col-12 col-md-5 col-lg-5">
                   <ProductGallery array={detailsProduct?.gallery} />
                 </div>
                 {/* product details */}
-                <div className="col-12 col-md-4 col-lg-5">
+                <div className="col-12 col-md-4 col-lg-4">
                   <div>
                     <h2 className="product__detailsTitle">
                       {detailsProduct?.title}
@@ -283,7 +283,7 @@ export default function Product() {
                   </div>
                 </div>
                 {/* details send */}
-                <div className="col-12 col-md-4 col-lg-3">
+                <div className="col-12 col-md-3 col-lg-3">
                   <div className="product__availbleBox">
                     <div className="product__availbleWrapper">
                       {detailsProduct?.quantity ? (

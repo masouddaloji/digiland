@@ -136,7 +136,7 @@ export const getProducts = async (
   let sort: any = { _id: -1 };
   if (query?.sort) {
     if (query.sort === "rating") {
-      sort = { rating: 1 };
+      sort = { rating: -1 };
     }
     if (query.sort === "latest") {
       sort = { createdAt: -1 };

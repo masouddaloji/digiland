@@ -7,10 +7,11 @@ import { BsClockHistory } from "react-icons/bs";
 import "./SuggestedProductBox.css";
 
 export default function SuggestedProductBox(props) {
-  const { _id, title, image, offPrice, price, rating, status } = props;
+  const { _id, title, image, offPrice, price, rating, isLoading, isSuccess } =
+    props;
   return (
     <>
-      {status === "success" ? (
+      {isSuccess ? (
         <div className="productBox">
           <h2 className="suggestedproduct__title" title={title}>
             <Link className="suggestedproduct__link" to={`/product/${_id}`}>
@@ -53,7 +54,7 @@ export default function SuggestedProductBox(props) {
             </div>
           </div>
         </div>
-      ) : (
+      ) :isLoading? (
         <div className="productBox">
           <Stack spacing={1}>
             <Skeleton animation="wave" height="2rem" width="100%" />
@@ -67,7 +68,7 @@ export default function SuggestedProductBox(props) {
             <Skeleton animation="wave" height="2rem" width="100%" />
           </Stack>
         </div>
-      )}
+      ):null}
     </>
   );
 }

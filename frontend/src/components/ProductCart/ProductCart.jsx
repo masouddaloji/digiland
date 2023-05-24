@@ -18,7 +18,7 @@ import "./ProductCart.css";
 export default function ProductCart(props) {
   const dispatch = useDispatch();
   const { auth } = useAuth();
-  const { _id, title, image, offPrice, price, rating, status } = props;
+  const { _id, title, image, offPrice, price, rating,  isLoading, isSuccess  } = props;
   const addToBasketHandler = () => {
     dispatch(addToBasket({ id: _id, token: auth?.token })).then(() =>
       dispatch(getBasket(auth?.token))
@@ -26,7 +26,7 @@ export default function ProductCart(props) {
   };
   return (
     <>
-      {status === "success" ? (
+      {isSuccess ? (
         <div className="productBox">
           <div className="product__imgBox">
             <img
@@ -84,7 +84,7 @@ export default function ProductCart(props) {
             <div className="product__leftBox">{Star(rating)}</div>
           </div>
         </div>
-      ) : (
+      ) :isLoading? (
         <div className="productBox">
           <Stack spacing={1}>
             <Skeleton
@@ -98,7 +98,7 @@ export default function ProductCart(props) {
             <Skeleton animation="wave" height="2rem" width="100%" />
           </Stack>
         </div>
-      )}
+      ):null}
     </>
   );
 }

@@ -1,5 +1,5 @@
 //packages
-import  { Autoplay, Pagination, Navigation } from "swiper";
+import { Autoplay, Pagination, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { nanoid } from "@reduxjs/toolkit";
 //swiper styles
@@ -19,26 +19,56 @@ import FooterSlider from "../FooterSlider/FooterSlider";
 // styles
 import "./Slider.css";
 
-
-function Slider({ array, slide, status,slidesPerView=1, ...restprops }) {
+function Slider({
+  array,
+  slide,
+  isLoading,
+  isSuccess,
+  slidesPerView = 1,
+  ...restprops
+}) {
   const selectslide = (item) => {
     switch (slide) {
       case "SuggestedProductBox":
-        return <SuggestedProductBox {...item} status={status} />;
+        return (
+          <SuggestedProductBox
+            {...item}
+            isLoading={isLoading}
+            isSuccess={isSuccess}
+          />
+        );
       case "CompanyProduct":
-        return <CompanyProduct {...item} status={status} />;
+        return (
+          <CompanyProduct
+            {...item}
+            isLoading={isLoading}
+            isSuccess={isSuccess}
+          />
+        );
       case "ArticleBox":
-        return <ArticleBox {...item} status={status} />;
+        return (
+          <ArticleBox {...item} isLoading={isLoading} isSuccess={isSuccess} />
+        );
       case "ProductCart":
-        return <ProductCart {...item} status={status} />;
+        return (
+          <ProductCart {...item} isLoading={isLoading} isSuccess={isSuccess} />
+        );
       case "BannerBox":
-        return <BannerBox {...item} status={status} />;
+        return (
+          <BannerBox {...item} isLoading={isLoading} isSuccess={isSuccess} />
+        );
       case "serviceBox":
-        return <ServiceBox {...item} status={status} />;
+        return (
+          <ServiceBox {...item} isLoading={isLoading} isSuccess={isSuccess} />
+        );
       case "instantOffer":
-        return <InstantOffer {...item} status={status} />;
+        return (
+          <InstantOffer {...item} isLoading={isLoading} isSuccess={isSuccess} />
+        );
       case "footerSlider":
-        return <FooterSlider {...item} status={status} />;
+        return (
+          <FooterSlider {...item} isLoading={isLoading} isSuccess={isSuccess} />
+        );
       default:
         return null;
     }
@@ -111,9 +141,11 @@ function Slider({ array, slide, status,slidesPerView=1, ...restprops }) {
       className="customSwiper"
     >
       {/* */}
-      { status==="success"?array?.map((item) => (
-        <SwiperSlide key={nanoid()}>{selectslide(item)}</SwiperSlide>
-      )):status === "loading"
+      {isSuccess
+        ? array?.map((item) => (
+            <SwiperSlide key={nanoid()}>{selectslide(item)}</SwiperSlide>
+          ))
+        :isLoading
         ? Array(slidesPerView ?? 1)
             .fill(0)
             .map(() => (

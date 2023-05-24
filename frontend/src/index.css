@@ -168,14 +168,14 @@ a {
   --gray-100: #444;
   --gray-50: #d3d3d3;
   --gray-25: #c0c0c0;
-  --gray-05:#80848a08;
+  --gray-05: #80848a08;
   --red: #a3080c;
   --red-50: #ff4242;
   --red-25: rgba(255, 66, 66, 0.2);
   --border-btn: 2.5rem;
   --box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
   --linear: linear-gradient(90deg, #0c97fa, #16e1f5);
-  --skeleton:#0000001c;
+  --skeleton: #0000001c;
 }
 /* end variabels */
 /* start default */
@@ -206,7 +206,7 @@ a {
 
 /* end default */
 /* start helper */
-.row_reverce{
+.row_reverce {
   flex-direction: row-reverse;
 }
 .full--width {
@@ -288,10 +288,8 @@ a {
   height: auto;
   overflow: hidden;
   border-radius: var(--border-box);
-  background: var(--white);
   padding: 1rem 1.2rem 1rem 1.2rem;
   text-align: center;
-  box-shadow: var(--box-shadow)
 }
 .product__imgBox {
   width: 100%;

@@ -6,10 +6,12 @@ import { Skeleton, Stack } from "@mui/material";
 import "./instantOffer.css";
 
 const InstantOffer = (props) => {
-  const { _id, title, image, offPrice, price, rating, status } = props;
+  const { _id, title, image, offPrice, price, rating, isLoading, isSuccess } =
+    props;
+    
   return (
     <>
-      {status === "success" ? (
+      {isSuccess ? (
         <div className="instantOffer">
           <div className="instantOffer__titleBox">
             <span className="instantOffer__title">پیشنهاد لحظه ای</span>
@@ -40,7 +42,7 @@ const InstantOffer = (props) => {
             </span>
           </div>
         </div>
-      ) : (
+      ) : isLoading ? (
         <div className="instantOffer--skeleton">
           <Stack spacing={2} sx={{ padding: "0 .5rem" }}>
             <Skeleton
@@ -66,7 +68,7 @@ const InstantOffer = (props) => {
             />
           </Stack>
         </div>
-      )}
+      ) : null}
     </>
   );
 };

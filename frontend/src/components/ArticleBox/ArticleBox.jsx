@@ -7,10 +7,10 @@ import "./ArticleBox.css";
 import { Avatar, Skeleton, Stack } from "@mui/material";
 
 export default function ArticleBox(props) {
-  const { status } = props;
+  const { isLoading, isSuccess } = props;
   return (
     <>
-      {status === "success" ? (
+      {isSuccess ? (
         <div className="articleBox">
           <Link className="articleBox__link" to="/">
             <div className="articleBox__banner">
@@ -43,9 +43,9 @@ export default function ArticleBox(props) {
             </div>
           </div>
         </div>
-      ) : 
-      <div className="articleBox">
-      <Stack spacing={1}>
+      ) : isLoading ? (
+        <div className="articleBox">
+          <Stack spacing={1}>
             <Skeleton
               animation="wave"
               height="16rem"
@@ -53,14 +53,25 @@ export default function ArticleBox(props) {
               variant="rounded"
             />
             <Skeleton animation="wave" height="2rem" width="100%" />
-            <Stack sx={{display:"flex",flexDirection:"row",alignItems:"center",gap:"1rem"}}>
-
-            <Skeleton variant="circular" animation="wave" height="3rem" width="3rem" />
-            <Skeleton animation="wave" height="2rem" width="100%" />
+            <Stack
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: "1rem",
+              }}
+            >
+              <Skeleton
+                variant="circular"
+                animation="wave"
+                height="3rem"
+                width="3rem"
+              />
+              <Skeleton animation="wave" height="2rem" width="100%" />
             </Stack>
           </Stack>
-      </div>
-      }
+        </div>
+      ) : null}
     </>
   );
 }

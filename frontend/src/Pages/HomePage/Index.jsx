@@ -7,10 +7,9 @@ import axios from "../../api/axios";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import Slider from "../../components/Slider/Slider";
 import CompanyProduct from "../../components/CompanyProduct/CompanyProduct";
-//redux 
-import { useDispatch, useSelector } from "react-redux";
-import { getProductsMain } from "../../features/mainPageSlice";
+//redux
 import { nanoid } from "@reduxjs/toolkit";
+import { useGetIndexInfosQuery } from "../../features/indexPage/indexApi";
 // icons
 import { BiLayerPlus } from "react-icons/bi";
 import { AiFillApple } from "react-icons/ai";
@@ -22,29 +21,28 @@ import { banners, smallBanners } from "../../Constants";
 import "./Index.css";
 
 export default function Index() {
-  const dispatch = useDispatch();
-  const { data, status, error } = useSelector((state) => state.mainPage);
-
+  const {
+    data: products,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useGetIndexInfosQuery("getIndexInfos");
   const articles = Array(6).fill(0);
-
   const [pageInfos, setPageInfos] = useState({
     newProducts: [],
     appleProducts: [],
     amazinOffer: [],
   });
   useEffect(() => {
-    dispatch(getProductsMain({ limit: 200 }));
-  }, []);
-  useEffect(() => {
-    if (status === "success") {
-      const newProducts = data.slice(0, 6);
-      const appleProducts = data
+    if (isSuccess) {
+      const newProducts = products.slice(0, 6);
+      const appleProducts = products
         .filter((item) => item.brand === "apple")
         .slice(0, 6);
-      const amazinOffer = data.filter((product) => product.offPrice >= 10);
+      const amazinOffer = products.filter((product) => product.offPrice >= 10);
       setPageInfos({ newProducts, appleProducts, amazinOffer });
     }
-  }, [data, status]);
+  }, [products]);
 
   return (
     <div className="container">
@@ -55,11 +53,12 @@ export default function Index() {
             <div className="widget">
               {/* banner */}
               <Slider
-                status={status}
+                isLoading={isLoading}
+                isSuccess={isSuccess}
                 spaceBetween={45}
-                loop={status === "success" ? true : false}
-                autoplay={status === "success" ? true : false}
-                navigation={status === "success" ? true : false}
+                loop={isSuccess}
+                autoplay={isSuccess}
+                navigation={isSuccess}
                 array={banners}
                 slide="BannerBox"
               />
@@ -69,11 +68,12 @@ export default function Index() {
           <div className="col-lg-3 hideninstantOffer">
             <div className="instantOffer__wrapper">
               <Slider
-                status={status}
+                isLoading={isLoading}
+                isSuccess={isSuccess}
                 spaceBetween={15}
-                pagination={status === "success" ? true : false}
-                loop={status === "success" ? true : false}
-                autoplay={status === "success" ? true : false}
+                pagination={isSuccess}
+                loop={isSuccess}
+                autoplay={isSuccess}
                 array={pageInfos.amazinOffer}
                 slide="instantOffer"
               />
@@ -85,11 +85,12 @@ export default function Index() {
       <div className="row">
         <div className="col">
           <Slider
-            status={status}
+            isLoading={isLoading}
+            isSuccess={isSuccess}
             slidesPerView={8}
             spaceBetween={15}
-            loop={status === "success" ? true : false}
-            autoplay={status === "success" ? true : false}
+            loop={isSuccess}
+            autoplay={isSuccess}
             array={services}
             slide="serviceBox"
           />
@@ -97,14 +98,12 @@ export default function Index() {
       </div>
       {/* amazin offer */}
       <section
-        className={`amazinOffer ${
-          status === "loading" ? "amazinOffer--skeleton" : null
-        }`}
+        className={`amazinOffer ${isLoading ? "amazinOffer--skeleton" : null}`}
       >
         <div className="row">
           <div className="col-4 col-sm-3 col-md-2">
             <div className="amazinOffer__imgBox">
-              {status === "loading" ? (
+              {isLoading ? (
                 <Skeleton variant="rounded" width="100%" height="100%" />
               ) : (
                 <img
@@ -117,12 +116,13 @@ export default function Index() {
           </div>
           <div className="col-8 col-sm-9 col-md-10">
             <Slider
-              status={status}
+              isLoading={isLoading}
+              isSuccess={isSuccess}
               slidesPerView={4}
               spaceBetween={15}
-              loop={status === "success" ? true : false}
+              loop={isSuccess}
               navigation={true}
-              autoplay={status === "success" ? true : false}
+              autoplay={isSuccess}
               array={pageInfos.amazinOffer}
               slide="SuggestedProductBox"
             />
@@ -132,7 +132,7 @@ export default function Index() {
       {/* banner  */}
       <section className="bannerBoxes">
         <div className="row">
-          {status === "success"
+          {isSuccess
             ? smallBanners.map((banner) => (
                 <div className="col col-md-4" key={banner.id}>
                   <div className="bannerBox">
@@ -171,10 +171,11 @@ export default function Index() {
         <div className="row">
           <div className="col">
             <Slider
-              status={status}
+              isLoading={isLoading}
+              isSuccess={isSuccess}
               slidesPerView={5}
               spaceBetween={15}
-              loop={status === "success" ? true : false}
+              loop={isSuccess}
               navigation={true}
               array={pageInfos.newProducts}
               slide="ProductCart"
@@ -194,16 +195,20 @@ export default function Index() {
           </div>
         </div>
         <div className="row">
-          {status === "success"
+          {isSuccess
             ? pageInfos?.appleProducts?.length > 0 &&
               pageInfos.appleProducts.map((item) => (
                 <div className="col-12 col-md-6 col-lg-4" key={item._id}>
-                  <CompanyProduct {...item} status={status} />
+                  <CompanyProduct
+                    {...item}
+                    isLoading={isLoading}
+                    isSuccess={isSuccess}
+                  />
                 </div>
               ))
             : articles.map((item) => (
                 <div className="col-12 col-md-6 col-lg-4" key={nanoid()}>
-                  <CompanyProduct status={status} />
+                  <CompanyProduct isLoading={isLoading} isSuccess={isSuccess} />
                 </div>
               ))}
         </div>
@@ -224,11 +229,12 @@ export default function Index() {
         <div className="row">
           <div className="col">
             <Slider
-              status={status}
+              isLoading={isLoading}
+              isSuccess={isSuccess}
               slidesPerView={4}
-              autoplay={status === "success" ? true : false}
+              autoplay={isSuccess}
               spaceBetween={15}
-              loop={status === "success" ? true : false}
+              loop={isSuccess}
               navigation={true}
               array={articles}
               slide="ArticleBox"
