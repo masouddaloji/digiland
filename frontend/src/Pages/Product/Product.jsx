@@ -42,12 +42,18 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/zoom";
 import "./Product.css";
+import { useGetProductByIdQuery } from "../../features/Product/ProductSlice";
 
 export default function Product() {
-  const { basketInfo, getUserBasket } = useBasket();
-  const [detailsProduct, setDetailsProduct] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const { productId } = useParams();
+  const {
+    data: product,
+    isSuccess,
+    isLoading,
+    isError,
+    error,
+  } = useGetProductByIdQuery(productId);
+  const { basketInfo, getUserBasket } = useBasket();
   const { auth } = useAuth();
   const { addToFavorite, addToBasketHandler } = useBasket();
   const [active, setActive] = useState("description");
@@ -55,7 +61,7 @@ export default function Product() {
   const [productUpdated, setProductUpdated] = useState();
   const [relatedProduct, setRelatedProduct] = useState([]);
   const [productCount, setProductCount] = useState(1);
-
+  const { data } = useGetProductByIdQuery(productId);
   const showRatingResultPersian = (rate) => {
     switch (rate) {
       case 5:
@@ -106,24 +112,12 @@ export default function Product() {
     const persianDate = new Intl.DateTimeFormat("fa", options).format(date);
     return persianDate;
   };
-
-  const getData = async () => {
-    await axios
-      .get(`products/reviews/${productId}`)
-      .then((res) => {
-        setDetailsProduct(res?.data?.data);
-        setSelectedColor(res?.data?.data?.colors?.[0]);
-        setProductUpdated(res?.data?.data?.updatedAt);
-        setIsLoading(false);
-      })
-      .catch((error) => console.log(error));
-  };
   const getRelatedProduct = () => {
     axios
       .get("products")
       .then((res) => {
         const filterproduct = res?.data?.data?.filter(
-          (item) => item.category === detailsProduct?.category
+          (item) => item.category === product?.category
         );
         setRelatedProduct(filterproduct);
       })
@@ -138,22 +132,20 @@ export default function Product() {
   };
   // getdata from server
   useEffect(() => {
-    setIsLoading(true);
-    getData();
     getUserBasket();
   }, [productId]);
 
-  useEffect(() => {
-    if (detailsProduct.length) {
-      getRelatedProduct();
-    }
-  }, [productId]);
+  // useEffect(() => {
+  //   if (product.length) {
+  //     getRelatedProduct();
+  //   }
+  // }, [productId]);
 
   return (
     <>
       {isLoading ? (
         <Loader message="در حال دریافت اطلاعات" />
-      ) : (
+      ) : isSuccess ? (
         <div className="product">
           <div className="container">
             {/* bread crumbs */}
@@ -162,16 +154,16 @@ export default function Product() {
               <div className="row">
                 {/* product images */}
                 <div className="col-12 col-md-5 col-lg-5">
-                  <ProductGallery array={detailsProduct?.gallery} />
+                  <ProductGallery array={product?.gallery} />
                 </div>
                 {/* product details */}
                 <div className="col-12 col-md-4 col-lg-4">
                   <div>
                     <h2 className="product__detailsTitle">
-                      {detailsProduct?.title}
+                      {product?.title}
                     </h2>
                     <span className="product__detailsSubtitle">
-                      {detailsProduct?.segment}
+                      {product?.segment}
                     </span>
                     <div className="product__detailsMeta">
                       <span className="product__detailsMetainfo">دسته : </span>
@@ -210,21 +202,21 @@ export default function Product() {
                         <span className="product__infosAnswer">2G، 3G، 4G</span>
                       </li>
                     </ul>
-                    <div className="productBox">
-                      {detailsProduct?.offPrice ? (
+                    <div className="priceBox">
+                      {product?.offPrice ? (
                         <>
                           <del>
                             <bdi className="product_info__price productPrice ss02">
-                              {detailsProduct?.price.toLocaleString()}
+                              {product?.price.toLocaleString()}
                             </bdi>
                           </del>
                           <span>
                             {" "}
                             <bdi className="product_info__price currentPrice ss02">
                               {(
-                                detailsProduct?.price -
-                                (detailsProduct?.price *
-                                  detailsProduct?.offPrice) /
+                                product?.price -
+                                (product?.price *
+                                  product?.offPrice) /
                                   100
                               ).toLocaleString()}
                             </bdi>
@@ -233,7 +225,7 @@ export default function Product() {
                         </>
                       ) : (
                         <bdi className="product_info__price currentPrice ss02">
-                          {detailsProduct?.price?.toLocaleString()}
+                          {product?.price?.toLocaleString()}
                           <span className="toman">تومان</span>
                         </bdi>
                       )}
@@ -246,7 +238,7 @@ export default function Product() {
                       </div>
                       <div className="colorAndAddTobasket__wrapper">
                         <div className="product__allColors">
-                          {detailsProduct?.colors?.map((color) => (
+                          {product?.colors?.map((color) => (
                             <div
                               style={selectColorStyle(color)}
                               className={`product__color ${
@@ -286,7 +278,7 @@ export default function Product() {
                 <div className="col-12 col-md-3 col-lg-3">
                   <div className="product__availbleBox">
                     <div className="product__availbleWrapper">
-                      {detailsProduct?.quantity ? (
+                      {product?.quantity ? (
                         <div className="product__availbleItem">
                           <BiCheckSquare className="product__availbleItemIcon available" />
                           موجود است
@@ -386,7 +378,7 @@ export default function Product() {
                         نقد و بررسی اجمالی
                       </span>
                       <span className="allDetails__headingDesc">
-                        {detailsProduct?.segment}
+                        {product?.segment}
                       </span>
                     </div>
                   </div>
@@ -395,7 +387,7 @@ export default function Product() {
                       className="allDetails__detailsText"
                       dangerouslySetInnerHTML={{
                         __html: domPurify.sanitize(
-                          detailsProduct?.shortDescription
+                          product?.shortDescription
                         ),
                       }}
                     ></p>
@@ -414,7 +406,7 @@ export default function Product() {
                         مشخصات کلی
                       </span>
                       <span className="allDetails__headingDesc">
-                        {detailsProduct?.segment}
+                        {product?.segment}
                       </span>
                     </div>
                   </div>
@@ -422,7 +414,7 @@ export default function Product() {
                     className="details__tableWrapper"
                     dangerouslySetInnerHTML={{
                       __html: domPurify.sanitize(
-                        detailsProduct?.fullDescription
+                        product?.fullDescription
                       ),
                     }}
                   ></div>
@@ -440,7 +432,7 @@ export default function Product() {
                         نظرات کاربران
                       </span>
                       <span className="allDetails__headingDesc">
-                        {detailsProduct?.segment}
+                        {product?.segment}
                       </span>
                     </div>
                   </div>
@@ -460,7 +452,7 @@ export default function Product() {
                         <div className="resultReview__wrraper">
                           <h3 className="resultReview__title">
                             {persianTexts.productInfo.productRatingFromUsers}
-                            <span>{detailsProduct?.rating}</span>
+                            <span>{product?.rating}</span>
                           </h3>
                           <div className="resultReview__points">
                             <div className="resultReview__point">
@@ -472,13 +464,13 @@ export default function Product() {
                                   <span
                                     className="resultReview__pointProgressBar"
                                     style={{
-                                      width: `${detailsProduct?.rating * 20}%`,
+                                      width: `${product?.rating * 20}%`,
                                     }}
                                   ></span>
                                 </div>
                                 <span className="resultReview__pointResultText">
                                   {showRatingResultPersian(
-                                    detailsProduct?.rating
+                                    product?.rating
                                   )}
                                 </span>
                               </div>
@@ -487,7 +479,7 @@ export default function Product() {
                         </div>
                       </div>
                       <div className="col-12 col-md-6">
-                        <Rating getData={getData} />
+                        <Rating  />
                       </div>
                     </div>
                     <div className="row">
@@ -495,8 +487,8 @@ export default function Product() {
                         <div className="allComments__header">
                           <h2 className="allComments__title">
                             نقد ها و بررسی ها
-                            {detailsProduct?.reviews?.length > 0 && (
-                              <span>{detailsProduct.reviews.length}</span>
+                            {product?.reviews?.length > 0 && (
+                              <span>{product.reviews.length}</span>
                             )}
                           </h2>
                           <ul className="allComments__sorted">
@@ -508,9 +500,9 @@ export default function Product() {
                           </ul>
                         </div>
                         <ul className="userComment__wrapper">
-                          {detailsProduct?.reviews?.length ? (
+                          {product?.reviews?.length ? (
                             <>
-                              {detailsProduct?.reviews?.map((review) => (
+                              {product?.reviews?.map((review) => (
                                 <li
                                   className="userComment__item"
                                   key={review._id}
@@ -585,7 +577,7 @@ export default function Product() {
                         نقد و بررسی
                       </span>
                       <span className="allDetails__headingDesc">
-                        {detailsProduct?.segment}
+                        {product?.segment}
                       </span>
                     </div>
                   </div>
@@ -724,7 +716,7 @@ export default function Product() {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 }

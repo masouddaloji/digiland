@@ -8,7 +8,7 @@ export const indexApiSlice = shopApi.injectEndpoints({
       transformResponse:response=>response.data,
       providesTags: (result, error, arg) => [
         { type: "IndexPage", id: "LIST" },
-        ...result.map((id) => ({ type: "IndexPage", id })),
+        ...result.map(({_id}) => ({ type: "IndexPage", id:_id })),
       ],
     }),
   }),

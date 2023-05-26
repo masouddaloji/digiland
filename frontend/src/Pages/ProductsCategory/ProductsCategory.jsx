@@ -38,7 +38,7 @@ export default function ProductsCategory() {
     page: 1,
     limit: 12,
     category: categoryName ?? "",
-    tags: subCategory ?? "",
+    subCategory: subCategory ?? "",
     price: "",
     color: "",
     sort: "",
@@ -48,7 +48,7 @@ export default function ProductsCategory() {
     setPageInfo((prev) => ({
       ...prev,
       category: categoryName ?? "",
-      tags: subCategory ?? "",
+      subCategory: subCategory ?? "",
     }));
   }, [categoryName, subCategory]);
 

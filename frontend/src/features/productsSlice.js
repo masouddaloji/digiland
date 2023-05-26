@@ -18,14 +18,14 @@ export const getProducts = createAsyncThunk(
   "products/getProducts",
   async (data, { rejectWithValue }) => {
     try {
-      const { page, limit, category, color, tags, sort, price } = data;
+      const { page, limit, category, color, subCategory, sort, price } = data;
       const response = await axios.get("products", {
         params: {
           page,
           limit,
           category,
           color,
-          tags,
+          subCategory,
           sort,
           price,
         },

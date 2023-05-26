@@ -38,7 +38,7 @@ const AddProduct = () => {
       quantity: Number(productinfos.productQantity),
       colors: productinfos.productColors,
       category: productinfos.productCategory,
-      tags: productinfos.productSubCategory,
+      subCategory: productinfos.productSubCategory,
       shortDescription: productinfos.productShortDescription,
       fullDescription: productinfos.productFullDescription,
       brand: productinfos.productBrand,

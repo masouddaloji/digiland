@@ -56,9 +56,9 @@ export default function Index() {
                 isLoading={isLoading}
                 isSuccess={isSuccess}
                 spaceBetween={45}
-                loop={isSuccess}
-                autoplay={isSuccess}
-                navigation={isSuccess}
+                loop={isSuccess?true:false}
+                autoplay={isSuccess?true:false}
+                navigation={isSuccess?true:false}
                 array={banners}
                 slide="BannerBox"
               />
@@ -70,10 +70,10 @@ export default function Index() {
               <Slider
                 isLoading={isLoading}
                 isSuccess={isSuccess}
-                spaceBetween={15}
-                pagination={isSuccess}
-                loop={isSuccess}
-                autoplay={isSuccess}
+                spaceBetween={10}
+                pagination={true}
+                loop={isSuccess?true:false}
+                autoplay={isSuccess?true:false}
                 array={pageInfos.amazinOffer}
                 slide="instantOffer"
               />
@@ -88,9 +88,9 @@ export default function Index() {
             isLoading={isLoading}
             isSuccess={isSuccess}
             slidesPerView={8}
-            spaceBetween={15}
-            loop={isSuccess}
-            autoplay={isSuccess}
+            spaceBetween={10}
+            loop={isSuccess?true:false}
+            autoplay={isSuccess?true:false}
             array={services}
             slide="serviceBox"
           />
@@ -119,10 +119,10 @@ export default function Index() {
               isLoading={isLoading}
               isSuccess={isSuccess}
               slidesPerView={4}
-              spaceBetween={15}
-              loop={isSuccess}
-              navigation={true}
-              autoplay={isSuccess}
+              spaceBetween={10}
+              loop={isSuccess?true:false}
+              navigation={isSuccess?true:false}
+              autoplay={isSuccess?true:false}
               array={pageInfos.amazinOffer}
               slide="SuggestedProductBox"
             />
@@ -174,9 +174,9 @@ export default function Index() {
               isLoading={isLoading}
               isSuccess={isSuccess}
               slidesPerView={5}
-              spaceBetween={15}
-              loop={isSuccess}
-              navigation={true}
+              spaceBetween={10}
+              loop={isSuccess?true:false}
+              navigation={isSuccess?true:false}
               array={pageInfos.newProducts}
               slide="ProductCart"
             />
@@ -232,10 +232,10 @@ export default function Index() {
               isLoading={isLoading}
               isSuccess={isSuccess}
               slidesPerView={4}
-              autoplay={isSuccess}
-              spaceBetween={15}
-              loop={isSuccess}
-              navigation={true}
+              autoplay={isSuccess?true:false}
+              spaceBetween={10}
+              loop={isSuccess?true:false}
+              navigation={isSuccess?true:false}
               array={articles}
               slide="ArticleBox"
             />

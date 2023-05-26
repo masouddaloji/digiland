@@ -32,7 +32,7 @@ const schema = {
     },
   },
   category: { type: "string", trim: true, min: 3 },
-  tags: {
+  subCategory: {
     type: "string",
     optional: true,
     min: 3

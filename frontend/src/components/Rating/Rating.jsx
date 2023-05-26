@@ -19,7 +19,7 @@ import { persianTexts } from "../../text";
 //style
 import "./Rating.css";
 
-const Rating = ({getData}) => {
+const Rating = () => {
   const formikRef = useRef();
   const { auth } = useAuth();
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ const Rating = ({getData}) => {
             .then((res) => {
               if (res.status === 200 || res.status === 201) {
                 toast.success(persianTexts.rating.submit.success);
-                getData()
+                // getData()
                 resetForm();
               }else{
                 toast.error(persianTexts.rating.submit.error)

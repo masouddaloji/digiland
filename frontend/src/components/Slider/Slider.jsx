@@ -103,23 +103,23 @@ function Slider({
               },
               576: {
                 slidesPerView:
-                  slide === "SuggestedProductBox"
+                  slide === "SuggestedProductBox" ||
+                  slide === "ArticleBox" ||
+                  slide === "ProductCart"
                     ? 2
                     : slide === "serviceBox"
                     ? 5
                     : slide === "footerSlider"
                     ? 4
-                    : slide === "ArticleBox"
-                    ? 2
                     : 3,
               },
               768: {
                 slidesPerView:
                   slide === "serviceBox" || slide === "footerSlider"
                     ? 6
-                    : slide === "SuggestedProductBox"
-                    ? 3
-                    : slide === "ArticleBox"
+                    : slide === "SuggestedProductBox" ||
+                      slide === "ProductCart" ||
+                      slide === "ArticleBox"
                     ? 3
                     : 4,
               },
@@ -145,7 +145,7 @@ function Slider({
         ? array?.map((item) => (
             <SwiperSlide key={nanoid()}>{selectslide(item)}</SwiperSlide>
           ))
-        :isLoading
+        : isLoading
         ? Array(slidesPerView ?? 1)
             .fill(0)
             .map(() => (

@@ -112,6 +112,7 @@ export const getProducts = async (
       price?: string;
       sort?: string;
       search?: string;
+      subCategory?: string;
     }
   >,
   res: Response,
@@ -124,6 +125,9 @@ export const getProducts = async (
   let filters: any = {};
   if (query?.category) {
     filters.category = { $in: query.category.split("/") };
+  }
+  if (query?.subCategory) {
+    filters.subCategory = { $in: query.subCategory.split("/") };
   }
   if (query?.color) {
     filters.colors = { $in: query.color.split("/") };
