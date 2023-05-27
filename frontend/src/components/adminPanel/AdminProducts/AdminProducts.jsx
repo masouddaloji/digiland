@@ -11,14 +11,15 @@ import {
   getProducts,
   deleteProduct,
 } from "../../../features/productsSlice";
+import { selectToken } from "../../../features/auth/authSlice";
 // components
 import Error from "../../Error/Error";
 import Table from "../Table/Table";
 import Star from "../../Star/Star";
 import FormControl from "../../FormControl/FormControl";
 import CustomPagination from "../../Pagination/CustomPagination";
-//hooks
-import useAuth from "../../../hooks/useAuth";
+import LoaderComponent from "../../Loader/LoaderComponent";
+
 // validator
 import { addProductsSchema } from "../../Validator/Validator";
 //icons
@@ -30,7 +31,6 @@ import { ratingOptions, colorOptions } from "../../../Constants";
 
 // styles
 import "./AdminProducts.css";
-import LoaderComponent from "../../Loader/LoaderComponent";
 
 const AdminProducts = () => {
   const dispatch = useDispatch();
@@ -47,10 +47,10 @@ const AdminProducts = () => {
   });
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [productEditDetails, setProductEditDetails] = useState({});
+  const token=useSelector(selectToken)
   const editRef = useRef();
-  const { auth } = useAuth();
   const removeProductHandler = (id) => {
-    dispatch(deleteProduct({id,token:auth?.token})).then(() =>
+    dispatch(deleteProduct({id,token:token})).then(() =>
       dispatch(
         getProducts({ page: pageInfo.page, limit: pageInfo.countInPage })
       )
@@ -74,7 +74,7 @@ const AdminProducts = () => {
       brand: productInfos.productBrand,
     };
     dispatch(
-      updateProduct({ data, token: auth?.token, id: productEditDetails?._id })
+      updateProduct({ data, token: token, id: productEditDetails?._id })
     ).then(() =>
       getProducts({
         page: pageInfo.page,

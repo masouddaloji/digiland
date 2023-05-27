@@ -1,16 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 // Packages
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
-import jwt_decode from "jwt-decode";
+//rtk query
+import { useLoginUserMutation } from "../../features/auth/authApiSlice";
 // components
 import FormControl from "../../components/FormControl/FormControl";
-import axios from "../../api/axios";
+//hook
+import usePersistLogin from "../../hooks/usePersistLogin";
 // validator
 import { LoginSchema } from "../../components/Validator/Validator";
-// hooks
-import useAuth from "../../hooks/useAuth";
+
 // icons
 import { MdAlternateEmail } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
@@ -22,17 +23,14 @@ import { persianTexts } from "../../text";
 import "./Login.css";
 
 export default function Login() {
+  const [loginUser, { error }] = useLoginUserMutation();
+  const [persist, setPersist] = usePersistLogin();
   const userNameRef = useRef();
   const navigate = useNavigate();
-  const { setAuth, persist, setPersist } = useAuth();
 
   const persistHandler = () => {
     setPersist((prev) => !prev);
   };
-
-  useEffect(() => {
-    localStorage.setItem("persist", JSON.stringify(persist));
-  }, [persist]);
 
   return (
     <Formik
@@ -46,28 +44,22 @@ export default function Login() {
           email: values.loginUserName,
           pwd: values.loginPassword,
         };
-        const response = await axios.post("auth/login", userData, {
-          withCredentials: true,
-        });
-        if (response?.status === 200) {
-          const accessToken = response?.data?.accessToken;
-          const decode = jwt_decode(accessToken);
-          setAuth((prev) => ({
-            ...prev,
-            token: accessToken,
-          }));
-          toast.success(persianTexts.login.logginSuccess);
-          resetForm();
-          if (decode?.role !== "superAdmin" && decode?.role !== "admin") {
-            navigate(-1);
-          } else {
-            navigate("/adminpanel/dashboard");
-          }
-        } else if (response?.status === 401) {
-          toast.error(persianTexts.login.loginNotMatch);
-        } else {
-          toast.error(persianTexts.login.logginError);
-        }
+        await loginUser(userData)
+          .unwrap()
+          .then(() => {
+            toast.success(persianTexts.login.logginSuccess);
+            resetForm();
+            navigate("/");
+          })
+          .catch((error) => {
+            if (error.status === 401) {
+              toast.error(persianTexts.login.invalidUserNameOrPassword);
+              resetForm();
+            } else {
+              toast.error(persianTexts.login.logginError);
+              resetForm();
+            }
+          });
       }}
     >
       {(formik) => (

@@ -1,9 +1,20 @@
-import {useContext} from 'react'
-// contexts
-import {AuthContext} from "../Context/AuthContext";
+//packages
+import jwtDecode from "jwt-decode";
+//redux
+import { useSelector } from "react-redux";
+import { selectToken } from "../features/auth/authSlice";
 
 const useAuth = () => {
-  return useContext(AuthContext)
-}
+  const token = useSelector(selectToken);
+  let userName = "";
+  let userRole=null
+  if (token) {
+    const decode = jwtDecode(token);
+    const { email, role } = decode;
+     userName = email.split("@")[0];
+     userRole=role
+  }
+  return { userName, userRole };
+};
 
-export default useAuth
+export default useAuth;

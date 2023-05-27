@@ -4,13 +4,13 @@ import { persianTexts } from "../../../text";
 // components
 import FormControl from "../../FormControl/FormControl";
 //redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createProduct, getProducts } from "../../../features/productsSlice";
+import { selectToken } from "../../../features/auth/authSlice";
 // packages
 import { Form, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
-//hooks
-import useAuth from "../../../hooks/useAuth";
+
 // icons
 import { MdUploadFile, MdOutlineDriveFolderUpload } from "react-icons/md";
 // validator
@@ -24,7 +24,7 @@ import "./AddProduct.css";
 const AddProduct = () => {
   const dispatch = useDispatch();
   const uploadRef = useRef();
-  const { auth } = useAuth();
+  const token=useSelector(selectToken)
   const navigate = useNavigate();
   const createnewProduct = (productinfos) => {
     const data = {
@@ -43,7 +43,7 @@ const AddProduct = () => {
       fullDescription: productinfos.productFullDescription,
       brand: productinfos.productBrand,
     };
-    dispatch(createProduct({ data, token: auth?.token })).then(() => {
+    dispatch(createProduct({ data, token: token })).then(() => {
       dispatch(getProducts());
     });
   };

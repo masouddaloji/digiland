@@ -17,7 +17,6 @@ import Rating from "../../components/Rating/Rating";
 import Error from "../../components/Error/Error";
 
 //hooks
-import useAuth from "./../../hooks/useAuth";
 import useBasket from "./../../hooks/useBasket";
 //constanst
 import { allInfosBtn } from "../../Constants";
@@ -53,8 +52,9 @@ export default function Product() {
     isError,
     error,
   } = useGetProductByIdQuery(productId);
+  const token=useSelector(selectToken)
+
   const { basketInfo, getUserBasket } = useBasket();
-  const { auth } = useAuth();
   const { addToFavorite, addToBasketHandler } = useBasket();
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();

@@ -4,21 +4,23 @@ import privateAxios from "../api/privateAxios";
 //packages
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-//hooks
-import useAuth from "../hooks/useAuth";
+
 //persianText
 import { persianTexts } from "../text";
+import { selectToken } from "../features/auth/authSlice";
+import { useSelector } from "react-redux";
 
 export const UserBasketContext = createContext({});
 
 const UserBasketContextProvider = ({ children }) => {
+  const token=useSelector(selectToken)
+
   const navigate = useNavigate();
-  const { auth } = useAuth();
   const [basketInfo, setBasketInfo] = useState({});
   const getUserBasket = async () => {
     await privateAxios
       .get("basket", {
-        headers: { Authorization: `Bearer ${auth?.token}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         setBasketInfo(res?.data?.data);
@@ -27,7 +29,7 @@ const UserBasketContextProvider = ({ children }) => {
   const removeItemFromBasket = async (productID) => {
     await privateAxios
       .delete(`basket/multi/${productID}`, {
-        headers: { Authorization: `Bearer ${auth?.token}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         if (res.status === 200) {
@@ -36,14 +38,14 @@ const UserBasketContextProvider = ({ children }) => {
       });
   };
   const addToBasketHandler = async (productId) => {
-    if (auth?.token) {
+    if (token) {
       await privateAxios
         .put(
           `basket/${productId}`,
           {},
           {
             headers: {
-              Authorization: `Bearer ${auth?.token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         )
@@ -61,12 +63,12 @@ const UserBasketContextProvider = ({ children }) => {
     }
   };
   const addToFavorite = async (productId) => {
-    if (auth.token) {
+    if (token) {
       await privateAxios.post(
         `users/favorate/${productId}`,
         {},
         {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       ).then(res=>{
         if(res.status===200){

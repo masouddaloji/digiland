@@ -3,8 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { Field, useField, useFormikContext } from "formik";
 //components
 import privateAxios from "../../api/privateAxios";
-//hooks
-import useAuth from "../../hooks/useAuth";
+//rtk query
+import { useSelector } from "react-redux";
+import { selectToken } from "../../features/auth/authSlice";
 
 // icons
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
@@ -19,8 +20,7 @@ const Uploader = (props) => {
   const [isShowMessage, setIsShowMessage] = useState(false);
   const [images, setImages] = useState([]);
   const uploaderRef = useRef();
-
-  const { auth } = useAuth();
+const token=useSelector(selectToken)
   const message = {
     single: "کاور محصول آپلود شد",
     multiple: "عکس های محصول آپلود شدند",
@@ -57,7 +57,7 @@ const Uploader = (props) => {
           setUploadImagePercent(percent);
         },
         headers: {
-          Authorization: `Bearer ${auth?.token}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       })

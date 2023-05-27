@@ -8,7 +8,7 @@ import { persianTexts } from "../text";
 
 
 const initialState = {
-  data: [],
+  datas: [],
   status: "idle",
   error: "",
   updateBasketStatus: "idle",
@@ -87,7 +87,7 @@ const basketSlice = createSlice({
       })
       .addCase(getBasket.fulfilled, (state, action) => {
         state.status = "success";
-        state.data = action.payload;
+        state.datas = action.payload;
       })
       .addCase(getBasket.rejected, (state, action) => {
         state.status = "failed";

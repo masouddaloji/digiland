@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { toast } from "react-toastify";
 import axios from "./../../api/axios";
+//rtk query
+import { useRegisterUserMutation } from "../../features/auth/authApiSlice";
 // icons
 import { MdAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -18,6 +20,7 @@ import { persianTexts } from "../../text";
 import "./Register.css";
 
 export default function Register() {
+  const [registerUser,{isSuccess,isLoading,isError}]=useRegisterUserMutation()
   const navigate = useNavigate();
   return (
     <Formik
@@ -32,15 +35,17 @@ export default function Register() {
           email: values.registerEmail,
           pwd: values.registerPassword,
         };
-        const response = await axios.post("auth/register", userData);
-        if (response?.status === 200 || response?.status === 201) {
-          toast.success(persianTexts.register.registerSuccess);
-          resetForm();
-          navigate("/login");
-        } else {
-          toast.error(persianTexts.register.registerError);
-          console.log(response);
-        }
+        await registerUser(userData).unwrap()
+        .then(()=>{
+          resetForm()
+          toast.success(persianTexts.register.registerSuccess)
+          navigate("/login")
+          })
+        .catch(error=>{
+          toast.error(persianTexts.register.registerError)
+          resetForm()
+        })
+
       }}
     >
       {(formik) => (

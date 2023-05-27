@@ -17,10 +17,10 @@ import AdminOrders from "./components/adminPanel/AdminOrders/AdminOrders";
 import AdminArticles from "./components/adminPanel/AdminArticles/AdminArticles";
 import AddProduct from "./components/adminPanel/AddProduct/AddProduct";
 import UserPanel from "./Pages/UserPanel/Index";
-import PersistLogin from "./components/PersistLogin/PersistLogin";
+import PersistLogin from "./features/auth/PersistLogin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
-const routes = () => [
+const routes = [
   {
     path: "/",
     element: (

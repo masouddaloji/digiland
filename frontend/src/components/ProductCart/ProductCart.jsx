@@ -2,12 +2,13 @@
 import { Link } from "react-router-dom";
 import { Skeleton, Stack } from "@mui/material";
 //redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToBasket, getBasket } from "../../features/basketSlice";
+import { selectToken } from "../../features/auth/authSlice";
+
 //components
 import Star from "../Star/Star";
-//hooks
-import useAuth from "../../hooks/useAuth";
+
 //icons
 import { IoMdHeartEmpty } from "react-icons/io";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
@@ -16,12 +17,12 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import "./ProductCart.css";
 
 export default function ProductCart(props) {
+  const token=useSelector(selectToken)
   const dispatch = useDispatch();
-  const { auth } = useAuth();
   const { _id, title, image, offPrice, price, rating,  isLoading, isSuccess  } = props;
   const addToBasketHandler = () => {
-    dispatch(addToBasket({ id: _id, token: auth?.token })).then(() =>
-      dispatch(getBasket(auth?.token))
+    dispatch(addToBasket({ id: _id, token: token })).then(() =>
+      dispatch(getBasket(token))
     );
   };
   return (

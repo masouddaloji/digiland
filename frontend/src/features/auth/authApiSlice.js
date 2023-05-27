@@ -18,6 +18,14 @@ export const authApiSlice = shopApi.injectEndpoints({
         method: "POST",
         body: { ...userInfo },
       }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data:{ accessToken } } = await queryFulfilled;
+          dispatch(setToken(accessToken));
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
     logOutUser: builder.mutation({
       query: () => ({
@@ -40,9 +48,8 @@ export const authApiSlice = shopApi.injectEndpoints({
       }),
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
-          const { data } = await queryFulfilled;
-          const { accessToken } = data;
-          dispatch(setToken({ accessToken }));
+          const { data:{ accessToken } } = await queryFulfilled;
+          dispatch(setToken(accessToken));
         } catch (error) {
           console.log(error);
         }

@@ -1,14 +1,15 @@
 //redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   productDecrementInBasket,
   productIncrementInBasket,
   getBasket,
 } from "./../../features/basketSlice";
+import { selectToken } from "../../features/auth/authSlice";
+
 //component
 import privateAxios from "../../api/privateAxios";
-//hooks
-import useAuth from "../../hooks/useAuth";
+
 import useBasket from "../../hooks/useBasket";
 //icons
 import { FiPlus, FiMinus } from "react-icons/fi";
@@ -16,36 +17,24 @@ import { FiPlus, FiMinus } from "react-icons/fi";
 import "./ProductCount.css";
 
 function ProductCount({ value, minValue, maxValue, productId }) {
+  const token=useSelector(selectToken)
   const dispatch = useDispatch();
-  const { auth } = useAuth();
   const { getUserBasket } = useBasket();
 
   const increment = async () => {
     if (value < maxValue) {
       dispatch(
-        productIncrementInBasket({ id: productId, token: auth?.token })
-      ).then(() => dispatch(getBasket(auth?.token)));
+        productIncrementInBasket({ id: productId, token: token })
+      ).then(() => dispatch(getBasket(token)));
     }
   };
 
   const decrement = async () => {
     if (value > minValue) {
       dispatch(
-        productDecrementInBasket({ id: productId, token: auth?.token })
-      ).then(() => dispatch(getBasket(auth?.token)));
-      //   await privateAxios
-      //     .delete(`basket/${productId}`, {
-      //       headers: { Authorization: `Bearer ${auth?.token}` },
-      //     })
-      //     .then((res) => {
-      //       console.log(res);
-      //       if (res.status === 200) {
-      //         getUserBasket();
-      //       }
-      //     })
-      //     .catch((error) => console.log(error));
-      // } else {
-      //   return null;
+        productDecrementInBasket({ id: productId, token: token })
+      ).then(() => dispatch(getBasket(token)));
+
     }
   };
 

@@ -4,8 +4,9 @@ import { Form, Formik, useFormikContext } from "formik";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-//hooks
-import useAuth from "./../../hooks/useAuth";
+//redux
+import { selectToken } from "../../features/auth/authSlice";
+import { useSelector } from "react-redux";
 //components
 import privateAxios from "../../api/privateAxios";
 import FormControl from "../FormControl/FormControl";
@@ -20,8 +21,9 @@ import { persianTexts } from "../../text";
 import "./Rating.css";
 
 const Rating = () => {
+  const token=useSelector(selectToken)
+
   const formikRef = useRef();
-  const { auth } = useAuth();
   const navigate = useNavigate();
   const { productId } = useParams();
  
@@ -34,7 +36,7 @@ const Rating = () => {
       }}
       validationSchema={userRatingSchema}
       onSubmit={async (values, { resetForm }) => {
-        if (auth?.token) {
+        if (token) {
           const data = {
             rating: values.userRating,
             description: values.userComment,
@@ -42,7 +44,7 @@ const Rating = () => {
           await privateAxios
             .post(`products/reviews/${productId}`, data, {
               headers: {
-                Authorization: `Bearer ${auth?.token}`,
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
             })

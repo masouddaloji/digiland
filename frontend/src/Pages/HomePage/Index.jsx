@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 //components
-import axios from "../../api/axios";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import Slider from "../../components/Slider/Slider";
 import CompanyProduct from "../../components/CompanyProduct/CompanyProduct";
@@ -26,7 +25,7 @@ export default function Index() {
     isLoading,
     isError,
     isSuccess,
-  } = useGetIndexInfosQuery("getIndexInfos");
+  } = useGetIndexInfosQuery();
   const articles = Array(6).fill(0);
   const [pageInfos, setPageInfos] = useState({
     newProducts: [],
@@ -165,6 +164,7 @@ export default function Index() {
               link="/"
               btnLink="/"
               bg="var(--main-backgroundColor)"
+              isLoading={isLoading}
             />
           </div>
         </div>
@@ -191,6 +191,7 @@ export default function Index() {
               title="محصولات اپل"
               icon={<AiFillApple className="sectionHeader__icon" />}
               bg="var(--main-backgroundColor)"
+              isLoading={isLoading}
             />
           </div>
         </div>
@@ -223,6 +224,7 @@ export default function Index() {
               btnLink="/"
               bg="var(--main-backgroundColor)"
               icon={<GrRss className="sectionHeader__icon" />}
+              isLoading={isLoading}
             />
           </div>
         </div>
