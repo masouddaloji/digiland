@@ -2,10 +2,7 @@
 import { Link } from "react-router-dom";
 import { Skeleton, Stack } from "@mui/material";
 import { toast } from "react-toastify";
-//redux
-import { useDispatch, useSelector } from "react-redux";
-import { addToBasket, getBasket } from "../../features/basketSlice";
-import { selectToken } from "../../features/auth/authSlice";
+
 //rtk query
 import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
 //components
@@ -21,14 +18,9 @@ import "./ProductCart.css";
 
 export default function ProductCart(props) {
   const[addToBasket]=useAddToBasketMutation()
-  const token=useSelector(selectToken)
-  const dispatch = useDispatch();
   const { _id, title, image, offPrice, price, rating,  isLoading, isSuccess  } = props;
 
   const addToBasketHandler = async() => {
-    // dispatch(addToBasket({ id: _id, token: token })).then(() =>
-    //   dispatch(getBasket(token))
-    // );
     await addToBasket(_id).unwrap()
     .then(()=>{
       toast.success(persianTexts.basket.addtobasketSuccess)

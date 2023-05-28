@@ -48,36 +48,34 @@ export default function Login() {
           email: values.loginUserName,
           pwd: values.loginPassword,
         };
-        //  try {
-        //   const { accessToken } = await loginUser(userData).unwrap()
-        //   dispatch(setToken(accessToken))
-        //   toast.success(persianTexts.login.logginSuccess)
-        //   navigate("/")
-        // } catch (error) {
+        try {
+          const { accessToken } = await loginUser(userData).unwrap();
+          dispatch(setToken({ accessToken }));
+          toast.success(persianTexts.login.logginSuccess);
+          navigate("/");
+        } catch (error) {
+          if (error.status && error.status === 401) {
+            toast.error(persianTexts.login.loginNotMatch);
+            resetForm();
+          } else {
+            toast.error(persianTexts.login.logginError);
+            resetForm();
+          }
+        }
+        // .then((res) => {
+        //   dispatch(setToken(res.accessToken));
+        //   toast.success(persianTexts.login.logginSuccess);
+        //   navigate("/");
+        // })
+        // .catch((error) => {
         //   if (error.status === 401) {
-        //     toast.error(persianTexts.login.loginNotMatch)
+        //     toast.error(persianTexts.login.loginNotMatch);
+        //     resetForm()
         //   } else {
-        //     toast.error(persianTexts.login.logginError)
+        //     toast.error(persianTexts.login.logginError);
+        //     resetForm()
         //   }
-        // } finally {
-        //   resetForm()
-        // }
-        await loginUser(userData)
-          .unwrap()
-          .then((res) => {
-            dispatch(setToken(res?.accessToken));
-            toast.success(persianTexts.login.logginSuccess);
-            navigate("/");
-          })
-          .catch((error) => {
-            if (error.status === 401) {
-              toast.error(persianTexts.login.loginNotMatch);
-              resetForm()
-            } else {
-              toast.error(persianTexts.login.logginError);
-              resetForm()
-            }
-          });
+        // });
       }}
     >
       {(formik) => (
