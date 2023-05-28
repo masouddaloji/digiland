@@ -1,14 +1,17 @@
 //packages
 import { Link } from "react-router-dom";
 import { Skeleton, Stack } from "@mui/material";
+import { toast } from "react-toastify";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { addToBasket, getBasket } from "../../features/basketSlice";
 import { selectToken } from "../../features/auth/authSlice";
-
+//rtk query
+import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
 //components
 import Star from "../Star/Star";
-
+//persian text
+import { persianTexts } from "../../text";
 //icons
 import { IoMdHeartEmpty } from "react-icons/io";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
@@ -17,13 +20,22 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import "./ProductCart.css";
 
 export default function ProductCart(props) {
+  const[addToBasket]=useAddToBasketMutation()
   const token=useSelector(selectToken)
   const dispatch = useDispatch();
   const { _id, title, image, offPrice, price, rating,  isLoading, isSuccess  } = props;
-  const addToBasketHandler = () => {
-    dispatch(addToBasket({ id: _id, token: token })).then(() =>
-      dispatch(getBasket(token))
-    );
+
+  const addToBasketHandler = async() => {
+    // dispatch(addToBasket({ id: _id, token: token })).then(() =>
+    //   dispatch(getBasket(token))
+    // );
+    await addToBasket(_id).unwrap()
+    .then(()=>{
+      toast.success(persianTexts.basket.addtobasketSuccess)
+    })
+    .catch((error)=>{
+      toast.error(persianTexts.basket.addtobasketError)
+    })
   };
   return (
     <>

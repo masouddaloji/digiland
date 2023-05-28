@@ -18,14 +18,7 @@ export const authApiSlice = shopApi.injectEndpoints({
         method: "POST",
         body: { ...userInfo },
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-        try {
-          const { data:{ accessToken } } = await queryFulfilled;
-          dispatch(setToken(accessToken));
-        } catch (error) {
-          console.log(error);
-        }
-      },
+      invalidatesTags:[{type:"Auth",id:"LIST"}]
     }),
     logOutUser: builder.mutation({
       query: () => ({
@@ -40,6 +33,7 @@ export const authApiSlice = shopApi.injectEndpoints({
           console.log(error);
         }
       },
+      invalidatesTags:[{type:"Auth",id:"LIST"},{type:"Basket",id:"LIST"}]
     }),
     getRefreshToken: builder.mutation({
       query: () => ({
@@ -48,7 +42,9 @@ export const authApiSlice = shopApi.injectEndpoints({
       }),
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
-          const { data:{ accessToken } } = await queryFulfilled;
+          const {
+            data: { accessToken },
+          } = await queryFulfilled;
           dispatch(setToken(accessToken));
         } catch (error) {
           console.log(error);

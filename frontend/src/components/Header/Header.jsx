@@ -7,15 +7,16 @@ import MobileMenuItem from "./MobileMenuItem";
 import ProductCount from "../ProductCount/ProductCount";
 import Spiner from "../Spiner/Spiner";
 import Search from "../Search/Search";
+import { toast } from "react-toastify";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getBasket, multiRemoveFromBasket } from "../../features/basketSlice";
 import { selectToken } from "../../features/auth/authSlice";
 //rtk query
+import { useLogOutUserMutation } from "../../features/auth/authApiSlice";
 import { useGetBasketQuery } from "../../features/basket/basketApiSlice";
 //hooks
-import useLogout from "../../hooks/useLogout";
 import useAuth from "../../hooks/useAuth";
 
 // icons
@@ -37,16 +38,22 @@ import "./Header.css";
 export default function Header({}) {
   const token = useSelector(selectToken);
   const dispatch = useDispatch();
-  const {userName, userRole } = useAuth();
-  const {data:baskets}=useGetBasketQuery()
-  console.log("baskets",baskets)
+  const { userName, userRole } = useAuth();
+  const [logOutUser] = useLogOutUserMutation();
+  const {
+    data: baskets,
+    isLoading: basketLoading,
+    isSuccess: basketSuccess,
+    isError: basketError,
+  } = useGetBasketQuery();
+
+  console.log("baskets", baskets);
   const { datas, status, error, updateBasketStatus, removeFromBasketStatus } =
     useSelector((state) => state.basket);
 
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [deviceWidth, setDeviceWidth] = useState({ width: window.innerWidth });
   const [isShowSideBarCart, setIsShowSideBarCart] = useState(false);
-  const logout = useLogout();
   const maskRef = useRef();
   const sideBarCartRef = useRef();
   const resizaHandler = () => {
@@ -59,7 +66,14 @@ export default function Header({}) {
     }
   };
   const logoutHandler = () => {
-    logout();
+    logOutUser()
+      .unwrap()
+      .then(() => {
+        toast.success(persianTexts.useLogout.logoutSuccess);
+      })
+      .catch((error) => {
+        toast.error(persianTexts.useLogout.logoutError);
+      });
   };
   const removeProductFromBasketHandler = (id) => {
     dispatch(multiRemoveFromBasket({ id, token: token })).then(() =>
@@ -97,7 +111,7 @@ export default function Header({}) {
               <div>
                 <span>سبد خرید</span>
                 <span className="sideBarCart__headerCount ss02">
-                  {datas?.datas?.totalQTY}
+                  {baskets?.totalQTY}
                 </span>
               </div>
               <IoMdClose
@@ -105,14 +119,11 @@ export default function Header({}) {
                 onClick={() => setIsShowSideBarCart(false)}
               />
             </div>
-            {datas?.datas?.cartItems?.length > 0 ? (
+            {baskets?.cartItems?.length > 0 ? (
               <ul className="sideBarCart__Lists">
-                {datas.datas.cartItems.map((item) => (
+                {baskets.cartItems.map((item) => (
                   <li className="sideBarCart__ListsItem" key={item._id}>
-                    {updateBasketStatus === "loading" ? (
-                      <Spiner />
-                    ) : (
-                      <>
+                  <>
                         {" "}
                         <div className="sideBarCart__imgBox">
                           <Link
@@ -152,7 +163,6 @@ export default function Header({}) {
                           </div>
                         </div>
                       </>
-                    )}
                   </li>
                 ))}
               </ul>
@@ -169,7 +179,7 @@ export default function Header({}) {
               <div className="flex ss02">
                 <span>جمع كل سبد خريد : </span>
                 <bdi className="currentPrice">
-                  {datas?.datas?.totalAmount?.toLocaleString()}
+                  {baskets?.totalAmount?.toLocaleString()}
                   <span className="toman">تومان</span>
                 </bdi>
               </div>
@@ -225,14 +235,15 @@ export default function Header({}) {
                       <div className="header__authUser-box">
                         <RiUserSettingsLine className="fullIcon" />
                       </div>
-                      <span className="header__userName">خوش اومدی {userName}</span>
+                      <span className="header__userName">
+                        خوش اومدی {userName}
+                      </span>
                       <ul className="header__userOptions">
-                        {userRole === "superAdmin" ||
-                          userRole === "admin" ? 
-                            <li className="header__userOption">
-                              <Link to="/adminpanel/dashboard">پنل مدیریت</Link>
-                            </li>
-                          :null}
+                        {userRole === "superAdmin" || userRole === "admin" ? (
+                          <li className="header__userOption">
+                            <Link to="/adminpanel/dashboard">پنل مدیریت</Link>
+                          </li>
+                        ) : null}
                         <li className="header__userOption">حساب کاربری</li>
                         <li className="header__userOption">
                           {" "}
@@ -253,9 +264,9 @@ export default function Header({}) {
                     onClick={() => setIsShowSideBarCart(true)}
                   >
                     <SiShopify className="basket__icon" />
-                    {datas?.datas?.totalQTY ? (
+                    {baskets?.totalQTY ? (
                       <span className="basket__counter">
-                        {datas.datas.totalQTY}
+                        {baskets.totalQTY}
                       </span>
                     ) : null}
                   </div>
@@ -285,7 +296,7 @@ export default function Header({}) {
               <div>
                 <span>سبد خرید</span>
                 <span className="sideBarCart__headerCount ss02">
-                  {datas?.datas?.totalQTY ?? 0}
+                  {baskets?.totalQTY ?? 0}
                 </span>
               </div>
               <IoMdClose
@@ -295,9 +306,9 @@ export default function Header({}) {
             </div>
             {token ? (
               <>
-                {datas?.datas?.cartItems?.length ? (
+                {baskets?.cartItems?.length ? (
                   <ul className="sideBarCart__Lists">
-                    {datas.datas.cartItems.map((item) => (
+                    {baskets.cartItems.map((item) => (
                       <li className="sideBarCart__ListsItem" key={item._id}>
                         <div className="sideBarCart__imgBox">
                           <Link
@@ -352,7 +363,7 @@ export default function Header({}) {
                   <div className="flex ss02">
                     <span>جمع كل سبد خريد : </span>
                     <bdi className="currentPrice">
-                      {datas?.datas?.totalAmount?.toLocaleString()}
+                      {baskets?.totalAmount?.toLocaleString()}
                       <span className="toman">تومان</span>
                     </bdi>
                   </div>
@@ -456,12 +467,11 @@ export default function Header({}) {
                       </div>
                       <ul className="header__userOptions">
                         <li className="header__userOption">حساب کاربری</li>
-                        {userRole === "superAdmin" ||
-                          userRole === "admin" ? 
-                            <li className="header__userOption">
-                              <Link to="/adminpanel/dashboard">پنل مدیریت</Link>
-                            </li>
-                          :null}
+                        {userRole === "superAdmin" || userRole === "admin" ? (
+                          <li className="header__userOption">
+                            <Link to="/adminpanel/dashboard">پنل مدیریت</Link>
+                          </li>
+                        ) : null}
                         <li className="header__userOption">
                           {" "}
                           <Link to="/basket">سبد خرید</Link>
@@ -480,9 +490,9 @@ export default function Header({}) {
                     onClick={() => setIsShowSideBarCart(true)}
                   >
                     <FiShoppingBag className="mobileHeader__basketIcon" />
-                    {datas?.datas?.totalQTY ? (
+                    {baskets?.totalQTY ? (
                       <span className="mobileHeader__basketCounter ss02">
-                        {datas?.datas?.totalQTY}
+                        {baskets?.totalQTY}
                       </span>
                     ) : null}
                   </div>

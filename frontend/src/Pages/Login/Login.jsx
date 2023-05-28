@@ -3,6 +3,9 @@ import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
+//redux
+import { useDispatch } from "react-redux";
+import { setToken } from "../../features/auth/authSlice";
 //rtk query
 import { useLoginUserMutation } from "../../features/auth/authApiSlice";
 // components
@@ -25,6 +28,7 @@ import "./Login.css";
 export default function Login() {
   const [loginUser, { error }] = useLoginUserMutation();
   const [persist, setPersist] = usePersistLogin();
+  const dispatch = useDispatch();
   const userNameRef = useRef();
   const navigate = useNavigate();
 
@@ -44,20 +48,34 @@ export default function Login() {
           email: values.loginUserName,
           pwd: values.loginPassword,
         };
+        //  try {
+        //   const { accessToken } = await loginUser(userData).unwrap()
+        //   dispatch(setToken(accessToken))
+        //   toast.success(persianTexts.login.logginSuccess)
+        //   navigate("/")
+        // } catch (error) {
+        //   if (error.status === 401) {
+        //     toast.error(persianTexts.login.loginNotMatch)
+        //   } else {
+        //     toast.error(persianTexts.login.logginError)
+        //   }
+        // } finally {
+        //   resetForm()
+        // }
         await loginUser(userData)
           .unwrap()
-          .then(() => {
+          .then((res) => {
+            dispatch(setToken(res?.accessToken));
             toast.success(persianTexts.login.logginSuccess);
-            resetForm();
             navigate("/");
           })
           .catch((error) => {
             if (error.status === 401) {
-              toast.error(persianTexts.login.invalidUserNameOrPassword);
-              resetForm();
+              toast.error(persianTexts.login.loginNotMatch);
+              resetForm()
             } else {
               toast.error(persianTexts.login.logginError);
-              resetForm();
+              resetForm()
             }
           });
       }}
