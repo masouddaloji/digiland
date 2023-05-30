@@ -1,0 +1,12 @@
+.colorFilter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0.5rem;
+}
+.color__option {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--box-shadow);
+}

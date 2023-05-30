@@ -49,7 +49,6 @@ export default function PriceSlider({ setPageInfo }) {
 
   return (
     <div className="priceSlider">
-      <span className="priceSlider__title">فیلتر براساس قیمت : </span>
       <div className="progress">
         <div className="progressBar" style={progressBarStyle}></div>
         <input

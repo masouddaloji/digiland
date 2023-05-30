@@ -88,7 +88,7 @@
   }
   .contact__number {
     font-family: var(--iran);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -106,5 +106,16 @@
     height: 2.4rem;
   }
   .contact__icon {
-    color: var(--black-50);
+    color: #363F47;
+    font-size: 2.5rem;
+    animation: ringring .2s 5s linear infinite alternate;
+  }
+  /* animation */
+  @keyframes ringring{
+    0%,100%{
+      transform: rotate(0deg);
+    }
+    50%{
+      transform: rotate(20deg);
+    }
   }

@@ -5,8 +5,7 @@ import { useLocation, useRoutes } from "react-router-dom";
 import routes from "./Routes";
 import Navbar from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-// contexts
-import UserBasketContextProvider from "./Context/UserBasketContext";
+
 
 // styles
 import "./App.css";
@@ -17,7 +16,6 @@ export default function App() {
   const allDataCategories = [];
 
   return (
-    <UserBasketContextProvider>
       <div className="app__wrapper">
         <div className="app">
           {location.pathname.includes("register") ||
@@ -34,6 +32,5 @@ export default function App() {
           )}
         </div>
       </div>
-    </UserBasketContextProvider>
   );
 }

@@ -1,8 +1,6 @@
 import  { useState } from "react";
 //packages
-import { Link, useLocation } from "react-router-dom";
-//hooks
-import useBasket from "../../../hooks/useBasket";
+import { Link } from "react-router-dom";
 //icons
 import { TbDiscount2 } from "react-icons/tb";
 //styles
@@ -10,7 +8,6 @@ import "./CheckInformation.css";
 
 function CheckInformation() {
   const [showDiscount, setShowDiscount] = useState(false);
-  const {basketInfo}=useBasket()
   return (
     <div className="col-12">
       <div className="information">
@@ -166,7 +163,7 @@ function CheckInformation() {
                     </tr>
                   </thead>
                   <tbody>
-                  {basketInfo?.cartItems?.map(item=> <tr key={item._id}>
+                  {/* {basketInfo?.cartItems?.map(item=> <tr key={item._id}>
                       <td>
                         {item?.productId?.title} <span>{item.cartQuantity?` x ${item.cartQuantity}`:null}</span>
                       </td>
@@ -176,20 +173,8 @@ function CheckInformation() {
                           <span className="toman">تومان</span>
                         </bdi>
                       </td>
-                    </tr>)}
+                    </tr>)} */}
                    
-                    {/* <tr>
-                      <td>
-                        گوشی موبایل شیائومی مدل POCO X3 Pro M2102J20SG NFC دو
-                        سیم‌ کارت ظرفیت 256
-                      </td>
-                      <td>
-                        <bdi className="productPrice">
-                          4,100,000
-                          <span className="toman">تومان</span>
-                        </bdi>
-                      </td>
-                    </tr> */}
                   </tbody>
                   <tfoot>
                     <tr>
@@ -197,7 +182,7 @@ function CheckInformation() {
                       <td>
                         <span>
                           <bdi className="productPrice">
-                            {basketInfo?.totalAmount?.toLocaleString()}
+                            {/* {basketInfo?.totalAmount?.toLocaleString()} */}
                             <span className="toman">تومان</span>
                           </bdi>
                         </span>
@@ -206,12 +191,12 @@ function CheckInformation() {
                     <tr>
                       <th>هزینه حمل و نقل</th>
                       <td>
-                      {basketInfo?.totalAmount>1000000?" حمل و نقل رایگان":<span>
+                      {/* {basketInfo?.totalAmount>1000000?" حمل و نقل رایگان":<span>
                           <bdi className="productPrice">
                             14,500,000
                             <span className="toman">تومان</span>
                           </bdi>
-                        </span>}                       
+                        </span>}                        */}
                       </td>
                     </tr>
                     <tr>
@@ -219,7 +204,7 @@ function CheckInformation() {
                       <td>
                         <span>
                           <bdi className="productPrice">
-                          {basketInfo?.totalAmount?.toLocaleString()}
+                          {/* {basketInfo?.totalAmount?.toLocaleString()} */}
                             <span className="toman">تومان</span>
                           </bdi>
                         </span>

@@ -56,7 +56,7 @@ function Navbar() {
             <span>021</span>
           </div>
           <div className="header__phoneBox">
-            <FiPhoneCall className="contact__icon fullIcon" />
+            <FiPhoneCall className="contact__icon" />
           </div>
         </div>
       </div>

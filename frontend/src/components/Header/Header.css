@@ -25,7 +25,7 @@
 .header__authUser,
 .header__userInfo {
   background-color: var(--main-backgroundColor);
-  margin-left: 2rem;
+  margin-left: 1rem;
   height: 4rem;
   display: flex;
   align-items: center;

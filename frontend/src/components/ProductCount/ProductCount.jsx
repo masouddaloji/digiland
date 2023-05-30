@@ -1,40 +1,38 @@
-//redux
-import { useDispatch, useSelector } from "react-redux";
-import {
-  productDecrementInBasket,
-  productIncrementInBasket,
-  getBasket,
-} from "./../../features/basketSlice";
-import { selectToken } from "../../features/auth/authSlice";
-
-//component
-import privateAxios from "../../api/privateAxios";
-
-import useBasket from "../../hooks/useBasket";
+import { useEffect } from "react";
+//packages
+import { toast } from "react-toastify";
+//rtk query
+import { useDecrementItemMutation, useIncrementItemMutation } from "../../features/basket/basketApiSlice";
 //icons
 import { FiPlus, FiMinus } from "react-icons/fi";
+//persian text
+import { persianTexts } from "../../text";
 //styles
 import "./ProductCount.css";
 
-function ProductCount({ value, minValue, maxValue, productId }) {
-  const token=useSelector(selectToken)
-  const dispatch = useDispatch();
-  const { getUserBasket } = useBasket();
+function ProductCount(props) {
+  const { value, minValue, maxValue, productId,setIsLoadingUpdateCount }=props
+  const [incrementItem,{isLoading:incrementLoading}]=useIncrementItemMutation()
+  const [decrementItem,{isLoading:decrementLoading}]=useDecrementItemMutation()
+  useEffect(()=>{
+    setIsLoadingUpdateCount(incrementLoading)
+  },[incrementLoading])
+
+  useEffect(()=>{
+    setIsLoadingUpdateCount(decrementLoading)
+  },[decrementLoading])
 
   const increment = async () => {
     if (value < maxValue) {
-      dispatch(
-        productIncrementInBasket({ id: productId, token: token })
-      ).then(() => dispatch(getBasket(token)));
+      await incrementItem(productId).unwrap()
+      .catch(error=>toast.error(persianTexts.basket.incrementProductError))
     }
   };
 
   const decrement = async () => {
     if (value > minValue) {
-      dispatch(
-        productDecrementInBasket({ id: productId, token: token })
-      ).then(() => dispatch(getBasket(token)));
-
+      await decrementItem(productId).unwrap()
+      .catch(error=>toast.error(persianTexts.basket.decrementProductError))
     }
   };
 

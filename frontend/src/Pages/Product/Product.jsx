@@ -1,23 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 //packages
 import { Link, useParams } from "react-router-dom";
-
 import domPurify from "dompurify";
+import { toast } from "react-toastify";
+//rtk query
+import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
+import { useGetProductByIdQuery } from "../../features/Product/ProductApiSlice";
 //components
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import ProductGallery from "../../components/Slider/ProductGallery";
 import ProductCart from "../../components/ProductCart/ProductCart";
 import ProductCount from "../../components/ProductCount/ProductCount";
-import axios from "../../api/axios";
-import privateAxios from "../../api/privateAxios";
 import Slider from "../../components/Slider/Slider";
 import Loader from "../../components/Loader/Loader";
 import Rating from "../../components/Rating/Rating";
 import Error from "../../components/Error/Error";
-
 //hooks
-import useBasket from "./../../hooks/useBasket";
+import useAuth from "../../hooks/useAuth";
 //constanst
 import { allInfosBtn } from "../../Constants";
 //persianText
@@ -26,22 +26,13 @@ import { persianTexts } from "../../text";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { AiOutlineRetweet, AiOutlineStar } from "react-icons/ai";
-import {
-  BiCalendarCheck,
-  BiCheckSquare,
-  BiCommentDetail,
-} from "react-icons/bi";
+import { BiCheckSquare, BiCommentDetail } from "react-icons/bi";
 import { FaTruck, FaRegHeart } from "react-icons/fa";
 import { BsCheckLg, BsPen, BsSortDown, BsXSquare } from "react-icons/bs";
 import { CgList } from "react-icons/cg";
 import { TbChecklist, TbTriangle, TbTriangleInverted } from "react-icons/tb";
 //styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
-import "swiper/css/zoom";
 import "./Product.css";
-import { useGetProductByIdQuery } from "../../features/Product/ProductSlice";
 
 export default function Product() {
   const { productId } = useParams();
@@ -52,10 +43,8 @@ export default function Product() {
     isError,
     error,
   } = useGetProductByIdQuery(productId);
-  const token=useSelector(selectToken)
-
-  const { basketInfo, getUserBasket } = useBasket();
-  const { addToFavorite, addToBasketHandler } = useBasket();
+  const[addToBasket]=useAddToBasketMutation()
+  const { userName } = useAuth();
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
   const [productUpdated, setProductUpdated] = useState();
@@ -101,7 +90,6 @@ export default function Product() {
     }
   };
 
-  const optionRef = useRef();
   const convertDateFormat = (englishDate) => {
     const date = new Date(englishDate);
     const options = {
@@ -112,28 +100,23 @@ export default function Product() {
     const persianDate = new Intl.DateTimeFormat("fa", options).format(date);
     return persianDate;
   };
-  const getRelatedProduct = () => {
-    axios
-      .get("products")
-      .then((res) => {
-        const filterproduct = res?.data?.data?.filter(
-          (item) => item.category === product?.category
-        );
-        setRelatedProduct(filterproduct);
-      })
-      .catch((error) => console.log(error));
+  const getRelatedProduct = () => {};
+
+  const addToFavoriteHandler = (id) => {};
+
+  const addToBasketHandler = async (id) => {
+if(userName){
+  await addToBasket(id).unwrap()
+  .then(() => {
+    toast.success(persianTexts.basket.addtobasketSuccess);
+  })
+  .catch((error) => {
+    toast.error(persianTexts.basket.addtobasketError);
+  });
+}else{
+  toast.warning(persianTexts.header.notLoginInBasket)
+}
   };
-  const getInfoProductFrombasket = () => {
-    basketInfo?.cartItems?.filter((item) => {
-      if (item._id === productId) {
-        console.log(item.cartQuantity);
-      }
-    });
-  };
-  // getdata from server
-  useEffect(() => {
-    getUserBasket();
-  }, [productId]);
 
   // useEffect(() => {
   //   if (product.length) {
@@ -159,9 +142,7 @@ export default function Product() {
                 {/* product details */}
                 <div className="col-12 col-md-4 col-lg-4">
                   <div>
-                    <h2 className="product__detailsTitle">
-                      {product?.title}
-                    </h2>
+                    <h2 className="product__detailsTitle">{product?.title}</h2>
                     <span className="product__detailsSubtitle">
                       {product?.segment}
                     </span>
@@ -215,9 +196,7 @@ export default function Product() {
                             <bdi className="product_info__price currentPrice ss02">
                               {(
                                 product?.price -
-                                (product?.price *
-                                  product?.offPrice) /
-                                  100
+                                (product?.price * product?.offPrice) / 100
                               ).toLocaleString()}
                             </bdi>
                             <span className="toman">تومان</span>
@@ -234,7 +213,7 @@ export default function Product() {
                     <div className="product__colorBox">
                       <div className="product__currentColor">
                         <span> رنگ : </span>
-                        <span>{selectedColor}</span>
+                        <span>{selectedColor??product?.colors[0]}</span>
                       </div>
                       <div className="colorAndAddTobasket__wrapper">
                         <div className="product__allColors">
@@ -297,7 +276,7 @@ export default function Product() {
                       <div className="product__availbleItem">
                         <button
                           className="product__availbleButton"
-                          onClick={() => addToFavorite(productId)}
+                          onClick={() => addToFavoriteHandler(productId)}
                         >
                           <FaRegHeart className="product__availbleBtnIcon" />
                           افزودن به علاقه مندی ها
@@ -386,9 +365,7 @@ export default function Product() {
                     <p
                       className="allDetails__detailsText"
                       dangerouslySetInnerHTML={{
-                        __html: domPurify.sanitize(
-                          product?.shortDescription
-                        ),
+                        __html: domPurify.sanitize(product?.shortDescription),
                       }}
                     ></p>
                   </div>
@@ -413,9 +390,7 @@ export default function Product() {
                   <div
                     className="details__tableWrapper"
                     dangerouslySetInnerHTML={{
-                      __html: domPurify.sanitize(
-                        product?.fullDescription
-                      ),
+                      __html: domPurify.sanitize(product?.fullDescription),
                     }}
                   ></div>
                 </div>
@@ -469,9 +444,7 @@ export default function Product() {
                                   ></span>
                                 </div>
                                 <span className="resultReview__pointResultText">
-                                  {showRatingResultPersian(
-                                    product?.rating
-                                  )}
+                                  {showRatingResultPersian(product?.rating)}
                                 </span>
                               </div>
                             </div>
@@ -479,7 +452,7 @@ export default function Product() {
                         </div>
                       </div>
                       <div className="col-12 col-md-6">
-                        <Rating  />
+                        <Rating />
                       </div>
                     </div>
                     <div className="row">

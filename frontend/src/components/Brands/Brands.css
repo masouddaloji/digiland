@@ -1,36 +1,35 @@
-.brands{
-    width: 100%;
-    height: 20rem;
-    background: var(--white);
-    box-shadow: var(--box-shadow);
-    border-radius: var(--border-box);
-    display: flex;
-    flex-wrap: wrap;
-    padding: .5rem;
+.brands {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
 }
-.brands__brandBox{
-    width: 30%;
-    max-height: 7rem;
-    border-radius: var(--border-box);
-    border: 1px solid #eeeff1;
-    margin:.5rem;
-text-align: center;
-padding: 0 .6rem .6rem 1rem;
+.brands__brandBox {
+  flex: 1 0 calc(33.33% - 3.2rem);
+  border-radius: var(--border-box);
+  border: 1px solid #eeeff1;
+  margin: 0.5rem;
+  padding: 1rem ;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.brands__brandImg{
-max-width: 6rem;
-display: block;
-margin: 0 auto;
-filter: grayscale(100%);
-transition: all .3s;
+.brands__brandImg {
+  max-width: 6rem;
+  display: block;
+  margin: 0 auto;
+  filter: grayscale(100%);
+  transition: all 0.3s;
 }
-.brands__brandTitle{
-font-size: 1.1rem;
-margin-top: .8rem;
-display: block;
-color:#6d6d6d;
-
+.brand__icon {
+  font-size: 2.5rem;
 }
-.brands__brandBox:hover .brands__brandImg{
-    filter: grayscale(0%);
+.brands__brandTitle {
+  font-size: 1.1rem;
+  margin-top: 0.8rem;
+  display: block;
+  color: #6d6d6d;
+}
+.brands__brandBox:hover .brands__brandImg {
+  filter: grayscale(0%);
 }

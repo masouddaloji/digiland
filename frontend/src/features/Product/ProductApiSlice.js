@@ -5,7 +5,11 @@ export const ProductApiSlice = shopApi.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: ({ page, limit, category, subCategory, color, price, sort }) =>
-        `/products?page=${page}&limit=${limit}&category=${category}&subCategory=${subCategory}&color=${color}&price=${price}&sort=${sort}`,
+        `/products?page=${page}&limit=${limit}&category=${
+          category ?? ""
+        }&subCategory=${subCategory ?? ""}&color=${color ?? ""}&price=${
+          price ?? ""
+        }&sort=${sort ?? ""}`,
       providesTags: (result, error, arg) => [
         { type: "Product", id: "LIST" },
         ...result.data.map(({ _id }) => ({ type: "Product", id: _id })),

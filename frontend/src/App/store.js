@@ -11,7 +11,6 @@ const store = configureStore({
   reducer: {
     auth: authReducer,
     products: productsReducer,
-    basket: basketReducer,
     [shopApi.reducerPath]: shopApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

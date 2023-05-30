@@ -30,13 +30,19 @@ const routes = [
     ),
   },
   {
-    path: "/products-category/:categoryName",
+    path: "/products/",
     element: (
       <PersistLogin>
         <ProductsCategory />
       </PersistLogin>
     ),
-    children: [{ path: ":subCategory", element: <ProductsCategory /> }],
+    children: [
+      {
+        path: ":categoryName",
+        element: <ProductsCategory />,
+        children: [{ path: ":subCategory", element: <ProductsCategory /> }],
+      },
+    ],
   },
   {
     path: "/basket",

@@ -7,13 +7,11 @@ import MobileMenuItem from "./MobileMenuItem";
 import Search from "../Search/Search";
 import { toast } from "react-toastify";
 import SidebarCart from "../SidebarCart/SidebarCart";
-
 //redux
-import {useSelector } from "react-redux";
-import { selectToken } from "../../features/auth/authSlice";
+
 //rtk query
 import { useLogOutUserMutation } from "../../features/auth/authApiSlice";
-import { useGetBasketQuery } from "../../features/basket/basketApiSlice";
+import { basketApiSlice, useGetBasketQuery } from "../../features/basket/basketApiSlice";
 //hooks
 import useAuth from "../../hooks/useAuth";
 
@@ -32,7 +30,6 @@ import { persianTexts } from "../../text";
 import "./Header.css";
 
 export default function Header({}) {
-  const token = useSelector(selectToken);
   const { userName, userRole } = useAuth();
   const [logOutUser] = useLogOutUserMutation();
   const {
@@ -45,14 +42,14 @@ export default function Header({}) {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [deviceWidth, setDeviceWidth] = useState({ width: window.innerWidth });
   const [isShowSideBarCart, setIsShowSideBarCart] = useState(false);
+  const [isShowFilterOptions,setIsShowFilterOptions]=useState(false)
   
   const resizaHandler = () => {
     setDeviceWidth({ width: window.innerWidth });
   };
 
-  const logoutHandler = () => {
-    logOutUser()
-      .unwrap()
+  const logoutHandler = async () => {
+    await logOutUser().unwrap()
       .then(() => {
         toast.success(persianTexts.useLogout.logoutSuccess);
       })
@@ -97,7 +94,7 @@ export default function Header({}) {
               </div>
               <div className="col-lg-3">
                 <div className="header__leftBox">
-                  {!token ? (
+                  {!userName ? (
                     <Link className="header__authUser" to="/login">
                       <div className="header__authUser-box">
                         <IoPersonOutline className="fullIcon" />
@@ -156,7 +153,8 @@ export default function Header({}) {
         /* start mobile */
         <header className="mobileHeader">
           {/* start basket sidebar in mobile */}
-          <SidebarCart />
+          <SidebarCart isShowSideBarCart={isShowSideBarCart}
+            setIsShowSideBarCart={setIsShowSideBarCart}/>
           {/* end basket sidebar in mobile */}
           <div
             className={`${
@@ -217,7 +215,7 @@ export default function Header({}) {
               </div>
               <div className="col-4 col-md-6">
                 <div className="mobileHeader__leftBox">
-                  {!token ? (
+                  {!userName ? (
                     <Link className="mobileHeader__authUser" to="/login">
                       <div className="header__authUser-box">
                         <IoPersonOutline className="fullIcon" />
@@ -250,12 +248,12 @@ export default function Header({}) {
                   )}
                   <div
                     className="mobileHeader__basket"
-                    onClick={()=>setIsShowSideBarCart(true)}
+                    
                   >
-                    <FiShoppingBag className="mobileHeader__basketIcon" />
+                    <FiShoppingBag className="mobileHeader__basketIcon" onClick={()=>setIsShowSideBarCart(true)}/>
                     {baskets?.totalQTY ? (
                       <span className="mobileHeader__basketCounter ss02">
-                        {baskets?.totalQTY}
+                        {baskets.totalQTY}
                       </span>
                     ) : null}
                   </div>

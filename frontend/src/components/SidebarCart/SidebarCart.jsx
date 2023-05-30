@@ -12,7 +12,7 @@ import SidebarCartItem from "../SidebarCartItem/SidebarCartItem";
 import { IoMdClose } from "react-icons/io";
 import { IoBagHandleOutline } from "react-icons/io5";
 //persiantext
-import { persianTexts } from "../../text";
+import { persianTexts } from "../../text"
 //styles
 import "./SidebarCart.css";
 
@@ -32,7 +32,6 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
       setIsShowSideBarCart(false);
     }
   };
-  const removeProductFromBasketHandler = (id) => {};
   return (
     <>
       <div
@@ -63,14 +62,14 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
             {baskets?.cartItems?.length > 0 ? (
               <ul className="sideBarCart__Lists">
                 {baskets.cartItems.map((item) => (
-                  <SidebarCartItem {...item} />
+                  <SidebarCartItem {...item} key={item._id}/>
                 ))}
               </ul>
             ) : (
               <div className="emptyBasket">
                 <IoBagHandleOutline className="emptyBasket__icon" />
                 <span className="emptyBasket__text">
-                  {persianTexts.header.emptyBasket}
+                  {persianTexts.basket.emptyBasket}
                 </span>
               </div>
             )}

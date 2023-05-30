@@ -190,18 +190,19 @@ export const persianTexts = {
     },
   },
   header: {
-    emptyBasket: "سبد خرید شما خالی می باشد",
     notLoginInBasket: "لطفا وارد حساب کاربری خود شوید",
   },
   productsCategory: {
     noProducts: "محصولی پیدا نشد",
+    noResponse:"خطا در ارتباط با سرور"
   },
   basket:{
+    emptyBasket: "سبد خرید شما خالی می باشد",
     addtobasketSuccess: "محصول مورد نظر به سبد خرید شما افزوده شد",
     addtobasketError: "افزودن محصول مورد نظر به سبد خرید با مشکل مواجه شد",
     removeFromBasketSuccess:"محصول مورد نظر با موفقیت از سبد خرید حذف شد",
     removeFromBasketError:"حذف محصول از سبد خرید با مشکل مواجه شد لطفا دوباره تلاش نمایید",
-    incrementProductError:"افزایش تعداد محصول مورد نظر در سبد خرید با مشکل مواجه شد لطفا دوباره تلاش نمایید",
-    decrementProductError:"کاهش تعداد محصول مورد نظر در سبد خرید با مشکل مواجه شد لطفا دوباره تلاش نمایید",
+    incrementProductError:"افزایش تعداد محصول در سبد خرید با مشکل مواجه شد لطفا دوباره تلاش نمایید",
+    decrementProductError:"کاهش تعداد محصول در سبد خرید با مشکل مواجه شد لطفا دوباره تلاش نمایید",
   }
 };

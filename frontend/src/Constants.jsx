@@ -27,6 +27,7 @@ import { TbBabyCarriage, TbDeviceTvOld } from "react-icons/tb";
 import { MdOutlineDevices } from "react-icons/md";
 import { IoMdFootball } from "react-icons/io";
 import { HiOutlineUserGroup } from "react-icons/hi";
+import { SiApple, SiAsus, SiLenovo, SiSamsung, SiXiaomi } from 'react-icons/si'
 
 // Definition of variables
 export const services = [
@@ -71,42 +72,42 @@ export const menus = [
   {
     id: 2,
     title: "دیجیتال",
-    link: "/products-category/digital",
+    link: "/products/digital",
     shortLink: "digital",
     icon: <FaLaptopCode className="icon" />,
     subMenu: [
       {
         id: 21,
         title: "تبلت",
-        link: "/products-category/digital/tablet",
+        link: "/products/digital/tablet",
         shortLink: "tablet",
         img: "/images/submenu/tablet.png",
       },
       {
         id: 22,
         title: "دوربین",
-        link: "/products-category/digital/camera",
+        link: "/products/digital/camera",
         shortLink: "camera",
         img: "/images/submenu/camera.png",
       },
       {
         id: 23,
         title: "ماشین های اداری",
-        link: "/products-category/digital/workstation",
+        link: "/products/digital/workstation",
         shortLink: "workstation",
         img: "/images/submenu/workstation.png",
       },
       {
         id: 24,
         title: "لپ تاپ",
-        link: "/products-category/digital/laptop",
+        link: "/products/digital/laptop",
         shortLink: "laptop",
         img: "/images/submenu/laptop.png",
       },
       {
         id: 25,
         title: "موبایل",
-        link: "/products-category/digital/phone",
+        link: "/products/digital/phone",
         shortLink: "phone",
         img: "/images/submenu/phone.png",
       },
@@ -115,42 +116,42 @@ export const menus = [
   {
     id: 3,
     title: "لـوازم خانگی",
-    link: "/products-category/household-appliances",
+    link: "/products/household-appliances",
     shortLink: "household-appliances",
     icon: <FiCamera className="icon" />,
     subMenu: [
       {
         id: 31,
         title: "تلوزیون",
-        link: "/products-category/household-appliances/television",
+        link: "/products/household-appliances/television",
         shortLink: "television",
         img: "/images/submenu/tv.png",
       },
       {
         id: 32,
         title: "کنسول بازی",
-        link: "/products-category/household-appliances/game-console",
+        link: "/products/household-appliances/game-console",
         shortLink: "game-console",
         img: "/images/submenu/xbox.png",
       },
       {
         id: 33,
         title: "یخچال و فریزر",
-        link: "/products-category/household-appliances/refrigerator-freezer",
+        link: "/products/household-appliances/refrigerator-freezer",
         shortLink: "refrigerator-freezer",
         img: "/images/submenu/fridge.png",
       },
       {
         id: 34,
         title: "لوازم شستشو و نظافت",
-        link: "/products-category/household-appliances/washing-cleaning",
+        link: "/products/household-appliances/washing-cleaning",
         shortLink: "washing-cleaning",
         img: "/images/submenu/washing-machine.png",
       },
       {
         id: 35,
         title: "لوازم پخت و پز",
-        link: "/products-category/household-appliances/cooking",
+        link: "/products/household-appliances/cooking",
         shortLink: "cooking",
         img: "/images/submenu/cooking.png",
       },
@@ -159,42 +160,42 @@ export const menus = [
   {
     id: 4,
     title: "زیبایــی و سلامت",
-    link: "/products-category/beauty-health",
+    link: "/products/beauty-health",
     shortLink: "beauty-health",
     icon: <RiHandHeartLine className="icon" />,
     subMenu: [
       {
         id: 41,
         title: "آرایشی",
-        link: "/products-category/beauty-health/cosmetic",
+        link: "/products/beauty-health/cosmetic",
         shortLink: "cosmetic",
         img: "/images/submenu/powder.png",
       },
       {
         id: 42,
         title: "زیور آلات",
-        link: "/products-category/beauty-health/ornaments",
+        link: "/products/beauty-health/ornaments",
         shortLink: "ornaments",
         img: "/images/submenu/ring.png",
       },
       {
         id: 43,
         title: "ساعت",
-        link: "/products-category/beauty-health/watch",
+        link: "/products/beauty-health/watch",
         shortLink: "watch",
         img: "/images/submenu/watch.png",
       },
       {
         id: 44,
         title: "عطر",
-        link: "/products-category/beauty-health/perfume",
+        link: "/products/beauty-health/perfume",
         shortLink: "perfume",
         img: "/images/submenu/perfume.png",
       },
       {
         id: 45,
         title: "عینک آفتابی",
-        link: "/products-category/beauty-health/sunglasses",
+        link: "/products/beauty-health/sunglasses",
         shortLink: "sunglasses",
         img: "/images/submenu/sun-glasses.png",
       },
@@ -203,42 +204,42 @@ export const menus = [
   {
     id: 5,
     title: "مادر و کودک",
-    link: "/products-category/mother-child",
+    link: "/products/mother-child",
     shortLink: "mother-child",
     icon: <TbBabyCarriage className="icon" />,
     subMenu: [
       {
         id: 51,
         title: "ایمنی و مراقبت",
-        link: "/products-category/mother-child/safety-care",
+        link: "/products/mother-child/safety-care",
         shortLink: "safety-care",
         img: "/images/submenu/mother-room.png",
       },
       {
         id: 52,
         title: "بهداشت و حمام",
-        link: "/products-category/mother-child/health-bathroom",
+        link: "/products/mother-child/health-bathroom",
         shortLink: "health-bathroom",
         img: "/images/submenu/bathtub.png",
       },
       {
         id: 53,
         title: "خواب کودک",
-        link: "/products-category/mother-child/childs-sleep",
+        link: "/products/mother-child/childs-sleep",
         shortLink: "childs-sleep",
         img: "/images/submenu/bed.png",
       },
       {
         id: 54,
         title: "غذا خوری",
-        link: "/products-category/mother-child/eating",
+        link: "/products/mother-child/eating",
         shortLink: "eating",
         img: "/images/submenu/breakfast.png",
       },
       {
         id: 55,
         title: "لوازم شخصی",
-        link: "/products-category/mother-child/personal-stuff",
+        link: "/products/mother-child/personal-stuff",
         shortLink: "personal-stuff",
         img: "/images/submenu/bib.png",
       },
@@ -247,35 +248,35 @@ export const menus = [
   {
     id: 6,
     title: "ورزش و سرگرمی",
-    link: "/products-category/sport-entertainment",
+    link: "/products/sport-entertainment",
     shortLink: "sport-entertainment",
     icon: <IoAmericanFootballOutline className="icon" />,
     subMenu: [
       {
         id: 61,
         title: "پوشاک ورزشی",
-        link: "/products-category/sport-entertainment/sportswear",
+        link: "/products/sport-entertainment/sportswear",
         shortLink: "sportswear",
         img: "/images/submenu/wear.png",
       },
       {
         id: 62,
         title: "تجهیزات سفر",
-        link: "/products-category/sport-entertainment/travel-equipment",
+        link: "/products/sport-entertainment/travel-equipment",
         shortLink: "travel-equipment",
         img: "/images/submenu/trekking.png",
       },
       {
         id: 63,
         title: "کفش ورزشی",
-        link: "/products-category/sport-entertainment/sport-shoes",
+        link: "/products/sport-entertainment/sport-shoes",
         shortLink: "sport-shoes",
         img: "/images/submenu/trainers.png",
       },
       {
         id: 64,
         title: "لوازم ورزشی",
-        link: "/products-category/sport-entertainment/Sporting-goods",
+        link: "/products/sport-entertainment/Sporting-goods",
         shortLink: "Sporting-goods",
         img: "/images/submenu/sports.png",
       },
@@ -284,21 +285,21 @@ export const menus = [
   {
     id: 7,
     title: "ابزار و الکترونیـک",
-    link: "/products-category/tools-electronics",
+    link: "/products/tools-electronics",
     shortLink: "tools-electronics",
     icon: <MdOutlineHomeRepairService className="icon" />,
     subMenu: [
       {
         id: 71,
         title: "ابزار برقی و شارژی",
-        link: "/products-category/tools-electronics/electric-rechargeable-tools",
+        link: "/products/tools-electronics/electric-rechargeable-tools",
         shortLink: "electric-rechargeable-tools",
         img: "/images/submenu/grinding-machine.png",
       },
       {
         id: 72,
         title: "تجهیزات سفر",
-        link: "/products-category/tools-electronics/non-electrical-tools",
+        link: "/products/tools-electronics/non-electrical-tools",
         shortLink: "non-electrical-tools",
         img: "/images/submenu/tools.png",
       },
@@ -487,5 +488,37 @@ export const sortedProductsItems = [
     id: "sorte_products_items_4",
     title: "مرتب‌ سازی براساس گران ترین",
     sortedBy: "price-high-to-low",
+  },
+];
+export const brands = [
+  {
+    id: nanoid(),
+    title: "apple",
+    text: "اپل",
+    icon: <SiApple className="brand__icon"/>,
+  },
+  {
+    id: nanoid(),
+    title: "lenovo",
+    text: "لنوو",
+    icon: <SiLenovo className="brand__icon"/>,
+  },
+  {
+    id: nanoid(),
+    title: "samsung",
+    text: "سامسونگ",
+    icon: <SiSamsung className="brand__icon"/>,
+  },
+  {
+    id: nanoid(),
+    title: "xiaomi",
+    text: "شیائومی",
+    icon: <SiXiaomi className="brand__icon"/>,
+  },
+  {
+    id: nanoid(),
+    title: "asus",
+    text: "ایسوس",
+    icon: <SiAsus className="brand__icon"/>,
   },
 ];

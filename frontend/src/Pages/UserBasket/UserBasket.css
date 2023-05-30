@@ -1,66 +1,66 @@
-.backet{
-    width: 100%;
+.backet {
+  width: 100%;
 }
-.basket__crumbs{
-    position: relative;
-    /* margin-top: 1.5rem; */
-
+.basket__crumbs {
+  position: relative;
+  /* margin-top: 1.5rem; */
 }
-.basket__crumbs::before{
-    content: "";
-    position: absolute;
-    height: .4rem;
-    left: 1.6rem;
-    right: 1.6rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(39, 43, 59, .15);
+.basket__crumbs::before {
+  content: "";
+  position: absolute;
+  height: 0.4rem;
+  left: 1.6rem;
+  right: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(39, 43, 59, 0.15);
 }
-.basket__checkSteps{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    position: relative;
-    /* padding: 1.5rem 0; */
+.basket__checkSteps {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  /* padding: 1.5rem 0; */
 }
-.basket__checkSteps::before,.basket__checkSteps::after{
-position: absolute;
-content: "";
-width: 1.6rem;
-height: 1.6rem;
-border-radius: 50%;
-background:rgba(39, 43, 59, .15) ;
+.basket__checkSteps::before,
+.basket__checkSteps::after {
+  position: absolute;
+  content: "";
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: rgba(39, 43, 59, 0.15);
 }
-.basket__checkSteps::before{
-    right: 0;
+.basket__checkSteps::before {
+  right: 0;
 }
-.basket__checkSteps::after{
-    left: 0;
+.basket__checkSteps::after {
+  left: 0;
 }
-.basket__step{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1.75rem;
+.basket__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.75rem;
 }
-.basket__stepIcon{
-    font-size: 2.1rem;
-    color: var(--blue);
-    background: var(--white);
-    padding: 0.5rem;
-    width: 3.5rem;
-    height: 3.5rem;
-    display: block;
-    border-radius: var(--border-box);
-    margin: auto;
+.basket__stepIcon {
+  font-size: 2.1rem;
+  color: var(--blue);
+  background: var(--white);
+  padding: 0.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: block;
+  border-radius: var(--border-box);
+  margin: auto;
 }
-.basket__stepTitle{
-    font-size: 1.2rem;
-    color: #333;
-    margin-top: 0.5rem;
-    opacity: .5;
-    
+.basket__stepTitle {
+  font-family: var(--iran-bold);
+  font-size: 1.1rem;
+  color: #333;
+  margin-top: 0.5rem;
+  opacity: 0.5;
 }
-.stepCurrent{
-    opacity: 1;
+.stepCurrent {
+  opacity: 1;
 }

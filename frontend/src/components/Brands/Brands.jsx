@@ -1,27 +1,19 @@
 //styles
-import './Brands.css'
+import { brands } from "../../Constants";
+import "./Brands.css";
 
-export default function Brands() {
+export default function Brands({setFilter}) {
+const filterHandler=(brand)=>{
+  setFilter(prev=>({...prev,brand}))
+}
   return (
-    <div className='brands'>
-
-        <div className="brands__brandBox">
-            <img className='brands__brandImg' src="/images/brands/apple.png" alt="" />
-            <span className='brands__brandTitle'>اپل</span>
+    <div className="brands">
+      {brands.map((brand) => (
+        <div className="brands__brandBox" key={brand.id} onClick={()=>filterHandler(brand.title)}>
+          {brand.icon}
+          <span className="brands__brandTitle">{brand.text}</span>
         </div>
-
-        <div className="brands__brandBox">
-            <img className='brands__brandImg' src="/images/brands/lg.png" alt="" />
-            <span className='brands__brandTitle'>ال جی</span>
-        </div>
-        <div className="brands__brandBox">
-            <img className='brands__brandImg' src="/images/brands/samsung.png" alt="" />
-            <span className='brands__brandTitle'>سامسونگ</span>
-        </div>
-        <div className="brands__brandBox">
-            <img className='brands__brandImg' src="/images/brands/asus.png" alt="" />
-            <span className='brands__brandTitle'>ایسوس</span>
-        </div>
+      ))}
     </div>
-  )
+  );
 }
