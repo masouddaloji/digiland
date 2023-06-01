@@ -10,6 +10,8 @@ const Input = (props) => {
   const inputRef = useRef();
   return (
     <div className="formControl__wrapper">
+     
+      <div className={`formControl__box`}>
       {props.label && (
         <label
           htmlFor={field.name}
@@ -21,13 +23,11 @@ const Input = (props) => {
           {props.label}
         </label>
       )}
-      <div className={`formControl__box`}>
         <input
           ref={inputRef}
           className={`input  ${
             meta.touched && meta.error ? "formControl--invalid" : undefined
           }`}
-          autoComplete="off"
           id={field.name}
           {...props}
           {...field}

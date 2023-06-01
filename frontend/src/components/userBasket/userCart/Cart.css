@@ -31,7 +31,7 @@
   padding: 0.7rem;
 }
 .cart__table td {
-  padding: 0.5rem;
+  padding:1rem 0.5rem;
   vertical-align: middle;
 }
 .cart__table td .currentPrice {
@@ -275,6 +275,7 @@
     flex-direction: column;
     margin-bottom: 1rem;
   }
+ 
   .cart__table td{
     position: relative;
     padding: 1rem 0;

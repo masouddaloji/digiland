@@ -8,9 +8,13 @@ import ProductCount from "../../ProductCount/ProductCount";
 //icons
 import { IoMdClose } from "react-icons/io";
 //styles
+import "./CartItem.css";
 
 const CartItem = (props) => {
-    const{cartQuantity,productId:{_id,image,title,price,quantity}}=props
+  const {
+    cartQuantity,
+    productId: { _id, image, title, price, quantity },
+  } = props;
   const [removeItem, { isLoading: isLoadingRemove }] = useRemoveItemMutation();
   const [isLoadingUpdateCount, setIsLoadingUpdateCount] = useState(false);
 
@@ -20,12 +24,13 @@ const CartItem = (props) => {
       .catch((error) => toast.error("حذف محصول از سبد خرید با مشکل مواجه شد"));
   };
   return (
-    <tr>
-      {(isLoadingRemove || isLoadingUpdateCount) && (
-        <div className="cartItem__loader">
-          <span className="cartItem__spinner"></span>
-        </div>
-      )}
+    <tr
+      className={`${
+        isLoadingRemove || isLoadingUpdateCount
+          ? "cartItem__wrapper--loading"
+          : null
+      }`}
+    >
       <td>
         <IoMdClose
           className="cart__removeIcon"
@@ -33,10 +38,7 @@ const CartItem = (props) => {
         />
       </td>
       <td>
-        <Link
-          to={`/product/${_id}`}
-          className="cart__productImglink"
-        >
+        <Link to={`/product/${_id}`} className="cart__productImglink">
           <img
             src={`http://localhost:8000${image}`}
             alt="image products"
@@ -46,7 +48,7 @@ const CartItem = (props) => {
       </td>
       <td data-title="محصول">
         <Link
-        title={title}
+          title={title}
           className="cart__productName"
           to={`/product/${_id}`}
         >

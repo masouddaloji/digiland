@@ -8,6 +8,7 @@ import TextEditor from "./TextEditor";
 
 // styles
 import "./FormControl.css";
+import Terms from "./Terms";
 
 function FormControl(props) {
   switch (props.controler) {
@@ -33,9 +34,9 @@ function FormControl(props) {
     case "editor": {
       return <TextEditor {...props} />;
     }
-    // case "password":
-    //   break;
-
+    case "terms":{
+      return <Terms {...props}/>
+    }
     default:
       return null;
   }

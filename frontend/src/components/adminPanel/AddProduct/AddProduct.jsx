@@ -1,4 +1,7 @@
 import { useRef } from "react";
+// packages
+import { Form, Formik } from "formik";
+import { useNavigate } from "react-router-dom";
 // variables
 import { persianTexts } from "../../../text";
 // components
@@ -7,9 +10,6 @@ import FormControl from "../../FormControl/FormControl";
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct, getProducts } from "../../../features/productsSlice";
 import { selectToken } from "../../../features/auth/authSlice";
-// packages
-import { Form, Formik } from "formik";
-import { useNavigate } from "react-router-dom";
 
 // icons
 import { MdUploadFile, MdOutlineDriveFolderUpload } from "react-icons/md";
@@ -26,6 +26,22 @@ const AddProduct = () => {
   const uploadRef = useRef();
   const token=useSelector(selectToken)
   const navigate = useNavigate();
+  let initialValues={
+    productTitle: "",
+    productPrice: "",
+    productRating: "",
+    productQantity: "",
+    productCategory: null,
+    productSegment: "",
+    productColors: null,
+    productBrand: "",
+    productSubCategory: "",
+    productOffPrice: "",
+    productShortDescription: "",
+    productFullDescription: "",
+    productCover: null,
+    productGallery: null,
+  }
   const createnewProduct = (productinfos) => {
     const data = {
       title: productinfos.productTitle,
@@ -49,22 +65,7 @@ const AddProduct = () => {
   };
   return (
     <Formik
-      initialValues={{
-        productTitle: "",
-        productPrice: "",
-        productRating: "",
-        productQantity: "",
-        productCategory: null,
-        productSegment: "",
-        productColors: null,
-        productBrand: "",
-        productSubCategory: "",
-        productOffPrice: "",
-        productShortDescription: "",
-        productFullDescription: "",
-        productCover: null,
-        productGallery: null,
-      }}
+      initialValues={initialValues}
       validationSchema={addProductsSchema}
       onSubmit={async (values, { resetForm }) => {
         await createnewProduct(values);
@@ -110,6 +111,7 @@ const AddProduct = () => {
                           .inputPlaceholderRating
                       }
                       controler="select"
+                      selectType="color"
                       name="productRating"
                       options={ratingOptions}
                     />

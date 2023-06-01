@@ -11,7 +11,6 @@ import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import ProductGallery from "../../components/Slider/ProductGallery";
 import ProductCart from "../../components/ProductCart/ProductCart";
-import ProductCount from "../../components/ProductCount/ProductCount";
 import Slider from "../../components/Slider/Slider";
 import Loader from "../../components/Loader/Loader";
 import Rating from "../../components/Rating/Rating";
@@ -43,14 +42,11 @@ export default function Product() {
     isError,
     error,
   } = useGetProductByIdQuery(productId);
-  const[addToBasket]=useAddToBasketMutation()
+  const [addToBasket] = useAddToBasketMutation();
   const { userName } = useAuth();
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
-  const [productUpdated, setProductUpdated] = useState();
   const [relatedProduct, setRelatedProduct] = useState([]);
-  const [productCount, setProductCount] = useState(1);
-  const { data } = useGetProductByIdQuery(productId);
   const showRatingResultPersian = (rate) => {
     switch (rate) {
       case 5:
@@ -105,17 +101,18 @@ export default function Product() {
   const addToFavoriteHandler = (id) => {};
 
   const addToBasketHandler = async (id) => {
-if(userName){
-  await addToBasket(id).unwrap()
-  .then(() => {
-    toast.success(persianTexts.basket.addtobasketSuccess);
-  })
-  .catch((error) => {
-    toast.error(persianTexts.basket.addtobasketError);
-  });
-}else{
-  toast.warning(persianTexts.header.notLoginInBasket)
-}
+    if (userName) {
+      await addToBasket(id)
+        .unwrap()
+        .then(() => {
+          toast.success(persianTexts.basket.addtobasketSuccess);
+        })
+        .catch((error) => {
+          toast.error(persianTexts.basket.addtobasketError);
+        });
+    } else {
+      toast.warning(persianTexts.header.notLoginInBasket);
+    }
   };
 
   // useEffect(() => {
@@ -125,556 +122,547 @@ if(userName){
   // }, [productId]);
 
   return (
-    <>
+    <div className={`product ${isLoading ? "product--loader" : null}`}>
       {isLoading ? (
         <Loader message="در حال دریافت اطلاعات" />
       ) : isSuccess ? (
-        <div className="product">
-          <div className="container">
-            {/* bread crumbs */}
-            {/* <Breadcrumb /> */}
-            <div className="product__wrapper">
-              <div className="row">
-                {/* product images */}
-                <div className="col-12 col-md-5 col-lg-5">
-                  <ProductGallery array={product?.gallery} />
+        <div className="container">
+          {/* bread crumbs */}
+          {/* <Breadcrumb /> */}
+          <div className="product__wrapper">
+            <div className="row">
+              {/* product images */}
+              <div className="col-12 col-md-5 col-lg-5">
+                <ProductGallery array={product?.gallery} />
+              </div>
+              {/* product details */}
+              <div className="col-12 col-md-4 col-lg-4">
+                <div>
+                  <h2 className="product__detailsTitle">{product?.title}</h2>
+                  <span className="product__detailsSubtitle">
+                    {product?.segment}
+                  </span>
+                  <div className="product__detailsMeta">
+                    <span className="product__detailsMetainfo">دسته : </span>
+                    <span className="product__detailsMetainfo">
+                      <Link to="/">موبایل</Link>
+                    </span>
+                  </div>
+                  <ul className="product__detailsListInfos">
+                    <li className="product__detailsItemInfos">
+                      <span className="product__infosQuest">
+                        حافظه داخلي :{" "}
+                      </span>
+                      <span className="product__infosAnswer">256 گيگابايت</span>
+                    </li>
+                    <li className="product__detailsItemInfos">
+                      <span className="product__infosQuest">
+                        تعداد سيم کارت :{" "}
+                      </span>
+                      <span className="product__infosAnswer">دو سيم کارت</span>
+                    </li>
+                    <li className="product__detailsItemInfos">
+                      <span className="product__infosQuest">حس‌گرها : </span>
+                      <span className="product__infosAnswer">
+                        قطب‌نما (Compass)، شتاب‌سنج (Accelerometer)، مجاورت
+                        (Proximity)، ژيروسکوپ (Gyro)
+                      </span>
+                    </li>
+                    <li className="product__detailsItemInfos">
+                      <span className="product__infosQuest">
+                        شبکه هاي ارتباطي :{" "}
+                      </span>
+                      <span className="product__infosAnswer">2G، 3G، 4G</span>
+                    </li>
+                  </ul>
+                  <div className="priceBox">
+                    {product?.offPrice ? (
+                      <>
+                        <del>
+                          <bdi className="product_info__price productPrice ss02">
+                            {product?.price.toLocaleString()}
+                          </bdi>
+                        </del>
+                        <span>
+                          {" "}
+                          <bdi className="product_info__price currentPrice ss02">
+                            {(
+                              product?.price -
+                              (product?.price * product?.offPrice) / 100
+                            ).toLocaleString()}
+                          </bdi>
+                          <span className="toman">تومان</span>
+                        </span>
+                      </>
+                    ) : (
+                      <bdi className="product_info__price currentPrice ss02">
+                        {product?.price?.toLocaleString()}
+                        <span className="toman">تومان</span>
+                      </bdi>
+                    )}
+                  </div>
+                  {/* select colors product */}
+                  <div className="product__colorBox">
+                    <div className="product__currentColor">
+                      <span> رنگ : </span>
+                      <span>{selectedColor ?? product?.colors[0]}</span>
+                    </div>
+                    <div className="colorAndAddTobasket__wrapper">
+                      <div className="product__allColors">
+                        {product?.colors?.map((color) => (
+                          <div
+                            style={selectColorStyle(color)}
+                            className={`product__color ${
+                              selectedColor === color ? "colorSelected" : null
+                            } `}
+                            onClick={() => setSelectedColor(color)}
+                          >
+                            {selectedColor === color && (
+                              <BsCheckLg
+                                className={`colorSelecteor ${
+                                  selectedColor === "سفید" && "blacked"
+                                }`}
+                              />
+                            )}{" "}
+                          </div>
+                        ))}
+                      </div>
+                      <button
+                        className="product__addToBasket"
+                        onClick={() => addToBasketHandler(productId)}
+                      >
+                        <MdOutlineAddShoppingCart className="product__addIcon" />
+                        افزودن به سبد خرید
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="product__warning">
+                    <p className="product__warningText">
+                      <HiOutlineBellAlert className="product__warningIcon" />
+                      {persianTexts.productInfo.warning}
+                    </p>
+                  </div>
                 </div>
-                {/* product details */}
-                <div className="col-12 col-md-4 col-lg-4">
-                  <div>
-                    <h2 className="product__detailsTitle">{product?.title}</h2>
-                    <span className="product__detailsSubtitle">
+              </div>
+              {/* details send */}
+              <div className="col-12 col-md-3 col-lg-3">
+                <div className="product__availbleBox">
+                  <div className="product__availbleWrapper">
+                    {product?.quantity ? (
+                      <div className="product__availbleItem">
+                        <BiCheckSquare className="product__availbleItemIcon available" />
+                        موجود است
+                      </div>
+                    ) : (
+                      <div className="product__availbleItem">
+                        <BsXSquare className="product__availbleItemIcon notavailable" />
+                        اتمام موجودی
+                      </div>
+                    )}
+
+                    <div className="product__availbleItem">
+                      <FaTruck className="product__availbleItemIcon truck" />
+                      ارسال از <span>3</span> روز کاری آینده
+                    </div>
+                    <div className="product__availbleItem">
+                      <button
+                        className="product__availbleButton"
+                        onClick={() => addToFavoriteHandler(productId)}
+                      >
+                        <FaRegHeart className="product__availbleBtnIcon" />
+                        افزودن به علاقه مندی ها
+                      </button>
+                    </div>
+                  </div>
+                  <div className="product__services">
+                    <div className="product__servicesItem">
+                      <img
+                        src="/images/productservices/1.png"
+                        alt=""
+                        className="product__servicesImg"
+                      />
+                      تضمین بهترین قیمت
+                    </div>
+                    <div className="product__servicesItem">
+                      <img
+                        src="/images/productservices/2.png"
+                        alt=""
+                        className="product__servicesImg"
+                      />
+                      ضمانت اصل بودن
+                    </div>
+                    <div className="product__servicesItem">
+                      <img
+                        src="/images/productservices/3.webp"
+                        alt=""
+                        className="product__servicesImg"
+                      />
+                      تحویل اکسپرس
+                    </div>
+                    <div className="product__servicesItem">
+                      <img
+                        src="/images/productservices/4.webp"
+                        alt=""
+                        className="product__servicesImg"
+                      />
+                      بسته بندی زیبا
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="product__tabListWrapper">
+              <ul className="product__tabList">
+                {allInfosBtn.map((btn) => (
+                  <li className="product__tabItem" key={btn.id}>
+                    <Link
+                      className={`product__tabLink ${
+                        active === btn.titleEn ? "product__tabLink--active" : ""
+                      }`}
+                      to="#"
+                      onClick={() => setActive(btn.titleEn)}
+                    >
+                      {btn.titleFa}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="product__wrapper">
+            <div className="row">
+              {/* Description */}
+              <div
+                className={`allDetails ${
+                  active === "description" ? "allDetails--show" : ""
+                }`}
+              >
+                <div className="allDetails__headingWrapper">
+                  <BsPen className="allDetails__headingIcon" />
+                  <div className="allDetails__headingLeft">
+                    <span className="allDetails__headingTitle">
+                      نقد و بررسی اجمالی
+                    </span>
+                    <span className="allDetails__headingDesc">
                       {product?.segment}
                     </span>
-                    <div className="product__detailsMeta">
-                      <span className="product__detailsMetainfo">دسته : </span>
-                      <span className="product__detailsMetainfo">
-                        <Link to="/">موبایل</Link>
-                      </span>
-                    </div>
-                    <ul className="product__detailsListInfos">
-                      <li className="product__detailsItemInfos">
-                        <span className="product__infosQuest">
-                          حافظه داخلي :{" "}
-                        </span>
-                        <span className="product__infosAnswer">
-                          256 گيگابايت
-                        </span>
-                      </li>
-                      <li className="product__detailsItemInfos">
-                        <span className="product__infosQuest">
-                          تعداد سيم کارت :{" "}
-                        </span>
-                        <span className="product__infosAnswer">
-                          دو سيم کارت
-                        </span>
-                      </li>
-                      <li className="product__detailsItemInfos">
-                        <span className="product__infosQuest">حس‌گرها : </span>
-                        <span className="product__infosAnswer">
-                          قطب‌نما (Compass)، شتاب‌سنج (Accelerometer)، مجاورت
-                          (Proximity)، ژيروسکوپ (Gyro)
-                        </span>
-                      </li>
-                      <li className="product__detailsItemInfos">
-                        <span className="product__infosQuest">
-                          شبکه هاي ارتباطي :{" "}
-                        </span>
-                        <span className="product__infosAnswer">2G، 3G، 4G</span>
-                      </li>
-                    </ul>
-                    <div className="priceBox">
-                      {product?.offPrice ? (
-                        <>
-                          <del>
-                            <bdi className="product_info__price productPrice ss02">
-                              {product?.price.toLocaleString()}
-                            </bdi>
-                          </del>
-                          <span>
-                            {" "}
-                            <bdi className="product_info__price currentPrice ss02">
-                              {(
-                                product?.price -
-                                (product?.price * product?.offPrice) / 100
-                              ).toLocaleString()}
-                            </bdi>
-                            <span className="toman">تومان</span>
-                          </span>
-                        </>
-                      ) : (
-                        <bdi className="product_info__price currentPrice ss02">
-                          {product?.price?.toLocaleString()}
-                          <span className="toman">تومان</span>
-                        </bdi>
-                      )}
-                    </div>
-                    {/* select colors product */}
-                    <div className="product__colorBox">
-                      <div className="product__currentColor">
-                        <span> رنگ : </span>
-                        <span>{selectedColor??product?.colors[0]}</span>
-                      </div>
-                      <div className="colorAndAddTobasket__wrapper">
-                        <div className="product__allColors">
-                          {product?.colors?.map((color) => (
-                            <div
-                              style={selectColorStyle(color)}
-                              className={`product__color ${
-                                selectedColor === color ? "colorSelected" : null
-                              } `}
-                              onClick={() => setSelectedColor(color)}
-                            >
-                              {selectedColor === color && (
-                                <BsCheckLg
-                                  className={`colorSelecteor ${
-                                    selectedColor === "سفید" && "blacked"
-                                  }`}
-                                />
-                              )}{" "}
-                            </div>
-                          ))}
-                        </div>
-                        <button
-                          className="product__addToBasket"
-                          onClick={() => addToBasketHandler(productId)}
-                        >
-                          <MdOutlineAddShoppingCart className="product__addIcon" />
-                          افزودن به سبد خرید
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="product__warning">
-                      <p className="product__warningText">
-                        <HiOutlineBellAlert className="product__warningIcon" />
-                        {persianTexts.productInfo.warning}
-                      </p>
-                    </div>
                   </div>
                 </div>
-                {/* details send */}
-                <div className="col-12 col-md-3 col-lg-3">
-                  <div className="product__availbleBox">
-                    <div className="product__availbleWrapper">
-                      {product?.quantity ? (
-                        <div className="product__availbleItem">
-                          <BiCheckSquare className="product__availbleItemIcon available" />
-                          موجود است
-                        </div>
-                      ) : (
-                        <div className="product__availbleItem">
-                          <BsXSquare className="product__availbleItemIcon notavailable" />
-                          اتمام موجودی
-                        </div>
-                      )}
-
-                      <div className="product__availbleItem">
-                        <FaTruck className="product__availbleItemIcon truck" />
-                        ارسال از <span>3</span> روز کاری آینده
-                      </div>
-                      <div className="product__availbleItem">
-                        <button
-                          className="product__availbleButton"
-                          onClick={() => addToFavoriteHandler(productId)}
-                        >
-                          <FaRegHeart className="product__availbleBtnIcon" />
-                          افزودن به علاقه مندی ها
-                        </button>
-                      </div>
-                    </div>
-                    <div className="product__services">
-                      <div className="product__servicesItem">
-                        <img
-                          src="/images/productservices/1.png"
-                          alt=""
-                          className="product__servicesImg"
-                        />
-                        تضمین بهترین قیمت
-                      </div>
-                      <div className="product__servicesItem">
-                        <img
-                          src="/images/productservices/2.png"
-                          alt=""
-                          className="product__servicesImg"
-                        />
-                        ضمانت اصل بودن
-                      </div>
-                      <div className="product__servicesItem">
-                        <img
-                          src="/images/productservices/3.webp"
-                          alt=""
-                          className="product__servicesImg"
-                        />
-                        تحویل اکسپرس
-                      </div>
-                      <div className="product__servicesItem">
-                        <img
-                          src="/images/productservices/4.webp"
-                          alt=""
-                          className="product__servicesImg"
-                        />
-                        بسته بندی زیبا
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="product__tabListWrapper">
-                <ul className="product__tabList">
-                  {allInfosBtn.map((btn) => (
-                    <li className="product__tabItem" key={btn.id}>
-                      <Link
-                        className={`product__tabLink ${
-                          active === btn.titleEn
-                            ? "product__tabLink--active"
-                            : ""
-                        }`}
-                        to="#"
-                        onClick={() => setActive(btn.titleEn)}
-                      >
-                        {btn.titleFa}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="product__wrapper">
-              <div className="row">
-                {/* Description */}
-                <div
-                  className={`allDetails ${
-                    active === "description" ? "allDetails--show" : ""
-                  }`}
-                >
-                  <div className="allDetails__headingWrapper">
-                    <BsPen className="allDetails__headingIcon" />
-                    <div className="allDetails__headingLeft">
-                      <span className="allDetails__headingTitle">
-                        نقد و بررسی اجمالی
-                      </span>
-                      <span className="allDetails__headingDesc">
-                        {product?.segment}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="allDetails__detailsBox">
-                    <p
-                      className="allDetails__detailsText"
-                      dangerouslySetInnerHTML={{
-                        __html: domPurify.sanitize(product?.shortDescription),
-                      }}
-                    ></p>
-                  </div>
-                </div>
-                {/* specifications */}
-                <div
-                  className={`allDetails ${
-                    active === "specifications" ? "allDetails--show" : ""
-                  }`}
-                >
-                  <div className="allDetails__headingWrapper">
-                    <CgList className="allDetails__headingIcon" />
-                    <div className="allDetails__headingLeft">
-                      <span className="allDetails__headingTitle">
-                        مشخصات کلی
-                      </span>
-                      <span className="allDetails__headingDesc">
-                        {product?.segment}
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    className="details__tableWrapper"
+                <div className="allDetails__detailsBox">
+                  <p
+                    className="allDetails__detailsText"
                     dangerouslySetInnerHTML={{
-                      __html: domPurify.sanitize(product?.fullDescription),
+                      __html: domPurify.sanitize(product?.shortDescription),
                     }}
-                  ></div>
+                  ></p>
                 </div>
-                {/* start userComments */}
-                <div
-                  className={`allDetails ${
-                    active === "userComments" ? "allDetails--show" : ""
-                  }`}
-                >
-                  <div className="allDetails__headingWrapper">
-                    <BiCommentDetail className="allDetails__headingIcon" />
-                    <div className="allDetails__headingLeft">
-                      <span className="allDetails__headingTitle">
-                        نظرات کاربران
-                      </span>
-                      <span className="allDetails__headingDesc">
-                        {product?.segment}
-                      </span>
-                    </div>
+              </div>
+              {/* specifications */}
+              <div
+                className={`allDetails ${
+                  active === "specifications" ? "allDetails--show" : ""
+                }`}
+              >
+                <div className="allDetails__headingWrapper">
+                  <CgList className="allDetails__headingIcon" />
+                  <div className="allDetails__headingLeft">
+                    <span className="allDetails__headingTitle">مشخصات کلی</span>
+                    <span className="allDetails__headingDesc">
+                      {product?.segment}
+                    </span>
                   </div>
-                  <div className="userComments__wrapper">
-                    <div className="row">
-                      <div className="col-12 col-md-6">
-                        <div className="userComments__reviewRules">
-                          <p
-                            className="userComments__rulesText"
-                            dangerouslySetInnerHTML={{
-                              __html: domPurify.sanitize(
-                                persianTexts.productInfo.commentRules
-                              ),
-                            }}
-                          ></p>
-                        </div>
-                        <div className="resultReview__wrraper">
-                          <h3 className="resultReview__title">
-                            {persianTexts.productInfo.productRatingFromUsers}
-                            <span>{product?.rating}</span>
-                          </h3>
-                          <div className="resultReview__points">
-                            <div className="resultReview__point">
-                              <span className="resultReview__pointTitle">
-                                امتیاز کالا
-                              </span>
-                              <div className="resultReview__pointWrapper">
-                                <div className="resultReview__pointProgress">
-                                  <span
-                                    className="resultReview__pointProgressBar"
-                                    style={{
-                                      width: `${product?.rating * 20}%`,
-                                    }}
-                                  ></span>
-                                </div>
-                                <span className="resultReview__pointResultText">
-                                  {showRatingResultPersian(product?.rating)}
-                                </span>
+                </div>
+                <div
+                  className="details__tableWrapper"
+                  dangerouslySetInnerHTML={{
+                    __html: domPurify.sanitize(product?.fullDescription),
+                  }}
+                ></div>
+              </div>
+              {/* start userComments */}
+              <div
+                className={`allDetails ${
+                  active === "userComments" ? "allDetails--show" : ""
+                }`}
+              >
+                <div className="allDetails__headingWrapper">
+                  <BiCommentDetail className="allDetails__headingIcon" />
+                  <div className="allDetails__headingLeft">
+                    <span className="allDetails__headingTitle">
+                      نظرات کاربران
+                    </span>
+                    <span className="allDetails__headingDesc">
+                      {product?.segment}
+                    </span>
+                  </div>
+                </div>
+                <div className="userComments__wrapper">
+                  <div className="row">
+                    <div className="col-12 col-md-6">
+                      <div className="userComments__reviewRules">
+                        <p
+                          className="userComments__rulesText"
+                          dangerouslySetInnerHTML={{
+                            __html: domPurify.sanitize(
+                              persianTexts.productInfo.commentRules
+                            ),
+                          }}
+                        ></p>
+                      </div>
+                      <div className="resultReview__wrraper">
+                        <h3 className="resultReview__title">
+                          {persianTexts.productInfo.productRatingFromUsers}
+                          <span>{product?.rating}</span>
+                        </h3>
+                        <div className="resultReview__points">
+                          <div className="resultReview__point">
+                            <span className="resultReview__pointTitle">
+                              امتیاز کالا
+                            </span>
+                            <div className="resultReview__pointWrapper">
+                              <div className="resultReview__pointProgress">
+                                <span
+                                  className="resultReview__pointProgressBar"
+                                  style={{
+                                    width: `${product?.rating * 20}%`,
+                                  }}
+                                ></span>
                               </div>
+                              <span className="resultReview__pointResultText">
+                                {showRatingResultPersian(product?.rating)}
+                              </span>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div className="col-12 col-md-6">
-                        <Rating />
-                      </div>
                     </div>
-                    <div className="row">
-                      <div className="allComments__wrapper">
-                        <div className="allComments__header">
-                          <h2 className="allComments__title">
-                            نقد ها و بررسی ها
-                            {product?.reviews?.length > 0 && (
-                              <span>{product.reviews.length}</span>
-                            )}
-                          </h2>
-                          <ul className="allComments__sorted">
-                            <BsSortDown className="allComments__sorteIcon" />
-                            <li className="allComments__sorteItem allComments__sorteItem--active">
-                              جدیدترین
-                            </li>
-                            <li className="allComments__sorteItem">مفیدترین</li>
-                          </ul>
-                        </div>
-                        <ul className="userComment__wrapper">
-                          {product?.reviews?.length ? (
-                            <>
-                              {product?.reviews?.map((review) => (
-                                <li
-                                  className="userComment__item"
-                                  key={review._id}
-                                >
-                                  <div className="comment__content">
-                                    <div className="comment__meta">
-                                      <div
-                                        className={`comment__metaRating ${
-                                          review?.rating > 3
-                                            ? "green"
-                                            : review?.rating > 2
-                                            ? "orange"
-                                            : "red"
-                                        }`}
-                                      >
-                                        <AiOutlineStar className="comment__metaIcon" />
-                                        {review?.rating}
-                                      </div>
-                                      <span className="comment__metaAuthor">
-                                        {review?.userId?.email?.split("@")[0]}
-                                      </span>
-                                      <time className="comment__time">
-                                        {convertDateFormat(review?.createdAt)}
-                                      </time>
+                    <div className="col-12 col-md-6">
+                      <Rating />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="allComments__wrapper">
+                      <div className="allComments__header">
+                        <h2 className="allComments__title">
+                          نقد ها و بررسی ها
+                          {product?.reviews?.length > 0 && (
+                            <span>{product.reviews.length}</span>
+                          )}
+                        </h2>
+                        <ul className="allComments__sorted">
+                          <BsSortDown className="allComments__sorteIcon" />
+                          <li className="allComments__sorteItem allComments__sorteItem--active">
+                            جدیدترین
+                          </li>
+                          <li className="allComments__sorteItem">مفیدترین</li>
+                        </ul>
+                      </div>
+                      <ul className="userComment__wrapper">
+                        {product?.reviews?.length ? (
+                          <>
+                            {product?.reviews?.map((review) => (
+                              <li
+                                className="userComment__item"
+                                key={review._id}
+                              >
+                                <div className="comment__content">
+                                  <div className="comment__meta">
+                                    <div
+                                      className={`comment__metaRating ${
+                                        review?.rating > 3
+                                          ? "green"
+                                          : review?.rating > 2
+                                          ? "orange"
+                                          : "red"
+                                      }`}
+                                    >
+                                      <AiOutlineStar className="comment__metaIcon" />
+                                      {review?.rating}
                                     </div>
-                                    <div className="comment__description">
-                                      <p className="comment__descriptionText">
-                                        {review?.description}
-                                      </p>
-                                    </div>
-                                    <div className="comment__isLikeWrapper">
-                                      <span className="comment__isLikeTitle">
-                                        آیا این نظر برایتان مفید بود؟
+                                    <span className="comment__metaAuthor">
+                                      {review?.userId?.email?.split("@")[0]}
+                                    </span>
+                                    <time className="comment__time">
+                                      {convertDateFormat(review?.createdAt)}
+                                    </time>
+                                  </div>
+                                  <div className="comment__description">
+                                    <p className="comment__descriptionText">
+                                      {review?.description}
+                                    </p>
+                                  </div>
+                                  <div className="comment__isLikeWrapper">
+                                    <span className="comment__isLikeTitle">
+                                      آیا این نظر برایتان مفید بود؟
+                                    </span>
+                                    <div className="comment__isLikeBtnWrapper">
+                                      <span className="comment__isLikeBtn ">
+                                        <span className="likedCount">71</span>
+                                        بله
                                       </span>
-                                      <div className="comment__isLikeBtnWrapper">
-                                        <span className="comment__isLikeBtn ">
-                                          <span className="likedCount">71</span>
-                                          بله
-                                        </span>
-                                        <span className="comment__isLikeBtn ">
-                                          <span className="likedCount">14</span>
-                                          خیر
-                                        </span>
-                                      </div>
+                                      <span className="comment__isLikeBtn ">
+                                        <span className="likedCount">14</span>
+                                        خیر
+                                      </span>
                                     </div>
                                   </div>
-                                </li>
-                              ))}
-                            </>
-                          ) : (
-                            <Error
-                              title={persianTexts.productInfo.notFindReviews}
-                              type="warning"
-                            />
-                          )}
+                                </div>
+                              </li>
+                            ))}
+                          </>
+                        ) : (
+                          <Error
+                            title={persianTexts.productInfo.notFindReviews}
+                            type="warning"
+                          />
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/*end userComments */}
+              {/* start review */}
+              <div
+                className={`allDetails ${
+                  active === "review" ? "allDetails--show" : ""
+                }`}
+              >
+                <div className="allDetails__headingWrapper">
+                  <TbChecklist className="allDetails__headingIcon" />
+                  <div className="allDetails__headingLeft">
+                    <span className="allDetails__headingTitle">
+                      نقد و بررسی
+                    </span>
+                    <span className="allDetails__headingDesc">
+                      {product?.segment}
+                    </span>
+                  </div>
+                </div>
+                <div className="reviews__wrapper">
+                  <div className="row">
+                    <div className="col-12 col-sm-12 col-md-4">
+                      <div className="pointGood__wrapper">
+                        <span className="point__title">نقاط قوت</span>
+                        <ul>
+                          <li>
+                            <TbTriangle className="pointGood__icon" />
+                            کيفيت ساخت
+                          </li>
+                          <li>
+                            <TbTriangle className="pointGood__icon" />
+                            دوربين
+                          </li>
+                          <li>
+                            <TbTriangle className="pointGood__icon" />
+                            برند بودن
+                          </li>
+                          <li>
+                            <TbTriangle className="pointGood__icon" />
+                            چيپ ست
+                          </li>
+                          <li>
+                            <TbTriangle className="pointGood__icon" />
+                            طراحي منحصر بفرد
+                          </li>
                         </ul>
                       </div>
                     </div>
-                  </div>
-                </div>
-                {/*end userComments */}
-                {/* start review */}
-                <div
-                  className={`allDetails ${
-                    active === "review" ? "allDetails--show" : ""
-                  }`}
-                >
-                  <div className="allDetails__headingWrapper">
-                    <TbChecklist className="allDetails__headingIcon" />
-                    <div className="allDetails__headingLeft">
-                      <span className="allDetails__headingTitle">
-                        نقد و بررسی
-                      </span>
-                      <span className="allDetails__headingDesc">
-                        {product?.segment}
-                      </span>
+                    <div className="col-12 col-sm-12 col-md-4">
+                      <div className="pointBad__wrapper">
+                        <span className="point__title">نقاط ضعف</span>
+                        <ul>
+                          <li>
+                            <TbTriangleInverted className="pointBad__icon" />
+                            قيمت زياد
+                          </li>
+                          <li>
+                            <TbTriangleInverted className="pointBad__icon" />
+                            صفحه نمايش ضعيف IPS
+                          </li>
+                          <li>
+                            <TbTriangleInverted className="pointBad__icon" />
+                            قيمت وحشتناک بالا
+                          </li>
+                          <li>
+                            <TbTriangleInverted className="pointBad__icon" />
+                            اندروييد پايين
+                          </li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                  <div className="reviews__wrapper">
-                    <div className="row">
-                      <div className="col-12 col-sm-12 col-md-4">
-                        <div className="pointGood__wrapper">
-                          <span className="point__title">نقاط قوت</span>
-                          <ul>
-                            <li>
-                              <TbTriangle className="pointGood__icon" />
-                              کيفيت ساخت
-                            </li>
-                            <li>
-                              <TbTriangle className="pointGood__icon" />
-                              دوربين
-                            </li>
-                            <li>
-                              <TbTriangle className="pointGood__icon" />
-                              برند بودن
-                            </li>
-                            <li>
-                              <TbTriangle className="pointGood__icon" />
-                              چيپ ست
-                            </li>
-                            <li>
-                              <TbTriangle className="pointGood__icon" />
-                              طراحي منحصر بفرد
-                            </li>
-                          </ul>
+                    <div className="col-12 col-sm-12 col-md-4">
+                      <div className="reviewprogress__wrapper">
+                        <div className="reviewprogress__item">
+                          <div className="reviewprogress__header">
+                            <span>کیفیت ساخت</span>
+                            <span>5.3</span>
+                          </div>
+                          <div className="reviewprogress__progress">
+                            <span className="reviewprogress__progressBar"></span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="col-12 col-sm-12 col-md-4">
-                        <div className="pointBad__wrapper">
-                          <span className="point__title">نقاط ضعف</span>
-                          <ul>
-                            <li>
-                              <TbTriangleInverted className="pointBad__icon" />
-                              قيمت زياد
-                            </li>
-                            <li>
-                              <TbTriangleInverted className="pointBad__icon" />
-                              صفحه نمايش ضعيف IPS
-                            </li>
-                            <li>
-                              <TbTriangleInverted className="pointBad__icon" />
-                              قيمت وحشتناک بالا
-                            </li>
-                            <li>
-                              <TbTriangleInverted className="pointBad__icon" />
-                              اندروييد پايين
-                            </li>
-                          </ul>
+                        <div className="reviewprogress__item">
+                          <div className="reviewprogress__header">
+                            <span>ارزش خرید به نسبت قیمت</span>
+                            <span>5.3</span>
+                          </div>
+                          <div className="reviewprogress__progress">
+                            <span className="reviewprogress__progressBar"></span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="col-12 col-sm-12 col-md-4">
-                        <div className="reviewprogress__wrapper">
-                          <div className="reviewprogress__item">
-                            <div className="reviewprogress__header">
-                              <span>کیفیت ساخت</span>
-                              <span>5.3</span>
-                            </div>
-                            <div className="reviewprogress__progress">
-                              <span className="reviewprogress__progressBar"></span>
-                            </div>
+                        <div className="reviewprogress__item">
+                          <div className="reviewprogress__header">
+                            <span>نوآوری</span>
+                            <span>5.3</span>
                           </div>
-                          <div className="reviewprogress__item">
-                            <div className="reviewprogress__header">
-                              <span>ارزش خرید به نسبت قیمت</span>
-                              <span>5.3</span>
-                            </div>
-                            <div className="reviewprogress__progress">
-                              <span className="reviewprogress__progressBar"></span>
-                            </div>
+                          <div className="reviewprogress__progress">
+                            <span className="reviewprogress__progressBar"></span>
                           </div>
-                          <div className="reviewprogress__item">
-                            <div className="reviewprogress__header">
-                              <span>نوآوری</span>
-                              <span>5.3</span>
-                            </div>
-                            <div className="reviewprogress__progress">
-                              <span className="reviewprogress__progressBar"></span>
-                            </div>
+                        </div>
+                        <div className="reviewprogress__item">
+                          <div className="reviewprogress__header">
+                            <span>امکانات و قابلیت ها</span>
+                            <span>5.3</span>
                           </div>
-                          <div className="reviewprogress__item">
-                            <div className="reviewprogress__header">
-                              <span>امکانات و قابلیت ها</span>
-                              <span>5.3</span>
-                            </div>
-                            <div className="reviewprogress__progress">
-                              <span className="reviewprogress__progressBar"></span>
-                            </div>
+                          <div className="reviewprogress__progress">
+                            <span className="reviewprogress__progressBar"></span>
                           </div>
-                          <div className="reviewprogress__item">
-                            <div className="reviewprogress__header">
-                              <span>سهولت استفاده</span>
-                              <span>5.3</span>
-                            </div>
-                            <div className="reviewprogress__progress">
-                              <span className="reviewprogress__progressBar"></span>
-                            </div>
+                        </div>
+                        <div className="reviewprogress__item">
+                          <div className="reviewprogress__header">
+                            <span>سهولت استفاده</span>
+                            <span>5.3</span>
+                          </div>
+                          <div className="reviewprogress__progress">
+                            <span className="reviewprogress__progressBar"></span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                {/* end review */}
               </div>
+              {/* end review */}
             </div>
-            {/* related products */}
-            <div className="row">
-              <div className="col-12">
-                <SectionHeader
-                  title="محصولات مرتبط"
-                  icon={<AiOutlineRetweet className="fullIcon" />}
-                  link="/"
-                  bg="var(--white)"
-                />
-              </div>
+          </div>
+          {/* related products */}
+          <div className="row">
+            <div className="col-12">
+              <SectionHeader
+                title="محصولات مرتبط"
+                icon={<AiOutlineRetweet className="fullIcon" />}
+                link="/"
+                bg="var(--white)"
+              />
             </div>
-            <div className="row">
-              <div className="col-12">
-                {/* {relatedProduct.length > 0 ? (
+          </div>
+          <div className="row">
+            <div className="col-12">
+              {/* {relatedProduct.length > 0 ? (
                   <Slider
                     slidesPerView={5}
                     spaceBetween={15}
@@ -685,11 +673,10 @@ if(userName){
                     slide="ProductCart"
                   />
                 ) : null} */}
-              </div>
             </div>
           </div>
         </div>
       ) : null}
-    </>
+    </div>
   );
 }

@@ -7,7 +7,7 @@ const phoneNumberPattern = /^(\+98|098|0|0098|98)?(9\d{9})$/;
 const userNamePattern = /[A-Za-z0-9._]{8,25}/;
 const passwordPattern =
   /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~!@#$%&*-+=:;,._₹]).{8,25}$/;
-// const coverPattern = /(\.jpg|\.jpeg|\.png)$/i;
+const postalCodePattern = /^\d{5}-?\d{5}$/;
 
 export const RegisterSchema = Yup.object().shape({
   registerEmail: Yup.string()
@@ -100,4 +100,26 @@ export const userRatingSchema = Yup.object().shape({
   userComment: Yup.string(persianTexts.rating.userComment.string)
     .required(persianTexts.rating.userComment.required)
     .min(5, persianTexts.rating.userComment.min),
+});
+export const checkInformationSchema = Yup.object().shape({
+  checkFullName: Yup.string()
+    .required(persianTexts.checkInformation.fullName.required)
+    .min(6, persianTexts.checkInformation.fullName.min),
+  checkProvince: Yup.string().required(
+    persianTexts.checkInformation.province.required
+  ),
+  checkCity: Yup.string().required(persianTexts.checkInformation.city.required),
+  checkAddress: Yup.string()
+    .required(persianTexts.checkInformation.address.required)
+    .min(8, persianTexts.checkInformation.address.min)
+    .max(40, persianTexts.checkInformation.address.max),
+  checkPostalCode: Yup.string()
+    .required(persianTexts.checkInformation.postalCode.required)
+    .matches(postalCodePattern, persianTexts.checkInformation.postalCode.match),
+  checkTelephone: Yup.string()
+    .required(persianTexts.checkInformation.telephone.required)
+    .matches(phoneNumberPattern, persianTexts.checkInformation.telephone.match),
+  acceptTerms: Yup.boolean()
+    .required(persianTexts.checkInformation.acceptTerms.required)
+    .oneOf([true], persianTexts.checkInformation.acceptTerms.required),
 });

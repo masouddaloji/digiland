@@ -2,6 +2,7 @@
     height: 3rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border: 1px solid var(--gray);
     border-radius: var(--border-box);
     position: relative;

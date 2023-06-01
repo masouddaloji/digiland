@@ -2,6 +2,10 @@
   background: var(--white);
   width: 100%;
   padding-top: 0.8rem;
+  position: relative;
+}
+.product--loader{
+  height: 80vh;
 }
 .product__wrapper {
   width: 100%;

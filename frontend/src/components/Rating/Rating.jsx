@@ -21,12 +21,12 @@ import { persianTexts } from "../../text";
 import "./Rating.css";
 
 const Rating = () => {
-  const token=useSelector(selectToken)
+  const token = useSelector(selectToken);
 
   const formikRef = useRef();
   const navigate = useNavigate();
   const { productId } = useParams();
- 
+
   return (
     <Formik
       ref={formikRef}
@@ -53,8 +53,8 @@ const Rating = () => {
                 toast.success(persianTexts.rating.submit.success);
                 // getData()
                 resetForm();
-              }else{
-                toast.error(persianTexts.rating.submit.error)
+              } else {
+                toast.error(persianTexts.rating.submit.error);
               }
             });
         } else {
@@ -69,34 +69,34 @@ const Rating = () => {
             <span className="reviewForm__title">دیدگاه خود را بنویسید</span>
             <Form className="reviewForm__form">
               <div className="row">
-              <div className="col-12">
-                    <FormControl
-                      label="امتیاز شما *"
-                      placeholder={
-                        persianTexts.admin.products.placeholder
-                          .inputPlaceholderRating
-                      }
-                      controler="select"
-                      name="userRating"
-                      options={ratingOptions}
-                    />
-                  </div>
-              <div className="col-12">
-                    <FormControl
-                      label="دیدگاه شما *"
-                      placeholder="لطفا دیدگاه خود را وارد کنید"
-                      controler="textarea"
-                      name="userComment"
-                    />
-                  </div>
+                <div className="col-12">
+                  <FormControl
+                    label="امتیاز شما *"
+                    placeholder={
+                      persianTexts.admin.products.placeholder
+                        .inputPlaceholderRating
+                    }
+                    controler="select"
+                    name="userRating"
+                    options={ratingOptions}
+                    selectType="rating"
+                  />
+                </div>
+                <div className="col-12">
+                  <FormControl
+                    label="دیدگاه شما *"
+                    placeholder="لطفا دیدگاه خود را وارد کنید"
+                    controler="textarea"
+                    name="userComment"
+                  />
+                </div>
 
                 <div className="col-6">
                   <button type="submit" className="reviewForm__submit">
                     ثبت
                   </button>
                 </div>
-                  </div>
-
+              </div>
             </Form>
           </div>
         </div>

@@ -311,19 +311,19 @@ a {
 
 .productPrice {
   color: var(--gray-text);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   display: inline-block;
   line-height: 2;
 }
 .currentPrice {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--blue);
   display: inline-block;
   margin-right: 1rem;
   line-height: 2;
 }
 .toman {
-  font-size: 1rem;
+  font-size: 70%;
   color: var(--black-50);
   margin-right: 0.4rem;
 }
@@ -431,8 +431,8 @@ a {
 }
 .cartItem__spinner {
   position: absolute;
-  width: 2rem;
-  height: 2rem;
+  width: 2.4rem;
+  height: 2.4rem;
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -442,6 +442,7 @@ a {
   z-index: 3;
   animation: loaderRotate 1s linear infinite ;
 }
+
 .ss02 {
   -moz-font-feature-settings: "ss02";
   -webkit-font-feature-settings: "ss02";
