@@ -43,7 +43,9 @@ export default function ProductsCategory() {
     color: "",
     price: "",
     sort: "",
-    brand:""
+    brand:"",
+    search:""
+
   });
   const {
     data: products,

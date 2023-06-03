@@ -6,42 +6,42 @@ export const basketApiSlice = shopApi.injectEndpoints({
     getBasket: builder.query({
       query: () => "/basket",
       transformResponse: (response) => response.data,
-      providesTags: (result, error, arg) => [{ type: "Basket", id: "LIST" }],
+      providesTags: (result, error, arg) =>  ["Basket"],
     }),
     addToBasket: builder.mutation({
       query: (id) => ({
         url: `/basket/${id}`,
         method: "PUT",
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "Basket", id: "LIST" }],
+      invalidatesTags: (result, error, arg) =>  ["Basket"],
     }),
     emptyBasket: builder.mutation({
       query: () => ({
         url: "/basket",
         method: "DELETE",
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "Basket", id: "LIST" }],
+      invalidatesTags: (result, error, arg) => ["Basket"],
     }),
     removeItem: builder.mutation({
       query: (id) => ({
         url: `/basket/multi/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "Basket", id: "LIST" }],
+      invalidatesTags: (result, error, arg) =>  ["Basket"],
     }),
     incrementItem: builder.mutation({
       query: (id) => ({
         url: `/basket/${id}`,
         method: "PUT",
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "Basket", id: "LIST" }],
+      invalidatesTags: (result, error, arg) =>  ["Basket"],
     }),
     decrementItem: builder.mutation({
       query: (id) => ({
         url: `/basket/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "Basket", id: "LIST" }],
+      invalidatesTags: (result, error, arg) =>  ["Basket"],
     }),
   }),
 });

@@ -28,6 +28,7 @@ const Input = (props) => {
           className={`input  ${
             meta.touched && meta.error ? "formControl--invalid" : undefined
           }`}
+          autoComplete="off"
           id={field.name}
           {...props}
           {...field}

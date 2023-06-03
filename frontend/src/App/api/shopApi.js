@@ -1,6 +1,6 @@
 //redux
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { setToken } from "../../features/auth/authSlice";
+import { logOut, setToken } from "../../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:8000",
@@ -18,17 +18,18 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result?.error?.status === 401||result?.error?.status === 403) {
+  if (result?.error?.status === 401 || result?.error?.status === 403) {
     const refreshResult = await baseQuery("/auth/refresh", api, extraOptions);
 
     if (refreshResult?.data) {
       api.dispatch(setToken({ ...refreshResult.data }));
       result = await baseQuery(args, api, extraOptions);
     } else {
-      if (refreshResult?.error?.status === 403) {
-        refreshResult.error.data.message = "Your login has expired.";
-      }
-      return refreshResult;
+      // if (refreshResult?.error?.status === 403) {
+      //   refreshResult.error.data.message = "Your login has expired.";
+      // }
+      // return refreshResult;
+      api.dispatch(logOut());
     }
   }
 
@@ -46,6 +47,7 @@ export const shopApi = createApi({
     "Order",
     "Basket",
     "Auth",
+    "Search",
   ],
   endpoints: (builder) => ({}),
 });

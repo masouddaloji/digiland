@@ -27,7 +27,7 @@ import { TbBabyCarriage, TbDeviceTvOld } from "react-icons/tb";
 import { MdOutlineDevices } from "react-icons/md";
 import { IoMdFootball } from "react-icons/io";
 import { HiOutlineUserGroup } from "react-icons/hi";
-import { SiApple, SiAsus, SiLenovo, SiSamsung, SiXiaomi } from 'react-icons/si'
+import { SiApple, SiAsus, SiLenovo, SiSamsung, SiXiaomi } from "react-icons/si";
 
 // Definition of variables
 export const services = [
@@ -70,42 +70,42 @@ export const services = [
 ];
 export const menus = [
   {
-    id: 2,
+    id: nanoid(),
     title: "دیجیتال",
     link: "/products/digital",
     shortLink: "digital",
     icon: <FaLaptopCode className="icon" />,
     subMenu: [
       {
-        id: 21,
+        id: nanoid(),
         title: "تبلت",
         link: "/products/digital/tablet",
         shortLink: "tablet",
         img: "/images/submenu/tablet.png",
       },
       {
-        id: 22,
+        id: nanoid(),
         title: "دوربین",
         link: "/products/digital/camera",
         shortLink: "camera",
         img: "/images/submenu/camera.png",
       },
       {
-        id: 23,
+        id: nanoid(),
         title: "ماشین های اداری",
         link: "/products/digital/workstation",
         shortLink: "workstation",
         img: "/images/submenu/workstation.png",
       },
       {
-        id: 24,
+        id: nanoid(),
         title: "لپ تاپ",
         link: "/products/digital/laptop",
         shortLink: "laptop",
         img: "/images/submenu/laptop.png",
       },
       {
-        id: 25,
+        id: nanoid(),
         title: "موبایل",
         link: "/products/digital/phone",
         shortLink: "phone",
@@ -114,42 +114,42 @@ export const menus = [
     ],
   },
   {
-    id: 3,
+    id: nanoid(),
     title: "لـوازم خانگی",
     link: "/products/household-appliances",
     shortLink: "household-appliances",
     icon: <FiCamera className="icon" />,
     subMenu: [
       {
-        id: 31,
+        id: nanoid(),
         title: "تلوزیون",
         link: "/products/household-appliances/television",
         shortLink: "television",
         img: "/images/submenu/tv.png",
       },
       {
-        id: 32,
+        id: nanoid(),
         title: "کنسول بازی",
         link: "/products/household-appliances/game-console",
         shortLink: "game-console",
         img: "/images/submenu/xbox.png",
       },
       {
-        id: 33,
+        id: nanoid(),
         title: "یخچال و فریزر",
         link: "/products/household-appliances/refrigerator-freezer",
         shortLink: "refrigerator-freezer",
         img: "/images/submenu/fridge.png",
       },
       {
-        id: 34,
+        id: nanoid(),
         title: "لوازم شستشو و نظافت",
         link: "/products/household-appliances/washing-cleaning",
         shortLink: "washing-cleaning",
         img: "/images/submenu/washing-machine.png",
       },
       {
-        id: 35,
+        id: nanoid(),
         title: "لوازم پخت و پز",
         link: "/products/household-appliances/cooking",
         shortLink: "cooking",
@@ -158,42 +158,42 @@ export const menus = [
     ],
   },
   {
-    id: 4,
+    id: nanoid(),
     title: "زیبایــی و سلامت",
     link: "/products/beauty-health",
     shortLink: "beauty-health",
     icon: <RiHandHeartLine className="icon" />,
     subMenu: [
       {
-        id: 41,
+        id: nanoid(),
         title: "آرایشی",
         link: "/products/beauty-health/cosmetic",
         shortLink: "cosmetic",
         img: "/images/submenu/powder.png",
       },
       {
-        id: 42,
+        id: nanoid(),
         title: "زیور آلات",
         link: "/products/beauty-health/ornaments",
         shortLink: "ornaments",
         img: "/images/submenu/ring.png",
       },
       {
-        id: 43,
+        id: nanoid(),
         title: "ساعت",
         link: "/products/beauty-health/watch",
         shortLink: "watch",
         img: "/images/submenu/watch.png",
       },
       {
-        id: 44,
+        id: nanoid(),
         title: "عطر",
         link: "/products/beauty-health/perfume",
         shortLink: "perfume",
         img: "/images/submenu/perfume.png",
       },
       {
-        id: 45,
+        id: nanoid(),
         title: "عینک آفتابی",
         link: "/products/beauty-health/sunglasses",
         shortLink: "sunglasses",
@@ -202,42 +202,42 @@ export const menus = [
     ],
   },
   {
-    id: 5,
+    id: nanoid(),
     title: "مادر و کودک",
     link: "/products/mother-child",
     shortLink: "mother-child",
     icon: <TbBabyCarriage className="icon" />,
     subMenu: [
       {
-        id: 51,
+        id: nanoid(),
         title: "ایمنی و مراقبت",
         link: "/products/mother-child/safety-care",
         shortLink: "safety-care",
         img: "/images/submenu/mother-room.png",
       },
       {
-        id: 52,
+        id: nanoid(),
         title: "بهداشت و حمام",
         link: "/products/mother-child/health-bathroom",
         shortLink: "health-bathroom",
         img: "/images/submenu/bathtub.png",
       },
       {
-        id: 53,
+        id: nanoid(),
         title: "خواب کودک",
         link: "/products/mother-child/childs-sleep",
         shortLink: "childs-sleep",
         img: "/images/submenu/bed.png",
       },
       {
-        id: 54,
+        id: nanoid(),
         title: "غذا خوری",
         link: "/products/mother-child/eating",
         shortLink: "eating",
         img: "/images/submenu/breakfast.png",
       },
       {
-        id: 55,
+        id: nanoid(),
         title: "لوازم شخصی",
         link: "/products/mother-child/personal-stuff",
         shortLink: "personal-stuff",
@@ -246,35 +246,35 @@ export const menus = [
     ],
   },
   {
-    id: 6,
+    id: nanoid(),
     title: "ورزش و سرگرمی",
     link: "/products/sport-entertainment",
     shortLink: "sport-entertainment",
     icon: <IoAmericanFootballOutline className="icon" />,
     subMenu: [
       {
-        id: 61,
+        id: nanoid(),
         title: "پوشاک ورزشی",
         link: "/products/sport-entertainment/sportswear",
         shortLink: "sportswear",
         img: "/images/submenu/wear.png",
       },
       {
-        id: 62,
+        id: nanoid(),
         title: "تجهیزات سفر",
         link: "/products/sport-entertainment/travel-equipment",
         shortLink: "travel-equipment",
         img: "/images/submenu/trekking.png",
       },
       {
-        id: 63,
+        id: nanoid(),
         title: "کفش ورزشی",
         link: "/products/sport-entertainment/sport-shoes",
         shortLink: "sport-shoes",
         img: "/images/submenu/trainers.png",
       },
       {
-        id: 64,
+        id: nanoid(),
         title: "لوازم ورزشی",
         link: "/products/sport-entertainment/Sporting-goods",
         shortLink: "Sporting-goods",
@@ -283,21 +283,21 @@ export const menus = [
     ],
   },
   {
-    id: 7,
+    id: nanoid(),
     title: "ابزار و الکترونیـک",
     link: "/products/tools-electronics",
     shortLink: "tools-electronics",
     icon: <MdOutlineHomeRepairService className="icon" />,
     subMenu: [
       {
-        id: 71,
+        id: nanoid(),
         title: "ابزار برقی و شارژی",
         link: "/products/tools-electronics/electric-rechargeable-tools",
         shortLink: "electric-rechargeable-tools",
         img: "/images/submenu/grinding-machine.png",
       },
       {
-        id: 72,
+        id: nanoid(),
         title: "تجهیزات سفر",
         link: "/products/tools-electronics/non-electrical-tools",
         shortLink: "non-electrical-tools",
@@ -306,11 +306,12 @@ export const menus = [
     ],
   },
 ];
+
 export const banners = [
-  { id: 101, link: "/", cover: "/images/widget/widget-img-1.png" },
-  { id: 202, link: "/", cover: "/images/widget/widget-img-2.png" },
-  { id: 303, link: "/", cover: "/images/widget/widget-img-3.png" },
-  { id: 404, link: "/", cover: "/images/widget/widget-img-4.png" },
+  { id: nanoid(), link: "/", cover: "/images/widget/widget-img-1.png" },
+  { id: nanoid(), link: "/", cover: "/images/widget/widget-img-2.png" },
+  { id: nanoid(), link: "/", cover: "/images/widget/widget-img-3.png" },
+  { id: nanoid(), link: "/", cover: "/images/widget/widget-img-4.png" },
 ];
 export const smallBanners = [
   {
@@ -495,34 +496,33 @@ export const brands = [
     id: nanoid(),
     title: "apple",
     text: "اپل",
-    icon: <SiApple className="brand__icon"/>,
+    icon: <SiApple className="brand__icon" />,
   },
   {
     id: nanoid(),
     title: "lenovo",
     text: "لنوو",
-    icon: <SiLenovo className="brand__icon"/>,
+    icon: <SiLenovo className="brand__icon" />,
   },
   {
     id: nanoid(),
     title: "samsung",
     text: "سامسونگ",
-    icon: <SiSamsung className="brand__icon"/>,
+    icon: <SiSamsung className="brand__icon" />,
   },
   {
     id: nanoid(),
     title: "xiaomi",
     text: "شیائومی",
-    icon: <SiXiaomi className="brand__icon"/>,
+    icon: <SiXiaomi className="brand__icon" />,
   },
   {
     id: nanoid(),
     title: "asus",
     text: "ایسوس",
-    icon: <SiAsus className="brand__icon"/>,
+    icon: <SiAsus className="brand__icon" />,
   },
 ];
-
 
 export const Iran = {
   "آذربايجان شرقي": [
@@ -572,7 +572,7 @@ export const Iran = {
     "مياندوآب",
     "نقده",
   ],
-  "اردبيل": [
+  اردبيل: [
     "اردبيل",
     "بيله سوار",
     "پارس آباد",
@@ -585,7 +585,7 @@ export const Iran = {
     "نمين",
     "نير",
   ],
-  "اصفهان": [
+  اصفهان: [
     "آران و بيدگل",
     "اردستان",
     "اصفهان",
@@ -616,7 +616,7 @@ export const Iran = {
     "نطنز",
     "هرند",
   ],
-  "البرز": [
+  البرز: [
     "آسارا",
     "اشتهارد",
     "شهر جديد هشتگرد",
@@ -626,7 +626,7 @@ export const Iran = {
     "نظرآباد",
     "هشتگرد",
   ],
-  "ايلام": [
+  ايلام: [
     "آبدانان",
     "ايلام",
     "ايوان",
@@ -636,7 +636,7 @@ export const Iran = {
     "شيروان چرداول",
     "مهران",
   ],
-  "بوشهر": [
+  بوشهر: [
     "آبپخش",
     "اهرم",
     "برازجان",
@@ -653,7 +653,7 @@ export const Iran = {
     "دلوار",
     "عسلویه",
   ],
-  "تهران": [
+  تهران: [
     "اسلامشهر",
     "بومهن",
     "پاكدشت",
@@ -727,7 +727,7 @@ export const Iran = {
     "شيروان",
     "فاروج",
   ],
-  "خوزستان": [
+  خوزستان: [
     "آبادان",
     "اميديه",
     "انديمشك",
@@ -751,7 +751,7 @@ export const Iran = {
     "هنديجان",
     "هويزه",
   ],
-  "زنجان": [
+  زنجان: [
     "آب بر (طارم)",
     "ابهر",
     "خرمدره",
@@ -760,7 +760,7 @@ export const Iran = {
     "قیدار (خدا بنده)",
     "ماهنشان",
   ],
-  "سمنان": [
+  سمنان: [
     "ايوانكي",
     "بسطام",
     "دامغان",
@@ -783,7 +783,7 @@ export const Iran = {
     "ميرجاوه",
     "نيكشهر",
   ],
-  "فارس": [
+  فارس: [
     "آباده",
     "آباده طشك",
     "اردكان",
@@ -850,7 +850,7 @@ export const Iran = {
     "ني ريز",
     "کوار",
   ],
-  "قزوين": [
+  قزوين: [
     "آبيك",
     "البرز",
     "بوئين زهرا",
@@ -858,8 +858,8 @@ export const Iran = {
     "قزوين",
     "محمود آباد نمونه",
   ],
-  "قم": ["قم"],
-  "كردستان": [
+  قم: ["قم"],
+  كردستان: [
     "بانه",
     "بيجار",
     "دهگلان",
@@ -870,7 +870,7 @@ export const Iran = {
     "كامياران",
     "مريوان",
   ],
-  "كرمان": [
+  كرمان: [
     "بابك",
     "بافت",
     "بردسير",
@@ -884,7 +884,7 @@ export const Iran = {
     "كهنوج",
     "منوجان",
   ],
-  "كرمانشاه": [
+  كرمانشاه: [
     "اسلام آباد غرب",
     "پاوه",
     "تازه آباد- ثلاث باباجانی",
@@ -905,7 +905,7 @@ export const Iran = {
     "گچساران",
     "ياسوج",
   ],
-  "گلستان": [
+  گلستان: [
     "آزاد شهر",
     "آق قلا",
     "انبارآلوم",
@@ -931,7 +931,7 @@ export const Iran = {
     "نوده خاندوز",
     "نوکنده",
   ],
-  "گيلان": [
+  گيلان: [
     "آستارا",
     "آستانه اشرفيه",
     "املش",
@@ -954,7 +954,7 @@ export const Iran = {
     "منجيل",
     "هشتپر",
   ],
-  "لرستان": [
+  لرستان: [
     "ازنا",
     "الشتر",
     "اليگودرز",
@@ -966,7 +966,7 @@ export const Iran = {
     "كوهدشت",
     "نورآباد",
   ],
-  "مازندران": [
+  مازندران: [
     "آمل",
     "بابل",
     "بابلسر",
@@ -991,7 +991,7 @@ export const Iran = {
     "نور",
     "نوشهر",
   ],
-  "مركزي": [
+  مركزي: [
     "آشتيان",
     "اراك",
     "تفرش",
@@ -1002,7 +1002,7 @@ export const Iran = {
     "محلات",
     "کمیجان",
   ],
-  "هرمزگان": [
+  هرمزگان: [
     "ابوموسي",
     "انگهران",
     "بستك",
@@ -1017,7 +1017,7 @@ export const Iran = {
     "كيش",
     "ميناب",
   ],
-  "همدان": [
+  همدان: [
     "اسدآباد",
     "بهار",
     "تويسركان",
@@ -1027,7 +1027,7 @@ export const Iran = {
     "نهاوند",
     "همدان",
   ],
-  "يزد": [
+  يزد: [
     "ابركوه",
     "اردكان",
     "اشكذر",

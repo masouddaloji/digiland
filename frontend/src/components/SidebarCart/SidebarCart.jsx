@@ -8,11 +8,13 @@ import { selectToken } from "../../features/auth/authSlice";
 import { useGetBasketQuery } from "../../features/basket/basketApiSlice";
 //components
 import SidebarCartItem from "../SidebarCartItem/SidebarCartItem";
+//hooks
+import useAuth from "../../hooks/useAuth";
 //icons
 import { IoMdClose } from "react-icons/io";
 import { IoBagHandleOutline } from "react-icons/io5";
 //persiantext
-import { persianTexts } from "../../text"
+import { persianTexts } from "../../text";
 //styles
 import "./SidebarCart.css";
 
@@ -23,6 +25,7 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
     isSuccess: basketSuccess,
     isError: basketError,
   } = useGetBasketQuery();
+  const { userName } = useAuth();
   const token = useSelector(selectToken);
   const maskRef = useRef();
   const sideBarCartRef = useRef();
@@ -49,7 +52,7 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
           <div>
             <span>سبد خرید</span>
             <span className="sideBarCart__headerCount ss02">
-              {baskets?.totalQTY ?? 0}
+              {userName ? baskets?.totalQTY ?? 0 : 0}
             </span>
           </div>
           <IoMdClose
@@ -57,12 +60,12 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
             onClick={() => setIsShowSideBarCart(false)}
           />
         </div>
-        {token ? (
+        {userName ? (
           <>
             {baskets?.cartItems?.length > 0 ? (
               <ul className="sideBarCart__Lists">
                 {baskets.cartItems.map((item) => (
-                  <SidebarCartItem {...item} key={item._id}/>
+                  <SidebarCartItem {...item} key={item._id} />
                 ))}
               </ul>
             ) : (
@@ -109,7 +112,7 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
           </div>
         )}
 
-        <div className="sideBarCart__totalPriceAndLinks">
+        {/* <div className="sideBarCart__totalPriceAndLinks">
           <div className="flex ss02">
             <span>جمع كل سبد خريد : </span>
             <bdi className="currentPrice">
@@ -133,7 +136,7 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
               تسویه حساب
             </Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

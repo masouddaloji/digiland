@@ -7,11 +7,9 @@ import MobileMenuItem from "./MobileMenuItem";
 import Search from "../Search/Search";
 import { toast } from "react-toastify";
 import SidebarCart from "../SidebarCart/SidebarCart";
-//redux
-
 //rtk query
 import { useLogOutUserMutation } from "../../features/auth/authApiSlice";
-import { basketApiSlice, useGetBasketQuery } from "../../features/basket/basketApiSlice";
+import { useGetBasketQuery } from "../../features/basket/basketApiSlice";
 //hooks
 import useAuth from "../../hooks/useAuth";
 
@@ -42,14 +40,15 @@ export default function Header({}) {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [deviceWidth, setDeviceWidth] = useState({ width: window.innerWidth });
   const [isShowSideBarCart, setIsShowSideBarCart] = useState(false);
-  const [isShowFilterOptions,setIsShowFilterOptions]=useState(false)
-  
+  const [isShowFilterOptions, setIsShowFilterOptions] = useState(false);
+
   const resizaHandler = () => {
     setDeviceWidth({ width: window.innerWidth });
   };
 
   const logoutHandler = async () => {
-    await logOutUser().unwrap()
+    await logOutUser()
+      .unwrap()
       .then(() => {
         toast.success(persianTexts.useLogout.logoutSuccess);
       })
@@ -57,13 +56,11 @@ export default function Header({}) {
         toast.error(persianTexts.useLogout.logoutError);
       });
   };
- 
 
   useEffect(() => {
     window.addEventListener("resize", resizaHandler);
     return () => window.removeEventListener("resize", resizaHandler);
   }, []);
-
 
   return (
     <>
@@ -137,10 +134,15 @@ export default function Header({}) {
                     onClick={() => setIsShowSideBarCart(true)}
                   >
                     <SiShopify className="basket__icon" />
-                    {baskets?.totalQTY ? (
-                      <span className="basket__counter">
-                        {baskets.totalQTY}
-                      </span>
+
+                    {userName ? (
+                      <>
+                        {baskets?.totalQTY ? (
+                          <span className="basket__counter ss02">
+                            {baskets.totalQTY}
+                          </span>
+                        ) : null}
+                      </>
                     ) : null}
                   </div>
                 </div>
@@ -153,8 +155,10 @@ export default function Header({}) {
         /* start mobile */
         <header className="mobileHeader">
           {/* start basket sidebar in mobile */}
-          <SidebarCart isShowSideBarCart={isShowSideBarCart}
-            setIsShowSideBarCart={setIsShowSideBarCart}/>
+          <SidebarCart
+            isShowSideBarCart={isShowSideBarCart}
+            setIsShowSideBarCart={setIsShowSideBarCart}
+          />
           {/* end basket sidebar in mobile */}
           <div
             className={`${
@@ -246,15 +250,19 @@ export default function Header({}) {
                       </ul>
                     </div>
                   )}
-                  <div
-                    className="mobileHeader__basket"
-                    
-                  >
-                    <FiShoppingBag className="mobileHeader__basketIcon" onClick={()=>setIsShowSideBarCart(true)}/>
-                    {baskets?.totalQTY ? (
-                      <span className="mobileHeader__basketCounter ss02">
-                        {baskets.totalQTY}
-                      </span>
+                  <div className="mobileHeader__basket">
+                    <FiShoppingBag
+                      className="mobileHeader__basketIcon"
+                      onClick={() => setIsShowSideBarCart(true)}
+                    />
+                    {userName ? (
+                      <>
+                        {baskets?.totalQTY ? (
+                          <span className="mobileHeader__basketCounter ss02">
+                            {baskets.totalQTY}
+                          </span>
+                        ) : null}
+                      </>
                     ) : null}
                   </div>
                 </div>

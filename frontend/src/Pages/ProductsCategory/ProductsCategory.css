@@ -175,18 +175,10 @@
   margin-top: -0.15rem;
 }
 /* responsive */
-@media (max-width: 768px) {
-  /* .filtered__options {
-    position: absolute;
-    top: 0;
-    right: -28rem;
-    width: 28rem;
-    transition: all .3s;
-    background: var(--white);
+@media (max-width: 576px) {
+  .productsCategory__sortWrapper{
+    width: 17rem;
   }
-  .filtered__options--show{
-    right: 0;
-  } */
 }
 @media (max-width: 991px) {
   .lg--none {
