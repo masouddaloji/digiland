@@ -42,6 +42,10 @@ const routes = [
         element: <ProductsCategory />,
         children: [{ path: ":subCategory", element: <ProductsCategory /> }],
       },
+      {
+        path:"search/:searchParam",
+        element:<ProductsCategory />
+      }
     ],
   },
   {

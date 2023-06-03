@@ -27,9 +27,10 @@ import { sortedProductsItems } from "../../Constants";
 import { persianTexts } from "../../text";
 //styles
 import "./ProductsCategory.css";
+import SidebarFilter from "../../components/SidebarFilter/SidebarFilter";
 
 export default function ProductsCategory() {
-  const { categoryName, subCategory } = useParams();
+  const { categoryName, subCategory, searchParam } = useParams();
   const maskRef = useRef();
   const [isShowSortList, setIsShowSortList] = useState(false);
   const [isShowFilterOptions, setIsShowFilterOptions] = useState(false);
@@ -43,9 +44,8 @@ export default function ProductsCategory() {
     color: "",
     price: "",
     sort: "",
-    brand:"",
-    search:""
-
+    brand: "",
+    search: searchParam ?? "",
   });
   const {
     data: products,
@@ -68,57 +68,35 @@ export default function ProductsCategory() {
 
   return (
     <div className="container">
-    {/* start filter mobile  */}
+      {/* start filter mobile  */}
       <div
         className={`filterMobile__mask ${
           isShowFilterOptions ? "filterMobile__mask--show" : null
         }`}
         ref={maskRef}
         onClick={closeFilterMask}
+      ></div>
+      <div
+        className={`filterMobile ${
+          isShowFilterOptions ? "filterMobile--show" : null
+        }`}
       >
-      </div>
-        <div
-          className={`filterMobile ${
-            isShowFilterOptions ? "filterMobile--show" : null
-          }`}
-        >
-<div className="filterMobile__header">
-  <span>فیلتر</span>
-  <IoMdClose
+        <div className="filterMobile__header">
+          <span>فیلتر</span>
+          <IoMdClose
             className="filterMobile__closeIcon"
             onClick={() => setIsShowFilterOptions(false)}
           />
-</div>
-
         </div>
-        {/* end filter mobile */}
+      </div>
+      {/* end filter mobile */}
       <div className="row">
         <div className="col-12">{/* <Breadcrumb /> */}</div>
         <ShowCategory categoryName={categoryName} subCategory={subCategory} />
       </div>
       <div className="row">
         <div className="col-lg-3 lg--none">
-        <div className="filterItem">
-        <span className="filterItem__header"> فیلتر براساس قیمت :</span>
-        <PriceSlider setPageInfo={setPageInfo} />
-        </div>
-        <div className="filterItem">
-        <span className="filterItem__header">  دسته بندی محصولات</span>
-          <CategoryFilter category={categoryName} setCategory={setPageInfo} />
-        </div>
-        <div className="filterItem">
-        <span className="filterItem__header">برند ها</span>
-
-          <Brands setFilter={setPageInfo}/>
-        </div>
-        <div className="filterItem">
-        <span className="filterItem__header">رنگ ها</span>
-        <ColorFilter setFilter={setPageInfo}/>
-        </div>
-        {/* <div className="filterItem">
-        <span className="filterItem__header"></span>
-        </div> */}
-         
+          <SidebarFilter setPageInfo={setPageInfo} />
         </div>
         <div className="col-12 col-lg-9">
           <div className="pageTitle">

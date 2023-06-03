@@ -3,10 +3,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 .color__option {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 3.5rem;
   border-radius: 0.5rem;
   box-shadow: var(--box-shadow);
+  flex: 0 0 25%;
+  border-radius: var(--border-box);
 }

@@ -25,8 +25,7 @@
   align-items: center;
   justify-content: center;
 }
-.searchBox__iconSearch,
-.searchBox__categoryIcon {
+.searchBox__iconSearch {
   cursor: pointer;
   color: #999;
   display: inline-block;
@@ -49,60 +48,11 @@
   font-size: 1.2rem;
   color: #999;
 }
-.searchBox__categoryBox {
-  width: 2.4rem;
-  height: 2.4rem;
-}
-.category {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 0;
-  width: 11rem;
-  max-height: 0;
-  background-color: var(--white);
-  transition: all 0.3s;
-  font-family: var(--iran-bold);
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-  z-index: 3;
-}
-.category--show {
-  max-height: 18rem;
-}
 
-.category--current {
-  color: var(--gold);
-}
-.category::-webkit-scrollbar {
-  width: 0.2rem;
-  background-color: var(--gray);
-}
-.category::-webkit-scrollbar-track {
-  box-shadow: 0 0 5px #ddd inset;
-  border-radius: 1.5rem;
-}
-.category::-webkit-scrollbar-thumb {
-  border-radius: 1.5rem;
-  background-color: rgba(0, 0, 0, 0.3);
-}
-.category__lists {
-  color: var(--black-50);
-  padding: 0.7rem 1.5rem 0.7rem 0.5rem;
-}
-.category__item {
-  font-size: 1.1rem;
-  font-weight: 400;
-  width: 100%;
-  transition: all 0.4s;
-  padding: 0.5rem 0;
-  cursor: pointer;
-}
-.category__item:hover {
-  color: var(--gold);
-}
 .search-box__btn--close {
   font-size: 1.6rem;
-  background-color: #ffecec;
+  background-color: var(--red-50);
+  color: var(--white);
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s;
@@ -140,13 +90,14 @@
   border-radius: var(--border-box);
   border: 0.1rem dashed #dfe1e4;
   margin-bottom: 0.5rem;
+  padding: .2rem;
 }
 .search-box__result-banner {
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: var(--border-box);
   overflow: hidden;
-  margin-left: 1rem;
+  margin-left: 1.5rem;
 }
 .search-box__result-img {
   width: 100%;
@@ -180,7 +131,6 @@
 .search-box__error-box {
   width: 100%;
   width: 100%;
-  padding: 1rem;
   border-radius: var(--border-box);
 }
 .search-box__error-box span {

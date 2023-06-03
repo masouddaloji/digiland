@@ -27,42 +27,41 @@ import { TbBabyCarriage, TbDeviceTvOld } from "react-icons/tb";
 import { MdOutlineDevices } from "react-icons/md";
 import { IoMdFootball } from "react-icons/io";
 import { HiOutlineUserGroup } from "react-icons/hi";
-import { SiApple, SiAsus, SiLenovo, SiSamsung, SiXiaomi } from "react-icons/si";
 
 // Definition of variables
 export const services = [
   {
-    id: 110,
+    id: nanoid(),
     title: "موبایل و لپ تاپ",
     icon: <MdOutlineDevices className="f-24" />,
     link: "/",
   },
   {
-    id: 120,
+    id: nanoid(),
     title: "ماشین های اداری",
     icon: <BsPrinter className="f-24" />,
     link: "/",
   },
   {
-    id: 130,
+    id: nanoid(),
     title: "صوتی و تصویری",
     icon: <TbDeviceTvOld className="f-24" />,
     link: "/",
   },
   {
-    id: 140,
+    id: nanoid(),
     title: "زیبایی و سلامت",
     icon: <RiHeartPulseLine className="f-24" />,
     link: "/",
   },
   {
-    id: 150,
+    id: nanoid(),
     title: "ورزش و سرگرمی",
     icon: <IoMdFootball className="f-24" />,
     link: "/",
   },
   {
-    id: 160,
+    id: nanoid(),
     title: "ابزارآلات",
     icon: <BsTools className="f-24" />,
     link: "/",
@@ -74,6 +73,7 @@ export const menus = [
     title: "دیجیتال",
     link: "/products/digital",
     shortLink: "digital",
+    img: "/images/category/multiple-devices.png",
     icon: <FaLaptopCode className="icon" />,
     subMenu: [
       {
@@ -118,6 +118,7 @@ export const menus = [
     title: "لـوازم خانگی",
     link: "/products/household-appliances",
     shortLink: "household-appliances",
+    img: "/images/category/appliances.png",
     icon: <FiCamera className="icon" />,
     subMenu: [
       {
@@ -143,7 +144,7 @@ export const menus = [
       },
       {
         id: nanoid(),
-        title: "لوازم شستشو و نظافت",
+        title: "شستشو و نظافت",
         link: "/products/household-appliances/washing-cleaning",
         shortLink: "washing-cleaning",
         img: "/images/submenu/washing-machine.png",
@@ -162,6 +163,7 @@ export const menus = [
     title: "زیبایــی و سلامت",
     link: "/products/beauty-health",
     shortLink: "beauty-health",
+    img: "/images/category/beauty-health.png",
     icon: <RiHandHeartLine className="icon" />,
     subMenu: [
       {
@@ -206,6 +208,7 @@ export const menus = [
     title: "مادر و کودک",
     link: "/products/mother-child",
     shortLink: "mother-child",
+    img: "/images/category/mother.png",
     icon: <TbBabyCarriage className="icon" />,
     subMenu: [
       {
@@ -250,6 +253,7 @@ export const menus = [
     title: "ورزش و سرگرمی",
     link: "/products/sport-entertainment",
     shortLink: "sport-entertainment",
+    img: "/images/category/sport.png",
     icon: <IoAmericanFootballOutline className="icon" />,
     subMenu: [
       {
@@ -287,6 +291,7 @@ export const menus = [
     title: "ابزار و الکترونیـک",
     link: "/products/tools-electronics",
     shortLink: "tools-electronics",
+    img: "/images/category/electricTools.png",
     icon: <MdOutlineHomeRepairService className="icon" />,
     subMenu: [
       {
@@ -294,11 +299,11 @@ export const menus = [
         title: "ابزار برقی و شارژی",
         link: "/products/tools-electronics/electric-rechargeable-tools",
         shortLink: "electric-rechargeable-tools",
-        img: "/images/submenu/grinding-machine.png",
+        img: "/images/submenu/drill.png",
       },
       {
         id: nanoid(),
-        title: "تجهیزات سفر",
+        title: "ابزار غیربرقی",
         link: "/products/tools-electronics/non-electrical-tools",
         shortLink: "non-electrical-tools",
         img: "/images/submenu/tools.png",
@@ -332,7 +337,7 @@ export const smallBanners = [
 ];
 export const adminPanelItems = [
   {
-    id: 111,
+    id: nanoid(),
     title: "سفارشات جدید",
     amount: 3025,
     percent: 2.0,
@@ -341,7 +346,7 @@ export const adminPanelItems = [
     icon: <BsFillCartCheckFill className="f-24" />,
   },
   {
-    id: 112,
+    id: nanoid(),
     title: "فروش ماهانه",
     amount: 75000000,
     percent: 5.45,
@@ -350,7 +355,7 @@ export const adminPanelItems = [
     icon: <BiDollar className="f-24" />,
   },
   {
-    id: 113,
+    id: nanoid(),
     title: "سود ماهانه",
     amount: 15000000,
     percent: 2,
@@ -359,7 +364,7 @@ export const adminPanelItems = [
     icon: <BsCreditCard className="f-24" />,
   },
   {
-    id: 114,
+    id: nanoid(),
     title: "کاربران جدید",
     amount: 634,
     percent: 1.8,
@@ -385,26 +390,31 @@ export const monthlyInformationChart = [
 export const weeklyInformationChart = [];
 export const adminSidebarItems = [
   {
+    id: nanoid(),
     icon: <IoGridOutline className="sidebarItem__mainIcon" />,
     title: "داشبورد",
     link: "/adminpanel/dashboard",
   },
   {
+    id: nanoid(),
     icon: <BsBoxSeam className="sidebarItem__mainIcon" />,
     title: "محصولات",
     link: "products",
   },
   {
+    id: nanoid(),
     icon: <HiOutlineUserGroup className="sidebarItem__mainIcon" />,
     title: "کاربران",
     link: "users",
   },
   {
+    id: nanoid(),
     icon: <MdOutlineAddShoppingCart className="sidebarItem__mainIcon" />,
     title: "سفارشات",
     link: "orders",
   },
   {
+    id: nanoid(),
     icon: <RiArticleLine className="sidebarItem__mainIcon" />,
     title: "مقالات",
     link: "articles",
@@ -427,102 +437,157 @@ export const colorOptions = [
   { value: "صورتی", color: "#FF69B4" },
 ];
 export const allInfosBtn = [
-  { id: "info-btn-1", titleFa: "توضیحات", titleEn: "description" },
-  { id: "info-btn-2", titleFa: "مشخصات", titleEn: "specifications" },
-  { id: "info-btn-3", titleFa: "نظرات کاربران", titleEn: "userComments" },
-  { id: "info-btn-4", titleFa: " نقد و بررسی", titleEn: "review" },
+  { id: nanoid(), titleFa: "توضیحات", titleEn: "description" },
+  { id: nanoid(), titleFa: "مشخصات", titleEn: "specifications" },
+  { id: nanoid(), titleFa: "نظرات کاربران", titleEn: "userComments" },
+  { id: nanoid(), titleFa: " نقد و بررسی", titleEn: "review" },
 ];
 export const footerSliderItems = [
   {
-    id: "footer-slider-1",
+    id: nanoid(),
     title: "بسته بندی زیبا",
     img: "/images/footer/gift.webp",
   },
   {
-    id: "footer-slider-2",
+    id: nanoid(),
     title: "ارسال به تمام نقاط",
     img: "/images/footer/map.webp",
   },
   {
-    id: "footer-slider-3",
+    id: nanoid(),
     title: "ضمانت اصل بودن",
     img: "/images/footer/secure.webp",
   },
   {
-    id: "footer-slider-4",
+    id: nanoid(),
     title: "تضمین بهترین قیمت",
     img: "/images/footer/credit-card.webp",
   },
   {
-    id: "footer-slider-5",
+    id: nanoid(),
     title: "پرداخت در محل",
     img: "/images/footer/wallet.webp",
   },
   {
-    id: "footer-slider-6",
+    id: nanoid(),
     title: "ضمانت بازگشت",
     img: "/images/footer/money.webp",
   },
   {
-    id: "footer-slider-7",
+    id: nanoid(),
     title: "تحویل اکسپرس",
     img: "/images/footer/packaging-6.webp",
   },
 ];
 export const sortedProductsItems = [
   {
-    id: "sorte_products_items_1",
+    id: nanoid(),
     title: "مرتب‌ سازی براساس امتیاز",
     sortedBy: "rating",
   },
   {
-    id: "sorte_products_items_2",
+    id: nanoid(),
     title: "مرتب‌ سازی براساس جدیدترین",
     sortedBy: "latest",
   },
   {
-    id: "sorte_products_items_3",
+    id: nanoid(),
     title: "مرتب‌ سازی براساس ارزان ترین",
     sortedBy: "price-low-to-high",
   },
   {
-    id: "sorte_products_items_4",
+    id: nanoid(),
     title: "مرتب‌ سازی براساس گران ترین",
     sortedBy: "price-high-to-low",
   },
 ];
-export const brands = [
-  {
-    id: nanoid(),
-    title: "apple",
-    text: "اپل",
-    icon: <SiApple className="brand__icon" />,
+export const brands = {
+  "digital": {
+    "tablet": {
+      brands: [
+        {
+          id: nanoid(),
+          img: "/images/brands/apple.png",
+          title: "apple",
+          perTitle: "اپل",
+        },
+        {
+          id: nanoid(),
+          img: "/images/brands/asus.png",
+          title: "asus",
+          perTitle: "ایسوس",
+        },
+        {
+          id: nanoid(),
+          img: "/images/brands/lenovo.png",
+          title: "lenovo",
+          perTitle: "لنوو",
+        },
+        {
+          id: nanoid(),
+          img: "/images/brands/samsung.png",
+          title: "samsung",
+          perTitle: "سامسونگ",
+        },
+        {
+          id: nanoid(),
+          img: "/images/brands/xiaomi.png",
+          title: "xiaomi",
+          perTitle: "شیائومی",
+        },
+      ],
+    },
+    "camera": {},
+    "workstation": {},
+    "laptop": {
+      brands: [
+        {
+          id: nanoid(),
+          img: "/images/brands/apple.png",
+          title: "apple",
+          perTitle: "اپل",
+        },
+        {
+          id: nanoid(),
+          img: "/images/brands/asus.png",
+          title: "asus",
+          perTitle: "ایسوس",
+        },
+        {
+          id: nanoid(),
+          img: "/images/brands/lenovo.png",
+          title: "lenovo",
+          perTitle: "لنوو",
+        },
+      ],
+    },
+    "phone":{
+      brands: [
+        {
+          id: nanoid(),
+          img: "/images/brands/apple.png",
+          title: "apple",
+          perTitle: "اپل",
+        },
+        {
+          id: nanoid(),
+          img: "/images/brands/samsung.png",
+          title: "samsung",
+          perTitle: "سامسونگ",
+        },
+        {
+          id: nanoid(),
+          img: "/images/brands/xiaomi.png",
+          title: "xiaomi",
+          perTitle: "شیائومی",
+        },
+      ],
+    }
   },
-  {
-    id: nanoid(),
-    title: "lenovo",
-    text: "لنوو",
-    icon: <SiLenovo className="brand__icon" />,
-  },
-  {
-    id: nanoid(),
-    title: "samsung",
-    text: "سامسونگ",
-    icon: <SiSamsung className="brand__icon" />,
-  },
-  {
-    id: nanoid(),
-    title: "xiaomi",
-    text: "شیائومی",
-    icon: <SiXiaomi className="brand__icon" />,
-  },
-  {
-    id: nanoid(),
-    title: "asus",
-    text: "ایسوس",
-    icon: <SiAsus className="brand__icon" />,
-  },
-];
+  "household-appliances":{
+
+  }
+};
 
 export const Iran = {
   "آذربايجان شرقي": [
@@ -963,7 +1028,7 @@ export const Iran = {
     "خرم آباد",
     "دورود",
     "سپید دشت",
-    "كوهدشت",
+    "کوهدشت",
     "نورآباد",
   ],
   مازندران: [
