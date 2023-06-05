@@ -428,13 +428,13 @@ export const ratingOptions = [
   { value: 5, text: "عالی" },
 ];
 export const colorOptions = [
-  { value: "قرمز", color: "#FF0000" },
-  { value: "مشکی", color: "#000" },
-  { value: "طلائی", color: "#ffd300" },
-  { value: "آبی", color: "#0000FF" },
-  { value: "سبز", color: "#00FF00" },
-  { value: "سفید", color: "#FFF" },
-  { value: "صورتی", color: "#FF69B4" },
+  { value: "قرمز", color: "#FF0000" ,img:"/images/optionColor/red.png"},
+  { value: "مشکی", color: "#000" ,img:"/images/optionColor/black.png"},
+  { value: "طلائی", color: "#ffd300" ,img:"/images/optionColor/yellow.png"},
+  { value: "آبی", color: "#0000FF" ,img:"/images/optionColor/blue.png"},
+  { value: "سبز", color: "#00FF00" ,img:"/images/optionColor/green.png"},
+  { value: "سفید", color: "#FFF" ,img:"/images/optionColor/white.png"},
+  { value: "صورتی", color: "#FF69B4" ,img:"/images/optionColor/pink.png"},
 ];
 export const allInfosBtn = [
   { id: nanoid(), titleFa: "توضیحات", titleEn: "description" },

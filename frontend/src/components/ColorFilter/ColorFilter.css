@@ -1,16 +1,36 @@
 .colorFilter {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem 0.5rem;
+  padding: 1rem 0;
   flex-wrap: wrap;
-  gap: 1rem;
+}
+.colerFilter__itemBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--gray-text);
+  flex: 0 0 25%;
+  margin: 0.7rem 0;
+}
+.colorFilter__itemImageBox {
+  border: 0.1rem solid #e0e0e6;
+  padding: 0.5rem;
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 0.9rem;
+}
+.colorFilter__itemImageBox.selecedColor{
+  border: .3rem solid var(--blue);
 }
 .color__option {
-  width: 2rem;
-  height: 3.5rem;
-  border-radius: 0.5rem;
-  box-shadow: var(--box-shadow);
-  flex: 0 0 25%;
-  border-radius: var(--border-box);
+  border-radius: 0.9rem;
+  border: 0.1rem solid #e0e0e6;
+  width: 100%;
+  height: 100%;
+}
+.colerFilter__itemTitle {
+  margin-top: 0.7rem;
+  font-family: var(--iran);
+  font-size: 1.2rem;
+
 }

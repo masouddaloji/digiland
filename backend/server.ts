@@ -20,6 +20,7 @@ import superAdminRoutes from "./routes/superAdmin";
 import articleRoutes from "./routes/article";
 import basketRoutes from "./routes/basket";
 import uploadRoutes from "./routes/upload";
+import indexRoute from "./routes/index";
 
 import verifyJWT from "./middlewares/verifyJWT";
 
@@ -52,6 +53,7 @@ app.use("/superadmins", verifyJWT, superAdminRoutes);
 app.use("/articles", articleRoutes);
 app.use("/basket", verifyJWT, basketRoutes);
 app.use("/upload", verifyJWT, uploadRoutes);
+app.use("/main", indexRoute);
 
 app.all("*", (req: Request, res: Response) => {
   res.status(404).json({ message: "404 Not Found" });

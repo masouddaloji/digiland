@@ -4,12 +4,12 @@ import { shopApi } from "../../App/api/shopApi";
 export const ProductApiSlice = shopApi.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: ({ page, limit, category, subCategory, color, price, sort,search }) =>
+      query: ({ page, limit, category, subCategory, color, price, sort,brand,search }) =>
         `/products?page=${page}&limit=${limit}&category=${
           category ?? ""
         }&subCategory=${subCategory ?? ""}&color=${color ?? ""}&price=${
           price ?? ""
-        }&sort=${sort ?? ""}&search=${search}`,
+        }&sort=${sort ?? ""}&brand=${brand ?? ""}&search=${search}`,
       providesTags: (result, error, arg) => [
         { type: "Product", id: "LIST" },
         ...result.data.map(({ _id }) => ({ type: "Product", id: _id })),

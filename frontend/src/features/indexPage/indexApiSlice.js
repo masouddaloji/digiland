@@ -4,11 +4,10 @@ import { shopApi } from "../../App/api/shopApi";
 export const indexApiSlice = shopApi.injectEndpoints({
   endpoints: (builder) => ({
     getIndexInfos: builder.query({
-      query: () => "/products?page=1&limit=100",
-      transformResponse:response=>response.data,
+      query: () => "/main",
       providesTags: (result, error, arg) => [
         { type: "IndexPage", id: "LIST" },
-        ...result.map(({_id}) => ({ type: "IndexPage", id:_id })),
+        // ...result.map(({_id}) => ({ type: "IndexPage", id:_id })),
       ],
     }),
   }),

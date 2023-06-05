@@ -3,7 +3,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 0 1rem;
+  padding:1rem;
 }
 
 .progress{
@@ -49,6 +49,12 @@ pointer-events: auto;
   padding: 1rem 0;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+.priceSlider__pricess{
+  display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 .priceSlider__btn{
   outline: none;
@@ -57,8 +63,7 @@ pointer-events: auto;
   font-weight: 500;
   border: 1px solid var(--gray);
   border-radius: var(--border-box);
-  padding: 0.1rem 1rem;
-  margin-left: 2rem;
+  padding: 0.4rem 2rem;
   transition: all .3s;
 }
 .priceSlider__btn:hover{
@@ -66,10 +71,12 @@ pointer-events: auto;
   color: var(--white);
 }
 .priceSlider__priceInfo{
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--black-50);
-  font-family: var(--iran);
+ 
 }
-.priceSlider__priceInfo span{
-  margin: 0 0.4rem;
+
+.priceSlider__priceInfo p span{
+
+  margin: 0 .5rem;
 }

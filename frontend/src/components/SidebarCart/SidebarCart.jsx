@@ -71,9 +71,9 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
             ) : (
               <div className="emptyBasket">
                 <IoBagHandleOutline className="emptyBasket__icon" />
-                <span className="emptyBasket__text">
+                <Link className="emptyBasket__text" to="/login">
                   {persianTexts.basket.emptyBasket}
-                </span>
+                </Link>
               </div>
             )}
 
@@ -106,9 +106,9 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
         ) : (
           <div className="emptyBasket">
             <IoBagHandleOutline className="emptyBasket__icon" />
-            <span className="emptyBasket__text">
+            <Link className="emptyBasket__text" to="/login">
               {persianTexts.header.notLoginInBasket}
-            </span>
+            </Link>
           </div>
         )}
 

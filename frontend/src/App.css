@@ -28,3 +28,8 @@
   background-color: var(--gray-text);
 
 }
+@media (max-width:991px){
+  ::-webkit-scrollbar{
+    display: none;
+  }
+}

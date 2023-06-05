@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useMemo } from "react";
 //styles
 import "./PriceSlider.css";
 
-export default function PriceSlider({ setPageInfo }) {
+export default function PriceSlider({ pageInfo,setPageInfo }) {
   const gap = 100000;
   const maxPrice = 300000000;
   const [filterPrice, setFilterPrice] = useState([0, maxPrice]);
@@ -46,6 +46,9 @@ export default function PriceSlider({ setPageInfo }) {
       right: `${100 - (filterPrice[1] / maxPrice) * 100}%`,
     });
   }, [filterPrice, maxPrice]);
+  useEffect(()=>{
+    if(!pageInfo.price) setFilterPrice([0,maxPrice])
+  },[pageInfo])
 
   return (
     <div className="priceSlider">
@@ -71,14 +74,16 @@ export default function PriceSlider({ setPageInfo }) {
         />
       </div>
       <div className="priceSlider__details">
+        
+        <div className="priceSlider__priceInfo ss02">
+        <div className="priceSlider__pricess"> 
+        <p> از : <span>{Number(filterPrice[0]).toLocaleString()}</span> تومان </p>   
+           <p> تا : <span>{Number(filterPrice[1]).toLocaleString()}</span> تومان </p>
+        </div>
+        </div>
         <button className="priceSlider__btn" onClick={filteredByPrices}>
           فیلتر
         </button>
-        <div className="priceSlider__priceInfo ss02">
-          قیمت :<span>{Number(filterPrice[0]).toLocaleString()}</span>
-          تومان -<span>{Number(filterPrice[1]).toLocaleString()}</span>
-          تومان
-        </div>
       </div>
     </div>
   );

@@ -68,37 +68,20 @@ export default function ProductsCategory() {
 
   return (
     <div className="container">
-      {/* start filter mobile  */}
-      <div
-        className={`filterMobile__mask ${
-          isShowFilterOptions ? "filterMobile__mask--show" : null
-        }`}
-        ref={maskRef}
-        onClick={closeFilterMask}
-      ></div>
-      <div
-        className={`filterMobile ${
-          isShowFilterOptions ? "filterMobile--show" : null
-        }`}
-      >
-        <div className="filterMobile__header">
-          <span>فیلتر</span>
-          <IoMdClose
-            className="filterMobile__closeIcon"
-            onClick={() => setIsShowFilterOptions(false)}
-          />
-        </div>
-      </div>
-      {/* end filter mobile */}
+
       <div className="row">
         <div className="col-12">{/* <Breadcrumb /> */}</div>
         <ShowCategory categoryName={categoryName} subCategory={subCategory} />
       </div>
       <div className="row">
-        <div className="col-lg-3 lg--none">
-          <SidebarFilter setPageInfo={setPageInfo} />
-        </div>
-        <div className="col-12 col-lg-9">
+          <SidebarFilter
+            pageInfo={pageInfo}
+            setPageInfo={setPageInfo}
+            isShowFilterOptions={isShowFilterOptions}
+            setIsShowFilterOptions={setIsShowFilterOptions}
+          />
+
+        <div className="col-12 col-lg-8 col-xl-9">
           <div className="pageTitle">
             <div className="pageTitle__box">
               <div className="pageTitle__rightBox">
