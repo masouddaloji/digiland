@@ -3,7 +3,6 @@ import Index from "./Pages/HomePage/Index";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import ProductsCategory from "./Pages/ProductsCategory/ProductsCategory";
-import CategorizedProducts from "./Pages/CategorizedProducts/CategorizedProducts";
 import Product from "./Pages/Product/Product";
 import UserBasket from "./Pages/UserBasket/UserBasket";
 import Cart from "./components/userBasket/userCart/Cart";
@@ -19,6 +18,7 @@ import AddProduct from "./components/adminPanel/AddProduct/AddProduct";
 import UserPanel from "./Pages/UserPanel/Index";
 import PersistLogin from "./features/auth/PersistLogin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import EditProduct from "./components/adminPanel/EditProduct/EditProduct";
 
 const routes = [
   {
@@ -92,6 +92,7 @@ const routes = [
       { path: "dashboard", element: <MainAdmin /> },
       { path: "products", element: <AdminProducts /> },
       { path: "add-products", element: <AddProduct /> },
+      { path: "edit-product/:productID", element: <EditProduct /> },
       { path: "users", element: <AdminUsers /> },
       { path: "orders", element: <AdminOrders /> },
       { path: "articles", element: <AdminArticles /> },

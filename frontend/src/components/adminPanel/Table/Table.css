@@ -4,32 +4,11 @@
   border-radius: var(--border-box);
   overflow: hidden;
   box-shadow: var(--box-shadow);
-  /* position: relative; */
-}
-.edit__container{
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(0 , 0, 0, 0.6);
-  z-index: 200;
-}
-.edit__content{
-  width: 60%;
-  height: 90%;
   padding: 3rem 1rem;
-  margin: 3rem auto 1rem;
-  background: var(--white);
-  z-index: 300;
-  border-radius: var(--border-box);
-  box-shadow: var(--box-shadow);
-  overflow-y: scroll;
+}
 
-}
-.edit__content::-webkit-scrollbar{
-  display: none;
-}
+
+
 .table__header {
   display: flex;
   width: 100%;
@@ -107,13 +86,15 @@
     justify-content: center;
     gap: 1rem;
 }
-.actionBtns span{
+.actionBtns button{
   width: 2.8rem;
   height: 2.8rem;
   border-radius: var(--border-box);
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  outline: none;
 }
 .actions__icon{
   font-size: 1.8rem;

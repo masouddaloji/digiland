@@ -65,6 +65,7 @@ export default function Register() {
                   controler="email"
                   label="ایمیل"
                   name="registerEmail"
+                  autoFocus 
                   icon={<MdAlternateEmail className="formControl__icon" />}
                 />
                 <FormControl

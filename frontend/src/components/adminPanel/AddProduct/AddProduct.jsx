@@ -1,7 +1,7 @@
 import { useRef } from "react";
 // packages
 import { Form, Formik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // variables
 import { persianTexts } from "../../../text";
 // components
@@ -75,10 +75,12 @@ const AddProduct = () => {
       {(formik) => (
         <>
           <section className="adminSection">
-            <div className="table__wrapper">
-              <h2 className="table__header">
-                {persianTexts.admin.products.label.addProductsTitle}
-              </h2>
+            <div className="table">
+
+              <div className="table__header">
+        <h5 className="table__title">{persianTexts.admin.products.label.addProductsTitle}</h5>
+        <Link to="/adminpanel/products" className="table__link">بازگشت به صفحه محصولات</Link>
+        </div>
               <Form className="admin__form">
                 <div className="row">
                   <div className="col-md-6">

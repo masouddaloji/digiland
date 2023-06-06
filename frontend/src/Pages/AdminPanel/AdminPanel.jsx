@@ -14,7 +14,7 @@ import Sidebar from "../../components/adminPanel/Sidebar/Sidebar";
 import "./AdminPanel.css";
 
 const AdminPanel = () => {
-  const[isShowSidebar,setIsShowSidebar]=useState(false)
+  const[isShowSidebar,setIsShowSidebar]=useState(true)
   return (
     <div className="admin">
       <Sidebar isShowSidebar={isShowSidebar}/>

@@ -62,20 +62,6 @@ export default function Login() {
             resetForm();
           }
         }
-        // .then((res) => {
-        //   dispatch(setToken(res.accessToken));
-        //   toast.success(persianTexts.login.logginSuccess);
-        //   navigate("/");
-        // })
-        // .catch((error) => {
-        //   if (error.status === 401) {
-        //     toast.error(persianTexts.login.loginNotMatch);
-        //     resetForm()
-        //   } else {
-        //     toast.error(persianTexts.login.logginError);
-        //     resetForm()
-        //   }
-        // });
       }}
     >
       {(formik) => (
@@ -98,6 +84,7 @@ export default function Login() {
                     label="نام کاربری"
                     name="loginUserName"
                     ref={userNameRef}
+                    autoFocus
                     icon={<MdAlternateEmail className="formControl__icon" />}
                   />
                   <FormControl

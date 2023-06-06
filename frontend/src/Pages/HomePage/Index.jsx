@@ -27,8 +27,6 @@ export default function Index() {
     isSuccess,
   } = useGetIndexInfosQuery();
   const articles = Array(6).fill(0);
-
-console.log("mainPage",mainPage);
   return (
     <div className="container">
       {/* header slider */}

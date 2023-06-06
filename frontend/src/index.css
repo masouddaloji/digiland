@@ -451,7 +451,21 @@ a {
   border-radius: var(--border-box);
   font-size: 1.2rem;
 }
-
+.table__header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding: 0 1.2rem;
+}
+.table__title{
+  color: var(--blue);
+  font-size: 1.4rem;
+}
+.table__link{
+  font-size: 1.2rem;
+  color: var(--gray-text);
+}
 .ss02 {
   -moz-font-feature-settings: "ss02";
   -webkit-font-feature-settings: "ss02";

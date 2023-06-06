@@ -1,97 +1,82 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 // packages
-import { Field, useField, useFormikContext } from "formik";
-//components
-import privateAxios from "../../api/privateAxios";
+import { nanoid } from "@reduxjs/toolkit";
+import {useField } from "formik";
 //rtk query
-import { useSelector } from "react-redux";
-import { selectToken } from "../../features/auth/authSlice";
-
+import {
+  useUploadProductCoverMutation,
+  useUploadProductGalleryMutation,
+} from "../../features/Product/ProductApiSlice";
+//persian text
+import { persianTexts } from "../../text";
 // icons
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 
 const Uploader = (props) => {
   const [field, meta, helpers] = useField(props);
-  const { setFieldValue, setFieldTouched,resetForm } = useFormikContext();
-  const [previewImage, setPreviewImage] = useState(
-    field.value ? field.value : []
-  );
-  const [uploadImagePercent, setUploadImagePercent] = useState(null);
-  const [isShowMessage, setIsShowMessage] = useState(false);
-  const [images, setImages] = useState([]);
-  const uploaderRef = useRef();
-const token=useSelector(selectToken)
-  const message = {
-    single: "کاور محصول آپلود شد",
-    multiple: "عکس های محصول آپلود شدند",
-  };
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [
+    uploadProductCover,
+    {
+      isLoading: coverUploadLoading,
+      isSuccess: coverUploadSuccess,
+      isError: coverUploadError,
+      error,
+    },
+  ] = useUploadProductCoverMutation();
+  const [
+    uploadProductGallery,
+    {
+      isLoading: galleryUploadLoading,
+      isSuccess: galleryUploadSuccess,
+      isError: galleryUploadError,
+      error: galleryError,
+    },
+  ] = useUploadProductGalleryMutation();
 
-  const uploadHandler = (event) => {
-    setFieldTouched(field.name, true);
+  console.log("coverUploadSuccess", coverUploadSuccess);
+  console.log("galleryUploadSuccess", galleryUploadSuccess);
+
+  const prepareImagesForUpload = (event) => {
+    helpers.setTouched(true);
     let files = Array.from(event?.target?.files);
     if (files.length > 0) {
-      setImages(files);
+      setSelectedImages(files);
     }
   };
-  const uploading = (e) => {
+  const uploadHandler = async (e) => {
     e.preventDefault();
-    const imageData = new FormData();
-    if (!props.multiple) {
-      imageData.append("image", images[0]);
-      setPreviewImage(images);
-      uploadProduct("upload/prodimg", imageData);
+    const formData = await new FormData();
+    if (props.multiple) {
+      selectedImages.map((image) => formData.append("images", image));
+      uploadProductGallery(formData)
+        .unwrap()
+        .then((response) => {
+          console.log("response in uploader", response);
+          helpers.setValue(response);
+        })
+        .catch((error) => console.log("error in uploader", error));
     } else {
-      images.map((img) => {
-        imageData.append("images", img);
-      });
-      setPreviewImage(images);
-      uploadProduct("upload/prodgallery", imageData);
+      formData.append("image", selectedImages[0]);
+      uploadProductCover(formData)
+        .unwrap()
+        .then((response) => {
+          console.log("response in uploader", response);
+          helpers.setValue(response);
+        })
+        .catch((error) => console.log("error in uploader", error));
     }
   };
-
-  const uploadProduct = async (url, data) => {
-    await privateAxios
-      .post(url, data, {
-        onUploadProgress: (progress) => {
-          const percent = Math.round((progress.loaded / progress.total) * 100);
-          setUploadImagePercent(percent);
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        setIsShowMessage(true);
-        if (props.multiple) {
-          setFieldValue(field.name, res.data.galleryArray);
-        } else {
-          setFieldValue(field.name, res.data.path);
-        }
-      })
-      .catch((err) => {
-        console.log("err", err);
-        setUploadImagePercent(0);
-      });
-  };
-
-  useEffect(() => {
-    
-      setIsShowMessage(false);
-  }, [field.value]);
-
-
 
   return (
     <>
       <div className="formControl__wrapper">
         <div
           className={`uploader ${
-            meta.touched && meta.error && !images?.length
+            meta.touched && meta.error && !selectedImages?.length
               ? "formControl--invalid"
               : undefined
           }`}
-          ref={uploaderRef}
         >
           <label htmlFor={field.name} className="uploader__label">
             <MdOutlineDriveFolderUpload className="uploader__icon" />
@@ -104,49 +89,76 @@ const token=useSelector(selectToken)
             className={`uploader__input `}
             {...props}
             {...field}
-            onChange={uploadHandler}
+            onChange={prepareImagesForUpload}
             value=""
           />
         </div>
 
-        {meta.touched && meta.error && !images?.length && (
+        {meta.touched && meta.error && !selectedImages?.length && (
           <span className="auth__error">{meta.error}</span>
         )}
       </div>
 
       <div
         className={`uploader__progress ${
-          meta.value && "uploader__progress--show"
+          (coverUploadLoading || galleryUploadLoading) &&
+          "uploader__progress--show"
         }`}
       >
         <div
           className="uploader__progressbar"
-          style={{ width: `${uploadImagePercent}%` }}
+          style={{
+            width: `${coverUploadSuccess || galleryUploadSuccess ? 100 : 0}%`,
+          }}
         ></div>
       </div>
 
       <button
-        onClick={uploading}
-        className={`uploader__btn ${images?.length && "uploader__btn--show"}`}
+        onClick={uploadHandler}
+        className={`uploader__btn ${
+          selectedImages?.length && "uploader__btn--show"
+        }`}
       >
         آپلود
       </button>
-      {isShowMessage && (
-        <div className="uploadResult__wrapper">
+
+      <div className="uploadResult__wrapper">
+        {(coverUploadSuccess || galleryUploadSuccess) && (
           <p className="upload__resultText">
-            {props?.multiple ? message.multiple : message.single}
+            {props?.multiple
+              ? persianTexts.uploader.multiple
+              : persianTexts.uploader.single}
           </p>
-          <div className="upload__showImages">
-            {previewImage.length &&
-              field.value &&
-              previewImage.map((item, index) => (
+        )}
+        <div className="upload__showImages">
+          {props?.multiple && field.value ? (
+            field.value.map((item) => (
+              <div className="upload__previewBox">
                 <img
                   className="upload__previewImage"
-                  key={index + 1}
-                  src={URL.createObjectURL(item)}
+                  key={nanoid()}
+                  src={`http://localhost:8000${item}`}
                 />
-              ))}
-          </div>
+              </div>
+            ))
+          ) : field.value ? (
+            <div className="upload__previewBox">
+              <img
+                className="upload__previewImage"
+                src={`http://localhost:8000${field.value}`}
+              />
+            </div>
+          ) : null}
+        </div>
+      </div>
+
+      {(coverUploadError || galleryUploadError) && (
+        <div className="uploadResult__wrapper">
+          <p className="upload__resultText">
+            {props?.multiple
+              ? persianTexts.uploader.multipleError
+              : persianTexts.uploader.singleError}
+          </p>
         </div>
       )}
     </>

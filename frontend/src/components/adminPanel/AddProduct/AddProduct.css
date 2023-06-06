@@ -2,12 +2,7 @@
   width: 100%;
   padding: 0 .7rem;
 }
-.table__wrapper{
-  background: var(--white);
-  border-radius: var(--border-box);
-  overflow: hidden;
-  padding: 0 0 1rem 0;
-}
+
 .btn__wrapper {
     justify-content: flex-end;
   }

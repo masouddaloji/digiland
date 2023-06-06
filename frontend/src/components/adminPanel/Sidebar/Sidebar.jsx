@@ -30,7 +30,7 @@ const Sidebar = ({ isShowSidebar }) => {
               to={item.link}
             >
               <span className="sidebarLink__iconBox">{item.icon}</span>
-             <span>{item.title}</span>
+             {!isShowSidebar && <span>{item.title}</span>}
             </NavLink>
           </li>
         )}

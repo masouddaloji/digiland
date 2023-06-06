@@ -1,0 +1,53 @@
+.modal__mask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white);
+  padding: 4rem;
+  z-index: 20;
+  border-radius: var(--border-box);
+  box-shadow: var(--box-shadow);
+}
+
+.modal__title {
+  font-size: 1.3rem;
+  color: var(--gray-text);
+}
+
+.modal__btnsBox {
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.modal__btn {
+  width: 8rem;
+  height: 3rem;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: var(--border-box);
+  color: var(--white);
+  font-size: 1.2rem;
+  font-family: var(--iran-bold);
+}
+
+.yesBtn {
+  background-color: var(--green);
+}
+
+.noBtn {
+  background-color: var(--red);
+}
