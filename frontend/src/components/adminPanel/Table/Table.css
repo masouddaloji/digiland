@@ -1,11 +1,4 @@
-.table {
-  width: 100%;
-  border: 1px solid var(--gray);
-  border-radius: var(--border-box);
-  overflow: hidden;
-  box-shadow: var(--box-shadow);
-  padding: 3rem 1rem;
-}
+/* 
 
 
 
@@ -20,14 +13,7 @@
   color: var(--blue);
   font-size: 1.3rem;
 }
-.table__btn {
-  color: var(--white);
-  background: var(--blue);
-  padding: 0.4rem 1rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  border-radius: var(--border-box);
-}
+
 .table table {
   width: 100%;
   border-collapse: collapse;
@@ -107,4 +93,4 @@ background: var(--purple-25);
 .delete{
 color: var(--red);
 background: var(--red-25);
-}
+} */

@@ -19,7 +19,7 @@ export const ProductApiSlice = shopApi.injectEndpoints({
           category ?? ""
         }&subCategory=${subCategory ?? ""}&color=${color ?? ""}&price=${
           price ?? ""
-        }&sort=${sort ?? ""}&brand=${brand ?? ""}&search=${search}`,
+        }&sort=${sort ?? ""}&brand=${brand ?? ""}&search=${search ?? ""}`,
       providesTags: (result, error, arg) => [
         { type: "Product", id: "LIST" },
         ...result.data.map(({ _id }) => ({ type: "Product", id: _id })),

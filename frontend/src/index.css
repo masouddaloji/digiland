@@ -451,20 +451,64 @@ a {
   border-radius: var(--border-box);
   font-size: 1.2rem;
 }
-.table__header{
+/* start table style */
+.table {
+  width: 100%;
+  border: 1px solid var(--gray);
+  border-radius: var(--border-box);
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  padding: 3rem 1rem;
+}
+.table__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
   padding: 0 1.2rem;
 }
-.table__title{
+.table__title {
   color: var(--blue);
   font-size: 1.4rem;
 }
-.table__link{
+.table__link {
   font-size: 1.2rem;
   color: var(--gray-text);
+}
+.table__btn {
+  color: var(--white);
+  background-color: var(--blue);
+  padding: 0.4rem 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: var(--border-box);
+}
+.table__imageBox {
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: var(--border-box);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin: 0 auto; */
+}
+.table__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* end table style */
+.datagrid__container{
+  width: 100%;
+  /* height: 40rem; */
+}
+.customdata{
+  font-family: var(--iran-bold) !important;
+  font-size: 1.2rem !important;
+}
+.css-wop1k0-MuiDataGrid-footerContainer{
+  display: none !important;
 }
 .ss02 {
   -moz-font-feature-settings: "ss02";

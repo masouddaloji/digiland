@@ -1,7 +1,7 @@
 import { useState } from "react";
 // packages
 import { nanoid } from "@reduxjs/toolkit";
-import {useField } from "formik";
+import { useField } from "formik";
 //rtk query
 import {
   useUploadProductCoverMutation,
@@ -34,9 +34,6 @@ const Uploader = (props) => {
     },
   ] = useUploadProductGalleryMutation();
 
-  console.log("coverUploadSuccess", coverUploadSuccess);
-  console.log("galleryUploadSuccess", galleryUploadSuccess);
-
   const prepareImagesForUpload = (event) => {
     helpers.setTouched(true);
     let files = Array.from(event?.target?.files);
@@ -52,7 +49,6 @@ const Uploader = (props) => {
       uploadProductGallery(formData)
         .unwrap()
         .then((response) => {
-          console.log("response in uploader", response);
           helpers.setValue(response);
         })
         .catch((error) => console.log("error in uploader", error));
@@ -61,7 +57,6 @@ const Uploader = (props) => {
       uploadProductCover(formData)
         .unwrap()
         .then((response) => {
-          console.log("response in uploader", response);
           helpers.setValue(response);
         })
         .catch((error) => console.log("error in uploader", error));
@@ -105,12 +100,7 @@ const Uploader = (props) => {
           "uploader__progress--show"
         }`}
       >
-        <div
-          className="uploader__progressbar"
-          style={{
-            width: `${coverUploadSuccess || galleryUploadSuccess ? 100 : 0}%`,
-          }}
-        ></div>
+        <div className={`uploader__progressbar `}></div>
       </div>
 
       <button

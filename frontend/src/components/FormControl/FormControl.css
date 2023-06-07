@@ -74,11 +74,10 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 10%;
+  width: 0;
   height: inherit;
   background: var(--green);
   border-radius: 2rem;
-  transition: width .8s;
 }
 .uploader__btn {
   margin: 2rem auto;
@@ -131,6 +130,7 @@
   width: 100%;
   height: 100%;
 }
+
 
 .input,
 .select {
@@ -344,7 +344,7 @@
   color: #444;
   font-family: var(--iran-bold);
 }
-
+/* responsive */
 @media (max-width: 768px) {
   .auth__wrapper {
     width: 100%;
