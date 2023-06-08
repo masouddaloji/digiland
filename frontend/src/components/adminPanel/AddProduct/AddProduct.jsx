@@ -2,15 +2,13 @@ import { useRef } from "react";
 // packages
 import { Form, Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 // variables
 import { persianTexts } from "../../../text";
 // components
 import FormControl from "../../FormControl/FormControl";
-//redux
-import { useDispatch, useSelector } from "react-redux";
-import { createProduct, getProducts } from "../../../features/productsSlice";
-import { selectToken } from "../../../features/auth/authSlice";
-
+//rtk query
+import { useAddProductMutation } from "../../../features/Product/ProductApiSlice";
 // icons
 import { MdUploadFile, MdOutlineDriveFolderUpload } from "react-icons/md";
 // validator
@@ -22,11 +20,10 @@ import { ratingOptions, colorOptions } from "../../../Constants";
 import "./AddProduct.css";
 
 const AddProduct = () => {
-  const dispatch = useDispatch();
-  const uploadRef = useRef();
-  const token=useSelector(selectToken)
+  const [addProduct] = useAddProductMutation();
+
   const navigate = useNavigate();
-  let initialValues={
+  let initialValues = {
     productTitle: "",
     productPrice: "",
     productRating: "",
@@ -41,7 +38,7 @@ const AddProduct = () => {
     productFullDescription: "",
     productCover: null,
     productGallery: null,
-  }
+  };
   const createnewProduct = (productinfos) => {
     const data = {
       title: productinfos.productTitle,
@@ -59,9 +56,15 @@ const AddProduct = () => {
       fullDescription: productinfos.productFullDescription,
       brand: productinfos.productBrand,
     };
-    dispatch(createProduct({ data, token: token })).then(() => {
-      dispatch(getProducts());
-    });
+    addProduct({ ...data })
+      .unwrap()
+      .then((response) => {
+        toast.success(persianTexts.addProducts.createProductSuccess);
+        navigate("/adminpanel/products");
+      })
+      .catch((error) => {
+        toast.error(persianTexts.addProducts.createProductError);
+      });
   };
   return (
     <Formik
@@ -76,11 +79,14 @@ const AddProduct = () => {
         <>
           <section className="adminSection">
             <div className="table">
-
               <div className="table__header">
-        <h5 className="table__title">{persianTexts.admin.products.label.addProductsTitle}</h5>
-        <Link to="/adminpanel/products" className="table__link">بازگشت به صفحه محصولات</Link>
-        </div>
+                <h5 className="table__title">
+                  {persianTexts.addProducts.header}
+                </h5>
+                <Link to="/adminproducts" className="table__link">
+                  {persianTexts.addProducts.returntoProductPage}
+                </Link>
+              </div>
               <Form className="admin__form">
                 <div className="row">
                   <div className="col-md-6">
@@ -280,7 +286,7 @@ const AddProduct = () => {
                     type="submit"
                     disabled={!(formik.dirty && formik.isValid)}
                   >
-                    {persianTexts.admin.products.btn}
+                    {persianTexts.addProducts.submitBtn}
                   </button>
                 </div>
               </Form>

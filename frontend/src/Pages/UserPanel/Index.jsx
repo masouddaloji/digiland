@@ -1,7 +1,13 @@
 
+//styles
+import './index.css'
 const UserPanel = () => {
   return (
-    <div>UserPanel</div>
+    <section className="userPanel">
+      <div className="container">
+        
+      </div>
+    </section>
   )
 }
 

@@ -113,7 +113,7 @@ const Uploader = (props) => {
       </button>
 
       <div className="uploadResult__wrapper">
-        {(coverUploadSuccess || galleryUploadSuccess) && (
+        {(coverUploadSuccess || galleryUploadSuccess) &&field.value && (
           <p className="upload__resultText">
             {props?.multiple
               ? persianTexts.uploader.multiple

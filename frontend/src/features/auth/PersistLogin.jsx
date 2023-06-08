@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-
+//packages
+import { Outlet } from "react-router-dom";
 //redux
 import { useSelector } from "react-redux";
 import { selectToken } from "./authSlice";
@@ -8,7 +9,7 @@ import { useGetRefreshTokenMutation } from "./authApiSlice";
 //hooks
 import usePersistLogin from "../../hooks/usePersistLogin";
 
-const PersistLogin = ({ children }) => {
+const PersistLogin = () => {
   const [getRefreshToken] = useGetRefreshTokenMutation();
   const [persist] = usePersistLogin();
   const token = useSelector(selectToken);
@@ -23,7 +24,7 @@ const PersistLogin = ({ children }) => {
     if (!token && persist) verifyRefreshToken();
   }, []);
 
-  return <>{children}</>;
+  return <Outlet/>;
 };
 
 export default PersistLogin;

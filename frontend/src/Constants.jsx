@@ -393,31 +393,31 @@ export const adminSidebarItems = [
     id: nanoid(),
     icon: <IoGridOutline className="sidebarItem__mainIcon" />,
     title: "داشبورد",
-    link: "/adminpanel/dashboard",
+    link: "/adminpanel",
   },
   {
     id: nanoid(),
     icon: <BsBoxSeam className="sidebarItem__mainIcon" />,
     title: "محصولات",
-    link: "products",
+    link: "/adminproducts",
   },
   {
     id: nanoid(),
     icon: <HiOutlineUserGroup className="sidebarItem__mainIcon" />,
     title: "کاربران",
-    link: "users",
+    link: "/admin-users",
   },
   {
     id: nanoid(),
     icon: <MdOutlineAddShoppingCart className="sidebarItem__mainIcon" />,
     title: "سفارشات",
-    link: "orders",
+    link: "/admin-orders",
   },
   {
     id: nanoid(),
     icon: <RiArticleLine className="sidebarItem__mainIcon" />,
     title: "مقالات",
-    link: "articles",
+    link: "/admin-articles",
   },
 ];
 export const ratingOptions = [

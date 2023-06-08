@@ -26,7 +26,7 @@ export const ProductApiSlice = shopApi.injectEndpoints({
       ],
     }),
     getProductById: builder.query({
-      query: (id) => `/products/reviews/${id}`,
+      query: (id) => `/products/find/${id}`,
       transformResponse: (response) => response.data,
       providesTags: (result, error, arg) => [
         { type: "Product", id: "List" },
@@ -67,12 +67,12 @@ export const ProductApiSlice = shopApi.injectEndpoints({
       invalidatesTags: [{ type: "Product", id: "LIST" }],
     }),
     updateProduct: builder.mutation({
-      query: ({ productInfo, id }) => ({
-        url: `/products/${id}`,
+      query: ({ data,productID }) =>({
+        url: `/products/${productID}`,
         method: "PUT",
-        body: productInfo,
+        body: { ...data },
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "Product", id }],
+      invalidatesTags: (result, error, arg) => [{ type: "Product", id:arg.productID }],
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({

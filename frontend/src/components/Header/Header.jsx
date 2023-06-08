@@ -111,10 +111,12 @@ export default function Header({}) {
                       <ul className="header__userOptions">
                         {userRole === "superAdmin" || userRole === "admin" ? (
                           <li className="header__userOption">
-                            <Link to="/adminpanel/dashboard">پنل مدیریت</Link>
+                            <Link to="/adminpanel">پنل مدیریت</Link>
                           </li>
                         ) : null}
-                        <li className="header__userOption">حساب کاربری</li>
+                        <li className="header__userOption">
+                          <Link to="/userpanel">حساب کاربری</Link>
+                        </li>
                         <li className="header__userOption">
                           {" "}
                           <Link to="/basket">سبد خرید</Link>
@@ -231,12 +233,14 @@ export default function Header({}) {
                         <RiUserSettingsLine className="fullIcon" />
                       </div>
                       <ul className="header__userOptions">
-                        <li className="header__userOption">حساب کاربری</li>
                         {userRole === "superAdmin" || userRole === "admin" ? (
                           <li className="header__userOption">
-                            <Link to="/adminpanel/dashboard">پنل مدیریت</Link>
+                            <Link to="/adminpanel">پنل مدیریت</Link>
                           </li>
                         ) : null}
+                        <li className="header__userOption">
+                        <Link to="/userpanel">حساب کاربری</Link>
+                        </li>
                         <li className="header__userOption">
                           {" "}
                           <Link to="/basket">سبد خرید</Link>

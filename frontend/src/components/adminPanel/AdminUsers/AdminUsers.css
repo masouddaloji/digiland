@@ -1,0 +1,21 @@
+.aminUser__userRole{
+    font-size: 2.4rem;
+}
+.adminUser__btn{
+    border: none;
+    outline: none;
+    border-radius: var(--border-btn);
+    padding: 0.5rem 1.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-family: var(--iran-bold);
+    color: var(--white);
+    transition: all .3s;
+}
+.adminUser__btn.showorder,.adminUser__btn.showbasket{
+    background: #127041;
+    
+}
+.adminUser__btn.showorder:hover,.adminUser__btn.showbasket:hover{
+    background-color: var(--green);
+}

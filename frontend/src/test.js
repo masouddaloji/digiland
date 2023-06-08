@@ -1,77 +1,29 @@
-
-      {/* <Table
-        title="لیست محصولات"
-        link="/adminpanel/add-products"
-        linkTitle="افزودن محصول جدید"
-      >
-        <table>
-          <thead>
-            <tr>
-              <td>عکس</td>
-              <td>محصول</td>
-              <td>قیمت</td>
-              <td>تعداد</td>
-              <td>دسته بندی</td>
-              <td>برند</td>
-              <td>امتیاز</td>
-              <td>عملیات</td>
-            </tr>
-          </thead>
-          {status === "success" ? (
-            <>
-              <tbody>
-                {data.map((item) => (
-                  <tr key={item._id}>
-                    <td>
-                      <div className="table__imageBox">
-                        <img
-                          src={`http://localhost:8000${item.image}`}
-                          alt="product image"
-                          className="table__img"
-                        />
-                      </div>
-                    </td>
-                    <td title={item.title}>{item.title}</td>
-                    <td>{item.price.toLocaleString()}</td>
-                    <td>{item.quantity}</td>
-                    <td>{item.category}</td>
-                    <td>{item.brand}</td>
-                    <td>{Star(item.rating)}</td>
-                    <td>
-                      <div className="actionBtns">
-                        <button
-                          className="edit"
-                          title="ویرایش"
-                          onClick={() => {
-                            setIsShowEditModal(true);
-                            // setProductEditDetails({ ...item });
-                            setProductIdSelected(item._id);
-                          }}
-                        >
-                          <FiEdit className="actions__icon" />
-                        </button>
-                        <button
-                          className="delete"
-                          title="حذف"
-                          onClick={() => removeProductHandler(item._id)}
-                        >
-                          <RiDeleteBinLine className="actions__icon" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </>
-          ) : (
-            <LoaderComponent />
-          )}
-        </table>
-      </Table>
-      {hasNextPage && (
-        <CustomPagination
-          setData={setPageInfo}
-          page={currentPage}
-          count={lastPage}
-        />
-      )} */}
+{/* <Routes>
+<Route path="/" element={<PersistLogin><Index /></PersistLogin>} />
+<Route path="/products/" element={<PersistLogin><ProductsCategory /></PersistLogin>}>
+<Route path=":categoryName" element={<ProductsCategory />} >
+<Route path=":subCategory" element={<ProductsCategory />} />
+</Route>
+<Route path="search/:searchParam" element={<ProductsCategory />} />
+</Route>
+<Route path="/basket" element={<PersistLogin><UserBasket /></PersistLogin>}>
+<Route path="" element={<Cart />} />
+<Route path="check-information" element={<CheckInformation />} />
+<Route path="order-pay" element={<SubmitOrder />} />
+</Route>
+<Route path="/product/:productId" element={<PersistLogin><Product /></PersistLogin>} />
+<Route path="/login" element={<Login />} />
+<Route path="/register" element={<Register />} />
+<Route path="/userpanel" element={<PersistLogin><UserPanel /></PersistLogin>}>
+<Route path="" element={<UserPanel />} />
+</Route>
+<Route path="/adminpanel" element={<PersistLogin><PrivateRoute><AdminPanel /></PrivateRoute></PersistLogin>}>
+<Route path="dashboard" element={<MainAdmin />} />
+<Route path="products" element={<AdminProducts />} />
+<Route path="add-products" element={<AddProduct />} />
+<Route path="edit-product/:productID" element={<EditProduct />} />
+<Route path="users" element={<AdminUsers />} />
+<Route path="orders" element={<AdminOrders />} />
+<Route path="articles" element={<AdminArticles />} />
+</Route>
+</Routes> */}

@@ -2,30 +2,20 @@ import { useEffect, useState } from "react";
 // components
 import Chart from "../Chart/Chart";
 import ItemBoxAPanel from "../ItemBoxAPanel/ItemBoxAPanel";
-import BestSellingTable from "../Table/Table";
-//import variables
+// adminPanelItems
 import { adminPanelItems } from "./../../../Constants";
 // styles
 import "./MainAdmin.css";
-import Table from "../Table/Table";
-import axios from "../../../api/axios";
+
 import Loader from "../../Loader/Loader";
-import Star from "../../Star/Star";
+
 
 const MainAdmin = () => {
   const [pageDetails,setPageDetails]=useState({
     isLoading:false,
     newProducts:[]
   })
-  useEffect(()=>{
-    setPageDetails(prev=>({...prev,isLoading:true}))
-    const getData=async()=>{
-      await axios.get("products?page=1&limit=6")
-      .then(res=>setPageDetails(prev=>({...prev,isLoading:false,newProducts:res?.data?.data})))
-      .catch(error=>console.log(error))
-    }
-    getData()
-  },[])
+
   return (
  <>
   {!pageDetails.isLoading?   <section className="adminSection">
@@ -43,7 +33,7 @@ const MainAdmin = () => {
       </div>
       <div className="row">
         <div className="col-12">
-          <Table title="جدیدترین محصولات" link="/adminpanel/products" linkTitle="نمایش همه">
+          {/* <Table title="جدیدترین محصولات" link="/adminpanel/products" linkTitle="نمایش همه">
             <table>
               <thead>
                 <tr>
@@ -73,7 +63,7 @@ const MainAdmin = () => {
               
               </tbody>
             </table>
-          </Table>
+          </Table> */}
         </div>
         <div className="row">
           <div className="col-12"></div>

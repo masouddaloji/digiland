@@ -26,6 +26,7 @@ const CustomPagination = ({page, count, setData }) => {
         showLastButton
         renderItem={(item) => (
           <PaginationItem
+          className="ss02"
             slots={{
               previous: HiChevronLeft,
               next: HiChevronRight,

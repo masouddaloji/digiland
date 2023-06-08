@@ -147,7 +147,6 @@ a {
 /* start variabels */
 :root {
   --black-50: #333;
-  /* --main-backgroundColor: #eff1f5; */
   --main-backgroundColor: #f1f1f1;
   --iran: "IRANSans", sans-serif;
   --iran-bold: "IRANSansMed", sans-serif;
@@ -456,7 +455,6 @@ a {
   width: 100%;
   border: 1px solid var(--gray);
   border-radius: var(--border-box);
-  overflow: hidden;
   box-shadow: var(--box-shadow);
   padding: 3rem 1rem;
 }
@@ -484,31 +482,66 @@ a {
   border-radius: var(--border-box);
 }
 .table__imageBox {
-  width: 3.8rem;
-  height: 3.8rem;
+  width: 5rem;
+  height: 4rem;
   border-radius: var(--border-box);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin: 0 auto; */
 }
 .table__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-/* end table style */
-.datagrid__container{
-  width: 100%;
-  /* height: 40rem; */
+.actionBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
-.customdata{
+.actionBtns button {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: var(--border-box);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+}
+.actions__icon {
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.edit {
+  color: var(--purple);
+  background: var(--purple-25);
+}
+.delete {
+  color: var(--red);
+  background: var(--red-25);
+}
+/* end table style */
+.datagrid__container {
+  width: 100%;
+  user-select: none;
+}
+.customdata {
   font-family: var(--iran-bold) !important;
   font-size: 1.2rem !important;
 }
-.css-wop1k0-MuiDataGrid-footerContainer{
+.css-wop1k0-MuiDataGrid-footerContainer {
   display: none !important;
+}
+
+.css-12u49z-MuiDataGrid-root .MuiDataGrid-columnHeader {
+  background-color: var(--blue);
+}
+.css-1iyq7zh-MuiDataGrid-columnHeaders > *,
+.css-ptiqhd-MuiSvgIcon-root {
+  color: var(--white);
 }
 .ss02 {
   -moz-font-feature-settings: "ss02";
@@ -604,10 +637,18 @@ a {
   flex: 0 0 auto;
   padding: 1rem;
 }
+@media (max-width: 575px) {
+  .table__header {
+    padding: 0 0.5rem;
+  }
+  .table__title {
+    font-size: 1.3rem;
+  }
+  .table__btn {
+    padding: 0.4rem 0.6rem;
+  }
+}
 @media (min-width: 576px) {
-  /* .container {
-    width: 57rem;
-  } */
   .row {
     margin-left: auto;
     margin-right: auto;

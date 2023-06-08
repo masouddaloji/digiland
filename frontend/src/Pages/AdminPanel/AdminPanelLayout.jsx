@@ -11,9 +11,9 @@ import { FiMenu } from "react-icons/fi";
 // components
 import Sidebar from "../../components/adminPanel/Sidebar/Sidebar";
 // style
-import "./AdminPanel.css";
+import "./AdminPanelLayout.css";
 
-const AdminPanel = () => {
+const AdminPanelLayout = () => {
   const[isShowSidebar,setIsShowSidebar]=useState(true)
   return (
     <div className="admin">
@@ -67,4 +67,4 @@ const AdminPanel = () => {
   );
 };
 
-export default AdminPanel;
+export default AdminPanelLayout;

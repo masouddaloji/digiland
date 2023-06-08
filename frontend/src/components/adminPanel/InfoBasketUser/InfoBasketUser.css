@@ -1,0 +1,59 @@
+.InfoBasketUser__mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+.InfoBasketUser {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  width: 50%;
+  background-color: var(--white);
+  border-radius: var(--border-box);
+  box-shadow: var(--box-shadow);
+  z-index: 20;
+  color: var(--black-50);
+}
+.InfoBasketUser__closeBox{
+display: flex;
+align-items: center;
+justify-content: flex-end;
+padding: 1.5rem 3rem 0;
+}
+.InfoBasketUser__closeIcon{
+    display:block;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all .3s;
+    color: var(--gray-text);
+}
+.InfoBasketUser__closeIcon:hover{
+    color: var(--red);
+    transform: scale(1.2);
+}
+.basketUser__lists {
+    padding:0 1rem;
+    margin-top: 3rem;
+}
+.basketUser__item {
+    border-bottom: .1rem solid var(--gray);
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.basketUser__img {
+}
+.basketUser__count,.basketUser__id {
+    margin: 1rem;
+}
+.basketUser__count span,.basketUser__id span{
+    margin-right: 1rem;
+}
+.basketUser__price {
+}

@@ -1,9 +1,9 @@
 // packages
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 //hooks
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = () => {
   const { userRole } = useAuth();
   const navigate=useNavigate()
 
@@ -12,7 +12,7 @@ const PrivateRoute = ({ children }) => {
   };
 
   return userRole === "admin" || userRole === "superAdmin" ? (
-    <>{children}</>
+    <Outlet/>
   ) : (
     navigateToLogin()
   );

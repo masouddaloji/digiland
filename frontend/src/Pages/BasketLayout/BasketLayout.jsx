@@ -7,9 +7,9 @@ import { FaFileInvoiceDollar } from "react-icons/fa";
 import { HiShoppingBag } from "react-icons/hi";
 import { TfiReceipt } from "react-icons/tfi";
 //styles
-import "./UserBasket.css";
+import "./BasketLayout.css";
 
-function UserBasket() {
+function BasketLayout() {
   const { data: basket } = useGetBasketQuery();
   const { checkinformation } = useParams();
   const { pathname } = useLocation();
@@ -35,7 +35,7 @@ function UserBasket() {
                         basketCrumbs?.includes("check-information") &&
                         "stepCurrent"
                       }`}
-                      to="/basket/check-information"
+                      to="/check-information"
                     >
                       جزئیات پرداخت
                     </Link>
@@ -50,7 +50,7 @@ function UserBasket() {
                       className={`basket__stepTitle ${
                         pathname.includes("order-pay") && "stepCurrent"
                       }`}
-                      to="/basket/order-pay"
+                      to="/order-pay"
                     >
                       تکمیل سفارش
                     </Link>
@@ -72,4 +72,4 @@ function UserBasket() {
   );
 }
 
-export default UserBasket;
+export default BasketLayout;

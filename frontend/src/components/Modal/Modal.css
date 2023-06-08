@@ -28,6 +28,7 @@
 .modal__btnsBox {
   margin-top: 3rem;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 2rem;
 }

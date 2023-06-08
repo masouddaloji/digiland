@@ -1,10 +1,13 @@
-import { useRef } from "react";
+
 //packages
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 //rtk query
-import { useGetProductByIdQuery } from "../../../features/Product/ProductApiSlice";
+import {
+  useGetProductByIdQuery,
+  useUpdateProductMutation,
+} from "../../../features/Product/ProductApiSlice";
 // variables
 import { persianTexts } from "../../../text";
 // components
@@ -19,9 +22,15 @@ import { ratingOptions, colorOptions } from "../../../Constants";
 import "./EditProduct.css";
 
 const EditProduct = () => {
+  const navigate = useNavigate();
   const { productID } = useParams();
-  const { data:productInfo, isLoading, isSuccess } = useGetProductByIdQuery(productID);
-  const editRef = useRef();
+  console.log("productID",productID);
+  const {
+    data: productInfo,
+    isLoading,
+    isSuccess,
+  } = useGetProductByIdQuery(productID);
+  const [updateProduct] = useUpdateProductMutation();
   const updateProductHandler = (productInfos) => {
     const data = {
       title: productInfos.productTitle,
@@ -39,17 +48,27 @@ const EditProduct = () => {
       fullDescription: productInfos.productFullDescription,
       brand: productInfos.productBrand,
     };
-
+    updateProduct({ data, productID }).unwrap()
+      .then((response) => {
+        toast.success(persianTexts.editProduct.editProductSuccess);
+        navigate("/adminpanel/products");
+      })
+      .catch((error) => {
+        console.log("errore", error);
+        toast.error(persianTexts.editProduct.editProductError);
+      });
   };
   return (
     <>
       {isSuccess ? (
         <div className="table">
-        <div className="table__header">
-        <h5 className="table__title">ویرایش اطلاعات محصول</h5>
-        <Link to="/adminpanel/products" className="table__link">بازگشت به صفحه محصولات</Link>
-        </div>
-          <div className="edit__content" ref={editRef}>
+          <div className="table__header">
+            <h5 className="table__title">{persianTexts.editProduct.header}</h5>
+            <Link to="/adminproducts" className="table__link">
+              {persianTexts.editProduct.returntoProductPage}
+            </Link>
+          </div>
+          <div className="edit__content" >
             <Formik
               initialValues={{
                 productTitle: productInfo?.title,
@@ -285,7 +304,7 @@ const EditProduct = () => {
                         type="submit"
                         disabled={!(formik.dirty && formik.isValid)}
                       >
-                        {persianTexts.admin.products.btn}
+                        {persianTexts.editProduct.submitBtn}
                       </button>
                     </div>
                   </Form>

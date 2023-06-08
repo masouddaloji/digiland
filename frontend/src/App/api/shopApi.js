@@ -41,7 +41,7 @@ export const shopApi = createApi({
   baseQuery: baseQueryWithRefreshToken,
   tagTypes: [
     "Product",
-    "User",
+    "Users",
     "IndexPage",
     "Article",
     "Order",

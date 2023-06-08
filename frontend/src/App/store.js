@@ -4,12 +4,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import { shopApi } from "./api/shopApi";
 //reducers
 import authReducer from "./../features/auth/authSlice";
-import productsReducer from "./../features/productsSlice";
+
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    products: productsReducer,
     [shopApi.reducerPath]: shopApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

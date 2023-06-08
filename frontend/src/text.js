@@ -1,13 +1,6 @@
 export const persianTexts = {
   adminpanel: {
     productsNotFound: "هیچ محصولی یافت نشد",
-    createProductSuccess: "محصول با موفقیت افزوده شد",
-    createProductError: "افزودن محصول جدید با خطا مواجه شد",
-    removeProductSuccess: "محصول مورد نظر با موفقیت حذف شد",
-    removeProductError: "حذف محصول با مشکل مواجه شد لطفا دوباره تلاش نمایید",
-    editProductSuccess: "اطلاعات محصول مورد نظر با موفقیت ویرایش شد",
-    editProductError:
-      "ویرایش اطلاعات محصول مورد نظر با مشکل مواجه شد لطفا دوباره تلاش نمایید",
   },
   error: {
     register: {
@@ -106,7 +99,6 @@ export const persianTexts = {
   admin: {
     products: {
       label: {
-        addProductsTitle: "افزودن محصول جدید",
         inputLabelTitle: "عنوان محصول",
         inputLabelPrice: "قیمت محصول",
         inputLabelRating: "امتیاز محصول",
@@ -138,8 +130,6 @@ export const persianTexts = {
         inputPlaceholderCover: "لطفا عکس اصلی محصول را انتخاب کنید",
         inputPlaceholderGallery: "لطفا همه ی عکس های محصول را انتخاب کنید",
       },
-
-      btn: "افزودن محصول",
     },
   },
   register: {
@@ -241,5 +231,29 @@ export const persianTexts = {
     singleError: "آپلود کاور با مشکل مواجه شد لطفا دوباره تلاش کنید",
     multiple: "عکس های محصول آپلود شدند",
     multipleError: "آپلود عکس های محصول با مشکل مواجه شد لطفا دوباره تلاش کنید",
+  },
+  addProducts: {
+    createProductSuccess: "افزودن محصول با موفقیت انجام شد",
+    createProductError: "خطایی در افزودن محصول جدید رخ داد",
+    submitBtn: "افزودن محصول",
+    returntoProductPage: "صفحه محصولات",
+    header: "افزودن محصول جدید",
+  },
+  editProduct: {
+    submitBtn: "اعمال تغییرات",
+    editProductSuccess: "ویرایش موفقیت‌آمیز اطلاعات محصول",
+    editProductError: "ویرایش اطلاعات محصول دچار مشکل شد",
+    returntoProductPage: "صفحه محصولات",
+    header: "ویرایش اطلاعات محصول",
+  },
+
+  adminProduct: {
+    deleteModalTitle: "آیا مایل به ویرایش محصول موردنظر هستید؟",
+    editModalTitle: "آیا مایل به حذف محصول موردنظر هستید؟",
+    deleteProduct: {
+      removeProductSuccess: "محصول مورد نظر با موفقیت حذف شد",
+      removeProductError:
+        "مشکلی در حذف محصول به وجود آمده، لطفاً دوباره تلاش کنید",
+    },
   },
 };
