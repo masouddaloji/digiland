@@ -30,7 +30,8 @@ function Cart() {
           <div className="col-12 col-lg-9">
             <div className="cart">
               <div className="cart__productsWrapper">
-                <table className="cart__table">
+              <div className="user__table__wrapper">
+                <table className="user__table">
                   <thead>
                     <tr>
                       <th></th>
@@ -47,6 +48,7 @@ function Cart() {
                     ))}
                   </tbody>
                 </table>
+                </div>
               </div>
               <div className="discountCode">
                 <span className="discountCode__title">کدتخفیف</span>

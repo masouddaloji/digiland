@@ -11,39 +11,7 @@
   border-radius: var(--border-box);
   overflow: hidden;
 }
-.cart__table {
-  width: 100%;
-  border: none;
-  outline: none;
-  font-family: var(--iran-bold);
-  border-collapse: collapse;
-  text-align: center;
-  display: table;
-}
-.cart__table thead {
-  background: #f9f9f9;
-  border-bottom: 1px solid var(--gray);
-  color: #333;
-  font-size: 1.3rem;
-  font-family: var(--iran-bold);
-}
-.cart__table th {
-  padding: 0.7rem;
-}
-.cart__table td {
-  padding:1rem 0.5rem;
-  vertical-align: middle;
-}
-.cart__table td .currentPrice {
-  font-size: 1.2rem;
-  margin-right: 0;
-}
-.cart__table tr {
-  border-bottom: 1px solid var(--gray);
-}
-.cart__table tbody tr {
-  position: relative;
-}
+
 .changeable {
   width: 10rem;
 }
@@ -263,20 +231,20 @@
 /* end total price */
 
 /* responsive */
-@media (max-width:768px){
+@media (max-width:767px){
   .cart__productsWrapper{
     border: none;
   }
-  .cart__table thead{
+  .user__table thead{
     display: none;
   }
-  .cart__table tr{
+  .user__table tr{
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
   }
  
-  .cart__table td{
+  .user__table td{
     position: relative;
     padding: 1rem 0;
     border-bottom: 1px solid #eee ;
@@ -286,7 +254,7 @@
     flex-direction: row-reverse;
     gap: 2rem;
   }
-  .cart__table td::after{
+  .user__table td::after{
     content: attr(data-title);
     font-size: 1.2rem;
   }

@@ -178,7 +178,7 @@ export default function Header({}) {
             <ul className="mobileMenu__lists">
               {menus.map((menu) => (
                 <li className="mobileMenu__item" key={menu.id}>
-                  <MobileMenuItem {...menu} />
+                  <MobileMenuItem {...menu} setShow={setShowMobileMenu}/>
                 </li>
               ))}
 

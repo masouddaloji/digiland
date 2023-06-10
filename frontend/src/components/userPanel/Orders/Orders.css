@@ -1,0 +1,20 @@
+.order{
+    width: 100%;
+    padding:2rem 1rem;
+    background-color: var(--white);
+    border-radius: var(--border-box);
+    box-shadow: var(--box-shadow);
+}
+.show-orderBtn,.cansel-orderBtn{
+    color: var(--white);
+    cursor: pointer;
+    padding: .5rem 1.4rem;
+    font-size: 1.1rem;
+}
+.show-orderBtn{
+background-color: var(--gray-75);
+}
+.cansel-orderBtn{
+background-color: var(--red-05) ;
+}
+

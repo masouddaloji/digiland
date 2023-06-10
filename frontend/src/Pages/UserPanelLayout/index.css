@@ -1,0 +1,16 @@
+.userPanel {
+  width: 100%;
+  height: 100vh;
+  background-color: #eff1f5;
+}
+.userPanelHeader {
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 991px) {
+  .userPanelHeader {
+    background-color: var(--white);
+  }
+}

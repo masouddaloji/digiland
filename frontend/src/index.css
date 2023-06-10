@@ -165,12 +165,14 @@ a {
   --gray: #eee;
   --gray-text: #6b6b6b;
   --gray-100: #444;
+  --gray-75: #9e9e9e;
   --gray-50: #d3d3d3;
   --gray-25: #c0c0c0;
   --gray-05: #80848a08;
   --red: #a3080c;
   --red-50: #ff4242;
-  --red-05: #ff9a9a;
+  --red-05: #ff8a82;
+  /* --red-05: #ff9a9a; */
   --red-25: rgba(255, 66, 66, 0.2);
   --border-btn: 2.5rem;
   --box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
@@ -450,7 +452,48 @@ a {
   border-radius: var(--border-box);
   font-size: 1.2rem;
 }
-/* start table style */
+/* start user table style */
+.user__table__wrapper{
+  border: 0.1rem solid var(--gray);
+  border-radius: var(--border-box);
+}
+.user__table {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-family: var(--iran-bold);
+  border-collapse: collapse;
+  text-align: center;
+  display: table;
+}
+.user__table thead {
+  background: #f9f9f9;
+  border-bottom: 1px solid var(--gray);
+  color: #333;
+  font-size: 1.3rem;
+  font-family: var(--iran-bold);
+}
+.user__table th {
+  padding: 0.7rem;
+}
+.user__table td {
+  padding:1rem 0.5rem;
+  vertical-align: middle;
+}
+.user__table td .currentPrice {
+  font-size: 1.2rem;
+  margin-right: 0;
+}
+.user__table tr {
+  border-bottom: 1px solid var(--gray);
+}
+.user__table tbody tr {
+  position: relative;
+  font-size: 1.2rem;
+}
+/* start user table style */
+
+/* start admin table style */
 .table {
   width: 100%;
   border: 1px solid var(--gray);
@@ -502,8 +545,6 @@ a {
   gap: 1rem;
 }
 .actionBtns button {
-  width: 2.8rem;
-  height: 2.8rem;
   border-radius: var(--border-box);
   display: flex;
   align-items: center;
@@ -516,10 +557,12 @@ a {
   cursor: pointer;
 }
 .edit {
+  width: 2.8rem;
   color: var(--purple);
   background: var(--purple-25);
 }
 .delete {
+  height: 2.8rem;
   color: var(--red);
   background: var(--red-25);
 }
@@ -528,7 +571,8 @@ a {
   width: 100%;
   user-select: none;
 }
-.customdata {
+.customdata,
+.usertable {
   font-family: var(--iran-bold) !important;
   font-size: 1.2rem !important;
 }
@@ -536,11 +580,11 @@ a {
   display: none !important;
 }
 
-.css-12u49z-MuiDataGrid-root .MuiDataGrid-columnHeader {
+.customdata.css-12u49z-MuiDataGrid-root .MuiDataGrid-columnHeader {
   background-color: var(--blue);
 }
-.css-1iyq7zh-MuiDataGrid-columnHeaders > *,
-.css-ptiqhd-MuiSvgIcon-root {
+.customdata .css-1iyq7zh-MuiDataGrid-columnHeaders > *,
+.customdata .css-ptiqhd-MuiSvgIcon-root {
   color: var(--white);
 }
 .ss02 {
@@ -714,6 +758,42 @@ a {
     padding: 1rem;
   }
 }
+/*start responsive user table */
+@media (max-width:767px){
+  .user__table__wrapper{
+    border: none;
+  }
+  .user__table thead{
+    display: none;
+  }
+  .user__table tr{
+    display: flex;
+    flex-direction: column;
+  }
+ 
+  .user__table td{
+    position: relative;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    gap: 2rem;
+  }
+  .user__table td:not(:last-child){
+    border-bottom: 1px solid #eee ;
+
+  }
+  .user__table td::after{
+    content: attr(data-title);
+    font-size: 1.2rem;
+  }
+  .user__table tbody tr{
+margin-bottom: 2rem;
+  }
+}
+/*end responsive user table */
+
 @media (min-width: 768px) {
   /* .container {
     width: 76rem;

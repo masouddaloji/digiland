@@ -426,16 +426,16 @@ export const adminSidebarItems = [
 export const userPanelSidebarItems = [
   { id: nanoid(), title: "پیشخوان", link: "/userpanel", icon: <BiTachometer className="user-sidebar__icon"/> },
   { id: nanoid(), title: "سبد خرید", link: "/basket", icon: <CgShoppingBag className="user-sidebar__icon"/> },
-  { id: nanoid(), title: "سفارش ها", link: "orders", icon: <RiShoppingBasket2Line className="user-sidebar__icon"/> },
+  { id: nanoid(), title: "سفارش ها", link: "/userorders", icon: <RiShoppingBasket2Line className="user-sidebar__icon"/> },
   {
     id: nanoid(),
     title: "علاقه مندی ها",
-    link: "favorite",
+    link: "/userfavorite",
     icon: <AiOutlineHeart className="user-sidebar__icon"/>,
   },
-  { id: nanoid(), title: "آدرس", link: "address", icon: <BiHome className="user-sidebar__icon"/> },
+  { id: nanoid(), title: "آدرس", link: "/useraddress", icon: <BiHome className="user-sidebar__icon"/> },
   { id: nanoid(), title: "فروشگاه", link: "/products", icon: <BiStoreAlt className="user-sidebar__icon"/> },
-  { id: nanoid(), title: "جزئیات حساب", link: "setting", icon: <FaRegUser className="user-sidebar__icon"/> },
+  { id: nanoid(), title: "جزئیات حساب", link: "/usersetting", icon: <FaRegUser className="user-sidebar__icon"/> },
 ];
 export const ratingOptions = [
   { value: 1, text: "بد" },

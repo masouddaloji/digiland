@@ -23,14 +23,19 @@ import AdminUsers from "./components/adminPanel/AdminUsers/AdminUsers";
 import AdminOrders from "./components/adminPanel/AdminOrders/AdminOrders";
 import AdminArticles from "./components/adminPanel/AdminArticles/AdminArticles";
 import AddProduct from "./components/adminPanel/AddProduct/AddProduct";
-import UserPanel from "./Pages/UserPanel/Index";
+import UserPanel from "./Pages/UserPanelLayout/Index";
 import PersistLogin from "./features/auth/PersistLogin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import EditProduct from "./components/adminPanel/EditProduct/EditProduct";
 import Layout from "./components/Layout/Layout";
+import AdminPanelLayout from "./Pages/AdminPanel/AdminPanelLayout";
+import Orders from "./components/userPanel/Orders/Orders";
+import MainPanel from "./components/userPanel/main";
+import Favorite from "./components/userPanel/Favorite/Favorite";
+import UserSetting from "./components/userPanel/UserSetting/UserSetting";
+import Address from "./components/userPanel/Address/Address";
 // styles
 import "./App.css";
-import AdminPanelLayout from "./Pages/AdminPanel/AdminPanelLayout";
 
 export default function App() {
   const allDataCategories = [];
@@ -91,7 +96,16 @@ export default function App() {
           {/* this routes not use Header and footer */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/userpanel" element={<UserPanel />} />
+          {/* start userpanel */}
+          <Route element={<UserPanel />}>
+            <Route path="/userpanel" element={<MainPanel />} />
+            <Route path="/userorders" element={<Orders />} />
+            <Route path="/userfavorite" element={<Favorite />} />
+            <Route path="/usersetting" element={<UserSetting />} />
+
+            <Route path="/useraddress" element={<Address />} />
+          </Route>
+          {/* end userpanel */}
         </Routes>
       </div>
     </div>

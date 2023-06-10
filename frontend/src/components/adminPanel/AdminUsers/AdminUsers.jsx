@@ -175,6 +175,7 @@ const AdminUsers = () => {
               columns={columns}
               getRowId={(row) => row._id}
               rowHeight={45}
+              columnHeaderHeight={40}
               loading={isLoading}
               disableColumnSelector={true}
               disableRowSelectionOnClick={true}

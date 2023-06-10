@@ -256,4 +256,14 @@ export const persianTexts = {
         "مشکلی در حذف محصول به وجود آمده، لطفاً دوباره تلاش کنید",
     },
   },
+  favorite:{
+    header:"محصولات مورد علاقه",
+    showBtn:"مشاهده",
+    deleteBtn:"حذف"
+  },
+  address:{
+    description:"آدرس ثبت شده ی شما به شرح زیر است",
+    listHeader:"آدرس حمل و نقل",
+    link:"ویرایش"
+  }
 };
