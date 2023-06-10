@@ -23,7 +23,7 @@ const Select = (props) => {
 
   useEffect(() => {
     const outsideClickHandler = (e) => {
-      if (!containerRef?.current?.contains(e.target)) {
+      if (containerRef?.current === e.target) {
         setIsShowOptions(false);
       }
     };
@@ -57,7 +57,9 @@ const Select = (props) => {
             meta.touched && meta.error ? "label--invalid" : undefined
           }`}
         >
-          {selectValue ?? placeholder}
+         {selectType === "rating"
+            ? selectValue || options.find((option) => option.value === field.value)?.text
+            : selectValue || placeholder}
         </span>
         <HiChevronDown className="dropdownIcon" />
       </div>

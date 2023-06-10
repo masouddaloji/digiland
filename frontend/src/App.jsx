@@ -71,17 +71,20 @@ export default function App() {
           </Route>
           {/* start adminpanel */}
           <Route element={<PersistLogin />}>
-          <Route element={<PrivateRoute />}>
-            <Route element={<AdminPanelLayout />}>
-              <Route path="/adminpanel" element={<MainAdmin />} />
-              <Route path="/adminproducts" element={<AdminProducts />} />
+            <Route element={<PrivateRoute />}>
+              <Route element={<AdminPanelLayout />}>
+                <Route path="/adminpanel" element={<MainAdmin />} />
+                <Route path="/adminproducts" element={<AdminProducts />} />
                 <Route path="/admin-addproducts" element={<AddProduct />} />
-                <Route path="/admin-editproduct/:productID" element={<EditProduct />} />
+                <Route
+                  path="/admin-editproduct/:productID"
+                  element={<EditProduct />}
+                />
                 <Route path="/admin-users" element={<AdminUsers />} />
                 <Route path="/admin-orders" element={<AdminOrders />} />
                 <Route path="/admin-articles" element={<AdminArticles />} />
+              </Route>
             </Route>
-          </Route>
           </Route>
           {/* end adminpanel */}
 

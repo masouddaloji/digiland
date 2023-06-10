@@ -2,7 +2,7 @@
 import { nanoid } from "@reduxjs/toolkit";
 
 // import icons
-import { BiDollar } from "react-icons/bi";
+import { BiDollar, BiHome, BiShoppingBag, BiStoreAlt, BiTachometer } from "react-icons/bi";
 import {
   BsBoxSeam,
   BsCreditCard,
@@ -22,11 +22,14 @@ import {
   RiArticleLine,
   RiHandHeartLine,
   RiHeartPulseLine,
+  RiShoppingBasket2Line,
 } from "react-icons/ri";
 import { TbBabyCarriage, TbDeviceTvOld } from "react-icons/tb";
 import { MdOutlineDevices } from "react-icons/md";
 import { IoMdFootball } from "react-icons/io";
 import { HiOutlineUserGroup } from "react-icons/hi";
+import { CgShoppingBag } from "react-icons/cg";
+import { AiOutlineHeart } from "react-icons/ai";
 
 // Definition of variables
 export const services = [
@@ -420,6 +423,20 @@ export const adminSidebarItems = [
     link: "/admin-articles",
   },
 ];
+export const userPanelSidebarItems = [
+  { id: nanoid(), title: "پیشخوان", link: "/userpanel", icon: <BiTachometer className="user-sidebar__icon"/> },
+  { id: nanoid(), title: "سبد خرید", link: "/basket", icon: <CgShoppingBag className="user-sidebar__icon"/> },
+  { id: nanoid(), title: "سفارش ها", link: "orders", icon: <RiShoppingBasket2Line className="user-sidebar__icon"/> },
+  {
+    id: nanoid(),
+    title: "علاقه مندی ها",
+    link: "favorite",
+    icon: <AiOutlineHeart className="user-sidebar__icon"/>,
+  },
+  { id: nanoid(), title: "آدرس", link: "address", icon: <BiHome className="user-sidebar__icon"/> },
+  { id: nanoid(), title: "فروشگاه", link: "/products", icon: <BiStoreAlt className="user-sidebar__icon"/> },
+  { id: nanoid(), title: "جزئیات حساب", link: "setting", icon: <FaRegUser className="user-sidebar__icon"/> },
+];
 export const ratingOptions = [
   { value: 1, text: "بد" },
   { value: 2, text: "معمولی" },
@@ -428,13 +445,13 @@ export const ratingOptions = [
   { value: 5, text: "عالی" },
 ];
 export const colorOptions = [
-  { value: "قرمز", color: "#FF0000" ,img:"/images/optionColor/red.png"},
-  { value: "مشکی", color: "#000" ,img:"/images/optionColor/black.png"},
-  { value: "طلائی", color: "#ffd300" ,img:"/images/optionColor/yellow.png"},
-  { value: "آبی", color: "#0000FF" ,img:"/images/optionColor/blue.png"},
-  { value: "سبز", color: "#00FF00" ,img:"/images/optionColor/green.png"},
-  { value: "سفید", color: "#FFF" ,img:"/images/optionColor/white.png"},
-  { value: "صورتی", color: "#FF69B4" ,img:"/images/optionColor/pink.png"},
+  { value: "قرمز", img: "/images/optionColor/red.png" },
+  { value: "مشکی", img: "/images/optionColor/black.png" },
+  { value: "طلائی", img: "/images/optionColor/yellow.png" },
+  { value: "آبی", img: "/images/optionColor/blue.png" },
+  { value: "سبز", img: "/images/optionColor/green.png" },
+  { value: "سفید", img: "/images/optionColor/white.png" },
+  { value: "صورتی", img: "/images/optionColor/pink.png" },
 ];
 export const allInfosBtn = [
   { id: nanoid(), titleFa: "توضیحات", titleEn: "description" },
@@ -502,8 +519,8 @@ export const sortedProductsItems = [
   },
 ];
 export const brands = {
-  "digital": {
-    "tablet": {
+  digital: {
+    tablet: {
       brands: [
         {
           id: nanoid(),
@@ -537,9 +554,9 @@ export const brands = {
         },
       ],
     },
-    "camera": {},
-    "workstation": {},
-    "laptop": {
+    camera: {},
+    workstation: {},
+    laptop: {
       brands: [
         {
           id: nanoid(),
@@ -561,7 +578,7 @@ export const brands = {
         },
       ],
     },
-    "phone":{
+    phone: {
       brands: [
         {
           id: nanoid(),
@@ -582,11 +599,9 @@ export const brands = {
           perTitle: "شیائومی",
         },
       ],
-    }
+    },
   },
-  "household-appliances":{
-
-  }
+  "household-appliances": {},
 };
 
 export const Iran = {
