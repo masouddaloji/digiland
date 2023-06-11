@@ -1,36 +1,36 @@
-
-.admin{
+.admin {
   display: flex;
   width: 100%;
   height: 100vh;
 }
-.admin__main{
-position: absolute;
-width: calc(100% - 30rem);
-min-height: 100vh;
-right: 30rem;
-transition: all .3s;
-background: var(--white);
-padding: 0 2rem;
-}
-.admin__main.active{
+.admin__main {
+  position: absolute;
   width: calc(100% - 6rem);
   right: 6rem;
+  min-height: 100vh;
+  transition: all 0.3s;
+  background: var(--white);
+  padding: 0 2rem;
+}
+.admin__main.active {
+  width: calc(100% - 25rem);
+  right: 25rem;
 }
 .admin__header {
-width: 100%;
+  width: 100%;
   height: 6rem;
+  padding: 0 1rem;
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.admin__menuIcon{
+.admin__menuIcon {
   font-size: 2.4rem;
   cursor: pointer;
   color: var(--gray-text);
 }
-.adminSearch{
+.adminSearch {
   width: 30rem;
   position: relative;
   height: 4rem;
@@ -38,16 +38,16 @@ width: 100%;
   overflow: hidden;
   border: 1px solid var(--gray-50);
 }
-.adminSearch input{
+.adminSearch input {
   border: none;
   outline: none;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   width: 100%;
   height: 100%;
   font-size: 1.3rem;
   color: var(--gray-text);
 }
-.adminSearch__icon{
+.adminSearch__icon {
   position: absolute;
   top: 50%;
   left: 0.7rem;
@@ -96,21 +96,24 @@ width: 100%;
 }
 /* responsive */
 
-@media (max-width:575px){
-  .admin__headerProfileBox{
+@media (max-width: 575px) {
+  .admin__headerProfileBox {
     width: 3.2rem;
     height: 3.2rem;
   }
-  .admin__headerIcon{
+  .admin__headerIcon {
     font-size: 2rem;
   }
-  .admin__notifications::after{
-    width: .8rem;
-    height: .8rem;
+  .admin__notifications::after {
+    width: 0.8rem;
+    height: 0.8rem;
   }
 }
-@media (max-width:767px){
-  .adminSearch{
+@media (max-width: 767px) {
+  .adminSearch {
     display: none;
+  }
+  .admin__main {
+    padding: 0;
   }
 }

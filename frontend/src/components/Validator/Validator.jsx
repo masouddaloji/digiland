@@ -123,3 +123,24 @@ export const checkInformationSchema = Yup.object().shape({
     .required(persianTexts.checkInformation.acceptTerms.required)
     .oneOf([true], persianTexts.checkInformation.acceptTerms.required),
 });
+export const userUpdateSchema = Yup.object().shape({
+  name: Yup.string(persianTexts.updateuserInfo.schema.name.string)
+    .min(4, persianTexts.updateuserInfo.schema.name.min)
+    .max(10, persianTexts.updateuserInfo.schema.name.max),
+  image: Yup.string(),
+  phone: Yup.string().matches(
+    phoneNumberPattern,
+    postalCodePattern,
+    persianTexts.updateuserInfo.schema.phone.match
+  ),
+  state: Yup.string(),
+  city: Yup.string(),
+  street: Yup.string(persianTexts.updateuserInfo.schema.street.string).max(
+    15,
+    persianTexts.updateuserInfo.schema.street.max
+  ),
+  postalCode: Yup.string().matches(
+    postalCodePattern,
+    persianTexts.updateuserInfo.schema.postalCode
+  ),
+});

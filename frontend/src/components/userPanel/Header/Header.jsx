@@ -26,7 +26,8 @@ const Header = ({ setshow }) => {
       .catch((error) => toast.error(persianTexts.useLogout.logoutError));
   };
   return (
-    <div className="userpanel__header">
+    <div className="col-12">
+      <div className="userpanel__header">
       <RxHamburgerMenu
         className="userpanel__headerIcon userpanel__menuBtn"
         onClick={() => setshow(true)}
@@ -34,13 +35,14 @@ const Header = ({ setshow }) => {
       <div className="userpanel__headerItem logout" onClick={logOutHandler}>
         <AiOutlinePoweroff className="userpanel__headerIcon" />
       </div>
-      <Link className="userpanel__headerItem">
+      <Link className="userpanel__headerItem" to="/usersetting">
         <HiOutlineCog6Tooth className="userpanel__headerIcon" />
       </Link>
 
       <Link to="/" className="userpanel__headerItem">
         <BiHome className="userpanel__headerIcon" />
       </Link>
+    </div>
     </div>
   );
 };

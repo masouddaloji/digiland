@@ -91,7 +91,7 @@ function CheckInformation() {
                       label="استان"
                       name="checkProvince"
                       options={iranProvince}
-                      placeholder="لطفا یک استان راانتخاب کنید"
+                      placeholder="استان راانتخاب کنید"
                       selectType="province"
                       setSelectedProvince={setSelectedProvince}
                     />
@@ -101,7 +101,7 @@ function CheckInformation() {
                       controler="select"
                       label="شهر"
                       name="checkCity"
-                      placeholder="لطفا یک شهر راانتخاب کنید"
+                      placeholder="شهر راانتخاب کنید"
                       selectType="province"
                       options={cities}
                     />

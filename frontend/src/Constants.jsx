@@ -2,7 +2,13 @@
 import { nanoid } from "@reduxjs/toolkit";
 
 // import icons
-import { BiDollar, BiHome, BiShoppingBag, BiStoreAlt, BiTachometer } from "react-icons/bi";
+import {
+  BiDollar,
+  BiHome,
+  BiShoppingBag,
+  BiStoreAlt,
+  BiTachometer,
+} from "react-icons/bi";
 import {
   BsBoxSeam,
   BsCreditCard,
@@ -377,18 +383,18 @@ export const adminPanelItems = [
   },
 ];
 export const monthlyInformationChart = [
-  { month: "فروردین", sales: 7450, profit: 500, newUsers: 138 },
-  { month: "اردیبهشت", sales: 6450, profit: 400, newUsers: 98 },
-  { month: "خرداد", sales: 8250, profit: 600, newUsers: 138 },
-  { month: "تیر", sales: 6320, profit: 500, newUsers: 138 },
-  { month: "مرداد", sales: 7800, profit: 290, newUsers: 138 },
-  { month: "شهریور", sales: 5950, profit: 300, newUsers: 138 },
-  { month: "مهر", sales: 10000, profit: 1500, newUsers: 138 },
-  { month: "آبان", sales: 9400, profit: 1200, newUsers: 138 },
-  { month: "آذر", sales: 8600, profit: 850, newUsers: 138 },
-  { month: "دی", sales: 6400, profit: 540, newUsers: 138 },
-  { month: "بهمن", sales: 5000, profit: 500, newUsers: 138 },
-  { month: "اسفند", sales: 9700, profit: 1400, newUsers: 138 },
+  { month: "فروردین", فروش: 6450, سود: 2200 },
+  { month: "اردیبهشت", فروش: 5450, سود: 2050 },
+  { month: "خرداد", فروش: 7250, سود: 2300 },
+  { month: "تیر", فروش: 5320, سود: 2030 },
+  { month: "مرداد", فروش: 7800, سود: 2200 },
+  { month: "شهریور", فروش: 4950, سود:1090 },
+  { month: "مهر", فروش: 9000, سود: 2500 },
+  { month: "آبان", فروش: 8400, سود: 2450 },
+  { month: "آذر", فروش: 7600, سود: 2250 },
+  { month: "دی", فروش: 6400, سود: 2090 },
+  { month: "بهمن", فروش: 4000, سود: 1080 },
+  { month: "اسفند", فروش: 8700, سود: 2450 },
 ];
 export const weeklyInformationChart = [];
 export const adminSidebarItems = [
@@ -424,18 +430,48 @@ export const adminSidebarItems = [
   },
 ];
 export const userPanelSidebarItems = [
-  { id: nanoid(), title: "پیشخوان", link: "/userpanel", icon: <BiTachometer className="user-sidebar__icon"/> },
-  { id: nanoid(), title: "سبد خرید", link: "/basket", icon: <CgShoppingBag className="user-sidebar__icon"/> },
-  { id: nanoid(), title: "سفارش ها", link: "/userorders", icon: <RiShoppingBasket2Line className="user-sidebar__icon"/> },
+  {
+    id: nanoid(),
+    title: "پیشخوان",
+    link: "/userpanel",
+    icon: <BiTachometer className="user-sidebar__icon" />,
+  },
+  {
+    id: nanoid(),
+    title: "سبد خرید",
+    link: "/basket",
+    icon: <CgShoppingBag className="user-sidebar__icon" />,
+  },
+  {
+    id: nanoid(),
+    title: "سفارش ها",
+    link: "/userorders",
+    icon: <RiShoppingBasket2Line className="user-sidebar__icon" />,
+  },
   {
     id: nanoid(),
     title: "علاقه مندی ها",
     link: "/userfavorite",
-    icon: <AiOutlineHeart className="user-sidebar__icon"/>,
+    icon: <AiOutlineHeart className="user-sidebar__icon" />,
   },
-  { id: nanoid(), title: "آدرس", link: "/useraddress", icon: <BiHome className="user-sidebar__icon"/> },
-  { id: nanoid(), title: "فروشگاه", link: "/products", icon: <BiStoreAlt className="user-sidebar__icon"/> },
-  { id: nanoid(), title: "جزئیات حساب", link: "/usersetting", icon: <FaRegUser className="user-sidebar__icon"/> },
+  {
+    id: nanoid(),
+    title: "آدرس",
+    link: "/useraddress",
+    icon: <BiHome className="user-sidebar__icon" />,
+  },
+  {
+    id: nanoid(),
+    title: "فروشگاه",
+    link: "/products",
+    icon: <BiStoreAlt className="user-sidebar__icon" />,
+  },
+  {
+    id: nanoid(),
+    title: "جزئیات حساب",
+    link: "/usersetting",
+    icon: <FaRegUser className="user-sidebar__icon" />,
+  },
 ];
 export const ratingOptions = [
   { value: 1, text: "بد" },

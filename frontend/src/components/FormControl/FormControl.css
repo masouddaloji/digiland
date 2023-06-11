@@ -8,7 +8,6 @@
   color: var(--red);
 }
 .formControl__box {
-  height: 3.6rem;
   width: 100%;
   position: relative;
 }

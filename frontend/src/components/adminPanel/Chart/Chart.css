@@ -5,16 +5,13 @@
     border-radius: var(--border-box);
     box-shadow: var(--box-shadow);
     font-size: 1.3rem;
-    padding: .5rem;
+    padding: 1rem;
     direction: ltr;
 }
 .chart__header{
     text-align: end;
-    height: 4rem;
-    line-height: 2.5;
-    height: 4.5rem;
     line-height: 3.2;
-    padding-right: 1.5rem;
-    font-size: 1.4rem;
-    color: var(--gray-100);
+    padding-right: 1rem;
+    font-size: 1.3rem;
+    color: var(--blue);
 }

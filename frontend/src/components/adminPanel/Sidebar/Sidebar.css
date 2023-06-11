@@ -1,21 +1,27 @@
 .sidebar {
   background: var(--blue);
   overflow: hidden;
-  width: 30rem;
   min-height: 100%;
   position: fixed;
   top: 0;
   right: 0;
+  width: 6rem;
   transition: 0.3s;
+  z-index: 100;
 }
 .sidebar.active {
-  width: 6rem;
+  width: 25rem;
+
 }
 .sidebar__lists {
   position: absolute;
   top: 0;
   right: 0;
   width: 100%;
+}
+.sidebar__closeIcon{
+  display: none;
+
 }
 .sidebar__imgLink {
   display: block;
@@ -85,6 +91,7 @@
 }
 .sidebarLink__iconBox {
   display: inline-block;
+  margin-left: 1rem;
 }
 .sidebarItem__mainIcon {
   font-size: 2.2rem;
@@ -92,3 +99,14 @@
   vertical-align: middle;
 }
 
+@media (max-width:767px){
+  .sidebar__closeIcon{
+    display: block;
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    color: var(--white);
+    font-size: 2.2rem;
+    z-index: 10;
+  }
+}

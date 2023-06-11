@@ -8,13 +8,15 @@ const useAuth = () => {
   const token = useSelector(selectToken);
   let userName = "";
   let userRole=null
+  let userID=null
   if (token) {
     const decode = jwtDecode(token);
-    const { email, role } = decode;
+    const { email, role,userId } = decode;
      userName = email.split("@")[0];
      userRole=role
+     userID=userId
   }
-  return { userName, userRole };
+  return { userName, userRole,userID };
 };
 
 export default useAuth;

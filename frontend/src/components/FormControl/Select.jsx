@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 //packages
-import { useField, useFormikContext } from "formik";
+import { useField } from "formik";
 //icons
 import { HiChevronDown } from "react-icons/hi";
 
 const Select = (props) => {
   const [field, meta, helpers] = useField(props);
-  const { options, label, icon, selectType, setSelectedProvince } = props;
+  const { options, label, icon, selectType, setSelectedProvince,placeholder } = props;
   const { setTouched, setValue } = helpers;
   const containerRef = useRef();
   const [selectValue, setSelectValue] = useState("");
@@ -32,6 +32,7 @@ const Select = (props) => {
       document.body.removeEventListener("click", outsideClickHandler);
     };
   }, []);
+ 
 
   return (
     <div className="formControl__wrapper" ref={containerRef}>

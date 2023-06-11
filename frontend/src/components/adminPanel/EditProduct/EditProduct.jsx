@@ -1,4 +1,3 @@
-
 //packages
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
@@ -24,7 +23,7 @@ import "./EditProduct.css";
 const EditProduct = () => {
   const navigate = useNavigate();
   const { productID } = useParams();
-  console.log("productID",productID);
+  console.log("productID", productID);
   const {
     data: productInfo,
     isLoading,
@@ -48,7 +47,8 @@ const EditProduct = () => {
       fullDescription: productInfos.productFullDescription,
       brand: productInfos.productBrand,
     };
-    updateProduct({ data, productID }).unwrap()
+    updateProduct({ data, productID })
+      .unwrap()
       .then((response) => {
         toast.success(persianTexts.editProduct.editProductSuccess);
         navigate("/adminpanel/products");
@@ -68,7 +68,7 @@ const EditProduct = () => {
               {persianTexts.editProduct.returntoProductPage}
             </Link>
           </div>
-          <div className="edit__content" >
+          <div className="edit__content">
             <Formik
               initialValues={{
                 productTitle: productInfo?.title,
@@ -272,6 +272,7 @@ const EditProduct = () => {
                           accept="image/*"
                           name="productCover"
                           icon={<MdUploadFile className="uploader__icon" />}
+                          typeuploader="product-single"
                         />
                       </div>
                       <div className="col-md-6">
@@ -291,6 +292,7 @@ const EditProduct = () => {
                           name="productGallery"
                           multiple
                           images={productInfo?.gallery}
+                          typeuploader="product-multi"
                         />
                       </div>
                     </div>

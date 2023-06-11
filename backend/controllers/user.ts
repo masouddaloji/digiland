@@ -15,7 +15,9 @@ export const updateUser = async (
       errorGenerate("Invalid ID", 400);
     }
 
-    const user = await User.findById(req.params.id).select("-password -refreshToken");
+    const user = await User.findById(req.params.id).select(
+      "-password -refreshToken"
+    );
 
     if (!user) {
       errorGenerate("User not found!", 404);
@@ -83,7 +85,7 @@ export const getUser = async (
 
     const user = await User.findById(req.params.id).select(
       "-password -refreshToken"
-    );
+    ).populate("basket.cartItems.productId");
 
     if (!user) {
       errorGenerate("User not found!", 404);
@@ -106,6 +108,7 @@ export const getUsers = async (
   const nPerPage = parseInt(req.query.limit || "10");
   try {
     const users = await User.find({ role: "user" }, "-password -refreshToken")
+      .populate("basket.cartItems.productId")
       .sort({ _id: 1 })
       .skip((pageNumber - 1) * nPerPage)
       .limit(nPerPage);

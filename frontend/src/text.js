@@ -110,25 +110,25 @@ export const persianTexts = {
         inputLabelShortDescription: "توضیحات محصول",
         inputLabelFullDescription: "اطلاعات محصول",
         inputLabelBrand: "برند محصول",
-        inputLabelOffPrice: "درصد تخفیف محصول",
-        inputLabelCover: "کاور اصلی محصول",
-        inputLabelGallery: "مجموعه عکس های محصول",
+        inputLabelOffPrice: "تخفیف محصول",
+        inputLabelCover: "کاور محصول",
+        inputLabelGallery: "عکس های محصول",
       },
       placeholder: {
         inputPlaceholderTitle: "گوشی سامسونگ s23 اولترا 256گیگ",
         inputPlaceholderPrice: "50,000,000",
-        inputPlaceholderRating: "لطفا امتیاز محصول را انتخاب کنید",
+        inputPlaceholderRating: "امتیاز محصول را انتخاب کنید",
         inputPlaceholderQuantity: 20,
         inputPlaceholderCategory: "الکترونیک",
         inputPlaceholderSubCategory: "موبایل",
         inputPlaceholderSegment: "s23 ultra 256 gb",
-        inputPlaceholderColors: "لطفا رنگ های محصول را انتخاب کنید",
-        inputPlaceholderShortDescription: "لطفا توضیحات محصول را وارد کنید",
-        inputPlaceholderFullDescription: "لطفا اطلاعات محصول را وارد کنید",
+        inputPlaceholderColors: "رنگ های محصول را انتخاب کنید",
+        inputPlaceholderShortDescription: "توضیحات محصول را وارد کنید",
+        inputPlaceholderFullDescription: "اطلاعات محصول را وارد کنید",
         inputPlaceholderBrand: "samsung",
         inputPlaceholderOffPrice: 15,
-        inputPlaceholderCover: "لطفا عکس اصلی محصول را انتخاب کنید",
-        inputPlaceholderGallery: "لطفا همه ی عکس های محصول را انتخاب کنید",
+        inputPlaceholderCover: "کاور محصول را انتخاب کنید",
+        inputPlaceholderGallery: "عکس های محصول را انتخاب کنید",
       },
     },
   },
@@ -227,17 +227,26 @@ export const persianTexts = {
     },
   },
   uploader: {
-    single: "کاور محصول آپلود شد",
-    singleError: "آپلود کاور با مشکل مواجه شد لطفا دوباره تلاش کنید",
-    multiple: "عکس های محصول آپلود شدند",
-    multipleError: "آپلود عکس های محصول با مشکل مواجه شد لطفا دوباره تلاش کنید",
+    productMulti:{
+      success:"عکس های محصول آپلود شدند",
+      error: "آپلود عکس های محصول با مشکل مواجه شد لطفا دوباره تلاش کنید"
+    },
+    productsingle:{
+      success:"کاور محصول آپلود شد",
+      error: "آپلود کاور با مشکل مواجه شد لطفا دوباره تلاش کنید"
+    },
+    profile:{
+      success:"عکس پروفایل آپلود شد",
+      error:"مشکلی در آپلود عکس پروفایل پیش آمد"
+    }
+
   },
   addProducts: {
     createProductSuccess: "افزودن محصول با موفقیت انجام شد",
     createProductError: "خطایی در افزودن محصول جدید رخ داد",
     submitBtn: "افزودن محصول",
     returntoProductPage: "صفحه محصولات",
-    header: "افزودن محصول جدید",
+    header: "افزودن محصول",
   },
   editProduct: {
     submitBtn: "اعمال تغییرات",
@@ -256,14 +265,34 @@ export const persianTexts = {
         "مشکلی در حذف محصول به وجود آمده، لطفاً دوباره تلاش کنید",
     },
   },
-  favorite:{
-    header:"محصولات مورد علاقه",
-    showBtn:"مشاهده",
-    deleteBtn:"حذف"
+  favorite: {
+    header: "محصولات مورد علاقه",
+    showBtn: "مشاهده",
+    deleteBtn: "حذف",
   },
-  address:{
-    description:"آدرس ثبت شده ی شما به شرح زیر است",
-    listHeader:"آدرس حمل و نقل",
-    link:"ویرایش"
-  }
+  address: {
+    description: "آدرس ثبت شده ی شما به شرح زیر است",
+    listHeader: "آدرس حمل و نقل",
+    link: "ویرایش",
+  },
+  updateuserInfo: {
+    schema: {
+      name: {
+        string: "لطفا نام را بصورت متن وارد کنید",
+        min: "حداقل کاراکتر 4 می باشد",
+        max: "حداکثر کاراکتر 10 می باشد",
+      },
+      image: {},
+      phone: {
+        match:"لطفا شماره تلفن معتبر وارد کنید"
+      },
+      street:{
+        max:"حداکثر 15 کاراکتر وارد کنید",
+        string:"لطفا آدرس خیابان را بصورت متن صحیح وارد کنید"
+      },
+      postalCode: "لطفا کد پستی معتبر وارد کنید",
+    },
+    submitBtn:"ذخیره تغییرات",
+    uploaderPlaceholder:"لطفا عکس پروفایل را انتخاب کنید"
+  },
 };

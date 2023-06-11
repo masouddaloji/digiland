@@ -14,14 +14,14 @@ import Sidebar from "../../components/adminPanel/Sidebar/Sidebar";
 import "./AdminPanelLayout.css";
 
 const AdminPanelLayout = () => {
-  const[isShowSidebar,setIsShowSidebar]=useState(true)
+  const[isFullSidebar,setIsFullSidebar]=useState(false)
   return (
     <div className="admin">
-      <Sidebar isShowSidebar={isShowSidebar}/>
+      <Sidebar isFull={isFullSidebar} setIsFull={setIsFullSidebar}/>
       {/* start admin header */}
-      <div className={`admin__main ${isShowSidebar?"active":""}`}>
+      <div className={`admin__main ${isFullSidebar&&"active"}`}>
         <header className="admin__header">
-        <FiMenu className="admin__menuIcon" onClick={()=>setIsShowSidebar(!isShowSidebar)}/>
+        <FiMenu className="admin__menuIcon" onClick={()=>setIsFullSidebar(!isFullSidebar)}/>
         <div className="adminSearch">
             <input type="text" />
             <HiOutlineSearch className="adminSearch__icon"/>

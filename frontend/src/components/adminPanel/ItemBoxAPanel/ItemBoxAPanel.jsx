@@ -6,7 +6,7 @@ import './ItemBoxAPanel.css'
 const ItemBoxAPanel = (props) => {
   const { title, icon, amount, percent, positive,color } = props;
   return (
-    <div className="panelBox">
+    <div className="panelBox ss02">
       <div className={`panelBox__iconWrapper ${color}`}>{icon}</div>
       <div className="panelBox__content">
         <div className="flex">

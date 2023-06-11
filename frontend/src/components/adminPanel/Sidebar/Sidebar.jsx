@@ -5,15 +5,17 @@ import { nanoid } from "@reduxjs/toolkit";
 import { adminSidebarItems } from "../../../Constants";
 //icons
 import { BiHome } from "react-icons/bi";
+import { IoClose } from "react-icons/io5";
 // styles
 import "./Sidebar.css";
 
-const Sidebar = ({ isShowSidebar }) => {
+const Sidebar = ({ isFull,setIsFull }) => {
   return (
-    <div className={`sidebar ${isShowSidebar ? "active" : ""}`}>
+    <div className={`sidebar ${isFull ? "active" : ""}`}>
+      {isFull && <IoClose className="sidebar__closeIcon" onClick={()=>setIsFull(false)}/>}
       <ul className="sidebar__lists">
         <Link to="/" className="sidebar__imgLink">
-          {!isShowSidebar ? (
+          {isFull ? (
             <img
               src="/images/logo-mobile.png"
               alt="logo site for mobile"
@@ -30,9 +32,12 @@ const Sidebar = ({ isShowSidebar }) => {
                 isActive ? "sidebarLink sidebarLink--active" : "sidebarLink"
               }
               to={item.link}
+              onClick={()=>{
+                if(!isFull) setIsFull(false)
+              }}
             >
               <span className="sidebarLink__iconBox">{item.icon}</span>
-              {!isShowSidebar && <span>{item.title}</span>}
+              {isFull && <span>{item.title}</span>}
             </NavLink>
           </li>
         ))}

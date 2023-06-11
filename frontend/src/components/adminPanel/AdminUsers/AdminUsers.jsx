@@ -99,7 +99,7 @@ const AdminUsers = () => {
     },
     {
       field: "action",
-      headerName: "عملیات",
+      headerName: "عملیات ها",
       align: "center",
       width: 120,
       headerAlign: "center",
@@ -141,6 +141,7 @@ const AdminUsers = () => {
       toast.error("مشکلی در حذف کاربر موردنظر بوجود آمد")
     })
   };
+  console.log("users",users);
   return (
     <>
       {isShowEditModal && (

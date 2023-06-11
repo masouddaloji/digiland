@@ -42,12 +42,15 @@ padding: 1.5rem 3rem 0;
 }
 .basketUser__item {
     border-bottom: .1rem solid var(--gray);
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    padding: .5rem;
 }
 .basketUser__img {
+    width: 6rem;
+    border-radius: 1rem;
 }
 .basketUser__count,.basketUser__id {
     margin: 1rem;
