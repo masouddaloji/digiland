@@ -73,7 +73,7 @@ export const login = async (
     const accessToken = jwt.sign(
       { email: foundUser!.email, role: foundUser!.role, userId: foundUser!._id },
       process.env.ACCESS_TOKEN_SECRET?.toString()!,
-      { expiresIn: "15m" }
+      { expiresIn: "1h" }
     );
 
     const refreshToken = jwt.sign(
@@ -92,7 +92,7 @@ export const login = async (
     // Create secure cookie with refresh token
     res.cookie("jwt", refreshToken, {
       httpOnly: true, //accessible only by web server
-      //secure: true, //https
+      secure: true, //https
       sameSite: "none", //cross-site cookie
       maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expiry: set to match rT
     });

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 // packages
 import { Link } from "react-router-dom";
 //rtk queryuu
 import { useGetProductsQuery } from "../../features/Product/ProductApiSlice";
-
+//hooks
+import useDebounce from "../../hooks/useDebounce";
 // icons
 import { TfiSearch } from "react-icons/tfi";
 import { VscClose } from "react-icons/vsc";
@@ -11,6 +12,8 @@ import { VscClose } from "react-icons/vsc";
 import "./Search.css";
 
 const Search = () => {
+  const [searchValue, setSearchValue] = useState("");
+  const debounceQuery = useDebounce(searchValue, 600);
   const [showResult, setShowResult] = useState(false);
   const [searchParams, setSearchParams] = useState({
     page: 1,
@@ -21,7 +24,7 @@ const Search = () => {
     price: "",
     sort: "",
     brand: "",
-    search: "",
+    search: debounceQuery,
   });
   const {
     data: result,
@@ -29,8 +32,11 @@ const Search = () => {
     isSuccess,
     isError,
   } = useGetProductsQuery({ ...searchParams });
-  const searchHandler = () => setShowResult(true);
-
+  const searchHandler = useCallback(() => setShowResult(true),[]);
+  useEffect(
+    () => setSearchParams((prev) => ({ ...prev, search: debounceQuery })),
+    [debounceQuery]
+  );
   return (
     <div className="serach__wrapper">
       <form className="searchBox" onSubmit={(e) => e.preventDefault()}>
@@ -40,10 +46,10 @@ const Search = () => {
           type="text"
           className="searchBox__input"
           placeholder="کلید واژه مورد نظر..."
-          value={searchParams.search}
+          value={searchValue}
           onChange={(e) => {
+            setSearchValue(e.target.value);
             setShowResult(true);
-            setSearchParams((prev) => ({ ...prev, search: e.target.value }));
           }}
           onKeyUp={(e) => {
             if (e.key === "Enter") {
@@ -55,16 +61,19 @@ const Search = () => {
         {showResult && (
           <VscClose
             className="search-box__btn--close"
-            onClick={() => setShowResult(false)}
+            onClick={() => {
+              setShowResult(false);
+              setSearchValue("");
+            }}
           />
         )}
 
-        {showResult && searchParams.search && (
+        {showResult &&debounceQuery && (
           <div className="search-box__result-wrapper">
             {isLoading && <div className="search-box__loader"></div>}
             {isSuccess && (
               <>
-                {result.data?.length > 0 ? (
+                {result?.data?.length ? (
                   <>
                     {result.data.map((item) => (
                       <div
@@ -107,6 +116,12 @@ const Search = () => {
                   </div>
                 )}
               </>
+            )}
+
+            {isError && (
+              <div className="search-box__error-box">
+                <span>خطا در دریافت داده ها</span>
+              </div>
             )}
           </div>
         )}

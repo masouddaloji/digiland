@@ -32,6 +32,11 @@ const Select = (props) => {
       document.body.removeEventListener("click", outsideClickHandler);
     };
   }, []);
+  // useEffect(()=>{
+  //   if(selectType==="province" && !field.value){
+  //     setSelectedProvince("")
+  //   }
+  // },[field.value])
  
 
   return (

@@ -76,15 +76,13 @@ export default function Header({}) {
           <div className="container">
             <div className="row">
               <div className="col-lg-3">
-                <div className="header__logo-box">
-                  <Link to="/">
+                  <Link to="/" className="header__logo-box">
                     <img
-                      src="/images/logo.webp"
+                      src="/images/logo/logoFull.png"
                       alt="logo-img"
                       className="header__logo-img"
                     />
                   </Link>
-                </div>
               </div>
               <div className="col-lg-6">
                 <Search />

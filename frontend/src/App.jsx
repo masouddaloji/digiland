@@ -44,8 +44,9 @@ export default function App() {
     <div className="app__wrapper">
       <div className="app">
         <Routes>
-          <Route element={<Layout />}>
-            <Route element={<PersistLogin />}>
+        {/* start persistLogin */}
+          <Route element={<PersistLogin />}>
+            <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
               {/* start product  */}
               <Route path="/products" element={<ProductsCategory />}>
@@ -68,43 +69,43 @@ export default function App() {
                 <Route path="/order-pay" element={<SubmitOrder />} />
               </Route>
               {/* end basket */}
-
               {/* start product info */}
               <Route path="/product/:productId" element={<Product />} />
               {/* end product info */}
             </Route>
-          </Route>
-          {/* start adminpanel */}
-          <Route element={<PersistLogin />}>
-            <Route element={<PrivateRoute />}>
-              <Route element={<AdminPanelLayout />}>
-                <Route path="/adminpanel" element={<MainAdmin />} />
-                <Route path="/adminproducts" element={<AdminProducts />} />
-                <Route path="/admin-addproducts" element={<AddProduct />} />
-                <Route
-                  path="/admin-editproduct/:productID"
-                  element={<EditProduct />}
-                />
-                <Route path="/admin-users" element={<AdminUsers />} />
-                <Route path="/admin-orders" element={<AdminOrders />} />
-                <Route path="/admin-articles" element={<AdminArticles />} />
+            {/* start adminpanel */}
+            <Route element={<PersistLogin />}>
+              <Route element={<PrivateRoute />}>
+                <Route element={<AdminPanelLayout />}>
+                  <Route path="/adminpanel" element={<MainAdmin />} />
+                  <Route path="/adminproducts" element={<AdminProducts />} />
+                  <Route path="/admin-addproducts" element={<AddProduct />} />
+                  <Route
+                    path="/admin-editproduct/:productID"
+                    element={<EditProduct />}
+                  />
+                  <Route path="/admin-users" element={<AdminUsers />} />
+                  <Route path="/admin-orders" element={<AdminOrders />} />
+                  <Route path="/admin-articles" element={<AdminArticles />} />
+                </Route>
               </Route>
             </Route>
-          </Route>
-          {/* end adminpanel */}
+            {/* end adminpanel */}
 
+            <Route element={<UserPanel />}>
+              <Route path="/userpanel" element={<MainPanel />} />
+              <Route path="/userorders" element={<Orders />} />
+              <Route path="/userfavorite" element={<Favorite />} />
+              <Route path="/usersetting" element={<UserSetting />} />
+              <Route path="/useraddress" element={<Address />} />
+            </Route>
+            {/* end userpanel */}
+          </Route>
+          {/* end persistLogin */}
           {/* this routes not use Header and footer */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {/* start userpanel */}
-          <Route element={<UserPanel />}>
-            <Route path="/userpanel" element={<MainPanel />} />
-            <Route path="/userorders" element={<Orders />} />
-            <Route path="/userfavorite" element={<Favorite />} />
-            <Route path="/usersetting" element={<UserSetting />} />
-            <Route path="/useraddress" element={<Address />} />
-          </Route>
-          {/* end userpanel */}
         </Routes>
       </div>
     </div>

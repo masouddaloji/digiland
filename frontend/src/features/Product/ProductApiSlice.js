@@ -20,10 +20,14 @@ export const ProductApiSlice = shopApi.injectEndpoints({
         }&subCategory=${subCategory ?? ""}&color=${color ?? ""}&price=${
           price ?? ""
         }&sort=${sort ?? ""}&brand=${brand ?? ""}&search=${search ?? ""}`,
-      providesTags: (result, error, arg) => [
-        { type: "Product", id: "LIST" },
-        ...result.data.map(({ _id }) => ({ type: "Product", id: _id })),
-      ],
+      providesTags: (result, error, arg) => {
+        if (result?.data) {
+          return [
+            { type: "Product", id: "LIST" },
+            ...result.data.map(({ _id }) => ({ type: "Product", id: _id })),
+          ];
+        } else return [{ type: "Product", id: "LIST" }];
+      },
     }),
     getProductById: builder.query({
       query: (id) => `/products/find/${id}`,
@@ -43,7 +47,6 @@ export const ProductApiSlice = shopApi.injectEndpoints({
         body: image,
       }),
       transformResponse: (response) => response.path,
-      transformErrorResponse: (res) => console.log("res error", res),
     }),
     uploadProductGallery: builder.mutation({
       query: (images) => ({
@@ -55,7 +58,6 @@ export const ProductApiSlice = shopApi.injectEndpoints({
         body: images,
       }),
       transformResponse: (response) => response.galleryArray,
-      transformErrorResponse: (res) => console.log("res error", res),
     }),
     // uploadGallery:,
     addProduct: builder.mutation({
@@ -67,12 +69,14 @@ export const ProductApiSlice = shopApi.injectEndpoints({
       invalidatesTags: [{ type: "Product", id: "LIST" }],
     }),
     updateProduct: builder.mutation({
-      query: ({ data,productID }) =>({
+      query: ({ data, productID }) => ({
         url: `/products/${productID}`,
         method: "PUT",
         body: { ...data },
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "Product", id:arg.productID }],
+      invalidatesTags: (result, error, arg) => [
+        { type: "Product", id: arg.productID },
+      ],
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({
@@ -80,9 +84,7 @@ export const ProductApiSlice = shopApi.injectEndpoints({
         method: "DELETE",
         body: { id },
       }),
-      invalidatesTags: (result, error, arg) => [
-        { type: "Product", id: arg.id },
-      ],
+      invalidatesTags: (result, error, arg) => [{ type: "Product", id: "LIST" }],
     }),
   }),
 });

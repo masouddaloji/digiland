@@ -95,7 +95,7 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
                 </Link>
                 <Link
                   className="sideBarCart__LinkBasket"
-                  to="/basket/check-information"
+                  to="/check-information"
                   onClick={() => setIsShowSideBarCart(false)}
                 >
                   تسویه حساب
@@ -111,32 +111,6 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
             </Link>
           </div>
         )}
-
-        {/* <div className="sideBarCart__totalPriceAndLinks">
-          <div className="flex ss02">
-            <span>جمع كل سبد خريد : </span>
-            <bdi className="currentPrice">
-              {baskets?.totalAmount?.toLocaleString()}
-              <span className="toman">تومان</span>
-            </bdi>
-          </div>
-          <div className="sideBarCart__Links">
-            <Link
-              className="sideBarCart__LinkBasket"
-              to="/basket"
-              onClick={() => setIsShowSideBarCart(false)}
-            >
-              مشاهده سبد خرید
-            </Link>
-            <Link
-              className="sideBarCart__LinkBasket"
-              to="/basket/check-information"
-              onClick={() => setIsShowSideBarCart(false)}
-            >
-              تسویه حساب
-            </Link>
-          </div>
-        </div> */}
       </div>
     </>
   );

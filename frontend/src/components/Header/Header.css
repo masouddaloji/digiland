@@ -15,6 +15,7 @@
 }
 .header__logo-img {
   cursor: pointer;
+  width:20rem;
 }
 
 .header__leftBox {

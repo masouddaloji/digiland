@@ -8,6 +8,7 @@ import useAuth from "../../../hooks/useAuth";
 const Orders = () => {
   const{userID}=useAuth()
   const{data,isLoading,isSuccess}=useGetUserByIdQuery(userID)
+  console.log("data in order",data);
   const convertDateFormat = (englishDate) => {
     const date = new Date(englishDate);
     const options = {

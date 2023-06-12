@@ -47,6 +47,7 @@ export const shopApi = createApi({
     "Order",
     "Basket",
     "Auth",
+    "Favorite",
     "Search",
   ],
   endpoints: (builder) => ({}),

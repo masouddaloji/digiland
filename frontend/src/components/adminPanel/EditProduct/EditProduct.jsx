@@ -93,7 +93,7 @@ const EditProduct = () => {
                 <>
                   <Form className="edit__form">
                     <div className="row">
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelTitle
@@ -106,7 +106,7 @@ const EditProduct = () => {
                           name="productTitle"
                         />
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelPrice
@@ -119,7 +119,7 @@ const EditProduct = () => {
                           name="productPrice"
                         />
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelRating
@@ -134,7 +134,7 @@ const EditProduct = () => {
                           selectType="rating"
                         />
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelQuantity
@@ -147,7 +147,7 @@ const EditProduct = () => {
                           name="productQantity"
                         />
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelCategory
@@ -160,7 +160,7 @@ const EditProduct = () => {
                           name="productCategory"
                         />
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelSegment
@@ -173,7 +173,7 @@ const EditProduct = () => {
                           name="productSegment"
                         />
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelColors
@@ -188,7 +188,7 @@ const EditProduct = () => {
                         />
                       </div>
 
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelBrand
@@ -201,7 +201,7 @@ const EditProduct = () => {
                           name="productBrand"
                         />
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label
@@ -215,7 +215,7 @@ const EditProduct = () => {
                           name="productSubCategory"
                         />
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelOffPrice
@@ -228,7 +228,7 @@ const EditProduct = () => {
                           name="productOffPrice"
                         />
                       </div>
-                      <div className="col-md-12">
+                      <div className="col-12">
                         <FormControl
                           label={
                             persianTexts.admin.products.label
@@ -259,7 +259,7 @@ const EditProduct = () => {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelCover
@@ -275,7 +275,7 @@ const EditProduct = () => {
                           typeuploader="product-single"
                         />
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-12 col-md-6">
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelGallery

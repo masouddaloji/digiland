@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 //rtk query
 import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
 import { useGetProductByIdQuery } from "../../features/Product/ProductApiSlice";
+import { useAddToFavoriteMutation } from "../../features/favorite/favoriteApislice";
 //components
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
@@ -24,10 +25,10 @@ import { persianTexts } from "../../text";
 //icons
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { HiOutlineBellAlert } from "react-icons/hi2";
-import { AiOutlineRetweet, AiOutlineStar } from "react-icons/ai";
-import { BiCheckSquare, BiCommentDetail } from "react-icons/bi";
+import { AiOutlineRetweet } from "react-icons/ai";
+import { BiCheckSquare } from "react-icons/bi";
 import { FaTruck, FaRegHeart } from "react-icons/fa";
-import { BsCheckLg, BsPen, BsSortDown, BsXSquare } from "react-icons/bs";
+import { BsCheckLg, BsPen, BsXSquare } from "react-icons/bs";
 import { CgList } from "react-icons/cg";
 import { TbChecklist, TbTriangle, TbTriangleInverted } from "react-icons/tb";
 //styles
@@ -43,6 +44,7 @@ export default function Product() {
     error,
   } = useGetProductByIdQuery(productId);
   const [addToBasket] = useAddToBasketMutation();
+  const [addToFavorite] = useAddToFavoriteMutation();
   const { userName } = useAuth();
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
@@ -98,8 +100,6 @@ export default function Product() {
   };
   const getRelatedProduct = () => {};
 
-  const addToFavoriteHandler = (id) => {};
-
   const addToBasketHandler = async (id) => {
     if (userName) {
       await addToBasket(id)
@@ -114,17 +114,24 @@ export default function Product() {
       toast.warning(persianTexts.header.notLoginInBasket);
     }
   };
-
-  // useEffect(() => {
-  //   if (product.length) {
-  //     getRelatedProduct();
-  //   }
-  // }, [productId]);
+  const addToFavoriteHandler = async () => {
+    if (userName) {
+      await addToFavorite(productId).unwrap()
+        .then((response) => {
+          toast.success(persianTexts.favorite.addtoFavorite.success);
+        })
+        .catch((error) => {
+          toast.error(persianTexts.favorite.addtoFavorite.error);
+        });
+    } else {
+      toast.warning(persianTexts.header.notLoginInBasket);
+    }
+  };
 
   return (
     <div className={`product ${isLoading ? "product--loader" : null}`}>
       {isLoading ? (
-        <Loader message="در حال دریافت اطلاعات" />
+        <Loader />
       ) : isSuccess ? (
         <div className="container">
           {/* bread crumbs */}
@@ -268,7 +275,7 @@ export default function Product() {
                     <div className="product__availbleItem">
                       <button
                         className="product__availbleButton"
-                        onClick={() => addToFavoriteHandler(productId)}
+                        onClick={addToFavoriteHandler}
                       >
                         <FaRegHeart className="product__availbleBtnIcon" />
                         افزودن به علاقه مندی ها
@@ -383,7 +390,7 @@ export default function Product() {
                 ></div>
               </div>
               {/* start userComments */}
-              <div
+              {/* <div
                 className={`allDetails ${
                   active === "userComments" ? "allDetails--show" : ""
                 }`}
@@ -485,9 +492,9 @@ export default function Product() {
                                     <span className="comment__metaAuthor">
                                       {review?.userId?.email?.split("@")[0]}
                                     </span>
-                                    <time className="comment__time">
+                                    <span className="comment__time">
                                       {convertDateFormat(review?.createdAt)}
-                                    </time>
+                                    </span>
                                   </div>
                                   <div className="comment__description">
                                     <p className="comment__descriptionText">
@@ -523,7 +530,7 @@ export default function Product() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               {/*end userComments */}
               {/* start review */}
               <div

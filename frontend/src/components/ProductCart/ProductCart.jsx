@@ -2,9 +2,9 @@
 import { Link } from "react-router-dom";
 import { Skeleton, Stack } from "@mui/material";
 import { toast } from "react-toastify";
-
 //rtk query
 import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
+import { useAddToFavoriteMutation } from "../../features/favorite/favoriteApislice";
 //components
 import Star from "../Star/Star";
 //persian text
@@ -18,6 +18,7 @@ import "./ProductCart.css";
 
 export default function ProductCart(props) {
   const[addToBasket]=useAddToBasketMutation()
+  const[addToFavorite]=useAddToFavoriteMutation()
   const { _id, title, image, offPrice, price, rating,  isLoading, isSuccess  } = props;
 
   const addToBasketHandler = async() => {
@@ -27,6 +28,15 @@ export default function ProductCart(props) {
     })
     .catch((error)=>{
       toast.error(persianTexts.basket.addtobasketError)
+    })
+  };
+  const addToFavoriteHandler = async() => {
+    await addToFavorite(_id).unwrap()
+    .then(()=>{
+      toast.success(persianTexts.favorite.addtoFavorite.success)
+    })
+    .catch((error)=>{
+      toast.error(persianTexts.favorite.addtoFavorite.error)
     })
   };
   return (
@@ -80,7 +90,7 @@ export default function ProductCart(props) {
 
               <div
                 className="product__iconBox mainHasTooltip"
-                onClick={() => addToFavorite(_id)}
+                onClick={() => addToFavoriteHandler(_id)}
               >
                 <IoMdHeartEmpty className="fullIcon" />
                 <span className="tooltip">افزودن به علاقه مندی ها</span>

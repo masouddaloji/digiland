@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 //rtk query
-import { useGetBasketQuery } from "../../../features/basket/basketApiSlice";
+import { useAddToOrderMutation, useGetBasketQuery } from "../../../features/basket/basketApiSlice";
 //components
 import FormControl from "../../FormControl/FormControl";
 //validator
@@ -16,6 +16,8 @@ import { Iran } from "../../../Constants";
 import "./CheckInformation.css";
 
 function CheckInformation() {
+  
+  const[addToOrder]=useAddToOrderMutation()
   let initialValues = {
     checkFullName: "",
     checkProvince: "",
@@ -29,19 +31,33 @@ function CheckInformation() {
   const { data: basket, isLoading, isSuccess } = useGetBasketQuery();
 
   const [showDiscount, setShowDiscount] = useState(false);
-
   const iranProvince = Object.keys(Iran);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [cities, setCities] = useState([]);
+
+const addToOrderHandler=(data)=>{
+basket?.cartItems?.map(item=>addToOrder(item.productId._id).unwrap()
+.then(res=>console.log("res",res))
+.catch(error=>console.log("error",error))
+)
+}
+
   useEffect(() => {
-    setCities(Iran[selectedProvince]);
+    if(Iran[selectedProvince]){
+      setCities(Iran[selectedProvince]);
+    }else{
+      setCities(null)
+    }
   }, [selectedProvince]);
 
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={checkInformationSchema}
-      onSubmit={async (values) => console.log("values", values)}
+      onSubmit={async (values,{resetForm}) =>{
+        addToOrderHandler(values)
+        resetForm()
+      } }
     >
       {(formik) => (
         <div className="information">

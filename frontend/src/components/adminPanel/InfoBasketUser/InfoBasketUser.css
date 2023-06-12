@@ -19,44 +19,92 @@
   z-index: 20;
   color: var(--black-50);
 }
-.InfoBasketUser__closeBox{
-display: flex;
-align-items: center;
-justify-content: flex-end;
-padding: 1.5rem 3rem 0;
+.InfoBasketUser__closeBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem 2rem;
 }
-.InfoBasketUser__closeIcon{
-    display:block;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: all .3s;
-    color: var(--gray-text);
+.InfoBasketUser__closeIcon {
+  display: block;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--gray-text);
 }
-.InfoBasketUser__closeIcon:hover{
-    color: var(--red);
-    transform: scale(1.2);
+.InfoBasketUser__closeIcon:hover {
+  color: var(--red);
+  transform: scale(1.2);
 }
 .basketUser__lists {
-    padding:0 1rem;
-    margin-top: 3rem;
+  padding: 0 1rem;
+  margin-top: 3rem;
 }
 .basketUser__item {
-    border-bottom: .1rem solid var(--gray);
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: .5rem;
+  border-bottom: 0.1rem solid var(--gray);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5rem;
 }
 .basketUser__img {
-    width: 6rem;
-    border-radius: 1rem;
+  width: 6rem;
+  border-radius: 1rem;
+  display: inline-block;
+  vertical-align: middle;
 }
-.basketUser__count,.basketUser__id {
-    margin: 1rem;
+.basketUser__count,
+.basketUser__title {
+  margin: 0 1rem;
 }
-.basketUser__count span,.basketUser__id span{
-    margin-right: 1rem;
+.basketUser__title {
+  /* overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; */
 }
+
 .basketUser__price {
+}
+.infoBasketUser__tableWrapper {
+  overflow-x: scroll;
+}
+.InfoBasketUser table {
+  font-size: 1.2rem;
+  width: 100%;
+}
+.InfoBasketUser table tr {
+  border-bottom: 0.1rem solid var(--gray);
+  padding: 1rem;
+}
+.InfoBasketUser table th,
+.InfoBasketUser table tr td {
+  max-width: 15rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.3rem 0.4rem;
+}
+.showProductIcon {
+  font-size: 2rem;
+  color: var(--gray-75);
+}
+@media (max-width: 575px) {
+  .InfoBasketUser {
+    top: 30%;
+    left: .5rem;
+    right: .5rem;
+    transform: translateY(-30%);
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .basketUser__img {
+    width: 3.5rem;
+  }
+  .basketUser__title {
+    display: none;
+  }
 }

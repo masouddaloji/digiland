@@ -111,10 +111,10 @@ function Cart() {
                   </span>
                 </div>
                 <Link
-                  to="/basket/check-information"
+                  to="/check-information"
                   className="totolaPrice__Link"
                 >
-                  ادامه جهت تسویه حساب
+                  {persianTexts.basket.basketBtn}
                   <FaChevronLeft className="totolaPrice__LinkIcon" />
                   <FaChevronLeft className="totolaPrice__LinkIcon" />
                 </Link>
