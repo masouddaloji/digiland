@@ -6,7 +6,7 @@ const Textarea = (props) => {
   return (
     <div className="formControl__wrapper">
       {props.label && (
-        <label htmlFor={field.name} className={`formControl__label ${
+        <label htmlFor={field.name} className={`input__label ${
             meta.touched && meta.error ? "label--invalid" : undefined
           }`}>
           {props.label}
@@ -14,7 +14,7 @@ const Textarea = (props) => {
       )}
         <textarea
           className={`textarea  ${
-            meta.touched && meta.error ? "formControl--invalid" : undefined
+            meta.touched && meta.error ? "input--invalid" : undefined
           }`}
           autoComplete="off"
           id={field.name}

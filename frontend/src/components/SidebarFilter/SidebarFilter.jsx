@@ -7,10 +7,10 @@ import CategoryFilter from "../CategoryFilter/CategoryFilter";
 import ColorFilter from "../ColorFilter/ColorFilter";
 import PriceSlider from "../PriceSlider/PriceSlider";
 import SidebarFilterItem from "./SidebarFilterItem";
-
+//icons
+import { IoClose } from "react-icons/io5";
 //styles
 import "./SidebarFilter.css";
-import { IoClose } from "react-icons/io5";
 
 const SidebarFilter = ({
   pageInfo,

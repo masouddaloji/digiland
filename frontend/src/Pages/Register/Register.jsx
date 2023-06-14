@@ -66,19 +66,19 @@ export default function Register() {
                   label="ایمیل"
                   name="registerEmail"
                   autoFocus 
-                  icon={<MdAlternateEmail className="formControl__icon" />}
+                  icon={<MdAlternateEmail className="input__icon" />}
                 />
                 <FormControl
                   controler="password"
                   label="رمز عبور"
                   name="registerPassword"
-                  icon={<RiLockPasswordLine className="formControl__icon" />}
+                  icon={<RiLockPasswordLine className="input__icon" />}
                 />
                 <FormControl
                   controler="password"
                   label="تکرار رمز عبور"
                   name="registerConfirmPassword"
-                  icon={<RiLockPasswordLine className="formControl__icon" />}
+                  icon={<RiLockPasswordLine className="input__icon" />}
                 />
 
                 <button

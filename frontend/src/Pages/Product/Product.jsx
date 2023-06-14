@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import domPurify from "dompurify";
 import { toast } from "react-toastify";
 //rtk query
+import { nanoid } from "@reduxjs/toolkit";
 import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
 import { useGetProductByIdQuery } from "../../features/Product/ProductApiSlice";
 import { useAddToFavoriteMutation } from "../../features/favorite/favoriteApislice";
@@ -25,10 +26,10 @@ import { persianTexts } from "../../text";
 //icons
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { HiOutlineBellAlert } from "react-icons/hi2";
-import { AiOutlineRetweet } from "react-icons/ai";
-import { BiCheckSquare } from "react-icons/bi";
+import { AiOutlineRetweet,AiOutlineStar } from "react-icons/ai";
+import { BiCheckSquare, BiCommentDetail} from "react-icons/bi";
 import { FaTruck, FaRegHeart } from "react-icons/fa";
-import { BsCheckLg, BsPen, BsXSquare } from "react-icons/bs";
+import { BsCheckLg, BsPen, BsXSquare,BsSortDown } from "react-icons/bs";
 import { CgList } from "react-icons/cg";
 import { TbChecklist, TbTriangle, TbTriangleInverted } from "react-icons/tb";
 //styles
@@ -48,7 +49,8 @@ export default function Product() {
   const { userName } = useAuth();
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
-  const [relatedProduct, setRelatedProduct] = useState([]);
+ 
+
   const showRatingResultPersian = (rate) => {
     switch (rate) {
       case 5:
@@ -98,7 +100,7 @@ export default function Product() {
     const persianDate = new Intl.DateTimeFormat("fa", options).format(date);
     return persianDate;
   };
-  const getRelatedProduct = () => {};
+
 
   const addToBasketHandler = async (id) => {
     if (userName) {
@@ -127,7 +129,6 @@ export default function Product() {
       toast.warning(persianTexts.header.notLoginInBasket);
     }
   };
-
   return (
     <div className={`product ${isLoading ? "product--loader" : null}`}>
       {isLoading ? (
@@ -218,6 +219,7 @@ export default function Product() {
                       <div className="product__allColors">
                         {product?.colors?.map((color) => (
                           <div
+                          key={nanoid()}
                             style={selectColorStyle(color)}
                             className={`product__color ${
                               selectedColor === color ? "colorSelected" : null
@@ -389,8 +391,8 @@ export default function Product() {
                   }}
                 ></div>
               </div>
-              {/* start userComments */}
-              {/* <div
+              {/* start submit user eview */}
+              <div
                 className={`allDetails ${
                   active === "userComments" ? "allDetails--show" : ""
                 }`}
@@ -455,7 +457,7 @@ export default function Product() {
                       <div className="allComments__header">
                         <h2 className="allComments__title">
                           نقد ها و بررسی ها
-                          {product?.reviews?.length > 0 && (
+                          {product?.reviews?.length && (
                             <span>{product.reviews.length}</span>
                           )}
                         </h2>
@@ -470,7 +472,7 @@ export default function Product() {
                       <ul className="userComment__wrapper">
                         {product?.reviews?.length ? (
                           <>
-                            {product?.reviews?.map((review) => (
+                            {product.reviews.map((review) => (
                               <li
                                 className="userComment__item"
                                 key={review._id}
@@ -530,9 +532,9 @@ export default function Product() {
                     </div>
                   </div>
                 </div>
-              </div> */}
-              {/*end userComments */}
-              {/* start review */}
+              </div>
+              {/*end submit user eview */}
+              {/* start result review */}
               <div
                 className={`allDetails ${
                   active === "review" ? "allDetails--show" : ""
@@ -653,7 +655,7 @@ export default function Product() {
                   </div>
                 </div>
               </div>
-              {/* end review */}
+              {/* end result review */}
             </div>
           </div>
           {/* related products */}

@@ -14,12 +14,10 @@ import FormControl from "../../components/FormControl/FormControl";
 import usePersistLogin from "../../hooks/usePersistLogin";
 // validator
 import { LoginSchema } from "../../components/Validator/Validator";
-
 // icons
-import { MdAlternateEmail } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
-import { RiLockPasswordLine } from "react-icons/ri";
-
+import { HiOutlineMail } from "react-icons/hi";
+import { MdLock } from "react-icons/md";
 // persian texts
 import { persianTexts } from "../../text";
 // style
@@ -35,6 +33,24 @@ export default function Login() {
   const persistHandler = () => {
     setPersist((prev) => !prev);
   };
+  const loginHandler = async (data) => {
+    const userData = {
+      email: data.loginUserName,
+      pwd: data.loginPassword,
+    };
+    try {
+      const { accessToken } = await loginUser(userData).unwrap();
+      dispatch(setToken({ accessToken }));
+      toast.success(persianTexts.login.logginSuccess);
+      navigate("/");
+    } catch (error) {
+      if (error.status && error.status === 401) {
+        toast.error(persianTexts.login.loginNotMatch);
+      } else {
+        toast.error(persianTexts.login.logginError);
+      }
+    }
+  };
 
   return (
     <Formik
@@ -44,30 +60,17 @@ export default function Login() {
       }}
       validationSchema={LoginSchema}
       onSubmit={async (values, { resetForm }) => {
-        const userData = {
-          email: values.loginUserName,
-          pwd: values.loginPassword,
-        };
-        try {
-          const { accessToken } = await loginUser(userData).unwrap();
-          dispatch(setToken({ accessToken }));
-          toast.success(persianTexts.login.logginSuccess);
-          navigate("/");
-        } catch (error) {
-          if (error.status && error.status === 401) {
-            toast.error(persianTexts.login.loginNotMatch);
-            resetForm();
-          } else {
-            toast.error(persianTexts.login.logginError);
-            resetForm();
-          }
-        }
+        loginHandler(values);
+        resetForm();
       }}
     >
       {(formik) => (
         <Form>
           <div className="auth">
             <div className="auth__wrapper">
+              <div className="auth__imageBox">
+                <img src="./images/auth/3.jpeg" alt="" className="auth__image" />
+              </div>
               <div className="auth__content">
                 <div className="auth__logoBox">
                   <img
@@ -77,7 +80,9 @@ export default function Login() {
                   />
                 </div>
 
-                <h4 className="auth__title">ورود</h4>
+                <h3 className="auth__title">
+                  {persianTexts.login.headerTitle}
+                </h3>
                 <div className="auth__form">
                   <FormControl
                     controler="text"
@@ -85,13 +90,13 @@ export default function Login() {
                     name="loginUserName"
                     ref={userNameRef}
                     autoFocus
-                    icon={<MdAlternateEmail className="formControl__icon" />}
+                    icon={<HiOutlineMail className="input__icon" />}
                   />
                   <FormControl
                     controler="password"
                     label="رمز عبور"
                     name="loginPassword"
-                    icon={<RiLockPasswordLine className="formControl__icon" />}
+                    icon={<MdLock className="input__icon" />}
                   />
                   <div className="login__btns">
                     <div className="login__checkbox">

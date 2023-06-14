@@ -151,12 +151,14 @@ a {
   --iran: "IRANSans", sans-serif;
   --iran-bold: "IRANSansMed", sans-serif;
   --white: #fff;
+  --white-50: #f8f5fd;
   --black: #000;
   --padding: 1rem;
-  --border-box: 0.5rem;
-  --gold: #ffc212;
+  --border-box: 0.6rem;
+  --gold: #ffc717;
   --yellow: #ffab00;
-  --blue: #1f75fe;
+  /* --blue: #1f75fe; */
+  --blue: #0183ff;
   --blue-hover: #1c39bb;
   --purple: #77037b;
   --purple-25: rgba(166, 105, 219, 0.2);
@@ -226,27 +228,37 @@ a {
 .auth {
   width: 100%;
   height: 100vh;
-  background: var(--linear);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #f1f4fa;
+  padding: 3rem 4rem;
 }
 .auth__wrapper {
-  width: 36rem;
-  background: var(--white);
-  border-radius: var(--border-box);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
-  overflow-x: hidden;
-  overflow-y: scroll;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
 }
+
+.auth__imageBox {
+  flex-basis: 50%;
+  border-radius: 1.8rem;
+  overflow: hidden;
+  margin-left: -2rem;
+  z-index: 10;
+}
+.auth__image {
+  width: 100%;
+  height: 100%;
+}
+
 .auth__wrapper::-webkit-scrollbar {
   display: none;
 }
 .auth__content {
-  width: 100%;
-  height: 100%;
+  flex-basis: 50%;
   display: flex;
   flex-direction: column;
+  background: var(--white);
+  padding: 1rem 3rem 1rem 1rem;
+  border-radius: 1.8rem;
 }
 .auth__logoBox {
   margin: 2rem auto 0.5rem auto;
@@ -256,30 +268,15 @@ a {
   height: 3rem;
 }
 .auth__title {
-  color: var(--black-50);
-  font-weight: 600;
-  padding-right: 1.5rem;
-  position: relative;
+  color: var(--black);
+  font-size: 2.1rem;
+  line-height: 2.4;
+  margin-bottom: 2rem;
 }
-.auth__title::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 0.3rem;
-  background: var(--blue);
-  border-radius: var(--border-box);
-}
-
 .auth__form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 1rem 0 1rem 0;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  padding: 1rem 1.5rem 1rem 1rem;
 }
 .auth__form::-webkit-scrollbar {
   display: none;
@@ -453,7 +450,7 @@ a {
   font-size: 1.2rem;
 }
 /* start user table style */
-.user__table__wrapper{
+.user__table__wrapper {
   border: 0.1rem solid var(--gray);
   border-radius: var(--border-box);
 }
@@ -477,7 +474,7 @@ a {
   padding: 0.7rem;
 }
 .user__table td {
-  padding:1rem 0.5rem;
+  padding: 1rem 0.5rem;
   vertical-align: middle;
 }
 .user__table td .currentPrice {
@@ -761,19 +758,19 @@ a {
   }
 }
 /*start responsive user table */
-@media (max-width:767px){
-  .user__table__wrapper{
+@media (max-width: 767px) {
+  .user__table__wrapper {
     border: none;
   }
-  .user__table thead{
+  .user__table thead {
     display: none;
   }
-  .user__table tr{
+  .user__table tr {
     display: flex;
     flex-direction: column;
   }
- 
-  .user__table td{
+
+  .user__table td {
     position: relative;
     padding: 1rem;
     display: flex;
@@ -782,16 +779,15 @@ a {
     flex-direction: row-reverse;
     gap: 2rem;
   }
-  .user__table td:not(:last-child){
-    border-bottom: 1px solid #eee ;
-
+  .user__table td:not(:last-child) {
+    border-bottom: 1px solid #eee;
   }
-  .user__table td::after{
+  .user__table td::after {
     content: attr(data-title);
     font-size: 1.2rem;
   }
-  .user__table tbody tr{
-margin-bottom: 2rem;
+  .user__table tbody tr {
+    margin-bottom: 2rem;
   }
 }
 /*end responsive user table */

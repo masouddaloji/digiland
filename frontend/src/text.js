@@ -140,6 +140,7 @@ export const persianTexts = {
     logginSuccess: "شما با موفقیت وارد شدید",
     loginNotMatch: "نام کاربری یا رمز عبور اشتباه است",
     logginError: "ورود به حساب کاربری با مشکل مواجه شد لطفا دوباره تلاش کنید",
+    headerTitle:"ورود به حساب کاربری"
   },
   productInfo: {
     warning: `هشدار سامانه همتا: در صورت انجام معامله، از فروشنده کد

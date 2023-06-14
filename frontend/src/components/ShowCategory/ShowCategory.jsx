@@ -14,8 +14,8 @@ const ShowCategory = ({ categoryName, subCategory }) => {
         <div className="product-category__Wrapper">
           <span className="product-category__Title" title="دسته بندی ها"></span>
           <ul className="product-category__Lists">
-            {menus.map(({ img, link, title, icon }) => (
-              <li className="product-category__Item" key={link}>
+            {menus.map(({ img, link, title, icon,id }) => (
+              <li className="product-category__Item" key={id}>
                 <Link className="product-category__link" to={link}>
                   {img && (
                     <div className="product-category__iconBox">
@@ -40,7 +40,7 @@ const ShowCategory = ({ categoryName, subCategory }) => {
     content = menus.map((category) => {
       if (category.shortLink === categoryName && category.subMenu.length > 0) {
         return (
-          <div className="product-category">
+          <div className="product-category" key={category.id}>
             <div className="product-category__Wrapper">
               <span
                 className="product-category__Title"

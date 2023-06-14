@@ -32,7 +32,7 @@ const CheckBoxTest = (props) => {
     {props.label && (
       <label
         htmlFor={field.name}
-        className={`formControl__label ${
+        className={`input__label ${
           meta.touched && meta.error ? "label--invalid" : undefined
         }`}
       >
@@ -43,7 +43,7 @@ const CheckBoxTest = (props) => {
     <div className="checkbox__wrapper" >
       <div
         className={`checkbox ${
-          meta.touched && meta.error && "formControl--invalid"
+          meta.touched && meta.error && "input--invalid"
         }`}
         onClick={() =>setIsShowOptions(!isShowOptions)}
       >

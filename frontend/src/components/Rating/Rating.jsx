@@ -1,14 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useRef } from "react";
 //packages
-import { Form, Formik, useFormikContext } from "formik";
-import { v4 as uuidv4 } from "uuid";
+import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-//redux
-import { selectToken } from "../../features/auth/authSlice";
-import { useSelector } from "react-redux";
+//rtk query
+import { useAddReviewMutation } from "../../features/review/reviewApiSlice";
+//hooks
+import useAuth from "../../hooks/useAuth";
 //components
-import privateAxios from "../../api/privateAxios";
 import FormControl from "../FormControl/FormControl";
 //validators
 import { userRatingSchema } from "../Validator/Validator";
@@ -21,12 +20,26 @@ import { persianTexts } from "../../text";
 import "./Rating.css";
 
 const Rating = () => {
-  const token = useSelector(selectToken);
-
+  const { userName } = useAuth();
   const formikRef = useRef();
   const navigate = useNavigate();
   const { productId } = useParams();
+  const [addReview] = useAddReviewMutation();
 
+  const submitReviewHandler = (reviewDetails) => {
+    const data = {
+      rating: reviewDetails.userRating,
+      description: reviewDetails.userComment,
+    };
+    addReview({ data, id: productId }).unwrap()
+      .then((response) => {
+        toast.success(persianTexts.rating.submit.success);
+      })
+      .catch((error) => {
+        toast.error(persianTexts.rating.submit.error);
+        console.log(error);
+      });
+  };
   return (
     <Formik
       ref={formikRef}
@@ -36,27 +49,9 @@ const Rating = () => {
       }}
       validationSchema={userRatingSchema}
       onSubmit={async (values, { resetForm }) => {
-        if (token) {
-          const data = {
-            rating: values.userRating,
-            description: values.userComment,
-          };
-          await privateAxios
-            .post(`products/reviews/${productId}`, data, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-            })
-            .then((res) => {
-              if (res.status === 200 || res.status === 201) {
-                toast.success(persianTexts.rating.submit.success);
-                // getData()
-                resetForm();
-              } else {
-                toast.error(persianTexts.rating.submit.error);
-              }
-            });
+        if (userName) {
+         submitReviewHandler(values);
+          resetForm();
         } else {
           toast.warning(persianTexts.rating.submit.warning);
           navigate("/login");
@@ -92,9 +87,7 @@ const Rating = () => {
                 </div>
 
                 <div className="col-6">
-                  <button type="submit" className="reviewForm__submit">
-                    ثبت
-                  </button>
+                  <button type="submit" className="reviewForm__submit">ثبت نظر</button>
                 </div>
               </div>
             </Form>

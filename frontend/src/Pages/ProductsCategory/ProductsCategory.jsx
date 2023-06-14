@@ -8,16 +8,12 @@ import { useGetProductsQuery } from "../../features/Product/ProductApiSlice";
 //components
 import ShowCategory from "../../components/ShowCategory/ShowCategory";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import PriceSlider from "../../components/PriceSlider/PriceSlider";
-import CategoryFilter from "../../components/CategoryFilter/CategoryFilter";
-import Brands from "../../components/Brands/Brands";
 import ProductCart from "../../components/ProductCart/ProductCart";
 import Error from "../../components/Error/Error";
 import CustomPagination from "./../../components/Pagination/CustomPagination";
-import ColorFilter from "../../components/ColorFilter/ColorFilter";
+import SidebarFilter from "../../components/SidebarFilter/SidebarFilter";
 //icons
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
-import { IoMdClose } from "react-icons/io";
 import { BiPoll } from "react-icons/bi";
 import { FaSortAmountDown } from "react-icons/fa";
 import { BsSliders } from "react-icons/bs";
@@ -27,7 +23,6 @@ import { sortedProductsItems } from "../../Constants";
 import { persianTexts } from "../../text";
 //styles
 import "./ProductsCategory.css";
-import SidebarFilter from "../../components/SidebarFilter/SidebarFilter";
 
 export default function ProductsCategory() {
   const { categoryName, subCategory, searchParam } = useParams();

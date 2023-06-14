@@ -31,7 +31,7 @@ const TextEditor = (props) => {
       {props.label && (
         <label
           htmlFor={field.name}
-          className={`formControl__label ${
+          className={`input__label ${
             meta.touched && meta.error ? "label--invalid" : undefined
           }`}
         >
@@ -41,7 +41,7 @@ const TextEditor = (props) => {
 
       <div
         className={`editor__box ${
-          meta.touched && meta.error ? "formControl--invalid" : ""
+          meta.touched && meta.error ? "input--invalid" : ""
         }`}
       >
         <Editor

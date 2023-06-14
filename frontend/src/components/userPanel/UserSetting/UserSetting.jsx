@@ -23,10 +23,10 @@ const UserSetting = () => {
   const { userID } = useAuth();
   const [updateUser] = useUpdateUserMutation();
   const iranProvince = Object.keys(Iran);
-  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedProvince, setSelectedProvince]=useState("");
   const [cities, setCities] = useState([]);
   useEffect(() => {
-    setCities(Iran[selectedProvince]);
+    if(Iran[selectedProvince])setCities(Iran[selectedProvince]);
   }, [selectedProvince]);
 
   let initialValues = {

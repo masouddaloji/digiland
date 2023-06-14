@@ -10,7 +10,7 @@ const ColorFilter = ({ filterInfo, setFilter }) => {
   return (
     <div className="colorFilter">
       {colorOptions.map((color) => (
-        <div className="colerFilter__itemBox">
+        <div className="colerFilter__itemBox" key={color.id}>
           <div
             className={`colorFilter__itemImageBox ${
               filterInfo.color === color.value ? "selecedColor" : null

@@ -106,11 +106,11 @@ const Uploader = (props) => {
   return (
     <>
       <div className="formControl__wrapper">
-        <div className={`formControl__box`}>
+        <div className={`inputBox`}>
           {props.label && (
             <label
               htmlFor={field.name}
-              className={`formControl__label ${
+              className={`input__label ${
                 meta.touched && meta.error && "label--invalid"
               }`}
             >
@@ -123,7 +123,7 @@ const Uploader = (props) => {
               meta.touched &&
               meta.error &&
               !selectedImages?.length &&
-              "formControl--invalid"
+              "input--invalid"
             }`}
           >
             <label htmlFor={field.name} className="uploader__label">

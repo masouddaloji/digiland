@@ -5,14 +5,15 @@ import { useField } from "formik";
 import { HiChevronDown } from "react-icons/hi";
 
 const Select = (props) => {
+  console.log("props", props);
   const [field, meta, helpers] = useField(props);
-  const { options, label, icon, selectType, setSelectedProvince,placeholder } = props;
+  const { options, label, icon, selectType, setSelectedProvince, placeholder } =
+    props;
   const { setTouched, setValue } = helpers;
   const containerRef = useRef();
   const [selectValue, setSelectValue] = useState("");
   const [isShowOptions, setIsShowOptions] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-
   const filterOptions = useMemo(() => {
     if (selectType === "province") {
       if (options?.length === 0) return [];
@@ -32,19 +33,22 @@ const Select = (props) => {
       document.body.removeEventListener("click", outsideClickHandler);
     };
   }, []);
-  // useEffect(()=>{
-  //   if(selectType==="province" && !field.value){
-  //     setSelectedProvince("")
-  //   }
-  // },[field.value])
- 
+
+  useEffect(() => {
+    if (selectType === "province" && !field.value && typeof setSelectedProvince === "function") {
+      setSelectedProvince("")
+      setSelectValue("")
+    } else {
+      setSelectValue("");
+    }
+  }, [field.value]);
 
   return (
     <div className="formControl__wrapper" ref={containerRef}>
       {label && (
         <label
           htmlFor={field.name}
-          className={`formControl__label ${
+          className={`input__label ${
             meta.touched && meta.error ? "label--invalid" : undefined
           }`}
         >
@@ -54,7 +58,7 @@ const Select = (props) => {
       )}
       <div
         className={`checkbox ${
-          meta.touched && meta.error && "formControl--invalid"
+          meta.touched && meta.error && "input--invalid"
         }`}
         onClick={() => setIsShowOptions(!isShowOptions)}
       >
@@ -63,8 +67,9 @@ const Select = (props) => {
             meta.touched && meta.error ? "label--invalid" : undefined
           }`}
         >
-         {selectType === "rating"
-            ? selectValue || options.find((option) => option.value === field.value)?.text
+          {selectType === "rating"
+            ? selectValue ||
+              options.find((option) => option.value === field.value)?.text
             : selectValue || placeholder}
         </span>
         <HiChevronDown className="dropdownIcon" />
