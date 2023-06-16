@@ -135,12 +135,17 @@ export const persianTexts = {
   register: {
     registerSuccess: "شما با موفقیت عضو شدید لطفا وارد حساب خود شوید",
     registerError: "ثبت نام شما با مشکل مواجه شد لطفا دوباره تلاش کنید",
+    registerBtn:"عضویت",
+    registerTitle:"ایجاد حساب کاربری",
   },
   login: {
     logginSuccess: "شما با موفقیت وارد شدید",
     loginNotMatch: "نام کاربری یا رمز عبور اشتباه است",
     logginError: "ورود به حساب کاربری با مشکل مواجه شد لطفا دوباره تلاش کنید",
-    headerTitle:"ورود به حساب کاربری"
+    headerTitle:"ورود به حساب کاربری",
+    otherAcount:"با حساب های دیگر وارد شوید",
+    notRegister:"هنوز ثبت نام نکرده اید؟ ",
+    createAccountLink:"ثبت نام"
   },
   productInfo: {
     warning: `هشدار سامانه همتا: در صورت انجام معامله، از فروشنده کد

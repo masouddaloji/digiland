@@ -16,10 +16,9 @@ const Input = (props) => {
   return (
     <div className="formControl__wrapper">
       <div className={`inputBox`}>
-        
         <input
           ref={inputRef}
-          className={`${meta.touched && meta.error &&"input--invalid"}`}
+          className={`${meta.touched && meta.error && "input--invalid"}`}
           autoComplete="off"
           id={field.name}
           {...props}
@@ -32,22 +31,30 @@ const Input = (props) => {
               : "text"
           }
         />
-        <span className={`input__infoBox ${field?.value?.length&& "input__infoBox--top"}`}>
-        {props?.icon ?? null}
-        {props.label && <span className={`input__label`}>{props.label}</span>}
+        <span
+          className={`input__infoBox ${
+            field?.value?.length && "input__infoBox--top"
+          }`}
+        >
+          {props?.icon ?? null}
+          {props.label && <span className={`input__label`}>{props.label}</span>}
         </span>
         {props?.controler === "password" && (
           <>
             {!isShowPassword ? (
-              <BiShow
-                className="password__status"
-                onClick={() => setIsShowPassword(!isShowPassword)}
-              />
+              <span className="password__statusBox">
+                <BiShow
+                  className="password__status"
+                  onClick={() => setIsShowPassword(!isShowPassword)}
+                />
+              </span>
             ) : (
-              <BiHide
-                className="password__status"
-                onClick={() => setIsShowPassword(!isShowPassword)}
-              />
+              <span className="password__statusBox">
+                <BiHide
+                  className="password__status"
+                  onClick={() => setIsShowPassword(!isShowPassword)}
+                />
+              </span>
             )}
           </>
         )}

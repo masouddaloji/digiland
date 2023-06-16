@@ -8,6 +8,7 @@ import { useLogOutUserMutation } from "../../../features/auth/authApiSlice";
 import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
 //hooks
 import useAuth from "../../../hooks/useAuth";
+import useConvertDate from "../../../hooks/useConvertDate";
 //icons
 import { IoClose, IoLogOutOutline } from "react-icons/io5";
 //constants
@@ -32,7 +33,10 @@ const SidebarUser = ({ isShow, setshow }) => {
       })
       .catch((error) => toast.error(persianTexts.useLogout.logoutError));
   };
-
+ 
+  useEffect(()=>{
+    useConvertDate(new Date())
+  },[])
   useEffect(() => {
     const resizeHandler = () => {
       setWidth(window.innerWidth);

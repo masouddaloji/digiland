@@ -78,7 +78,7 @@ export default function Header({}) {
               <div className="col-lg-3">
                   <Link to="/" className="header__logo-box">
                     <img
-                      src="/images/logo/logoFull.png"
+                      src="/images/logo/1.png"
                       alt="logo-img"
                       className="header__logo-img"
                     />

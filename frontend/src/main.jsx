@@ -34,7 +34,7 @@ root.render(
       pauseOnFocusLoss
       draggable
       pauseOnHover
-      theme="light"
+      theme="colored"
     />
     <ScrollToTop />
   </BrowserRouter>

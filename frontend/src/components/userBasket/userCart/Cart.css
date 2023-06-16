@@ -159,7 +159,7 @@
   width: 100%;
   height: 0.5rem;
   background: #4caf50;
-  border-radius: 1.5rem;
+  border-radius: var(--admin-border);
   margin-bottom: 1rem;
 }
 

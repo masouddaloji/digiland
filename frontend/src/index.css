@@ -163,6 +163,9 @@ a {
   --purple: #77037b;
   --purple-25: rgba(166, 105, 219, 0.2);
   --green: #00cc67;
+  --admin-green:#3FB8A9;
+  --admin-red:#FA5757;
+  --admin-yellow:#F8B917;
   --error-text: #e4b7b9;
   --gray: #eee;
   --gray-text: #6b6b6b;
@@ -177,6 +180,7 @@ a {
   /* --red-05: #ff9a9a; */
   --red-25: rgba(255, 66, 66, 0.2);
   --border-btn: 2.5rem;
+  --admin-border: 1.5rem;
   --box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
   --linear: linear-gradient(90deg, #0c97fa, #16e1f5);
   --skeleton: #0000001c;
@@ -225,24 +229,27 @@ a {
 .btn--disable {
   background: var(--gray-25);
 }
+
+/* start auth style */
 .auth {
   width: 100%;
   height: 100vh;
   background: #f1f4fa;
-  padding: 3rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .auth__wrapper {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   display: flex;
+  border-radius: 1.8rem;
+  background-color: var(--white);
+  overflow: hidden;
 }
 
 .auth__imageBox {
-  flex-basis: 50%;
-  border-radius: 1.8rem;
-  overflow: hidden;
-  margin-left: -2rem;
-  z-index: 10;
+  display: none;
 }
 .auth__image {
   width: 100%;
@@ -253,12 +260,10 @@ a {
   display: none;
 }
 .auth__content {
-  flex-basis: 50%;
+  flex-basis: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--white);
-  padding: 1rem 3rem 1rem 1rem;
-  border-radius: 1.8rem;
+  padding: 1rem;
 }
 .auth__logoBox {
   margin: 2rem auto 0.5rem auto;
@@ -268,20 +273,77 @@ a {
   height: 3rem;
 }
 .auth__title {
-  color: var(--black);
-  font-size: 2.1rem;
-  line-height: 2.4;
-  margin-bottom: 2rem;
+  color: var(--black-50);
+  font-size: 1.7rem;
+  margin: 1.7rem 0 2.5rem;
+  width: 100%;
 }
 .auth__form {
   width: 100%;
+  max-width: 52rem;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .auth__form::-webkit-scrollbar {
   display: none;
 }
-
+.auth__btn {
+  display: block;
+  color: var(--white);
+  height: 4rem;
+  border-radius: var(--border-box);
+  border: none;
+  outline: none;
+  margin: 1rem 0;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+  background: var(--blue);
+  transition: all 0.3s;
+  width: 100%;
+  max-width: 52rem;
+}
+.auth__btn--active {
+  cursor: pointer;
+}
+.auth__btn--active:hover {
+  background: var(--blue-hover);
+}
+.auth__loginOptions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+}
+.auth__loginOptions span {
+  font-size: 1.2rem;
+  color: var(--black-50);
+}
+.otherAccount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+}
+.accountBox {
+  background-color: #fafafa;
+  padding: 0.5rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  border-radius: var(--border-box);
+}
+.accountBox span {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.account__image {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: var(--border-box);
+}
+/* end auth style */
 .productBox {
   max-width: 100%;
   height: auto;
@@ -497,6 +559,7 @@ a {
   border-radius: var(--border-box);
   box-shadow: var(--box-shadow);
   padding: 3rem 1rem;
+  background-color: var(--white);
 }
 .table__header {
   display: flex;
@@ -504,10 +567,9 @@ a {
   justify-content: space-between;
   margin-bottom: 2rem;
   padding: 0 1.2rem 1rem;
-  border-bottom: 0.1rem solid var(--gray-50);
 }
 .table__title {
-  color: var(--blue);
+  color: var(--black);
   font-size: 1.4rem;
 }
 .table__link {
@@ -516,11 +578,19 @@ a {
 }
 .table__btn {
   color: var(--white);
-  background-color: var(--blue);
-  padding: 0.4rem 1rem;
+  width: 8rem;
+  height: 2.5rem;
   font-size: 1.1rem;
   cursor: pointer;
   border-radius: var(--border-box);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+}
+.btn__black{
+  background-color: var(--black);
 }
 .table__imageBox {
   width: 5rem;
@@ -564,7 +634,27 @@ a {
   color: var(--red);
   background: var(--red-25);
 }
+.table__price--success {
+  color: var(--admin-green);
+}
+.table__price--pending {
+  color: var(--admin-yellow);
+}
+.table__price--reject {
+  color: var(--admin-red);
+}
+.table__status--success {
+  background: var(--admin-green);
+}
+.table__status--pending {
+  background-color: var(--admin-yellow);
+}
+.table__status--reject {
+  background-color: var(--admin-red);
+
+}
 /* end table style */
+/* start datagrid style */
 .datagrid__container {
   width: 100%;
   user-select: none;
@@ -578,14 +668,23 @@ a {
   display: none !important;
 }
 
-.customdata.css-12u49z-MuiDataGrid-root .MuiDataGrid-columnHeader {
-  background-color: var(--blue);
-}
 .customdata .css-1iyq7zh-MuiDataGrid-columnHeaders > *,
 .customdata .css-ptiqhd-MuiSvgIcon-root {
-  color: var(--white);
+  color: #99b2c6;
+}
+.customdata.MuiDataGrid-root {
+  border: none;
+}
+.customdata.css-12u49z-MuiDataGrid-root .MuiDataGrid-withBorderColor {
+  border-bottom-color: #e6e6e6;
+}
+.customdata.css-12u49z-MuiDataGrid-root
+  .MuiDataGrid-row:not(.MuiDataGrid-row--dynamicHeight)
+  > .MuiDataGrid-cell {
+  color: #747474;
 }
 
+/* end datagrid style */
 .ss02 {
   -moz-font-feature-settings: "ss02";
   -webkit-font-feature-settings: "ss02";
@@ -687,11 +786,17 @@ a {
   .table__title {
     font-size: 1.3rem;
   }
-  .table__btn {
-    padding: 0.4rem 0.6rem;
-  }
+ 
 }
 @media (min-width: 576px) {
+  .auth__wrapper {
+    flex-direction: column;
+  }
+  .auth__content {
+    flex-basis: 50%;
+    padding: 1rem 3rem;
+  }
+
   .row {
     margin-left: auto;
     margin-right: auto;
@@ -793,9 +898,23 @@ a {
 /*end responsive user table */
 
 @media (min-width: 768px) {
-  /* .container {
-    width: 76rem;
-  } */
+  .auth {
+    padding: 2rem 3rem;
+  }
+  .auth__wrapper {
+    flex-direction: row;
+  }
+  .auth__imageBox {
+    display: block;
+    z-index: 10;
+    overflow: hidden;
+    flex-basis: 50%;
+  }
+  .auth__content {
+    flex-basis: 50%;
+    padding: 1rem 1rem 1.5rem 2rem;
+  }
+
   .col-md-1 {
     width: 8.333333%;
     flex: 0 0 auto;
@@ -858,9 +977,12 @@ a {
   }
 }
 @media (min-width: 992px) {
-  /* .container {
-    width: 98rem;
-  } */
+  .auth {
+    padding: 3rem 4rem;
+  }
+  .auth__wrapper {
+    max-width: 120rem;
+  }
   .col-lg-1 {
     width: 8.333333%;
     flex: 0 0 auto;
@@ -924,9 +1046,6 @@ a {
 }
 
 @media (min-width: 1200px) {
-  /* .container {
-    width: 119rem;
-  } */
   .col-xl-1 {
     width: 8.333333%;
     flex: 0 0 auto;

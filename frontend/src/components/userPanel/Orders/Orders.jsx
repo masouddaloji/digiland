@@ -1,24 +1,19 @@
 //packages
 import { DataGrid } from "@mui/x-data-grid";
+//rtk query
+import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
+
+//hooks
+import useAuth from "../../../hooks/useAuth";
+import useConvertDate from "../../../hooks/useConvertDate";
 //styles
 import "./Orders.css";
-import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
-import useAuth from "../../../hooks/useAuth";
+
 
 const Orders = () => {
   const{userID}=useAuth()
   const{data,isLoading,isSuccess}=useGetUserByIdQuery(userID)
-  console.log("data in order",data);
-  const convertDateFormat = (englishDate) => {
-    const date = new Date(englishDate);
-    const options = {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    };
-    const persianDate = new Intl.DateTimeFormat("fa", options).format(date);
-    return persianDate;
-  };
+
   const rows = [
     {
       _id: 1012,
@@ -53,7 +48,7 @@ const Orders = () => {
           {rows.map((row) => (
             <tr key={row._id}>
               <td data-title="سفارش">{row.orderID}</td>
-              <td data-title="تاریخ">{convertDateFormat(row.date)}</td>
+              <td data-title="تاریخ">{useConvertDate(row.date)}</td>
               <td data-title="وضعیت">{row.status}</td>
               <td data-title="مجموع">{row.total.toLocaleString()}</td>
               <td data-title="عملیات‌ها">

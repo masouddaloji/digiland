@@ -67,74 +67,104 @@ export default function Login() {
       {(formik) => (
         <Form>
           <div className="auth">
-            <div className="auth__wrapper">
-              <div className="auth__imageBox">
-                <img src="./images/auth/3.jpeg" alt="" className="auth__image" />
-              </div>
-              <div className="auth__content">
-                <div className="auth__logoBox">
+            <div className="container">
+              <div className="auth__wrapper">
+                <div className="auth__imageBox">
                   <img
-                    className="auth__logoimg"
-                    src="./images/logo-mobile.png"
-                    alt=""
+                    src="./images/auth/login -1.jpg"
+                    className="auth__image"
                   />
                 </div>
-
-                <h3 className="auth__title">
-                  {persianTexts.login.headerTitle}
-                </h3>
-                <div className="auth__form">
-                  <FormControl
-                    controler="text"
-                    label="نام کاربری"
-                    name="loginUserName"
-                    ref={userNameRef}
-                    autoFocus
-                    icon={<HiOutlineMail className="input__icon" />}
-                  />
-                  <FormControl
-                    controler="password"
-                    label="رمز عبور"
-                    name="loginPassword"
-                    icon={<MdLock className="input__icon" />}
-                  />
-                  <div className="login__btns">
-                    <div className="login__checkbox">
-                      <input
-                        type="checkbox"
-                        name="saveme"
-                        id=""
-                        checked={persist}
-                        onChange={persistHandler}
-                      />
-                      <span className="login__checkboxText">
-                        مرا به خاطر بسپار
-                      </span>
-                    </div>
-                    <button type="submit" className="login__forget">
-                      فراموشی گذرواژه
-                    </button>
+                <div className="auth__content">
+                  <div className="auth__logoBox">
+                    <img
+                      className="auth__logoimg"
+                      src="./images/logo-mobile.png"
+                      alt=""
+                    />
                   </div>
-                  <button
-                    disabled={!(formik.dirty && formik.isValid)}
-                    type="submit"
-                    className={`login__btn ${
-                      formik.dirty && formik.isValid
-                        ? "login__btn--active"
-                        : "login__btn--disable"
-                    }`}
-                  >
-                    ورود
-                  </button>
-                </div>
-                <span className="login__divider">
-                  <i>یا</i>
-                </span>
-                <div className="login__boxToRegister">
-                  <Link to="/register" className="login__linkToRegister">
-                    <FiUserPlus className="login__iconToRegister" />
-                    ساخت حساب کاربری
-                  </Link>
+
+                  <div className="auth__form">
+                  <h3 className="auth__title">
+                    {persianTexts.login.headerTitle}
+                  </h3>
+                    <FormControl
+                      controler="text"
+                      label="نام کاربری"
+                      name="loginUserName"
+                      ref={userNameRef}
+                      autoFocus
+                      icon={<HiOutlineMail className="input__icon" />}
+                    />
+                    <FormControl
+                      controler="password"
+                      label="رمز عبور"
+                      name="loginPassword"
+                      icon={<MdLock className="input__icon" />}
+                    />
+                    <div className="login__btns">
+                      <div className="login__checkbox">
+                        <input
+                          type="checkbox"
+                          name="saveme"
+                          id=""
+                          checked={persist}
+                          onChange={persistHandler}
+                        />
+                        <span className="login__checkboxText">
+                          مرا به خاطر بسپار
+                        </span>
+                      </div>
+                      <button type="submit" className="login__forget">
+                        فراموشی گذرواژه
+                      </button>
+                    </div>
+                    <button
+                      disabled={!(formik.dirty && formik.isValid)}
+                      type="submit"
+                      className={`auth__btn ${
+                        formik.dirty && formik.isValid && "auth__btn--active"
+                      }`}
+                    >
+                      ورود
+                    </button>
+                    <div className="auth__loginOptions">
+                    <span>{persianTexts.login.otherAcount}</span>
+                    <div className="otherAccount">
+                      <div className="accountBox">
+                        <span>Discord</span>
+                        <img
+                          src="./images/auth/logo-discord.png"
+                          alt="google logo"
+                          className="account__image"
+                        />
+                      </div>
+                      <div className="accountBox">
+                        <span>Facebook</span>
+                        <img
+                          src="./images/auth/logo-facebook.png"
+                          alt="google logo"
+                          className="account__image"
+                        />
+                      </div>
+                      <div className="accountBox">
+                        <span>Google</span>
+                        <img
+                          src="./images/auth/logo-google.png"
+                          alt="google logo"
+                          className="account__image"
+                        />
+                      </div>
+                    </div>
+                    <span>
+                      {persianTexts.login.notRegister}
+                      <Link to="/register" className="login__registerLink">
+                        {persianTexts.login.createAccountLink}
+                      </Link>
+                    </span>
+                  </div>
+                  </div>
+                  
                 </div>
               </div>
             </div>

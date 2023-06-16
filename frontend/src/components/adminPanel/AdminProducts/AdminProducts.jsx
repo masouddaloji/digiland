@@ -167,7 +167,7 @@ const AdminProducts = () => {
       {isSuccess && <div className="table">
         <div className="table__header">
           <h5 className="table__title">لیست محصولات</h5>
-          <Link to="/admin-addproducts" className="table__btn">
+          <Link to="/admin-addproducts" className="table__btn btn__black">
             افزودن محصول
           </Link>
         </div>

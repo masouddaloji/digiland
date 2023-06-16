@@ -19,6 +19,7 @@ import Rating from "../../components/Rating/Rating";
 import Error from "../../components/Error/Error";
 //hooks
 import useAuth from "../../hooks/useAuth";
+import useConvertDate from "../../hooks/useConvertDate";
 //constanst
 import { allInfosBtn } from "../../Constants";
 //persianText
@@ -89,18 +90,6 @@ export default function Product() {
         break;
     }
   };
-
-  const convertDateFormat = (englishDate) => {
-    const date = new Date(englishDate);
-    const options = {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    };
-    const persianDate = new Intl.DateTimeFormat("fa", options).format(date);
-    return persianDate;
-  };
-
 
   const addToBasketHandler = async (id) => {
     if (userName) {
@@ -495,7 +484,7 @@ export default function Product() {
                                       {review?.userId?.email?.split("@")[0]}
                                     </span>
                                     <span className="comment__time">
-                                      {convertDateFormat(review?.createdAt)}
+                                      {useConvertDate(review?.createdAt)}
                                     </span>
                                   </div>
                                   <div className="comment__description">

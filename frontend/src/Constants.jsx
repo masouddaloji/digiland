@@ -3,16 +3,12 @@ import { nanoid } from "@reduxjs/toolkit";
 
 // import icons
 import {
-  BiDollar,
   BiHome,
-  BiShoppingBag,
   BiStoreAlt,
   BiTachometer,
 } from "react-icons/bi";
 import {
   BsBoxSeam,
-  BsCreditCard,
-  BsFillCartCheckFill,
   BsPrinter,
   BsTools,
 } from "react-icons/bs";
@@ -350,51 +346,47 @@ export const adminPanelItems = [
     title: "سفارشات جدید",
     amount: 3025,
     percent: 2.0,
-    color: "purple",
     positive: true,
-    icon: <BsFillCartCheckFill className="f-24" />,
+    isPrice:false
   },
   {
     id: nanoid(),
     title: "فروش ماهانه",
     amount: 75000000,
-    percent: 5.45,
-    color: "green",
+    percent: 10,
     positive: true,
-    icon: <BiDollar className="f-24" />,
+    isPrice:true
   },
   {
     id: nanoid(),
     title: "سود ماهانه",
     amount: 15000000,
-    percent: 2,
-    color: "prim",
+    percent: 8,
     positive: false,
-    icon: <BsCreditCard className="f-24" />,
+    isPrice:true
   },
   {
     id: nanoid(),
     title: "کاربران جدید",
     amount: 634,
     percent: 1.8,
-    color: "orange",
     positive: false,
-    icon: <FaRegUser className="f-24" />,
+    isPrice:false
   },
 ];
 export const monthlyInformationChart = [
-  { month: "فروردین", فروش: 6450, سود: 2200 },
-  { month: "اردیبهشت", فروش: 5450, سود: 2050 },
-  { month: "خرداد", فروش: 7250, سود: 2300 },
-  { month: "تیر", فروش: 5320, سود: 2030 },
-  { month: "مرداد", فروش: 7800, سود: 2200 },
-  { month: "شهریور", فروش: 4950, سود:1090 },
-  { month: "مهر", فروش: 9000, سود: 2500 },
-  { month: "آبان", فروش: 8400, سود: 2450 },
-  { month: "آذر", فروش: 7600, سود: 2250 },
-  { month: "دی", فروش: 6400, سود: 2090 },
-  { month: "بهمن", فروش: 4000, سود: 1080 },
-  { month: "اسفند", فروش: 8700, سود: 2450 },
+  { month: "فروردین", فروش: 990, سود: 330 },
+  { month: "اردیبهشت", فروش: 976, سود: 325 },
+  { month: "خرداد", فروش: 894, سود: 298 },
+  { month: "تیر", فروش: 767, سود: 255 },
+  { month: "مرداد", فروش: 625, سود: 208 },
+  { month: "شهریور", فروش: 778, سود:259 },
+  { month: "مهر", فروش: 992, سود: 330 },
+  { month: "آبان", فروش: 812, سود: 270 },
+  { month: "آذر", فروش: 889, سود: 296 },
+  { month: "دی", فروش: 745, سود: 248 },
+  { month: "بهمن", فروش: 919, سود: 306 },
+  { month: "اسفند", فروش: 850, سود: 283 },
 ];
 export const weeklyInformationChart = [];
 export const adminSidebarItems = [

@@ -1,34 +1,26 @@
 // icons
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 // styles
-import './ItemBoxAPanel.css'
+import "./ItemBoxAPanel.css";
 
 const ItemBoxAPanel = (props) => {
-  const { title, icon, amount, percent, positive,color } = props;
+  const { title, amount, percent, positive,isPrice } = props;
   return (
     <div className="panelBox ss02">
-      <div className={`panelBox__iconWrapper ${color}`}>{icon}</div>
       <div className="panelBox__content">
-        <div className="flex">
-        
-        {positive? 
-        <span className="profitDetails panelBox__green">
-        
-        <AiOutlineArrowUp className="panelBox__arrow"/>
-        +
-        {percent}
-        <i>%</i>
-        </span>
-        :
-        <span className="profitDetails panelBox__red">
-        <AiOutlineArrowDown className="panelBox__arrow"/>
-        -
-        {percent}
-        <i>%</i>
-        </span>}
-        <span className="panelBox__amount">{amount.toLocaleString()}</span>
-        </div>
         <span className="panelBox__title">{title}</span>
+        <span className="panelBox__amount">{amount.toLocaleString()}
+        {isPrice && <span>تومان</span>}
+        </span>
+
+        <div className="flex">
+         
+          <span className="panelBox__dataInfo">در این ماه</span>
+          <span className="profitDetails">
+            +<span>{percent}</span>
+            <i>%</i>
+          </span>
+        </div>
       </div>
     </div>
   );

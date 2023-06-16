@@ -1,7 +1,8 @@
 .formControl__wrapper {
   width: 100%;
-  margin-bottom: 2.5rem;
   position: relative;
+  margin-bottom: 1.5rem;
+  max-width: 52rem;
 }
 .label--invalid {
   color: var(--red);
@@ -9,6 +10,7 @@
 .inputBox {
   width: 100%;
   position: relative;
+  margin: 0 auto;
 }
 
 .inputBox input,
@@ -19,51 +21,60 @@
   background-color: #fafafa;
   color: var(--gray-text);
   font-size: 1.2rem;
-  border: .15rem solid var(--gray);
+  border: 0.15rem solid var(--gray);
   outline: none;
   box-shadow: var(--box-shadow);
   border-radius: var(--border-box);
 }
-.input__infoBox{
+.input__infoBox,
+.password__statusBox {
   position: absolute;
   top: 50%;
-  right: 1rem;
-  transform: translate(0,-50%);
+  transform: translate(0, -50%);
   transition: all 0.3s;
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
 }
+.input__infoBox {
+  right: 1rem;
+}
+.password__statusBox {
+  left: 1rem;
+}
+
 .input__label {
   display: inline-block;
   font-size: 1.2rem;
   color: #b8b8b8;
   pointer-events: none;
 }
-.input__icon {
+.input__icon,
+.password__status {
   width: 2.2rem;
   height: 1.8rem;
   color: #b8b8b8;
 }
-.inputBox input:focus{
+.inputBox input:focus {
   border-color: var(--blue);
 }
-.inputBox input.input--invalid{
+.inputBox input.input--invalid {
   border-color: var(--red);
 }
-.inputBox input:focus ~ .input__infoBox,.input__infoBox--top {
-  top:0;
-  transform: translate(0,-50%);
+
+.inputBox input:focus ~ .input__infoBox,
+.input__infoBox--top {
+  top: 0;
+  transform: translate(0, -50%);
   background-color: var(--white);
   padding: 0 1rem;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
 }
 .inputBox input:focus ~ .input__infoBox .input__label,
 .inputBox input:focus ~ .input__infoBox .input__icon,
 .input__infoBox--top.input__infoBox .input__label,
-.input__infoBox--top.input__infoBox .input__icon{
+.input__infoBox--top.input__infoBox .input__icon {
   color: var(--black-50);
-  font-size: 1.4rem;
 }
 .uploader {
   border: 2px solid var(--gray);
@@ -303,18 +314,8 @@
   border-color: var(--blue);
 }
 
-.password__status {
-  position: absolute;
-  top: 50%;
-  left: 1rem;
-  font-size: 2rem;
-  color: var(--gray-50);
-  z-index: 3;
-  transform: translateY(-50%);
-}
 .auth__error {
   display: inline-block;
-  margin-top: 1.2rem;
   font-size: 1rem;
   padding-right: 1.5rem;
   font-weight: 600;

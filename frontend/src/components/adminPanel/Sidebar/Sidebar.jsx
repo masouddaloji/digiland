@@ -9,21 +9,22 @@ import { IoClose } from "react-icons/io5";
 // styles
 import "./Sidebar.css";
 
-const Sidebar = ({ isFull,setIsFull }) => {
+const Sidebar = ({ isShow, setIsShow, width }) => {
   return (
-    <div className={`sidebar ${isFull ? "active" : ""}`}>
-      {isFull && <IoClose className="sidebar__closeIcon" onClick={()=>setIsFull(false)}/>}
+    <div className={` ${width >= 992 ? "sidebar" : `sidebar__mobile ${isShow&& "sidebar__mobile--show"}`}`}>
+      {isShow && (
+        <IoClose
+          className="sidebar__closeIcon"
+          onClick={() => setIsShow(false)}
+        />
+      )}
       <ul className="sidebar__lists">
         <Link to="/" className="sidebar__imgLink">
-          {isFull ? (
-            <img
-              src="/images/logo-mobile.png"
-              alt="logo site for mobile"
-              className="sidebar__img"
-            />
-          ) : (
-            <BiHome className="adminPanel__home" />
-          )}
+          <img
+            src="/images/logo/logo.jpg"
+            alt="logo site for mobile"
+            className="sidebar__img"
+          />
         </Link>
         {adminSidebarItems.map((item) => (
           <li className="sidebarItem" key={nanoid()}>
@@ -32,12 +33,12 @@ const Sidebar = ({ isFull,setIsFull }) => {
                 isActive ? "sidebarLink sidebarLink--active" : "sidebarLink"
               }
               to={item.link}
-              onClick={()=>{
-                if(!isFull) setIsFull(false)
+              onClick={() => {
+                if (!isShow) setIsShow(false);
               }}
             >
               <span className="sidebarLink__iconBox">{item.icon}</span>
-              {isFull && <span>{item.title}</span>}
+              {<span>{item.title}</span>}
             </NavLink>
           </li>
         ))}

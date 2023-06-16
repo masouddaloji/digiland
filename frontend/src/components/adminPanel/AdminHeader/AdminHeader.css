@@ -1,0 +1,93 @@
+.admin__header {
+  width: 100%;
+  height: 5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+.admin__menuIcon {
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+  color: var(--gray-text);
+}
+.adminSearch {
+  width: 100%;
+  position: relative;
+  height: 4rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--gray-50);
+}
+.adminSearch input {
+  border: none;
+  outline: none;
+  padding: 0.5rem 1rem 0.5rem 3rem;
+  width: 100%;
+  height: 100%;
+  font-size: 1.3rem;
+  color: var(--gray-text);
+}
+.adminSearch__icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  font-size: 2rem;
+  color: var(--gray-text);
+  transform: translateY(-50%);
+}
+
+.admin__headerLink {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  position: relative;
+}
+.admin__headerIcon {
+  width: 2.2rem;
+  height: 2.5rem;
+  color: var(--black-50);
+  display: block;
+  position: relative;
+}
+
+.admin__headerLink::after {
+  content: "";
+  position: absolute;
+  top: 0.7rem;
+  right: 0.8rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: var(--red);
+}
+
+.admin__headerProfileBox {
+  cursor: pointer;
+  overflow: hidden;
+  margin-right: 1.5rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+}
+.admin__headerProfile {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width:767px){
+    .admin__header{
+        gap: 1rem;
+    }
+}
