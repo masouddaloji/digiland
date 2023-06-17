@@ -27,10 +27,10 @@ import { persianTexts } from "../../text";
 //icons
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { HiOutlineBellAlert } from "react-icons/hi2";
-import { AiOutlineRetweet,AiOutlineStar } from "react-icons/ai";
-import { BiCheckSquare, BiCommentDetail} from "react-icons/bi";
+import { AiOutlineRetweet, AiOutlineStar } from "react-icons/ai";
+import { BiCheckSquare, BiCommentDetail } from "react-icons/bi";
 import { FaTruck, FaRegHeart } from "react-icons/fa";
-import { BsCheckLg, BsPen, BsXSquare,BsSortDown } from "react-icons/bs";
+import { BsCheckLg, BsPen, BsXSquare, BsSortDown } from "react-icons/bs";
 import { CgList } from "react-icons/cg";
 import { TbChecklist, TbTriangle, TbTriangleInverted } from "react-icons/tb";
 //styles
@@ -50,7 +50,6 @@ export default function Product() {
   const { userName } = useAuth();
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
- 
 
   const showRatingResultPersian = (rate) => {
     switch (rate) {
@@ -107,7 +106,8 @@ export default function Product() {
   };
   const addToFavoriteHandler = async () => {
     if (userName) {
-      await addToFavorite(productId).unwrap()
+      await addToFavorite(productId)
+        .unwrap()
         .then((response) => {
           toast.success(persianTexts.favorite.addtoFavorite.success);
         })
@@ -120,20 +120,19 @@ export default function Product() {
   };
   return (
     <div className={`product ${isLoading ? "product--loader" : null}`}>
-      {isLoading ? (
-        <Loader />
-      ) : isSuccess ? (
+      {isLoading && <Loader />}
+      {isSuccess && (
         <div className="container">
           {/* bread crumbs */}
           {/* <Breadcrumb /> */}
           <div className="product__wrapper">
             <div className="row">
               {/* product images */}
-              <div className="col-12 col-md-5 col-lg-5">
+              <div className="col-12 col-md-4 col-lg-4 col-xl-4">
                 <ProductGallery array={product?.gallery} />
               </div>
               {/* product details */}
-              <div className="col-12 col-md-4 col-lg-4">
+              <div className="col-12 col-md-5 col-lg-5 col-xl-5">
                 <div>
                   <h2 className="product__detailsTitle">{product?.title}</h2>
                   <span className="product__detailsSubtitle">
@@ -208,7 +207,7 @@ export default function Product() {
                       <div className="product__allColors">
                         {product?.colors?.map((color) => (
                           <div
-                          key={nanoid()}
+                            key={nanoid()}
                             style={selectColorStyle(color)}
                             className={`product__color ${
                               selectedColor === color ? "colorSelected" : null
@@ -444,12 +443,12 @@ export default function Product() {
                   <div className="row">
                     <div className="allComments__wrapper">
                       <div className="allComments__header">
-                        <h2 className="allComments__title">
+                        <h3 className="allComments__title">
                           نقد ها و بررسی ها
-                          {product?.reviews?.length && (
+                          {product?.reviews?.length ? (
                             <span>{product.reviews.length}</span>
-                          )}
-                        </h2>
+                          ) : null}
+                        </h3>
                         <ul className="allComments__sorted">
                           <BsSortDown className="allComments__sorteIcon" />
                           <li className="allComments__sorteItem allComments__sorteItem--active">
@@ -674,7 +673,7 @@ export default function Product() {
             </div>
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 }

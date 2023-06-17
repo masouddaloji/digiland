@@ -3,7 +3,7 @@ import { shopApi } from "../../App/api/shopApi";
 const orderApiSlice = shopApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllOrders: builder.query({
-      query: () => "/orders",
+      query: ({page,limit}) => `/orders?page=${page}&limit=${limit}`,
       providesTags: (result, error, arg) => {
         if (result?.data?.length) {
           return [

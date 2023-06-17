@@ -2,3 +2,6 @@
     color: var(--red);
     font-size: 1.6rem;
 }
+.even-row{
+    background-color: #00cc67;
+  }

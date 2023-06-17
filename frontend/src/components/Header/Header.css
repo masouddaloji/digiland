@@ -223,15 +223,29 @@
      mobile menu
 ================== 
 */
+.mobile__mask {
+  position: fixed;
+  top: 0;
+  right: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.25);
+  transition: all 0.3s;
+}
+.mobile__mask--show {
+  right: 0;
+}
 .mobileMenu {
   position: fixed;
   top: 0;
-  right: -28rem;
+  right: -27rem;
   width: 27rem;
   height: 100vh;
   background: var(--white);
   z-index: 15;
   transition: all 0.3s;
+  z-index: 200;
 }
 .mobileMenu.mobileMenu--show {
   right: 0;

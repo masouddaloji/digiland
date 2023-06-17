@@ -7,6 +7,8 @@ import {
   CartesianGrid,
   AreaChart,
   Area,
+  Label,
+  
 } from "recharts";
 
 // variables
@@ -36,10 +38,10 @@ const Chart = () => {
         <AreaChart
           data={monthlyInformationChart}
           margin={{
-            top: 10,
-            right: 10,
-            left: 10,
-            bottom: 10,
+            top: 5,
+            right: 5,
+            left: 5,
+            bottom: 5,
           }}
         >
           <defs>
@@ -61,14 +63,16 @@ const Chart = () => {
             tick={{ fontSize: 11 }}
             tickLine={false}
             axisLine={false}
-            angle={-35}
-          />
+            angle={-20}
+          >
+          </XAxis>
           <YAxis
             tickCount={8}
             tickLine={false}
             axisLine={false}
-            tickFormatter={(number) => `${number}M`}
-            tick={{ fontSize: 11,width:100}}
+            tickFormatter={(number) => `${number}`}
+            tick={{ fontSize: 11}}
+            label={{ value: 'بر حسب (میلیون تومان)', angle: -90, position: 'insideLeft' }}
           />
           <CartesianGrid vertical={false} opacity={0.5} fillRule="#CFCFCF" strokeDasharray="2 2"/>
           <Tooltip content={CustomTooltip}/>
@@ -79,6 +83,7 @@ const Chart = () => {
             fillOpacity={1}
             fill="url(#sale)"
           />
+         
         </AreaChart>
       </ResponsiveContainer>
     </div>

@@ -1,7 +1,7 @@
 .admin__header {
   width: 100%;
   height: 5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -38,7 +38,11 @@
   color: var(--gray-text);
   transform: translateY(-50%);
 }
-
+.admin__header-details{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
 .admin__headerLink {
   width: 4rem;
   height: 4rem;
@@ -71,7 +75,6 @@
 .admin__headerProfileBox {
   cursor: pointer;
   overflow: hidden;
-  margin-right: 1.5rem;
   width: 4rem;
   height: 4rem;
   border-radius: 0.8rem;
@@ -90,4 +93,8 @@
     .admin__header{
         gap: 1rem;
     }
+    .admin__header-details{
+      gap: 1rem;
+    }
 }
+

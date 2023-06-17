@@ -21,7 +21,7 @@ const Uploader = (props) => {
     {
       isLoading: profileUploadLoading,
       isSuccess: profileUploadSuccess,
-      isError: profileUploadError,
+      error: profileUploadError,
     },
   ] = useUploadProfileMutation();
   const [
@@ -29,7 +29,7 @@ const Uploader = (props) => {
     {
       isLoading: coverUploadLoading,
       isSuccess: coverUploadSuccess,
-      isError: coverUploadError,
+      error: coverUploadError,
     },
   ] = useUploadProductCoverMutation();
   const [
@@ -37,8 +37,7 @@ const Uploader = (props) => {
     {
       isLoading: galleryUploadLoading,
       isSuccess: galleryUploadSuccess,
-      isError: galleryUploadError,
-      error: galleryError,
+      error: galleryUploadError,
     },
   ] = useUploadProductGalleryMutation();
 
@@ -78,18 +77,7 @@ const Uploader = (props) => {
         .catch((error) => console.log("error in uploader", error));
     }
   };
-  const showSuccessMeassage = () => {
-    switch (props.typeuploader) {
-      case "product-multi":
-        return persianTexts.uploader.productMulti.success;
-      case "product-single":
-        return persianTexts.uploader.productsingle.success;
-      case "profileUploader":
-        return persianTexts.uploader.profile.success;
-      default:
-        break;
-    }
-  };
+
   const showErrorMeassage = () => {
     switch (props.typeuploader) {
       case "product-multi":
@@ -146,20 +134,33 @@ const Uploader = (props) => {
           <span className="auth__error">{meta.error}</span>
         )}
 
-        {(coverUploadLoading ||
-          galleryUploadLoading ||
-          profileUploadLoading) && (
+        <div
+          className={`uploader__progress ${
+            (coverUploadLoading ||
+              galleryUploadLoading ||
+              profileUploadLoading ||
+              coverUploadSuccess ||
+              galleryUploadSuccess ||
+              profileUploadSuccess) &&
+            "uploader__progress--show"
+          }`}
+        >
           <div
-            className={`uploader__progress ${
-              (coverUploadLoading ||
-                galleryUploadLoading ||
-                profileUploadLoading) &&
-              "uploader__progress--show"
-            }`}
-          >
-            <div className={`uploader__progressbar `}></div>
-          </div>
-        )}
+            className={`uploader__progressbar ${
+              coverUploadLoading ||
+              galleryUploadLoading ||
+              (profileUploadLoading && "uploader__progressbar--loading")
+            }
+
+            ${
+              (coverUploadSuccess ||
+                galleryUploadSuccess ||
+                profileUploadSuccess) &&
+              "uploader__progressbar--complite"
+            } 
+                `}
+          ></div>
+        </div>
 
         <button
           onClick={uploadHandler}
@@ -170,33 +171,31 @@ const Uploader = (props) => {
           آپلود
         </button>
 
-        {(coverUploadSuccess || galleryUploadSuccess || profileUploadSuccess) &&
-          field.value && (
-            <div className="uploadResult__wrapper">
-              <p className="upload__resultText">{showSuccessMeassage()}</p>
-
-              <div className="upload__showImages">
-                {props?.multiple && field.value ? (
-                  field.value.map((item) => (
-                    <div className="upload__previewBox">
-                      <img
-                        className="upload__previewImage"
-                        key={nanoid()}
-                        src={`http://localhost:8000${item}`}
-                      />
-                    </div>
-                  ))
-                ) : field.value ? (
-                  <div className="upload__previewBox">
+        {field.value && (
+          <div className="uploadResult__wrapper">
+            <div className="upload__showImages">
+              {field?.value?.length &&
+              props.typeuploader === "product-multi" ? (
+                field.value.map((item) => (
+                  <div className="upload__previewBox" key={nanoid()}>
                     <img
                       className="upload__previewImage"
-                      src={`http://localhost:8000${field.value}`}
+                      src={`http://localhost:8000${item}`}
                     />
                   </div>
-                ) : null}
-              </div>
+                ))
+              ) : field?.value?.length &&
+                props.typeuploader !== "product-multi" ? (
+                <div className="upload__previewBox">
+                  <img
+                    className="upload__previewImage"
+                    src={`http://localhost:8000${field.value}`}
+                  />
+                </div>
+              ) : null}
             </div>
-          )}
+          </div>
+        )}
         {(coverUploadError || galleryUploadError || profileUploadError) && (
           <div className="uploadResult__wrapper">
             <p className="upload__resultText">{showErrorMeassage()}</p>

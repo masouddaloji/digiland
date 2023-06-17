@@ -1,23 +1,38 @@
 .sidebar {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  bottom: 2rem;
   background: var(--white);
-  overflow: hidden;
-  min-height: 100%;
-  width: 100%;
+  width: 25%;
   transition: 0.3s;
   border-radius: 3rem;
 }
+.admin__mask{
+  position: fixed;
+  top: 0;
+  right: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.25);
+  transition: all 0.3s;
+}
+.admin__mask--show{
+  right: 0;
+}
 .sidebar__mobile {
   position: fixed;
+  width: 25rem;
   top: 0;
   right: -25rem;
   bottom: 0;
-  width: 25rem;
   transition: 0.4s;
   background: var(--white);
   overflow: hidden;
   z-index: 100;
 }
-.sidebar__mobile--show{
+.sidebar__mobile--show {
   right: 0;
 }
 .sidebar__lists {
@@ -34,19 +49,11 @@
   z-index: 10;
 }
 .sidebar__imgLink {
-  display: block;
-  width: 100%;
-  height: 6rem;
-  padding: 2rem 0;
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
+  padding: 2rem 2rem 0.7rem 0;
+  display: inline-block;
 }
 .sidebar__img {
-  width: 100%;
-  height: 100%;
   display: block;
-  filter: brightness(0) invert(1);
 }
 
 .sidebarItem {
@@ -83,3 +90,8 @@
   vertical-align: middle;
 }
 
+@media(min-width:1200px){
+  .sidebar{
+    width: 16.6666%;
+  }
+}

@@ -89,10 +89,6 @@ const AddProduct = () => {
                 <div className="col-12 col-md-6">
                   <FormControl
                     label={persianTexts.admin.products.label.inputLabelTitle}
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderTitle
-                    }
                     controler="text"
                     name="productTitle"
                   />
@@ -100,10 +96,6 @@ const AddProduct = () => {
                 <div className="col-12 col-md-6">
                   <FormControl
                     label={persianTexts.admin.products.label.inputLabelPrice}
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderPrice
-                    }
                     controler="text"
                     name="productPrice"
                   />
@@ -111,10 +103,6 @@ const AddProduct = () => {
                 <div className="col-12 col-md-6">
                   <FormControl
                     label={persianTexts.admin.products.label.inputLabelRating}
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderRating
-                    }
                     controler="select"
                     selectType="color"
                     name="productRating"
@@ -124,10 +112,6 @@ const AddProduct = () => {
                 <div className="col-12 col-md-6">
                   <FormControl
                     label={persianTexts.admin.products.label.inputLabelQuantity}
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderQuantity
-                    }
                     controler="text"
                     name="productQantity"
                   />
@@ -135,10 +119,6 @@ const AddProduct = () => {
                 <div className="col-12 col-md-6">
                   <FormControl
                     label={persianTexts.admin.products.label.inputLabelCategory}
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderCategory
-                    }
                     controler="text"
                     name="productCategory"
                   />
@@ -146,10 +126,6 @@ const AddProduct = () => {
                 <div className="col-12 col-md-6">
                   <FormControl
                     label={persianTexts.admin.products.label.inputLabelSegment}
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderSegment
-                    }
                     controler="text"
                     name="productSegment"
                   />
@@ -157,10 +133,6 @@ const AddProduct = () => {
                 <div className="col-12 col-md-6">
                   <FormControl
                     label={persianTexts.admin.products.label.inputLabelColors}
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderColors
-                    }
                     controler="checkbox"
                     name="productColors"
                     options={colorOptions}
@@ -170,10 +142,6 @@ const AddProduct = () => {
                 <div className="col-12 col-md-6">
                   <FormControl
                     label={persianTexts.admin.products.label.inputLabelBrand}
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderBrand
-                    }
                     controler="text"
                     name="productBrand"
                   />
@@ -183,10 +151,6 @@ const AddProduct = () => {
                     label={
                       persianTexts.admin.products.label.inputLabelSubCategory
                     }
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderSubCategory
-                    }
                     controler="text"
                     name="productSubCategory"
                   />
@@ -194,10 +158,6 @@ const AddProduct = () => {
                 <div className="col-12 col-md-6">
                   <FormControl
                     label={persianTexts.admin.products.label.inputLabelOffPrice}
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderOffPrice
-                    }
                     controler="text"
                     name="productOffPrice"
                   />
@@ -207,10 +167,6 @@ const AddProduct = () => {
                     label={
                       persianTexts.admin.products.label
                         .inputLabelShortDescription
-                    }
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderShortDescription
                     }
                     controler="editor"
                     name="productShortDescription"
@@ -222,10 +178,6 @@ const AddProduct = () => {
                     label={
                       persianTexts.admin.products.label
                         .inputLabelFullDescription
-                    }
-                    placeholder={
-                      persianTexts.admin.products.placeholder
-                        .inputPlaceholderFullDescription
                     }
                     controler="editor"
                     name="productFullDescription"

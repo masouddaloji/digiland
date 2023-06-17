@@ -4,6 +4,11 @@
   margin-bottom: 1.5rem;
   max-width: 52rem;
 }
+.editor__wrapper {
+  width: 100%;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
 .label--invalid {
   color: var(--red);
 }
@@ -76,6 +81,7 @@
 .input__infoBox--top.input__infoBox .input__icon {
   color: var(--black-50);
 }
+/* start uploader style */
 .uploader {
   border: 2px solid var(--gray);
   border-radius: var(--border-box);
@@ -108,25 +114,34 @@
 }
 .uploader__progress {
   width: 100%;
-  height: 0;
+  height: 0.6rem;
   background: var(--gray-50);
   border-radius: 2rem;
   margin-top: 3rem;
   position: relative;
-  overflow: hidden;
+  display: none;
 }
 .uploader__progress--show {
-  height: 0.6rem;
+  display: block;
 }
 .uploader__progressbar {
   position: absolute;
   top: 0;
   left: 0;
   width: 0;
-  height: inherit;
+  height: 100%;
   background: var(--green);
   border-radius: 2rem;
+  transition: all 0.5s;
 }
+
+.uploader__progressbar--loading {
+  width: 50%;
+}
+.uploader__progressbar--complite {
+  width: 100%;
+}
+
 .uploader__btn {
   margin: 2rem auto;
   width: 14rem;
@@ -156,7 +171,7 @@
   margin: 1rem 0;
   text-align: center;
   font-size: 1.3rem;
-  color: var(--green);
+  color: var(--red-50);
 }
 .upload__showImages {
   display: flex;
@@ -178,7 +193,7 @@
   width: 100%;
   height: 100%;
 }
-
+/* end uploader stylw */
 .select__searchInput {
   width: 100%;
   border: 1px solid var(--gray-50);

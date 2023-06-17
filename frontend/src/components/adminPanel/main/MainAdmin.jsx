@@ -16,7 +16,7 @@ import { adminPanelItems } from "./../../../Constants";
 import "./MainAdmin.css";
 
 const MainAdmin = () => {
-  const { data: orders, isLoading, isSuccess } = useGetAllOrdersQuery();
+  const { data: orders, isLoading, isSuccess } = useGetAllOrdersQuery({page:1,limit:6});
   const columns = [
     {
       field: "_id",
@@ -28,7 +28,7 @@ const MainAdmin = () => {
     {
       field: "title",
       headerName: "محصول",
-      minWidth:200,
+      minWidth: 200,
       flex: 1,
       align: "start",
       headerAlign: "center",
@@ -106,7 +106,10 @@ const MainAdmin = () => {
   });
 
   return (
-    <div className="indexAdmin">
+  <>
+  {isLoading && <Loader />}
+    {isSuccess && 
+      <div className="indexAdmin">
       <div className="row">
         {adminPanelItems.map((item) => (
           <div className="col-12 col-sm-6 col-lg-4 col-xl-3" key={item.id}>
@@ -147,6 +150,8 @@ const MainAdmin = () => {
         </div>
       </div>
     </div>
+    }
+  </>
   );
 };
 

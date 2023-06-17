@@ -1,33 +1,14 @@
-import  { useEffect, useRef } from "react";
+import { useRef } from "react";
 // packages
-import { useField, useFormikContext } from "formik";
+import { useField } from "formik";
 import { Editor } from "@tinymce/tinymce-react";
 
 const TextEditor = (props) => {
   const [field, meta, helpers] = useField(props);
-  const { setFieldValue, setFieldTouched, handleBlur } = useFormikContext();
-  const containerRef = useRef();
-  const editorRef = useRef();
 
-  const change = () => {
-    if (editorRef?.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
-  useEffect(() => {
-    const outSideClickHandler = (e) => {
-      const isIn = !containerRef?.current?.contains(e.target);
-      if (isIn) {
-        handleBlur(e);
-      }
-    };
-    document.body.addEventListener("click", outSideClickHandler);
-    return () => {
-      document.body.removeEventListener("click", outSideClickHandler);
-    };
-  }, []);
+  const editorRef = useRef();
   return (
-    <div className="formControl__wrapper">
+    <div className="editor__wrapper">
       {props.label && (
         <label
           htmlFor={field.name}
@@ -49,15 +30,15 @@ const TextEditor = (props) => {
           onInit={(evt, editor) => (editorRef.current = editor)}
           value={field?.value}
           onEditorChange={(content) => {
-            setFieldTouched(field?.name, true);
-            setFieldValue(field?.name, content);
+            helpers.setTouched(true);
+            helpers.setValue(content);
           }}
           {...props}
           {...field}
           ref={editorRef}
           init={{
-            content_css:"false",
-            directionality:"rtl",
+            content_css: "false",
+            directionality: "rtl",
             height: 300,
             menubar: true,
             plugins: [

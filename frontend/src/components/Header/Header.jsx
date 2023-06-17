@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // packages
 import { Link } from "react-router-dom";
 // components
@@ -12,7 +12,7 @@ import { useLogOutUserMutation } from "../../features/auth/authApiSlice";
 import { useGetBasketQuery } from "../../features/basket/basketApiSlice";
 //hooks
 import useAuth from "../../hooks/useAuth";
-
+import useOutsideClick from "../../hooks/useOutsideClick";
 // icons
 import { IoPersonOutline } from "react-icons/io5";
 import { VscClose } from "react-icons/vsc";
@@ -28,6 +28,7 @@ import { persianTexts } from "../../text";
 import "./Header.css";
 
 export default function Header({}) {
+  const mobileMoskRef = useRef();
   const { userName, userRole } = useAuth();
   const [logOutUser] = useLogOutUserMutation();
   const {
@@ -36,16 +37,11 @@ export default function Header({}) {
     isSuccess: basketSuccess,
     isError: basketError,
   } = useGetBasketQuery();
-
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [deviceWidth, setDeviceWidth] = useState({ width: window.innerWidth });
   const [isShowSideBarCart, setIsShowSideBarCart] = useState(false);
-  const [isShowFilterOptions, setIsShowFilterOptions] = useState(false);
 
-  const resizaHandler = () => {
-    setDeviceWidth({ width: window.innerWidth });
-  };
-
+  useOutsideClick({ ref: mobileMoskRef, setStateHandler: setShowMobileMenu });
   const logoutHandler = async () => {
     await logOutUser()
       .unwrap()
@@ -58,6 +54,9 @@ export default function Header({}) {
   };
 
   useEffect(() => {
+    const resizaHandler = () => {
+      setDeviceWidth({ width: window.innerWidth });
+    };
     window.addEventListener("resize", resizaHandler);
     return () => window.removeEventListener("resize", resizaHandler);
   }, []);
@@ -76,13 +75,13 @@ export default function Header({}) {
           <div className="container">
             <div className="row">
               <div className="col-lg-3">
-                  <Link to="/" className="header__logo-box">
-                    <img
-                      src="/images/logo/1.png"
-                      alt="logo-img"
-                      className="header__logo-img"
-                    />
-                  </Link>
+                <Link to="/" className="header__logo-box">
+                  <img
+                    src="/images/logo/1.png"
+                    alt="logo-img"
+                    className="header__logo-img"
+                  />
+                </Link>
               </div>
               <div className="col-lg-6">
                 <Search />
@@ -153,130 +152,136 @@ export default function Header({}) {
         </header>
       ) : (
         /* start mobile */
-        <header className="mobileHeader">
-          {/* start basket sidebar in mobile */}
-          <SidebarCart
-            isShowSideBarCart={isShowSideBarCart}
-            setIsShowSideBarCart={setIsShowSideBarCart}
-          />
-          {/* end basket sidebar in mobile */}
+        <>
           <div
-            className={`${
-              showMobileMenu ? "mobileMenu mobileMenu--show" : "mobileMenu"
-            }`}
-          >
-            <div className="mobileMenu__close">
-              <div className="mobileMenu__closeBox">
-                <VscClose
-                  className="mobileMenu__closeIcon fullIcon"
-                  onClick={() => setShowMobileMenu(false)}
-                />
+            className={`mobile__mask ${showMobileMenu && "mobile__mask--show"}`}
+            ref={mobileMoskRef}
+          ></div>
+          <header className="mobileHeader">
+            {/* start basket sidebar in mobile */}
+            <SidebarCart
+              isShowSideBarCart={isShowSideBarCart}
+              setIsShowSideBarCart={setIsShowSideBarCart}
+            />
+            {/* end basket sidebar in mobile */}
+            <div
+              className={`${
+                showMobileMenu ? "mobileMenu mobileMenu--show" : "mobileMenu"
+              }`}
+            >
+              <div className="mobileMenu__close">
+                <div className="mobileMenu__closeBox">
+                  <VscClose
+                    className="mobileMenu__closeIcon fullIcon"
+                    onClick={() => setShowMobileMenu(false)}
+                  />
+                </div>
               </div>
-            </div>
-            <ul className="mobileMenu__lists">
-              {menus.map((menu) => (
-                <li className="mobileMenu__item" key={menu.id}>
-                  <MobileMenuItem {...menu} setShow={setShowMobileMenu}/>
+              <ul className="mobileMenu__lists">
+                {menus.map((menu) => (
+                  <li className="mobileMenu__item" key={menu.id} onClick={()=>setShowMobileMenu(false)}>
+                    <MobileMenuItem {...menu} setShow={setShowMobileMenu} />
+                  </li>
+                ))}
+
+                <li className="mobileMenu__item">
+                  <Link className="mobileMenu__link" to="/">
+                    پرسش و پاسخ
+                  </Link>
                 </li>
-              ))}
+                <li className="mobileMenu__item">
+                  <Link className="mobileMenu__link" to="/">
+                    پیگیری سفارش
+                  </Link>
+                </li>
+                <li className="mobileMenu__item">
+                  <Link className="mobileMenu__link" to="/">
+                    سبد خرید
+                  </Link>
+                </li>
+              </ul>
+            </div>
 
-              <li className="mobileMenu__item">
-                <Link className="mobileMenu__link" to="/">
-                  پرسش و پاسخ
-                </Link>
-              </li>
-              <li className="mobileMenu__item">
-                <Link className="mobileMenu__link" to="/">
-                  پیگیری سفارش
-                </Link>
-              </li>
-              <li className="mobileMenu__item">
-                <Link className="mobileMenu__link" to="/">
-                  سبد خرید
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="container">
-            <div className="row">
-              <div className="col-8 col-md-6">
-                <div className="mobileHeader__rightBox">
-                  <div className="mobileHeader__burgerBox">
-                    <RxHamburgerMenu
-                      className="mobileHeader__burgerIcon fullIcon"
-                      onClick={() => setShowMobileMenu(true)}
-                    />
-                  </div>
-                  <div className="mobileHeader__logoBox">
-                    <img
-                      src="/images/logo-mobile.png"
-                      alt="logo site for mobile"
-                      className="mobileHeader__logoImg"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-4 col-md-6">
-                <div className="mobileHeader__leftBox">
-                  {!userName ? (
-                    <Link className="mobileHeader__authUser" to="/login">
-                      <div className="header__authUser-box">
-                        <IoPersonOutline className="fullIcon" />
-                      </div>
-                    </Link>
-                  ) : (
-                    <div className="mobileHeader__userInfo">
-                      <div className="header__authUser-box">
-                        <RiUserSettingsLine className="fullIcon" />
-                      </div>
-                      <ul className="header__userOptions">
-                        {userRole === "superAdmin" || userRole === "admin" ? (
-                          <li className="header__userOption">
-                            <Link to="/adminpanel">پنل مدیریت</Link>
-                          </li>
-                        ) : null}
-                        <li className="header__userOption">
-                        <Link to="/userpanel">حساب کاربری</Link>
-                        </li>
-                        <li className="header__userOption">
-                          {" "}
-                          <Link to="/basket">سبد خرید</Link>
-                        </li>
-                        <li
-                          className="header__userOption"
-                          onClick={logoutHandler}
-                        >
-                          خروج
-                        </li>
-                      </ul>
+            <div className="container">
+              <div className="row">
+                <div className="col-8 col-md-6">
+                  <div className="mobileHeader__rightBox">
+                    <div className="mobileHeader__burgerBox">
+                      <RxHamburgerMenu
+                        className="mobileHeader__burgerIcon fullIcon"
+                        onClick={() => setShowMobileMenu(true)}
+                      />
                     </div>
-                  )}
-                  <div className="mobileHeader__basket">
-                    <FiShoppingBag
-                      className="mobileHeader__basketIcon"
-                      onClick={() => setIsShowSideBarCart(true)}
-                    />
-                    {userName ? (
-                      <>
-                        {baskets?.totalQTY ? (
-                          <span className="mobileHeader__basketCounter ss02">
-                            {baskets.totalQTY}
-                          </span>
-                        ) : null}
-                      </>
-                    ) : null}
+                    <div className="mobileHeader__logoBox">
+                      <img
+                        src="/images/logo-mobile.png"
+                        alt="logo site for mobile"
+                        className="mobileHeader__logoImg"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-4 col-md-6">
+                  <div className="mobileHeader__leftBox">
+                    {!userName ? (
+                      <Link className="mobileHeader__authUser" to="/login">
+                        <div className="header__authUser-box">
+                          <IoPersonOutline className="fullIcon" />
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className="mobileHeader__userInfo">
+                        <div className="header__authUser-box">
+                          <RiUserSettingsLine className="fullIcon" />
+                        </div>
+                        <ul className="header__userOptions">
+                          {userRole === "superAdmin" || userRole === "admin" ? (
+                            <li className="header__userOption">
+                              <Link to="/adminpanel">پنل مدیریت</Link>
+                            </li>
+                          ) : null}
+                          <li className="header__userOption">
+                            <Link to="/userpanel">حساب کاربری</Link>
+                          </li>
+                          <li className="header__userOption">
+                            {" "}
+                            <Link to="/basket">سبد خرید</Link>
+                          </li>
+                          <li
+                            className="header__userOption"
+                            onClick={logoutHandler}
+                          >
+                            خروج
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                    <div className="mobileHeader__basket">
+                      <FiShoppingBag
+                        className="mobileHeader__basketIcon"
+                        onClick={() => setIsShowSideBarCart(true)}
+                      />
+                      {userName ? (
+                        <>
+                          {baskets?.totalQTY ? (
+                            <span className="mobileHeader__basketCounter ss02">
+                              {baskets.totalQTY}
+                            </span>
+                          ) : null}
+                        </>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <Search />
+              <div className="row">
+                <div className="col">
+                  <Search />
+                </div>
               </div>
             </div>
-          </div>
-        </header>
+          </header>
+        </>
       )}
     </>
   );

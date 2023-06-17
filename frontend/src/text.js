@@ -115,18 +115,6 @@ export const persianTexts = {
         inputLabelGallery: "عکس های محصول",
       },
       placeholder: {
-        inputPlaceholderTitle: "گوشی سامسونگ s23 اولترا 256گیگ",
-        inputPlaceholderPrice: "50,000,000",
-        inputPlaceholderRating: "امتیاز محصول را انتخاب کنید",
-        inputPlaceholderQuantity: 20,
-        inputPlaceholderCategory: "الکترونیک",
-        inputPlaceholderSubCategory: "موبایل",
-        inputPlaceholderSegment: "s23 ultra 256 gb",
-        inputPlaceholderColors: "رنگ های محصول را انتخاب کنید",
-        inputPlaceholderShortDescription: "توضیحات محصول را وارد کنید",
-        inputPlaceholderFullDescription: "اطلاعات محصول را وارد کنید",
-        inputPlaceholderBrand: "samsung",
-        inputPlaceholderOffPrice: 15,
         inputPlaceholderCover: "کاور محصول را انتخاب کنید",
         inputPlaceholderGallery: "عکس های محصول را انتخاب کنید",
       },
@@ -232,15 +220,15 @@ export const persianTexts = {
   uploader: {
     productMulti: {
       success: "عکس های محصول آپلود شدند",
-      error: "آپلود عکس های محصول با مشکل مواجه شد لطفا دوباره تلاش کنید",
+      error: "حجم عکس های انتخابی نباید بیشتر از 4 مگابایت باشد",
     },
     productsingle: {
       success: "کاور محصول آپلود شد",
-      error: "آپلود کاور با مشکل مواجه شد لطفا دوباره تلاش کنید",
+      error: "حجم فایل بیشتر از چهار مگابایت است",
     },
     profile: {
       success: "عکس پروفایل آپلود شد",
-      error: "مشکلی در آپلود عکس پروفایل پیش آمد",
+      error: "حجم فایل بیشتر از چهار مگابایت است",
     },
   },
   addProducts: {

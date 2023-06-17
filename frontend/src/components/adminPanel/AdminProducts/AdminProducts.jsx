@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { toast } from "react-toastify";
+import { Tooltip } from "@mui/material";
 //rtk query
 import {
   useDeleteProductMutation,
@@ -41,21 +42,30 @@ const AdminProducts = () => {
     navigate(`/admin-editproduct/${productIdSelected}`);
   };
   const removeProductHandler = () => {
-    deleteProduct(productIdSelected).unwrap()
+    deleteProduct(productIdSelected)
+      .unwrap()
       .then((res) => {
-        toast.success(persianTexts.adminProduct.deleteProduct.removeProductSuccess);
+        toast.success(
+          persianTexts.adminProduct.deleteProduct.removeProductSuccess
+        );
       })
       .catch((error) => {
         toast.error(persianTexts.adminProduct.deleteProduct.removeProductError);
       });
   };
+  function getRowClassName(params) {
+    return params.rowIndex % 2 === 0 ? "even-row" : "odd-row";
+  }
   const columns = [
     {
       field: "image",
       headerName: "عکس",
-      width: 100,
+      width: 80,
       align: "center",
       headerAlign: "center",
+      editable: false,
+      sortable: false,
+      disableColumnMenu: true,
       renderCell: (params) => (
         <div className="table__imageBox">
           <img
@@ -69,75 +79,96 @@ const AdminProducts = () => {
     {
       field: "title",
       headerName: "محصول",
+      minWidth: 200,
       flex: 1,
       align: "center",
       headerAlign: "center",
+      renderCell: (params) => (
+        <Tooltip title={params.value} classes={{ tooltip: "custom__tooltip" }}>
+          <span>{params.value}</span>
+        </Tooltip>
+      ),
     },
     {
       field: "_id",
       headerName: "آیدی",
-      flex: 1,
+      width: 185,
       align: "center",
       headerAlign: "center",
+      editable: false,
+      sortable: false,
+      disableColumnMenu: true,
+      renderCell: (params) => (
+        <Tooltip title={params.value} classes={{ tooltip: "custom__tooltip" }}>
+          <span>{params.value}</span>
+        </Tooltip>
+      ),
     },
     {
       field: "price",
       headerName: "قیمت",
-      width: 120,
+      width: 100,
       align: "center",
       headerAlign: "center",
-      renderCell: (params) => params.row.price.toLocaleString() + " تومان",
+      renderCell: (params) => (
+        <Tooltip title={params.value.toLocaleString() + " تومان"} classes={{ tooltip: "custom__tooltip" }}>
+          <span>{params.value.toLocaleString() + " تومان"}</span>
+        </Tooltip>
+      ),
     },
     {
       field: "quantity",
       headerName: "تعداد",
-      width: 100,
+      width: 60,
       align: "center",
       headerAlign: "center",
-    },
-    {
-      field: "brand",
-      headerName: "برند",
-      width: 100,
-      align: "center",
-      headerAlign: "center",
+      renderCell: (params) => (
+        <Tooltip title={params.value} classes={{ tooltip: "custom__tooltip" }}>
+          <span>{params.value}</span>
+        </Tooltip>
+      ),
     },
     {
       field: "rating",
       headerName: "امتیاز",
-      width: 150,
+      width: 130,
       headerAlign: "center",
       align: "center",
       renderCell: (params) => Star(params.row.rating),
     },
     {
       field: "action",
-      headerName: "عملیات",
+      headerName: "عملیات ها",
       align: "center",
-      width: 120,
+      width: 100,
       headerAlign: "center",
+      editable: false,
+      sortable: false,
+      disableColumnMenu: true,
       renderCell: (params) => (
         <div className="actionBtns">
-          <button
-            className="edit"
-            title="ویرایش"
-            onClick={() => {
-              setIsShowEditModal(true);
-              setProductIdSelected(params.row._id);
-            }}
-          >
-            <FiEdit className="actions__icon" />
-          </button>
-          <button
-            className="delete"
-            title="حذف"
-            onClick={() => {
-              setIsShowDeleteModal(true);
-              setProductIdSelected(params.row._id);
-            }}
-          >
-            <RiDeleteBinLine className="actions__icon" />
-          </button>
+          <Tooltip title="ویرایش" classes={{ tooltip: "custom__tooltip" }}>
+            <button
+              className="edit"
+              onClick={() => {
+                setIsShowEditModal(true);
+                setProductIdSelected(params.row._id);
+              }}
+            >
+              <FiEdit className="actions__icon" />
+            </button>
+          </Tooltip>
+          <Tooltip title="حذف" classes={{ tooltip: "custom__tooltip" }}>
+            <button
+              className="delete"
+              onClick={() => {
+                setIsShowDeleteModal(true);
+                setProductIdSelected(params.row._id);
+              }}
+            >
+              <RiDeleteBinLine className="actions__icon" />
+            </button>
+          </Tooltip>
         </div>
       ),
     },
@@ -163,35 +194,38 @@ const AdminProducts = () => {
           action={removeProductHandler}
         />
       )}
-        {isLoading&& <Loader />}
-      {isSuccess && <div className="table">
-        <div className="table__header">
-          <h5 className="table__title">لیست محصولات</h5>
-          <Link to="/admin-addproducts" className="table__btn btn__black">
-            افزودن محصول
-          </Link>
+      {isLoading && <Loader />}
+      {isSuccess && (
+        <div className="table">
+          <div className="table__header">
+            <h5 className="table__title">لیست محصولات</h5>
+            <Link to="/admin-addproducts" className="table__btn btn__black">
+              افزودن محصول
+            </Link>
+          </div>
+          <div className="datagrid__container">
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              getRowId={(row) => row._id}
+              rowHeight={45}
+              columnHeaderHeight={40}
+              loading={isLoading}
+              disableColumnSelector={true}
+              disableRowSelectionOnClick={true}
+              getRowClassName={getRowClassName}
+              className="ss02 customdata"
+            />
+          </div>
+          {products?.lastPage > 1 && (
+            <CustomPagination
+              page={pageInfo.page}
+              count={products?.lastPage}
+              setData={setPageInfo}
+            />
+          )}
         </div>
-        <div className="datagrid__container">
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            getRowId={(row) => row._id}
-            rowHeight={45}
-            columnHeaderHeight={40}
-            loading={isLoading}
-            disableColumnSelector={true}
-            disableRowSelectionOnClick={true}
-            className="ss02 customdata"
-          />
-        </div>
-        {products?.lastPage > 1 && (
-          <CustomPagination
-            page={pageInfo.page}
-            count={products?.lastPage}
-            setData={setPageInfo}
-          />
-        )}
-      </div>}
+      )}
     </>
   );
 };

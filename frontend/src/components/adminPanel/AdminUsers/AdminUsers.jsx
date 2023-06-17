@@ -40,31 +40,21 @@ const AdminUsers = () => {
     {
       field: "email",
       headerName: "ایمیل",
+      minWidth:160,
       flex: 1,
       align: "center",
       headerAlign: "center",
     },
-    {
-      field: "role",
-      headerName: "نقش",
-      width: 100,
-      align: "center",
-      headerAlign: "center",
-      renderCell: (params) =>
-        params.row.role === "user" ? (
-          <FiUser className="aminUser__userRole" title="کاربر" />
-        ) : null,
-    },
-
+  
     {
       field: "orders",
       headerName: "سفارشات",
-      flex: 1,
+      width:120,
       align: "center",
       headerAlign: "center",
       renderCell: (params) => (
         <button
-        className="adminUser__btn showorder"
+        className="table__btn showorder"
           onClick={() => {
             setOrderDetails(params.row.orders);
             setIsShowOrder(true);
@@ -74,28 +64,12 @@ const AdminUsers = () => {
       ),
     },
     {
-      field: "basket",
-      headerName: "سبدخرید",
-      flex: 1,
-      align: "center",
-      headerAlign: "center",
-      renderCell: (params) => (
-        <button
-        className="adminUser__btn showbasket"
-          onClick={() => {
-            setIsShowBasket(true);
-            setBbasketDetails(params.row.basket);
-          }}
-        >سبدخرید کاربر
-        </button>
-      ),
-    },
-    {
       field: "addresses",
       headerName: "آدرس",
       flex: 1,
       align: "center",
       headerAlign: "center",
+      renderCell:(params)=>"لرستان،کوهدشت،شهرک شهید رجایی"
     },
     {
       field: "action",

@@ -1,11 +1,12 @@
 // packages
 import { Link } from "react-router-dom";
-//styles
-import "./AdminHeader.css";
+//icons
 import { HiOutlineSearch } from "react-icons/hi";
 import { BsBell } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
-import { AiOutlinePoweroff } from "react-icons/ai";
+//styles
+import "./AdminHeader.css";
+
 
 const AdminHeader = ({ isShow, setIsShow, width }) => {
   return (
@@ -20,7 +21,7 @@ const AdminHeader = ({ isShow, setIsShow, width }) => {
         <input type="text" placeholder="جستجو"/>
         <HiOutlineSearch className="adminSearch__icon" />
       </div>
-      <div className="flex">
+      <div className="admin__header-details">
         <Link to="/" className="admin__headerLink" title="اطلاعیه ها">
           <BsBell className="admin__headerIcon" />
         </Link>

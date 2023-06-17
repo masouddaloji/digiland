@@ -18,7 +18,6 @@ const CustomPagination = ({page, count, setData }) => {
       <Pagination
         className="mui__pagination"
         count={count}
-        // color="primary"
         size="small"
         page={page}
         boundaryCount={2}

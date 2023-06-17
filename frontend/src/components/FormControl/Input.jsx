@@ -33,7 +33,7 @@ const Input = (props) => {
         />
         <span
           className={`input__infoBox ${
-            field?.value?.length && "input__infoBox--top"
+            field?.value && "input__infoBox--top"
           }`}
         >
           {props?.icon ?? null}

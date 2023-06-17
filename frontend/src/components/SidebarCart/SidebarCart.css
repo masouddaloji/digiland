@@ -15,9 +15,9 @@
 .sideBarCart {
   position: fixed;
   top: 0;
-  right: -30rem;
+  right: -29rem;
   bottom: 0;
-  width: 30rem;
+  width: 29rem;
   background: #f4f4f4;
   z-index: 100;
   color: #454545;

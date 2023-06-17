@@ -10,6 +10,7 @@ import { useGetBasketQuery } from "../../features/basket/basketApiSlice";
 import SidebarCartItem from "../SidebarCartItem/SidebarCartItem";
 //hooks
 import useAuth from "../../hooks/useAuth";
+import useOutsideClick from "../../hooks/useOutsideClick";
 //icons
 import { IoMdClose } from "react-icons/io";
 import { IoBagHandleOutline } from "react-icons/io5";
@@ -30,17 +31,12 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
   const maskRef = useRef();
   const sideBarCartRef = useRef();
 
-  const closeSideBarBasket = (e) => {
-    if (maskRef.current === e.target) {
-      setIsShowSideBarCart(false);
-    }
-  };
+  useOutsideClick({ref:maskRef,setStateHandler:setIsShowSideBarCart})
   return (
     <>
       <div
         className={`mask ${isShowSideBarCart ? "mask--show" : ""}`}
         ref={maskRef}
-        onClick={closeSideBarBasket}
       ></div>
       <div
         className={`sideBarCart ${

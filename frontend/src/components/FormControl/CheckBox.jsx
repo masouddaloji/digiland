@@ -1,6 +1,8 @@
 import {  useEffect, useRef, useState } from "react";
 //packages
 import { Field, useField, useFormikContext } from "formik";
+//hooks
+import useOutsideClick from "../../hooks/useOutsideClick";
 //icons
 import { HiChevronDown } from "react-icons/hi";
 
@@ -13,19 +15,7 @@ const CheckBoxTest = (props) => {
   const tochedHandler=()=>{
     setFieldTouched(field.name,true)
   }
-
-  useEffect(() => {
-    const outsideClickHandler = (e) => {
-      if (!containerRef?.current.contains(e.target)) {
-        setIsShowOptions(false);
-        handleBlur(e)
-      }
-    };
-    document.body.addEventListener("click", outsideClickHandler);
-    return () => {
-      document.body.removeEventListener("click", outsideClickHandler);
-    };
-  }, []);
+  useOutsideClick({ ref: containerRef, setStateHandler: setIsShowOptions });
 
   return (
     <div className="formControl__wrapper" ref={containerRef}>

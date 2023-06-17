@@ -163,9 +163,9 @@ a {
   --purple: #77037b;
   --purple-25: rgba(166, 105, 219, 0.2);
   --green: #00cc67;
-  --admin-green:#3FB8A9;
-  --admin-red:#FA5757;
-  --admin-yellow:#F8B917;
+  --admin-green: #3fb8a9;
+  --admin-red: #fa5757;
+  --admin-yellow: #f8b917;
   --error-text: #e4b7b9;
   --gray: #eee;
   --gray-text: #6b6b6b;
@@ -589,7 +589,7 @@ a {
   border: none;
   outline: none;
 }
-.btn__black{
+.btn__black {
   background-color: var(--black);
 }
 .table__imageBox {
@@ -613,24 +613,25 @@ a {
   gap: 1rem;
 }
 .actionBtns button {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.5rem;
   border-radius: var(--border-box);
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 .actions__icon {
   font-size: 1.8rem;
-  cursor: pointer;
 }
 .edit {
-  width: 2.8rem;
   color: var(--purple);
   background: var(--purple-25);
 }
 .delete {
-  height: 2.8rem;
   color: var(--red);
   background: var(--red-25);
 }
@@ -651,7 +652,6 @@ a {
 }
 .table__status--reject {
   background-color: var(--admin-red);
-
 }
 /* end table style */
 /* start datagrid style */
@@ -659,29 +659,36 @@ a {
   width: 100%;
   user-select: none;
 }
-.customdata,
-.usertable {
-  font-family: var(--iran-bold) !important;
-  font-size: 1.2rem !important;
-}
+
 .css-wop1k0-MuiDataGrid-footerContainer {
   display: none !important;
 }
 
-.customdata .css-1iyq7zh-MuiDataGrid-columnHeaders > *,
-.customdata .css-ptiqhd-MuiSvgIcon-root {
+.customdata .css-1iyq7zh-MuiDataGrid-columnHeaders{
   color: #99b2c6;
+  font-size: 1.2rem;
 }
-.customdata.MuiDataGrid-root {
+.customdata.MuiDataGrid-root,
+.usertable.MuiDataGrid-root {
   border: none;
+  font-family: var(--iran-bold);
+}
+
+.MuiTooltip-tooltip.custom__tooltip {
+  font-family: var(--iran);
+  font-size: 1rem;
+  background-color: var(--gray-100);
 }
 .customdata.css-12u49z-MuiDataGrid-root .MuiDataGrid-withBorderColor {
   border-bottom-color: #e6e6e6;
 }
-.customdata.css-12u49z-MuiDataGrid-root
-  .MuiDataGrid-row:not(.MuiDataGrid-row--dynamicHeight)
-  > .MuiDataGrid-cell {
+.customdata.MuiDataGrid-root .MuiDataGrid-row .MuiDataGrid-cell,
+.usertable.MuiDataGrid-root .MuiDataGrid-row .MuiDataGrid-cell {
   color: #747474;
+  font-size: 1.1rem;
+}
+.customdata.MuiButtonBase-root.MuiMenuItem-root{
+background-color: var(--gray-text);
 }
 
 /* end datagrid style */
@@ -786,7 +793,6 @@ a {
   .table__title {
     font-size: 1.3rem;
   }
- 
 }
 @media (min-width: 576px) {
   .auth__wrapper {

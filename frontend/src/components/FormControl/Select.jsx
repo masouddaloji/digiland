@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 //packages
 import { useField } from "formik";
+//hooks
+import useOutsideClick from "../../hooks/useOutsideClick";
 //icons
 import { HiChevronDown } from "react-icons/hi";
 
@@ -22,22 +24,16 @@ const Select = (props) => {
     }
   }, [options, searchValue]);
 
-  useEffect(() => {
-    const outsideClickHandler = (e) => {
-      if (containerRef?.current === e.target) {
-        setIsShowOptions(false);
-      }
-    };
-    document.body.addEventListener("click", outsideClickHandler);
-    return () => {
-      document.body.removeEventListener("click", outsideClickHandler);
-    };
-  }, []);
+  useOutsideClick({ ref: containerRef, setStateHandler: setIsShowOptions });
 
   useEffect(() => {
-    if (selectType === "province" && !field.value && typeof setSelectedProvince === "function") {
-      setSelectedProvince("")
-      setSelectValue("")
+    if (
+      selectType === "province" &&
+      !field.value &&
+      typeof setSelectedProvince === "function"
+    ) {
+      setSelectedProvince("");
+      setSelectValue("");
     } else {
       setSelectValue("");
     }
@@ -57,9 +53,7 @@ const Select = (props) => {
         </label>
       )}
       <div
-        className={`checkbox ${
-          meta.touched && meta.error && "input--invalid"
-        }`}
+        className={`checkbox ${meta.touched && meta.error && "input--invalid"}`}
         onClick={() => setIsShowOptions(!isShowOptions)}
       >
         <span

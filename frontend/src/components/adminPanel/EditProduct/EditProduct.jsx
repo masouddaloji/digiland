@@ -11,6 +11,7 @@ import {
 import { persianTexts } from "../../../text";
 // components
 import FormControl from "../../FormControl/FormControl";
+import Loader from './../../Loader/Loader'
 // validator
 import { addProductsSchema } from "../../Validator/Validator";
 //icons
@@ -23,12 +24,28 @@ import "./EditProduct.css";
 const EditProduct = () => {
   const navigate = useNavigate();
   const { productID } = useParams();
-  console.log("productID", productID);
+ 
   const {
     data: productInfo,
     isLoading,
     isSuccess,
   } = useGetProductByIdQuery(productID);
+  const initialValues={
+    productTitle: productInfo?.title,
+    productPrice: productInfo?.price,
+    productRating: productInfo?.rating,
+    productQantity: productInfo?.quantity,
+    productCategory: productInfo?.subCategory,
+    productSegment: productInfo?.segment,
+    productColors: productInfo?.colors,
+    productBrand: productInfo?.brand,
+    productSubCategory: productInfo?.category,
+    productOffPrice: productInfo?.offPrice,
+    productShortDescription: productInfo?.shortDescription,
+    productFullDescription: productInfo?.fullDescription,
+    productCover: productInfo?.image,
+    productGallery: productInfo?.gallery,
+  }
   const [updateProduct] = useUpdateProductMutation();
   const updateProductHandler = (productInfos) => {
     const data = {
@@ -60,6 +77,7 @@ const EditProduct = () => {
   };
   return (
     <>
+    {isLoading && <Loader />}
       {isSuccess ? (
         <div className="table">
           <div className="table__header">
@@ -70,22 +88,7 @@ const EditProduct = () => {
           </div>
           <div className="edit__content">
             <Formik
-              initialValues={{
-                productTitle: productInfo?.title,
-                productPrice: productInfo?.price,
-                productRating: productInfo?.rating,
-                productQantity: productInfo?.quantity,
-                productCategory: productInfo?.subCategory,
-                productSegment: productInfo?.segment,
-                productColors: productInfo?.colors,
-                productBrand: productInfo?.brand,
-                productSubCategory: productInfo?.category,
-                productOffPrice: productInfo?.offPrice,
-                productShortDescription: productInfo?.shortDescription,
-                productFullDescription: productInfo?.fullDescription,
-                productCover: productInfo?.image,
-                productGallery: productInfo?.gallery,
-              }}
+              initialValues={initialValues}
               validationSchema={addProductsSchema}
               onSubmit={(values) => updateProductHandler(values)}
             >
@@ -98,10 +101,6 @@ const EditProduct = () => {
                           label={
                             persianTexts.admin.products.label.inputLabelTitle
                           }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderTitle
-                          }
                           controler="text"
                           name="productTitle"
                         />
@@ -111,10 +110,6 @@ const EditProduct = () => {
                           label={
                             persianTexts.admin.products.label.inputLabelPrice
                           }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderPrice
-                          }
                           controler="text"
                           name="productPrice"
                         />
@@ -123,10 +118,6 @@ const EditProduct = () => {
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelRating
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderRating
                           }
                           controler="select"
                           name="productRating"
@@ -139,10 +130,6 @@ const EditProduct = () => {
                           label={
                             persianTexts.admin.products.label.inputLabelQuantity
                           }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderQuantity
-                          }
                           controler="text"
                           name="productQantity"
                         />
@@ -151,10 +138,6 @@ const EditProduct = () => {
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelCategory
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderCategory
                           }
                           controler="text"
                           name="productCategory"
@@ -165,10 +148,6 @@ const EditProduct = () => {
                           label={
                             persianTexts.admin.products.label.inputLabelSegment
                           }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderSegment
-                          }
                           controler="text"
                           name="productSegment"
                         />
@@ -177,10 +156,6 @@ const EditProduct = () => {
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelColors
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderColors
                           }
                           controler="checkbox"
                           name="productColors"
@@ -193,10 +168,6 @@ const EditProduct = () => {
                           label={
                             persianTexts.admin.products.label.inputLabelBrand
                           }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderBrand
-                          }
                           controler="text"
                           name="productBrand"
                         />
@@ -207,10 +178,6 @@ const EditProduct = () => {
                             persianTexts.admin.products.label
                               .inputLabelSubCategory
                           }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderSubCategory
-                          }
                           controler="text"
                           name="productSubCategory"
                         />
@@ -219,10 +186,6 @@ const EditProduct = () => {
                         <FormControl
                           label={
                             persianTexts.admin.products.label.inputLabelOffPrice
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderOffPrice
                           }
                           controler="text"
                           name="productOffPrice"
@@ -234,10 +197,6 @@ const EditProduct = () => {
                             persianTexts.admin.products.label
                               .inputLabelShortDescription
                           }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderShortDescription
-                          }
                           controler="editor"
                           name="productShortDescription"
                         />
@@ -248,10 +207,6 @@ const EditProduct = () => {
                           label={
                             persianTexts.admin.products.label
                               .inputLabelFullDescription
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderFullDescription
                           }
                           controler="editor"
                           name="productFullDescription"

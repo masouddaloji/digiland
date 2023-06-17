@@ -12,10 +12,7 @@
     color: var(--white);
     transition: all .3s;
 }
-.adminUser__btn.showorder,.adminUser__btn.showbasket{
-    background: #127041;
+.showorder{
+    background: var(--admin-green);
     
-}
-.adminUser__btn.showorder:hover,.adminUser__btn.showbasket:hover{
-    background-color: var(--green);
 }
