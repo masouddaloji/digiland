@@ -4,9 +4,9 @@
   right: 0;
   left: 0;
   bottom: 0;
-  height: 80vh;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.1);
-  z-index: 200;
+  z-index: 100;
 }
 .loder__box {
   position: absolute;

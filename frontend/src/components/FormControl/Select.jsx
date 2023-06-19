@@ -7,7 +7,6 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 import { HiChevronDown } from "react-icons/hi";
 
 const Select = (props) => {
-  console.log("props", props);
   const [field, meta, helpers] = useField(props);
   const { options, label, icon, selectType, setSelectedProvince, placeholder } =
     props;
@@ -34,9 +33,10 @@ const Select = (props) => {
     ) {
       setSelectedProvince("");
       setSelectValue("");
-    } else {
-      setSelectValue("");
     }
+    //  else {
+    //   setSelectValue("");
+    // }
   }, [field.value]);
 
   return (

@@ -1,21 +1,24 @@
 //packages
 import { Form, Formik } from "formik";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+//rtk query
+import { useAddArticleMutation } from "../../../features/article/articleApiSlice";
 //components
 import FormControl from "../../FormControl/FormControl";
 //validator
 import { articleSchema } from "../../Validator/Validator";
 //icons
 import { MdUploadFile } from "react-icons/md";
+//persian texts
+import { persianTexts } from "../../../text";
 //styles
 import "./AddArticles.css";
-import { persianTexts } from "../../../text";
-import { useAddArticleMutation } from "../../../features/article/articleApiSlice";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 const AddArticles = () => {
   const navigate=useNavigate()
   const [addArticle]=useAddArticleMutation()
+  
   const initialValues = {
     articleTitle: "",
     articleImage: "",
@@ -33,10 +36,10 @@ const AddArticles = () => {
     };
     addArticle(data).unwrap()
     .then(res=>{
-      toast.success("مقاله جدید با موفقیت ایجاد شد")
+      toast.success(persianTexts.addArticle.addArticleSuccess)
       navigate("/admin-articles")
     }).catch(error=>{
-      toast.error("ایجاد مقاله با مشکل مواجه شد")
+      toast.error(persianTexts.addArticle.addArticleError)
     })
   };
 

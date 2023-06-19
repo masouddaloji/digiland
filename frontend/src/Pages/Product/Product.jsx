@@ -437,7 +437,7 @@ export default function Product() {
                       </div>
                     </div>
                     <div className="col-12 col-md-6">
-                      <Rating />
+                      <Rating typeRating="product" id={productId}/>
                     </div>
                   </div>
                   <div className="row">

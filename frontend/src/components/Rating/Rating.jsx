@@ -2,11 +2,11 @@ import { useRef } from "react";
 //packages
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 //rtk query
 import { useAddReviewMutation } from "../../features/review/reviewApiSlice";
-//hooks
-import useAuth from "../../hooks/useAuth";
+import { useAddReviewArticleMutation } from "../../features/article/articleApiSlice";
 //components
 import FormControl from "../FormControl/FormControl";
 //validators
@@ -19,19 +19,21 @@ import { persianTexts } from "../../text";
 //style
 import "./Rating.css";
 
-const Rating = () => {
-  const { userName } = useAuth();
+const Rating = ({typeRating,id}) => {
+  const {token}=useSelector(state=>state.auth)
   const formikRef = useRef();
   const navigate = useNavigate();
-  const { productId } = useParams();
+
   const [addReview] = useAddReviewMutation();
+  const [addReviewArticle] = useAddReviewArticleMutation();
 
   const submitReviewHandler = (reviewDetails) => {
     const data = {
       rating: reviewDetails.userRating,
       description: reviewDetails.userComment,
     };
-    addReview({ data, id: productId }).unwrap()
+    if(typeRating==="product"){
+      addReview({ data, id }).unwrap()
       .then((response) => {
         toast.success(persianTexts.rating.submit.success);
       })
@@ -39,6 +41,16 @@ const Rating = () => {
         toast.error(persianTexts.rating.submit.error);
         console.log(error);
       });
+    }else{
+      addReviewArticle({ data, id }).unwrap()
+      .then((response) => {
+        toast.success(persianTexts.rating.submit.success);
+      })
+      .catch((error) => {
+        toast.error(persianTexts.rating.submit.error);
+        console.log(error);
+      });
+    }
   };
   return (
     <Formik
@@ -49,7 +61,7 @@ const Rating = () => {
       }}
       validationSchema={userRatingSchema}
       onSubmit={async (values, { resetForm }) => {
-        if (userName) {
+        if (token) {
          submitReviewHandler(values);
           resetForm();
         } else {

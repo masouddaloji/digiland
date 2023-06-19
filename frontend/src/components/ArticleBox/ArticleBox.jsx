@@ -1,27 +1,29 @@
 //packages
 import { Link } from "react-router-dom";
+import { Skeleton, Stack } from "@mui/material";
+//hooks
+import useConvertDate from "../../hooks/useConvertDate";
 //icons
 import { BsClockHistory } from "react-icons/bs";
 //styles
 import "./ArticleBox.css";
-import { Avatar, Skeleton, Stack } from "@mui/material";
 
 export default function ArticleBox(props) {
-  const { isLoading, isSuccess } = props;
+  const { isLoading, isSuccess,title,image,writer,createdAt,_id } = props;
   return (
     <>
       {isSuccess ? (
         <div className="articleBox">
-          <Link className="articleBox__link" to="/">
+          <Link className="articleBox__link" to={`/article/${_id}`}>
             <div className="articleBox__banner">
               <img
-                src="/images/article1.webp"
+                src={`http://localhost:8000${image}`}
                 alt="article banner"
                 className="articleBox__img"
               />
             </div>
             <div className="articleBox__title">
-              تاثیر هوش مصنوعی بر بازاریابی دیجیتال
+              {title}
             </div>
           </Link>
           <div className="articleBox__details">
@@ -31,14 +33,14 @@ export default function ArticleBox(props) {
                 src="/images/author.jpg"
                 alt="author article img"
               />
-              <span className="articleBox__authorName">امین بیگ زاده</span>
+              <span className="articleBox__authorName">{writer}</span>
             </div>
             <div className="articleBox__time">
               <div className="articleBox__iconBox">
                 <BsClockHistory className="fullIcon" />
               </div>
               <span className="articleBox__upload">
-                23<bdi>دی</bdi>1401
+              {useConvertDate(createdAt)}
               </span>
             </div>
           </div>

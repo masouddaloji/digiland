@@ -30,11 +30,12 @@ import Favorite from "./components/userPanel/Favorite/Favorite";
 import UserSetting from "./components/userPanel/UserSetting/UserSetting";
 import Address from "./components/userPanel/Address/Address";
 import AddArticles from "./components/adminPanel/AddArticles/AddArticles";
+import EditArticles from "./components/adminPanel/EditArticles/EditArticles";
+import Article from './Pages/Article/Article'
 // styles
 import "./App.css";
 
 export default function App() {
-  const allDataCategories = [];
 
   return (
     <div className="app__wrapper">
@@ -68,6 +69,9 @@ export default function App() {
               {/* start product info */}
               <Route path="/product/:productId" element={<Product />} />
               {/* end product info */}
+              {/* start product info */}
+              <Route path="/article/:articleId" element={<Article />}/>
+              {/* end product info */}
             </Route>
             {/* start adminpanel */}
             <Route element={<PersistLogin />}>
@@ -84,6 +88,7 @@ export default function App() {
                   <Route path="/admin-orders" element={<AdminOrders />} />
                   <Route path="/admin-articles" element={<AdminArticles />} />
                   <Route path="/admin-addarticles" element={<AddArticles />} />
+                  <Route path="/admin-editarticles/:articleId" element={<EditArticles />} />
                 </Route>
               </Route>
             </Route>

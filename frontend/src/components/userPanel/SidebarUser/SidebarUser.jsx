@@ -33,10 +33,29 @@ const SidebarUser = ({ isShow, setshow }) => {
       })
       .catch((error) => toast.error(persianTexts.useLogout.logoutError));
   };
- 
-  useEffect(()=>{
-    useConvertDate(new Date())
-  },[])
+  const today = new Date();
+  const oneDaybefore=new Date().setDate(today.getDate()-1)
+  const oneDayAfter=new Date().setDate(today.getDate()+1)
+  const twoDaybefore=new Date().setDate(today.getDate()-2)
+  const twoDayAftyer=new Date().setDate(today.getDate()+2)
+  const convertDate = (date) => {
+    const options = {
+      day: "numeric",
+      month: "long",
+    };
+    const persianDate = new Intl.DateTimeFormat("fa", options).format(date);
+    const [day, month] = persianDate.split(" ");
+    return (
+      <span className="date__item ss02">
+        <span>{day}</span>
+        <span>{month}</span>
+      </span>
+    );
+  };
+  useEffect(() => {
+    useConvertDate(new Date());
+  }, []);
+
   useEffect(() => {
     const resizeHandler = () => {
       setWidth(window.innerWidth);
@@ -44,7 +63,8 @@ const SidebarUser = ({ isShow, setshow }) => {
     window.addEventListener("resize", resizeHandler);
     return () => window.removeEventListener("resize", resizeHandler);
   }, [window.innerWidth]);
-  isSuccess && console.log("data",data);
+
+
   return (
     <div className={`${width >= 992 && "col-lg-3"}`}>
       <div className={`user-sidebar ${isShow && "user-sidebar--show"}`}>
@@ -72,7 +92,18 @@ const SidebarUser = ({ isShow, setshow }) => {
                 />
               )}
             </div>
-            {isSuccess && <span className="user-sidebar__profile-name">{data?.email?.split("@")[0]}</span>}
+            {isSuccess && (
+              <span className="user-sidebar__profile-name">
+                {data?.email?.split("@")[0]}
+              </span>
+            )}
+          </div>
+          <div className="user__date">
+            <span>{convertDate(twoDayAftyer)}</span>
+            <span>{convertDate(oneDayAfter)}</span>
+            <span className="date__current">{convertDate(today)}</span>
+            <span>{convertDate(oneDaybefore)}</span>
+            <span>{convertDate(twoDaybefore)}</span>
           </div>
           <div className="user-sidebar__links">
             {userPanelSidebarItems.map((item) => (

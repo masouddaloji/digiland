@@ -14,13 +14,20 @@ const articleApiSlice = shopApi.injectEndpoints({
         } else return [{ type: "Article", id: "LIST" }];
       },
     }),
-    uploadCoverArticle:builder.mutation({
-      query:(data)=>({
-        url:"http://localhost:8000/upload/articleimg",
-        method:"POST",
-        body:data
+
+    getArticleById: builder.query({
+      query: (id) => `/articles/reviews/${id}`,
+      transformResponse: (response) => response?.data,
+      providesTags: (result, error, arg) => [{ type: "Article", id: arg }],
+    }),
+
+    uploadCoverArticle: builder.mutation({
+      query: (data) => ({
+        url: "http://localhost:8000/upload/articleimg",
+        method: "POST",
+        body: data,
       }),
-      transformResponse:response=>response.path
+      transformResponse: (response) => response.path,
     }),
     addArticle: builder.mutation({
       query: (data) => ({
@@ -28,9 +35,45 @@ const articleApiSlice = shopApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Article", id: "LIST" },
+      ],
+    }),
+    updateArticle: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/articles/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Article", id: "LIST" },
+        { type: "Article", id: arg.id },
+      ],
+    }),
+    deleteArticle:builder.mutation({
+      query:(id)=>({
+        url:`/articles/${id}`,
+        method:"DELETE"
+      }),
       invalidatesTags:(result,error,arg)=>[{type:"Article",id:"LIST"}]
     }),
+    addReviewArticle:builder.mutation({
+      query:({id,data})=>({
+        url:`/articles/reviews/${id}`,
+        method:"POST",
+        body:data
+      }),
+      invalidatesTags:(result,error,arg)=>[{type:"Article",id:"LIST"},{type:"Article",id:arg.id}]
+    })
   }),
 });
 
-export const {useGetArticlesQuery,useAddArticleMutation,useUploadCoverArticleMutation}=articleApiSlice
+export const {
+  useGetArticlesQuery,
+  useAddArticleMutation,
+  useUploadCoverArticleMutation,
+  useGetArticleByIdQuery,
+  useUpdateArticleMutation,
+  useDeleteArticleMutation,
+  useAddReviewArticleMutation
+} = articleApiSlice;

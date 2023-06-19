@@ -60,7 +60,7 @@ const AdminProducts = () => {
     {
       field: "image",
       headerName: "عکس",
-      width: 80,
+      width: 60,
       align: "center",
       headerAlign: "center",
       editable: false,
@@ -81,23 +81,8 @@ const AdminProducts = () => {
       headerName: "محصول",
       minWidth: 200,
       flex: 1,
-      align: "center",
+      align: "start",
       headerAlign: "center",
-      renderCell: (params) => (
-        <Tooltip title={params.value} classes={{ tooltip: "custom__tooltip" }}>
-          <span>{params.value}</span>
-        </Tooltip>
-      ),
-    },
-    {
-      field: "_id",
-      headerName: "آیدی",
-      width: 185,
-      align: "center",
-      headerAlign: "center",
-      editable: false,
-      sortable: false,
-      disableColumnMenu: true,
       renderCell: (params) => (
         <Tooltip title={params.value} classes={{ tooltip: "custom__tooltip" }}>
           <span>{params.value}</span>

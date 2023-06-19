@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 // packages
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
@@ -26,6 +26,7 @@ export default function Index() {
     isError,
     isSuccess,
   } = useGetIndexInfosQuery();
+
   const articles = Array(6).fill(0);
   return (
     <div className="container">
@@ -222,7 +223,7 @@ export default function Index() {
               spaceBetween={10}
               loop={isSuccess?true:false}
               navigation={isSuccess?true:false}
-              array={articles}
+              array={mainPage?.articles}
               slide="ArticleBox"
             />
           </div>

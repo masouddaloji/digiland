@@ -111,7 +111,7 @@ const Uploader = (props) => {
     <>
       <div className="formControl__wrapper">
         <div className={`inputBox`}>
-          {props.label && (
+          {/* {props.label && (
             <label
               htmlFor={field.name}
               className={`input__label ${
@@ -120,7 +120,7 @@ const Uploader = (props) => {
             >
               {props.label}
             </label>
-          )}
+          )} */}
 
           <div
             className={`uploader ${

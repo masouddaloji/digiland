@@ -51,7 +51,7 @@ const UserSetting = () => {
       }],
     };
     console.log("userInfo",{...userInfo})
-    updateUser({ data: {...userInfo}, id: userID })
+    updateUser({ data: userInfo, id: userID })
       .unwrap()
       .then((res) => toast.success("تغییرات با موفقیت ذخیره شد"))
       .catch((error) => {
@@ -72,8 +72,11 @@ const UserSetting = () => {
         <Form>
           <div className="userSetting">
             <div className="row">
-              <div className="col-12">
+              <div className="col-12 col-lg-6">
                 <FormControl controler="text" label="نام" name="name" />
+              </div>
+              <div className="col-12 col-lg-6">
+                <FormControl controler="text" label="تلفن" name="phone" />
               </div>
               <div className="col-12 col-lg-6">
                 <FormControl
@@ -96,19 +99,17 @@ const UserSetting = () => {
                   options={cities}
                 />
               </div>
-              <div className="col-12">
+              <div className="col-12 col-lg-6">
                 <FormControl controler="text" label="خیابان" name="street" />
               </div>
-              <div className="col-12">
+              <div className="col-12 col-lg-6">
                 <FormControl
                   controler="text"
                   label="کد پستی"
                   name="postalCode"
                 />
               </div>
-              <div className="col-12">
-                <FormControl controler="text" label="تلفن" name="phone" />
-              </div>
+             
 
               <div className="col-12 col-lg-6">
                 <FormControl
@@ -116,7 +117,7 @@ const UserSetting = () => {
                   placeholder={persianTexts.updateuserInfo.uploaderPlaceholder}
                   controler="file"
                   accept="image/*"
-                  name="productCover"
+                  name="image"
                   icon={<MdUploadFile className="uploader__icon" />}
                   typeuploader="profileUploader"
                 />

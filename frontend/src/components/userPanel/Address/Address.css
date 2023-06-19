@@ -24,7 +24,7 @@ font-size: 1.3rem;
 border-radius: var(--border-box);
 }
 .address__title{
-    color: #555;
+    color: var(--black-05);
 }
 .address__link{
     font-size: 1.2rem;
