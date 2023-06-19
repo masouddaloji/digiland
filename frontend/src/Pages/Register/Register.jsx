@@ -2,7 +2,6 @@
 import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { toast } from "react-toastify";
-import axios from "./../../api/axios";
 //rtk query
 import { useRegisterUserMutation } from "../../features/auth/authApiSlice";
 // icons

@@ -1,10 +1,6 @@
 // packages
 import { Routes, Route } from "react-router-dom";
 
-// components
-// import routes from "./Routes";
-// import Navbar from "./components/Header/Header";
-// import Footer from "./components/Footer/Footer";
 
 // components
 import Index from "./Pages/HomePage/Index";
@@ -16,7 +12,6 @@ import BasketLayout from "./Pages/BasketLayout/BasketLayout";
 import Cart from "./components/userBasket/userCart/Cart";
 import CheckInformation from "./components/userBasket/CheckInformation/CheckInformation";
 import SubmitOrder from "./components/userBasket/SubmitOrder/SubmitOrder";
-import AdminPanel from "./Pages/AdminPanel/AdminPanelLayout";
 import MainAdmin from "./components/adminPanel/main/MainAdmin";
 import AdminProducts from "./components/adminPanel/AdminProducts/AdminProducts";
 import AdminUsers from "./components/adminPanel/AdminUsers/AdminUsers";
@@ -34,6 +29,7 @@ import MainPanel from "./components/userPanel/main";
 import Favorite from "./components/userPanel/Favorite/Favorite";
 import UserSetting from "./components/userPanel/UserSetting/UserSetting";
 import Address from "./components/userPanel/Address/Address";
+import AddArticles from "./components/adminPanel/AddArticles/AddArticles";
 // styles
 import "./App.css";
 
@@ -87,6 +83,7 @@ export default function App() {
                   <Route path="/admin-users" element={<AdminUsers />} />
                   <Route path="/admin-orders" element={<AdminOrders />} />
                   <Route path="/admin-articles" element={<AdminArticles />} />
+                  <Route path="/admin-addarticles" element={<AddArticles />} />
                 </Route>
               </Route>
             </Route>

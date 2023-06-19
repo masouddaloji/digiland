@@ -1,0 +1,7 @@
+.addArticles{
+    background-color: var(--white);
+    border-radius: var(--border-box);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    padding: 2.5rem 0;
+}

@@ -37,7 +37,7 @@ const AddProduct = () => {
     productCover: null,
     productGallery: null,
   };
-  const createnewProduct = (productinfos) => {
+  const createNewProduct = (productinfos) => {
     const data = {
       title: productinfos.productTitle,
       segment: productinfos.productSegment,
@@ -69,7 +69,7 @@ const AddProduct = () => {
       initialValues={initialValues}
       validationSchema={addProductsSchema}
       onSubmit={async (values, { resetForm }) => {
-        await createnewProduct(values);
+        await createNewProduct(values);
         resetForm();
       }}
     >
@@ -170,6 +170,7 @@ const AddProduct = () => {
                     }
                     controler="editor"
                     name="productShortDescription"
+                    height={300}
                   />
                 </div>
 
@@ -181,6 +182,7 @@ const AddProduct = () => {
                     }
                     controler="editor"
                     name="productFullDescription"
+                    height={300}
                   />
                 </div>
               </div>
@@ -221,8 +223,8 @@ const AddProduct = () => {
                 <button
                   className={`admin__btn ${
                     formik.dirty && formik.isValid
-                      ? "btn--active"
-                      : "btn--disable"
+                      ? "admin__btn--active"
+                      : "admin__btn--disable"
                   }`}
                   type="submit"
                   disabled={!(formik.dirty && formik.isValid)}

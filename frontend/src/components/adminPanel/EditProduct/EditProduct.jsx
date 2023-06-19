@@ -199,6 +199,7 @@ const EditProduct = () => {
                           }
                           controler="editor"
                           name="productShortDescription"
+                          height={300}
                         />
                       </div>
 
@@ -210,6 +211,7 @@ const EditProduct = () => {
                           }
                           controler="editor"
                           name="productFullDescription"
+                          height={300}
                         />
                       </div>
                     </div>

@@ -12,6 +12,7 @@ import { persianTexts } from "../../text";
 // icons
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import { useUploadProfileMutation } from "../../features/user/userApiSlice";
+import { useUploadCoverArticleMutation } from "../../features/article/articleApiSlice";
 
 const Uploader = (props) => {
   const [field, meta, helpers] = useField(props);
@@ -19,27 +20,32 @@ const Uploader = (props) => {
   const [
     uploadProfile,
     {
-      isLoading: profileUploadLoading,
-      isSuccess: profileUploadSuccess,
-      error: profileUploadError,
+      isLoading: profileLoading,
+      isSuccess: profileSuccess,
+      error: profileError,
     },
   ] = useUploadProfileMutation();
   const [
     uploadProductCover,
-    {
-      isLoading: coverUploadLoading,
-      isSuccess: coverUploadSuccess,
-      error: coverUploadError,
-    },
+    { isLoading: coverLoading, isSuccess: coverSuccess, error: coverError },
   ] = useUploadProductCoverMutation();
   const [
     uploadProductGallery,
     {
-      isLoading: galleryUploadLoading,
-      isSuccess: galleryUploadSuccess,
-      error: galleryUploadError,
+      isLoading: galleryLoading,
+      isSuccess: gallerySuccess,
+      error: galleryError,
     },
   ] = useUploadProductGalleryMutation();
+
+  const [
+    uploadCoverArticle,
+    {
+      isLoading: articleLoading,
+      isSuccess: articleSuccess,
+      error: articleError,
+    },
+  ] = useUploadCoverArticleMutation();
 
   const prepareImagesForUpload = (event) => {
     helpers.setTouched(true);
@@ -75,6 +81,14 @@ const Uploader = (props) => {
           helpers.setValue(response);
         })
         .catch((error) => console.log("error in uploader", error));
+    } else {
+      formData.append("image", selectedImages[0]);
+      uploadCoverArticle(formData)
+        .unwrap()
+        .then((response) => {
+          helpers.setValue(response);
+        })
+        .catch((error) => console.log("error in uploader", error));
     }
   };
 
@@ -85,6 +99,8 @@ const Uploader = (props) => {
       case "product-single":
         return persianTexts.uploader.productsingle.error;
       case "profileUploader":
+        return persianTexts.uploader.profile.error;
+      case "articleUploader":
         return persianTexts.uploader.profile.error;
       default:
         break;
@@ -136,26 +152,31 @@ const Uploader = (props) => {
 
         <div
           className={`uploader__progress ${
-            (coverUploadLoading ||
-              galleryUploadLoading ||
-              profileUploadLoading ||
-              coverUploadSuccess ||
-              galleryUploadSuccess ||
-              profileUploadSuccess) &&
+            (coverLoading ||
+              galleryLoading ||
+              profileLoading ||
+              coverSuccess ||
+              gallerySuccess ||
+              profileSuccess ||
+              articleLoading ||
+              articleSuccess) && selectedImages?.length && 
             "uploader__progress--show"
           }`}
         >
           <div
             className={`uploader__progressbar ${
-              coverUploadLoading ||
-              galleryUploadLoading ||
-              (profileUploadLoading && "uploader__progressbar--loading")
+              (coverLoading ||
+                galleryLoading ||
+                profileLoading ||
+                articleLoading) &&
+              "uploader__progressbar--loading"
             }
 
             ${
-              (coverUploadSuccess ||
-                galleryUploadSuccess ||
-                profileUploadSuccess) &&
+              (coverSuccess ||
+                gallerySuccess ||
+                profileSuccess ||
+                articleSuccess) &&
               "uploader__progressbar--complite"
             } 
                 `}
@@ -196,7 +217,7 @@ const Uploader = (props) => {
             </div>
           </div>
         )}
-        {(coverUploadError || galleryUploadError || profileUploadError) && (
+        {(coverError || galleryError || profileError || articleError) && (
           <div className="uploadResult__wrapper">
             <p className="upload__resultText">{showErrorMeassage()}</p>
           </div>

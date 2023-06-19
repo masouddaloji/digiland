@@ -144,3 +144,23 @@ export const userUpdateSchema = Yup.object().shape({
     persianTexts.updateuserInfo.schema.postalCode
   ),
 });
+export const articleSchema = Yup.object().shape({
+  articleTitle: Yup.string(persianTexts.addArticle.articleTitle.string)
+    .required(persianTexts.addArticle.articleTitle.required)
+    .min(5, persianTexts.addArticle.articleTitle.min),
+
+  articleImage: Yup.string(persianTexts.addArticle.articleImage.string)
+    .required(persianTexts.addArticle.articleImage.required),
+
+  articleDescription: Yup.string(persianTexts.addArticle.articleDescription.string)
+    .required(persianTexts.addArticle.articleDescription.required)
+    .min(10, persianTexts.addArticle.articleDescription.min),
+
+  articleWriter: Yup.string(persianTexts.addArticle.articleWriter.string)
+    .required(persianTexts.addArticle.articleWriter.required)
+    .min(5, persianTexts.addArticle.articleWriter.min),
+
+  articleCategory: Yup.string(persianTexts.addArticle.articleCategory.string)
+    .required(persianTexts.addArticle.articleCategory.required)
+    .min(4, persianTexts.addArticle.articleCategory.min),
+});

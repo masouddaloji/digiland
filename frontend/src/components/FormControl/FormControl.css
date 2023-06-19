@@ -83,13 +83,12 @@
 }
 /* start uploader style */
 .uploader {
-  border: 2px solid var(--gray);
+  border: 2px dashed var(--gray);
   border-radius: var(--border-box);
-  box-shadow: 0 1.2rem 1rem -1rem rgba(0, 0, 0, 0.4);
   padding: 0.5rem 1rem;
   width: 100%;
   background: var(--white);
-  height: 15rem;
+  height: 18rem;
   display: flex;
   align-items: center;
   justify-content: center;

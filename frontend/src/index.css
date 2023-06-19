@@ -226,9 +226,7 @@ a {
   display: inline-block;
   vertical-align: middle;
 }
-.btn--disable {
-  background: var(--gray-25);
-}
+
 
 /* start auth style */
 .auth {
@@ -550,9 +548,32 @@ a {
   position: relative;
   font-size: 1.2rem;
 }
-/* start user table style */
+/* end user table style */
 
 /* start admin table style */
+.admin__btn {
+  display: inline-block;
+  text-align: center;
+  width: 12rem;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  transition: all 0.3s;
+  color: var(--white);
+  border-radius: var(--border-box);
+  margin-left: 4rem;
+}
+.btn--disable,.admin__btn--disable {
+  background: var(--gray-25);
+}
+.admin__btn--active{
+  background-color: var(--black);
+  cursor: pointer;
+}
+.admin__btn--active:hover{
+  background-color: #1F1F1E;
+}
+
 .table {
   width: 100%;
   border: 1px solid var(--gray);

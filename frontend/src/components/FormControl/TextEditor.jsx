@@ -1,25 +1,40 @@
 import { useRef } from "react";
 // packages
 import { useField } from "formik";
-import { Editor } from "@tinymce/tinymce-react";
+import {Editor} from "@tinymce/tinymce-react"
+//redux
+import { useSelector } from "react-redux";
 
 const TextEditor = (props) => {
+  const editorRef = useRef();
+  const { token } = useSelector((state) => state?.auth);
   const [field, meta, helpers] = useField(props);
 
-  const editorRef = useRef();
+  const handleImageUpload = async (blobInfo, progress) => {
+    try {
+      const formData = new FormData();
+      formData.append('image', blobInfo.blob());  
+      const response = await fetch('http://localhost:8000/upload/articleimg', {
+        method: 'POST',
+        body: formData,
+        headers: {
+                Authorization: `Bearer ${token}`,
+              },
+      });
+  
+      if (!response.ok) {
+        throw new Error('HTTP Error: ' + response.status);
+      }
+  
+      const {path} = await response.json();
+      return `http://localhost:8000${path}`;
+    } catch (error) {
+      throw new Error('Image upload failed due to a XHR Transport error. Code: ' + error.message);
+    }
+  };
+
   return (
     <div className="editor__wrapper">
-      {props.label && (
-        <label
-          htmlFor={field.name}
-          className={`input__label ${
-            meta.touched && meta.error ? "label--invalid" : undefined
-          }`}
-        >
-          {props.label}
-        </label>
-      )}
-
       <div
         className={`editor__box ${
           meta.touched && meta.error ? "input--invalid" : ""
@@ -37,9 +52,10 @@ const TextEditor = (props) => {
           {...field}
           ref={editorRef}
           init={{
+            images_upload_handler: handleImageUpload,
             content_css: "false",
             directionality: "rtl",
-            height: 300,
+            height: props.height,
             menubar: true,
             plugins: [
               "advlist",
@@ -64,7 +80,7 @@ const TextEditor = (props) => {
             toolbar:
               "undo redo | blocks | " +
               "bold italic forecolor | alignleft aligncenter " +
-              "alignright alignjustify | bullist numlist outdent indent | " +
+              "alignright alignjustify | outdent indent | " +
               "removeformat| table | help",
           }}
         />
