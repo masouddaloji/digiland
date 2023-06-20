@@ -91,9 +91,17 @@ export const getProduct = async (
       return res.status(404).json({ message: "Product not found" });
     }
 
+    const relatedProducts = await Product.find({
+      category: product.category,
+    }).limit(10);
+
     res
       .status(200)
-      .json({ message: "Product found successfully", data: product });
+      .json({
+        message: "Product found successfully",
+        data: product,
+        relatedProducts,
+      });
   } catch (err) {
     next(err);
   }

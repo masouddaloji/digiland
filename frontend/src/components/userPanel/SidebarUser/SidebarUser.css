@@ -106,7 +106,8 @@
   flex-direction: column;
   align-items: center;
   border-radius: var(--border-box);
-  padding:0.7rem 0.5rem;
+  width: 3.6rem;
+  padding: 1rem .3rem;
   border: .1rem dashed var(--gray-50);
 }
 .date__current .date__item{
@@ -190,8 +191,8 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 25rem;
-    right: -25rem;
+    width: 28rem;
+    right: -28rem;
     transition: all 0.4s;
     margin-top: unset;
     z-index: 100;

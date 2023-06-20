@@ -118,6 +118,7 @@ export default function Product() {
       toast.warning(persianTexts.header.notLoginInBasket);
     }
   };
+  console.log("product", product);
   return (
     <div className={`product ${isLoading ? "product--loader" : null}`}>
       {isLoading && <Loader />}
@@ -129,14 +130,16 @@ export default function Product() {
             <div className="row">
               {/* product images */}
               <div className="col-12 col-md-4 col-lg-4 col-xl-4">
-                <ProductGallery array={product?.gallery} />
+                <ProductGallery array={product?.data?.gallery} />
               </div>
               {/* product details */}
               <div className="col-12 col-md-5 col-lg-5 col-xl-5">
                 <div>
-                  <h2 className="product__detailsTitle">{product?.title}</h2>
+                  <h2 className="product__detailsTitle">
+                    {product?.data?.title}
+                  </h2>
                   <span className="product__detailsSubtitle">
-                    {product?.segment}
+                    {product?.data?.segment}
                   </span>
                   <div className="product__detailsMeta">
                     <span className="product__detailsMetainfo">دسته : </span>
@@ -172,19 +175,20 @@ export default function Product() {
                     </li>
                   </ul>
                   <div className="priceBox">
-                    {product?.offPrice ? (
+                    {product?.data?.offPrice ? (
                       <>
                         <del>
                           <bdi className="product_info__price productPrice ss02">
-                            {product?.price.toLocaleString()}
+                            {product?.data?.price.toLocaleString()}
                           </bdi>
                         </del>
                         <span>
                           {" "}
                           <bdi className="product_info__price currentPrice ss02">
                             {(
-                              product?.price -
-                              (product?.price * product?.offPrice) / 100
+                              product?.data?.price -
+                              (product?.data?.price * product?.data?.offPrice) /
+                                100
                             ).toLocaleString()}
                           </bdi>
                           <span className="toman">تومان</span>
@@ -192,7 +196,7 @@ export default function Product() {
                       </>
                     ) : (
                       <bdi className="product_info__price currentPrice ss02">
-                        {product?.price?.toLocaleString()}
+                        {product?.data?.price?.toLocaleString()}
                         <span className="toman">تومان</span>
                       </bdi>
                     )}
@@ -201,11 +205,11 @@ export default function Product() {
                   <div className="product__colorBox">
                     <div className="product__currentColor">
                       <span> رنگ : </span>
-                      <span>{selectedColor ?? product?.colors[0]}</span>
+                      <span>{selectedColor ?? product?.data?.colors[0]}</span>
                     </div>
                     <div className="colorAndAddTobasket__wrapper">
                       <div className="product__allColors">
-                        {product?.colors?.map((color) => (
+                        {product?.data?.colors?.map((color) => (
                           <div
                             key={nanoid()}
                             style={selectColorStyle(color)}
@@ -246,7 +250,7 @@ export default function Product() {
               <div className="col-12 col-md-3 col-lg-3">
                 <div className="product__availbleBox">
                   <div className="product__availbleWrapper">
-                    {product?.quantity ? (
+                    {product?.data?.quantity ? (
                       <div className="product__availbleItem">
                         <BiCheckSquare className="product__availbleItemIcon available" />
                         موجود است
@@ -344,7 +348,7 @@ export default function Product() {
                       نقد و بررسی اجمالی
                     </span>
                     <span className="allDetails__headingDesc">
-                      {product?.segment}
+                      {product?.data?.segment}
                     </span>
                   </div>
                 </div>
@@ -352,7 +356,9 @@ export default function Product() {
                   <p
                     className="allDetails__detailsText"
                     dangerouslySetInnerHTML={{
-                      __html: domPurify.sanitize(product?.shortDescription),
+                      __html: domPurify.sanitize(
+                        product?.data?.shortDescription
+                      ),
                     }}
                   ></p>
                 </div>
@@ -368,14 +374,14 @@ export default function Product() {
                   <div className="allDetails__headingLeft">
                     <span className="allDetails__headingTitle">مشخصات کلی</span>
                     <span className="allDetails__headingDesc">
-                      {product?.segment}
+                      {product?.data?.segment}
                     </span>
                   </div>
                 </div>
                 <div
                   className="details__tableWrapper"
                   dangerouslySetInnerHTML={{
-                    __html: domPurify.sanitize(product?.fullDescription),
+                    __html: domPurify.sanitize(product?.data?.fullDescription),
                   }}
                 ></div>
               </div>
@@ -392,7 +398,7 @@ export default function Product() {
                       نظرات کاربران
                     </span>
                     <span className="allDetails__headingDesc">
-                      {product?.segment}
+                      {product?.data?.segment}
                     </span>
                   </div>
                 </div>
@@ -412,7 +418,7 @@ export default function Product() {
                       <div className="resultReview__wrraper">
                         <h3 className="resultReview__title">
                           {persianTexts.productInfo.productRatingFromUsers}
-                          <span>{product?.rating}</span>
+                          <span>{product?.data?.rating}</span>
                         </h3>
                         <div className="resultReview__points">
                           <div className="resultReview__point">
@@ -424,12 +430,12 @@ export default function Product() {
                                 <span
                                   className="resultReview__pointProgressBar"
                                   style={{
-                                    width: `${product?.rating * 20}%`,
+                                    width: `${product?.data?.rating * 20}%`,
                                   }}
                                 ></span>
                               </div>
                               <span className="resultReview__pointResultText">
-                                {showRatingResultPersian(product?.rating)}
+                                {showRatingResultPersian(product?.data?.rating)}
                               </span>
                             </div>
                           </div>
@@ -437,7 +443,7 @@ export default function Product() {
                       </div>
                     </div>
                     <div className="col-12 col-md-6">
-                      <Rating typeRating="product" id={productId}/>
+                      <Rating typeRating="product" id={productId} />
                     </div>
                   </div>
                   <div className="row">
@@ -445,7 +451,7 @@ export default function Product() {
                       <div className="allComments__header">
                         <h3 className="allComments__title">
                           نقد ها و بررسی ها
-                          {product?.reviews?.length ? (
+                          {product?.data?.reviews?.length ? (
                             <span>{product.reviews.length}</span>
                           ) : null}
                         </h3>
@@ -458,7 +464,7 @@ export default function Product() {
                         </ul>
                       </div>
                       <ul className="userComment__wrapper">
-                        {product?.reviews?.length ? (
+                        {product?.data?.reviews?.length ? (
                           <>
                             {product.reviews.map((review) => (
                               <li
@@ -535,7 +541,7 @@ export default function Product() {
                       نقد و بررسی
                     </span>
                     <span className="allDetails__headingDesc">
-                      {product?.segment}
+                      {product?.data?.segment}
                     </span>
                   </div>
                 </div>
@@ -658,19 +664,19 @@ export default function Product() {
             </div>
           </div>
           <div className="row">
-            <div className="col-12">
-              {/* {relatedProduct.length > 0 ? (
-                  <Slider
-                    slidesPerView={5}
-                    spaceBetween={15}
-                    loop={true}
-                    navigation={true}
-                    autoplay={true}
-                    array={relatedProduct}
-                    slide="ProductCart"
-                  />
-                ) : null} */}
-            </div>
+            {product?.related?.length && (
+              <Slider
+                isLoading={isLoading}
+                isSuccess={isSuccess}
+                slidesPerView={6}
+                spaceBetween={20}
+                autoplay={true}
+                loop={true}
+                navigation={true}
+                array={product?.related}
+                slide="ProductCart"
+              />
+            )}
           </div>
         </div>
       )}

@@ -1,11 +1,14 @@
-//styles
 import { useState } from "react";
-import WeblogItem from "../../components/WeblogItem/WeblogItem";
-import { useGetArticlesQuery } from "../../features/article/articleApiSlice";
-import "./WebLog.css";
+//packages
 import { nanoid } from "@reduxjs/toolkit";
+//rtk query
+import { useGetArticlesQuery } from "../../features/article/articleApiSlice";
+//components
 import ArticleReview from "../../components/articleReview/articleReview";
+import WeblogItem from "../../components/WeblogItem/WeblogItem";
 import LastArticles from "../../components/LastArticles/LastArticles";
+//styles
+import "./WebLog.css";
 
 
 const WebLog = () => {

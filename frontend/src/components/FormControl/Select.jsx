@@ -7,14 +7,19 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 import { HiChevronDown } from "react-icons/hi";
 
 const Select = (props) => {
+  const containerRef = useRef();
   const [field, meta, helpers] = useField(props);
+  const { setTouched, setValue } = helpers;
   const { options, label, icon, selectType, setSelectedProvince, placeholder } =
     props;
-  const { setTouched, setValue } = helpers;
-  const containerRef = useRef();
-  const [selectValue, setSelectValue] = useState("");
+
+  const [selectValue, setSelectValue] = useState(field.value);
+
   const [isShowOptions, setIsShowOptions] = useState(false);
+
   const [searchValue, setSearchValue] = useState("");
+
+  // filter optioon when selectType === "province"
   const filterOptions = useMemo(() => {
     if (selectType === "province") {
       if (options?.length === 0) return [];
@@ -34,25 +39,14 @@ const Select = (props) => {
       setSelectedProvince("");
       setSelectValue("");
     }
-    //  else {
-    //   setSelectValue("");
-    // }
+    if (!field.value) setSelectValue("");
   }, [field.value]);
 
   return (
     <div className="formControl__wrapper" ref={containerRef}>
-      {label && (
-        <label
-          htmlFor={field.name}
-          className={`input__label ${
-            meta.touched && meta.error ? "label--invalid" : undefined
-          }`}
-        >
-          {icon ?? null}
-          {label}
-        </label>
-      )}
-      <div
+  <div className={`inputBox`}>
+
+  <div
         className={`checkbox ${meta.touched && meta.error && "input--invalid"}`}
         onClick={() => setIsShowOptions(!isShowOptions)}
       >
@@ -62,9 +56,9 @@ const Select = (props) => {
           }`}
         >
           {selectType === "rating"
-            ? selectValue ||
+            ?
               options.find((option) => option.value === field.value)?.text
-            : selectValue || placeholder}
+            : selectValue }
         </span>
         <HiChevronDown className="dropdownIcon" />
       </div>
@@ -121,6 +115,26 @@ const Select = (props) => {
             : null}
         </ul>
       )}
+
+
+
+
+
+{/* label for input */}
+  <span
+          className={`input__infoBox ${
+            field?.value && "input__infoBox--top"
+          }`}
+        >
+          {props?.icon ?? null}
+          {props.label && <span className={`input__label`}>{props.label}</span>}
+        </span>
+  </div>
+
+
+       
+
+  
 
       {meta.touched && meta.error ? (
         <span className="auth__error">{meta.error}</span>

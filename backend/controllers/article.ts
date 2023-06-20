@@ -81,9 +81,19 @@ export const getArticle = async (
   try {
     const article = await Article.findById(req.params.id);
 
+    if (!article) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const relatedArticles = await Article.find().limit(10);
+
     res
       .status(200)
-      .json({ message: "Article found successfully", data: article });
+      .json({
+        message: "Article found successfully",
+        data: article,
+        relatedArticles,
+      });
   } catch (err) {
     next(err);
   }

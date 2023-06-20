@@ -60,7 +60,7 @@ export default function ProductsCategory() {
       subCategory: subCategory ?? "",
     }));
   }, [categoryName, subCategory]);
-
+console.log("products",products);
   return (
     <div className="container">
 

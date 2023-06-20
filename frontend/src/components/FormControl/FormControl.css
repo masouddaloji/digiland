@@ -9,9 +9,7 @@
   position: relative;
   margin-bottom: 1.5rem;
 }
-.label--invalid {
-  color: var(--red);
-}
+
 .inputBox {
   width: 100%;
   position: relative;
@@ -23,7 +21,6 @@
   width: 100%;
   height: 4rem;
   padding: 0 3rem 0 1rem;
-  background-color: #fafafa;
   color: var(--gray-text);
   font-size: 1.2rem;
   border: 0.15rem solid var(--gray);
@@ -53,6 +50,7 @@
   font-size: 1.2rem;
   color: #b8b8b8;
   pointer-events: none;
+  
 }
 .input__icon,
 .password__status {

@@ -109,11 +109,18 @@ export const getReviewsByProductId = async (
       productId: { $exists: false },
     });
 
+ 
+
     if (!productWithReviews) {
       errorGenerate("Product not found", 404);
     }
+    const relatedProducts = await Product.find({
+      category: productWithReviews!.category,
+    }).limit(10);
+
     res.status(200).send({
       data: productWithReviews,
+      related:relatedProducts,
       currentPage: pageNumber,
       nextPage: pageNumber + 1,
       previoousPage: pageNumber - 1,

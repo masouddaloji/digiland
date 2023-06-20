@@ -14,6 +14,10 @@ import "./ProductGallery.css";
 const ProductGallery = ({ array = [] }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const swiperModules = [Zoom, Navigation, Thumbs, Autoplay];
+// state for magnifier
+// const [isShowMagnifier,setIsShowMagnifier]=useState(false)
+// const [imageMagnifierSrc,setImageMagnifierSrc]=useState(null)
+//   const [[x,y],setXY]=useState([0,0])
 
   return (
     <div className="productGallery">

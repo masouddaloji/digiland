@@ -66,7 +66,7 @@ const SidebarUser = ({ isShow, setshow }) => {
 
 
   return (
-    <div className={`${width >= 992 && "col-lg-3"}`}>
+    <div className={`${width >= 992 && "col-lg-4 col-xl-3"}`}>
       <div className={`user-sidebar ${isShow && "user-sidebar--show"}`}>
         {isShow && (
           <IoClose
@@ -94,7 +94,7 @@ const SidebarUser = ({ isShow, setshow }) => {
             </div>
             {isSuccess && (
               <span className="user-sidebar__profile-name">
-                {data?.email?.split("@")[0]}
+                {data?.name??data.email?.split("@")[0]}
               </span>
             )}
           </div>

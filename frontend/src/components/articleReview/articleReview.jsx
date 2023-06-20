@@ -1,11 +1,12 @@
 //packages
 import { Link } from "react-router-dom";
+import { Skeleton } from "@mui/material";
+//rtk query
+import { useGetArticleReviewsQuery } from "../../features/article/articleApiSlice";
 //icons
 import { BsChatDots } from "react-icons/bs";
 //styles
 import "./articleReview.css";
-import { useGetArticleReviewsQuery } from "../../features/article/articleApiSlice";
-import { Skeleton } from "@mui/material";
 
 const ArticleReview = ({ isLoading }) => {
   const {

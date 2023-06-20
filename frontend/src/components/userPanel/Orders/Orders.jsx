@@ -2,6 +2,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 //rtk query
 import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
+import { useGetOrdersQuery } from "../../../features/order/orderAliSlice";
 
 //hooks
 import useAuth from "../../../hooks/useAuth";
@@ -13,6 +14,7 @@ import "./Orders.css";
 const Orders = () => {
   const{userID}=useAuth()
   const{data,isLoading,isSuccess}=useGetUserByIdQuery(userID)
+  const{data:order,isLoading:orderLoading,isSuccess:orderSuccess}=useGetOrdersQuery(userID)
 
   const rows = [
     {
@@ -30,8 +32,9 @@ const Orders = () => {
       total: 10250000,
     },
   ];
+  console.log("order",order);
   return (
-    <div className="order">
+    <div className="user-order">
  
       <div className="user__table__wrapper">
       <table className="user__table">

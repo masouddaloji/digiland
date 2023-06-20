@@ -24,7 +24,7 @@ function Slider({
   slide,
   isLoading,
   isSuccess,
-  slidesPerView = 1,
+  slidesPerView ,
   ...restprops
 }) {
   const selectslide = (item) => {
@@ -80,11 +80,10 @@ function Slider({
       pagination={slide === "instantOffer" ? { clickable: true } : false}
       autoplay={
         restprops.autoplay
-          ? {
+         && {
               delay: 3000,
               disableOnInteraction: false,
             }
-          : false
       }
       breakpoints={
         slidesPerView > 1
@@ -138,6 +137,7 @@ function Slider({
             }
           : null
       }
+      modules={[Autoplay, Pagination, Navigation]}
       className="customSwiper"
     >
       {/* */}

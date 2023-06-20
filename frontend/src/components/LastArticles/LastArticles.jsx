@@ -1,10 +1,12 @@
+//packages
+import { Skeleton } from "@mui/material";
+import { nanoid } from "@reduxjs/toolkit";
 //rtkquery
 import { Link } from "react-router-dom";
 import { useGetArticlesQuery } from "../../features/article/articleApiSlice";
 //styles
 import "./LastArticles.css";
-import { Skeleton } from "@mui/material";
-import { nanoid } from "@reduxjs/toolkit";
+
 
 const LastArticles = ({ isLoading }) => {
   const {

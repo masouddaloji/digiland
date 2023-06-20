@@ -31,7 +31,7 @@ export const ProductApiSlice = shopApi.injectEndpoints({
     }),
     getProductById: builder.query({
       query: (id) => `/products/reviews/${id}`,
-      transformResponse: (response) => response.data,
+      transformResponse: (response) => response,
       providesTags: (result, error, arg) => [
         { type: "Product", id: "List" },
         { type: "Product", id: result._id },

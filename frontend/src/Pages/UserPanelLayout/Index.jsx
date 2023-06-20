@@ -20,7 +20,7 @@ const UserPanel = () => {
       <div className="container">
         <div className="row">
             <SidebarUser isShow={isShowSidebar} setshow={setIsShowSidebar} />
-          <div className="col-12 col-lg-9">
+          <div className="col-12 col-lg-8 col-xl-9">
             <Outlet />
           </div>
         </div>

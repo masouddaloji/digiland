@@ -85,7 +85,7 @@ export const getUser = async (
 
     const user = await User.findById(req.params.id).select(
       "-password -refreshToken"
-    ).populate("basket.cartItems.productId");
+    ).populate("basket.cartItems.productId").populate({ path: "orders", populate: {path: "productId"} });
 
     if (!user) {
       errorGenerate("User not found!", 404);

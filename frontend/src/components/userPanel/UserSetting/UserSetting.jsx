@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 //rtk query
-import { useUpdateUserMutation } from "../../../features/user/userApiSlice";
+import {
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+} from "../../../features/user/userApiSlice";
 // persian text
 import { persianTexts } from "../../../text";
 // components
@@ -18,120 +21,135 @@ import { Iran } from "../../../Constants";
 import { MdUploadFile } from "react-icons/md";
 //styles
 import "./UserSetting.css";
+import Loader from "../../Loader/Loader";
 
 const UserSetting = () => {
   const { userID } = useAuth();
   const [updateUser] = useUpdateUserMutation();
+  const { data: userInfos, isLoading, isSuccess } = useGetUserByIdQuery(userID);
   const iranProvince = Object.keys(Iran);
-  const [selectedProvince, setSelectedProvince]=useState("");
+  const [selectedProvince, setSelectedProvince] = useState("");
   const [cities, setCities] = useState([]);
   useEffect(() => {
-    if(Iran[selectedProvince])setCities(Iran[selectedProvince]);
+    if (Iran[selectedProvince]) setCities(Iran[selectedProvince]);
   }, [selectedProvince]);
 
   let initialValues = {
-    name: "",
-    image: "",
-    phone: "",
-    state: "",
-    city: "",
-    street: "",
-    postalCode: "",
+    name: userInfos?.name ?? "",
+    image: userInfos?.image ?? "",
+    phone: userInfos?.phone ?? "",
+    state: userInfos?.addresses[0]?.state ?? "",
+    city: userInfos?.addresses[0]?.city ?? "",
+    street: userInfos?.addresses[0]?.street ?? "",
+    postalCode: userInfos?.addresses[0]?.postalCode ?? "",
   };
   const changeInfoHandler = (data) => {
     const userInfo = {
       name: data.name ?? "",
       image: data.image ?? "",
       phone: data.phone ?? "",
-      addresses: [{
-        state: data.state ?? "",
-        city: data.city ?? "",
-        street: data.street ?? "",
-        postalCode: data.postalCode ?? "",
-      }],
+      addresses: [
+        {
+          state: data.state ?? "",
+          city: data.city ?? "",
+          street: data.street ?? "",
+          postalCode: data.postalCode ?? "",
+        },
+      ],
     };
-    console.log("userInfo",{...userInfo})
+
     updateUser({ data: userInfo, id: userID })
       .unwrap()
       .then((res) => toast.success("تغییرات با موفقیت ذخیره شد"))
       .catch((error) => {
-        console.log("error",error)
-        toast.error("مشکلی در ذخیره تغییرات بوجود امد")
+        console.log("error", error);
+        toast.error("مشکلی در ذخیره تغییرات بوجود امد");
       });
   };
+  console.log("userInfo", userInfos);
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={userUpdateSchema}
-      onSubmit={async (values, { resetForm }) => {
-        await changeInfoHandler(values);
-        resetForm();
-      }}
-    >
-      {(formik) => (
-        <Form>
-          <div className="userSetting">
-            <div className="row">
-              <div className="col-12 col-lg-6">
-                <FormControl controler="text" label="نام" name="name" />
-              </div>
-              <div className="col-12 col-lg-6">
-                <FormControl controler="text" label="تلفن" name="phone" />
-              </div>
-              <div className="col-12 col-lg-6">
-                <FormControl
-                  controler="select"
-                  label="استان"
-                  name="state"
-                  options={iranProvince}
-                  placeholder="لطفا یک استان راانتخاب کنید"
-                  selectType="province"
-                  setSelectedProvince={setSelectedProvince}
-                />
-              </div>
-              <div className="col-12 col-lg-6">
-                <FormControl
-                  controler="select"
-                  label="شهر"
-                  name="city"
-                  placeholder="لطفا یک شهر راانتخاب کنید"
-                  selectType="province"
-                  options={cities}
-                />
-              </div>
-              <div className="col-12 col-lg-6">
-                <FormControl controler="text" label="خیابان" name="street" />
-              </div>
-              <div className="col-12 col-lg-6">
-                <FormControl
-                  controler="text"
-                  label="کد پستی"
-                  name="postalCode"
-                />
-              </div>
-             
+    <>
+      {isLoading && <Loader />}
+      {isSuccess && (
+        <Formik
+          initialValues={initialValues}
+          validationSchema={userUpdateSchema}
+          onSubmit={async (values, { resetForm }) => {
+            await changeInfoHandler(values);
+            resetForm();
+          }}
+        >
+          {(formik) => (
+            <Form>
+              <div className="userSetting">
+                <div className="row">
+                  <div className="col-12 col-lg-6">
+                    <FormControl controler="text" label="نام" name="name" />
+                  </div>
+                  <div className="col-12 col-lg-6">
+                    <FormControl controler="text" label="تلفن" name="phone" />
+                  </div>
+                  <div className="col-12 col-lg-6">
+                    <FormControl
+                      controler="select"
+                      label="استان"
+                      name="state"
+                      options={iranProvince}
+                      placeholder="لطفا یک استان راانتخاب کنید"
+                      selectType="province"
+                      setSelectedProvince={setSelectedProvince}
+                    />
+                  </div>
+                  <div className="col-12 col-lg-6">
+                    <FormControl
+                      controler="select"
+                      label="شهر"
+                      name="city"
+                      placeholder="لطفا یک شهر راانتخاب کنید"
+                      selectType="province"
+                      options={cities}
+                    />
+                  </div>
+                  <div className="col-12 col-lg-6">
+                    <FormControl
+                      controler="text"
+                      label="خیابان"
+                      name="street"
+                    />
+                  </div>
+                  <div className="col-12 col-lg-6">
+                    <FormControl
+                      controler="text"
+                      label="کد پستی"
+                      name="postalCode"
+                    />
+                  </div>
 
-              <div className="col-12 col-lg-6">
-                <FormControl
-                  label="پروفایل"
-                  placeholder={persianTexts.updateuserInfo.uploaderPlaceholder}
-                  controler="file"
-                  accept="image/*"
-                  name="image"
-                  icon={<MdUploadFile className="uploader__icon" />}
-                  typeuploader="profileUploader"
-                />
+                  <div className="col-12 col-lg-6">
+                    <FormControl
+                      label="پروفایل"
+                      placeholder={
+                        persianTexts.updateuserInfo.uploaderPlaceholder
+                      }
+                      controler="file"
+                      accept="image/*"
+                      name="image"
+                      icon={<MdUploadFile className="uploader__icon" />}
+                      typeuploader="profileUploader"
+                    />
+                  </div>
+                  <div className="col-12">
+                    <button type="submit" className="userSetting__btn">
+                      {persianTexts.updateuserInfo.submitBtn}
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="col-12">
-                <button type="submit" className="userSetting__btn">
-                  {persianTexts.updateuserInfo.submitBtn}
-                </button>
-              </div>
-            </div>
-          </div>
-        </Form>
+            </Form>
+          )}
+        </Formik>
       )}
-    </Formik>
+    </>
   );
 };
 

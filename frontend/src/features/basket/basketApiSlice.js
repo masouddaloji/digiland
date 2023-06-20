@@ -65,10 +65,7 @@ export const basketApiSlice = shopApi.injectEndpoints({
       transformResponse: (response) => console.log("response", response),
       invalidatesTags: (result, error, arg) => [{ type: "Basket", id: "LIST" }],
     }),
-    getOrders:builder.query({
-      query:(id)=>`/my-orders/${id}`,
-      transformResponse:response=>console.log("response",response)
-    })
+
   }),
 });
 export const {
@@ -78,5 +75,5 @@ export const {
   useDecrementItemMutation,
   useEmptyBasketMutation,
   useRemoveItemMutation,
-  useAddToOrderMutation
+  useAddToOrderMutation,
 } = basketApiSlice;
