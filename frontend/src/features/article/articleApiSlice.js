@@ -20,7 +20,10 @@ const articleApiSlice = shopApi.injectEndpoints({
       transformResponse: (response) => response?.data,
       providesTags: (result, error, arg) => [{ type: "Article", id: arg }],
     }),
-
+    getArticleReviews:builder.query({
+      query: ()=>"/articles/reviews",
+      transformResponse:response=>response.data
+    }),
     uploadCoverArticle: builder.mutation({
       query: (data) => ({
         url: "http://localhost:8000/upload/articleimg",
@@ -75,5 +78,6 @@ export const {
   useGetArticleByIdQuery,
   useUpdateArticleMutation,
   useDeleteArticleMutation,
-  useAddReviewArticleMutation
+  useAddReviewArticleMutation,
+  useGetArticleReviewsQuery
 } = articleApiSlice;

@@ -1,0 +1,113 @@
+.weblog-item {
+  width: 100%;
+  background-color: var(--white);
+  color: var(--black-05);
+  border-radius: var(--border-box);
+}
+.weblog-item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.1rem solid #f3f2f2;
+  padding: 1rem;
+  box-shadow: 0 0.5rem 2rem -0.5rem #f5f5f5;
+}
+.weblog-item__icon {
+  width: 3rem;
+  height: 2.2rem;
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 0.1rem dashed var(--gray);
+  color: var(--gray-50);
+}
+.weblog-item__header h2 {
+  font-size: 1.3rem;
+}
+.weblog-item__header > span {
+  font-size: 1rem;
+  color: var(--white);
+  background-color: #dfe0e3;
+  padding: 0.2rem 0.8rem;
+  border-radius: 1.5rem 1.5rem 0.1rem 1.5rem;
+  display: flex;
+  align-items: center;
+}
+.weblog-item__header span span {
+  margin-left: 0.5rem;
+}
+.weblog-item__content {
+  display: flex;
+}
+.weblog-item__img-box {
+  width: 100%;
+  max-width: 26rem;
+  border-radius: var(--border-box);
+  overflow: hidden;
+}
+.weblog-item__img {
+  width: 100%;
+  display: block;
+  height: auto;
+}
+.weblog-item__text {
+  color: #777;
+  font-size: 1.2rem;
+  line-height: 2.2;
+  padding-top: 0.5rem;
+}
+.weblog-item__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-top: 0.1rem solid #f3f2f2;
+}
+.weblog-item__footer-infos {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.weblog-item__footer-infos span {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.1rem;
+}
+
+.weblog-item__link {
+  width: 3rem;
+  height: 3rem;
+  background-color: #dfe0e3;
+  border-radius: 0.6rem 0.6rem 0.6rem 2rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+.weblog-item__footer-link {
+  color: var(--white);
+}
+.weblog-item__footer-icon {
+  font-size: 1.4rem;
+  color: #b5b5b5;
+}
+.weblog-item__link:hover {
+  background-color: var(--gold);
+}
+/* skeleton */
+.weblog__skeleton{
+    width: 100%;
+    background-color: var(--white);
+    padding: 2rem 3rem;
+  border-radius: var(--border-box);
+  margin-bottom: 1rem;
+
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.weblog__skeleton-content{
+    display: flex;
+}

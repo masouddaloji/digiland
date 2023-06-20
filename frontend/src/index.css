@@ -714,6 +714,30 @@ background-color: var(--gray-text);
 }
 
 /* end datagrid style */
+.markHeader{
+  position: relative;
+}
+.markHeader::before{
+  content: "";
+  width: 1.8rem;
+  height: .2rem;
+  background-color: var(--blue);
+  position: absolute;
+  bottom: -.1rem;
+  right: 0;
+  border-radius: .2rem;
+}
+.markHeader::after{
+  content: "";
+  width: 3rem;
+  height: .2rem;
+  background-color: var(--gray-50);
+  position: absolute;
+  bottom: -.1rem;
+  right: 2.1rem;
+  border-radius: .2rem;
+}
+
 .ss02 {
   -moz-font-feature-settings: "ss02";
   -webkit-font-feature-settings: "ss02";

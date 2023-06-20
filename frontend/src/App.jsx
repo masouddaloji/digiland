@@ -32,6 +32,8 @@ import Address from "./components/userPanel/Address/Address";
 import AddArticles from "./components/adminPanel/AddArticles/AddArticles";
 import EditArticles from "./components/adminPanel/EditArticles/EditArticles";
 import Article from './Pages/Article/Article'
+import WebLog from "./Pages/Articles/WebLog";
+
 // styles
 import "./App.css";
 
@@ -69,9 +71,10 @@ export default function App() {
               {/* start product info */}
               <Route path="/product/:productId" element={<Product />} />
               {/* end product info */}
-              {/* start product info */}
+              {/* start article  */}
               <Route path="/article/:articleId" element={<Article />}/>
-              {/* end product info */}
+              <Route path="/articles" element={<WebLog />}/>
+              {/* end article  */}
             </Route>
             {/* start adminpanel */}
             <Route element={<PersistLogin />}>

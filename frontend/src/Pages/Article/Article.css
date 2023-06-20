@@ -121,8 +121,8 @@
   font-size: 1.2rem;
   color: var(--black-05);
 }
-.article__review-count span{
-    margin-left: .5rem;
+.article__review-count span {
+  margin-left: 0.5rem;
 }
 .review__item {
   width: 100%;
@@ -149,7 +149,12 @@
   border-radius: var(--border-box);
   background-color: #f4f5f8;
 }
-.review__not-login{
-    color: var(--black-05);
-    font-size: 1.2rem;  
+.review__not-login {
+  color: var(--black-05);
+  font-size: 1.2rem;
+}
+@media (max-width: 767px) {
+  .article__imgBox,.article__content img {
+    height: auto;
+  }
 }
