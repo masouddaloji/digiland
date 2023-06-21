@@ -136,7 +136,7 @@ export const userUpdateSchema = Yup.object().shape({
   state: Yup.string(),
   city: Yup.string(),
   street: Yup.string(persianTexts.updateuserInfo.schema.street.string).max(
-    15,
+    35,
     persianTexts.updateuserInfo.schema.street.max
   ),
   postalCode: Yup.string().matches(

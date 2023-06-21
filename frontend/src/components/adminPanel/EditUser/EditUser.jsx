@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-// packages
+//packages
+import { useNavigate, useParams } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 //rtk query
@@ -7,42 +8,37 @@ import {
   useGetUserByIdQuery,
   useUpdateUserMutation,
 } from "../../../features/user/userApiSlice";
-// persian text
-import { persianTexts } from "../../../text";
-// components
+//components//
 import FormControl from "../../FormControl/FormControl";
+import Loader from "../../Loader/Loader";
 //validator
 import { userUpdateSchema } from "../../Validator/Validator";
-//hooks
-import useAuth from "../../../hooks/useAuth";
-//constants
+//constant
 import { Iran } from "../../../Constants";
+//persian text
+import { persianTexts } from "../../../text";
 //icons
 import { MdUploadFile } from "react-icons/md";
 //styles
-import "./UserSetting.css";
-import Loader from "../../Loader/Loader";
+import "./EditUser.css";
 
-const UserSetting = () => {
-  const { userID } = useAuth();
+const EditUser = () => {
+  const { userId } = useParams();
+  const navigate = useNavigate();
+  const { data: userInfos, isLoading, isSuccess } = useGetUserByIdQuery(userId);
   const [updateUser] = useUpdateUserMutation();
-  const { data: userInfos, isLoading, isSuccess } = useGetUserByIdQuery(userID);
   const iranProvince = Object.keys(Iran);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [cities, setCities] = useState([]);
 
-  useEffect(() => {
-    if (Iran[selectedProvince]) setCities(Iran[selectedProvince]);
-  }, [selectedProvince]);
-
   let initialValues = {
-    name: userInfos?.name ?? "",
-    image: userInfos?.image ?? "",
-    phone: userInfos?.phone ?? "",
-    state: userInfos?.addresses[0]?.state ?? "",
-    city: userInfos?.addresses[0]?.city ?? "",
-    street: userInfos?.addresses[0]?.street ?? "",
-    postalCode: userInfos?.addresses[0]?.postalCode ?? "",
+    name: userInfos?.data?.name ?? "",
+    image: userInfos?.data?.image ?? "",
+    phone: userInfos?.data?.phone ?? "",
+    state: userInfos?.data?.addresses[0]?.state ?? "",
+    city: userInfos?.data?.addresses[0]?.city ?? "",
+    street: userInfos?.data?.addresses[0]?.street ?? "",
+    postalCode: userInfos?.data?.addresses[0]?.postalCode ?? "",
   };
   const changeInfoHandler = (data) => {
     const userInfo = {
@@ -61,14 +57,22 @@ const UserSetting = () => {
       }),
     };
 
-    updateUser({ data: userInfo, id: userID })
+    updateUser({ data: userInfo, id: userId })
       .unwrap()
-      .then((res) => toast.success("تغییرات با موفقیت ذخیره شد"))
+      .then((res) => {
+        toast.success("تغییرات با موفقیت ذخیره شد");
+        navigate("/admin-users");
+      })
       .catch((error) => {
         console.log("error", error);
         toast.error("مشکلی در ذخیره تغییرات بوجود امد");
       });
   };
+
+  useEffect(() => {
+    if (Iran[selectedProvince]) setCities(Iran[selectedProvince]);
+  }, [selectedProvince]);
+
   return (
     <>
       {isLoading && <Loader />}
@@ -155,4 +159,4 @@ const UserSetting = () => {
   );
 };
 
-export default UserSetting;
+export default EditUser;

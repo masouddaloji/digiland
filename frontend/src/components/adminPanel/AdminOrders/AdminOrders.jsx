@@ -3,12 +3,24 @@ import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Tooltip } from "@mui/material";
 //rtk query
-import { useGetAllOrdersQuery } from "../../../features/order/orderAliSlice";
+import {
+  useChangeStatusOrderMutation,
+  useGetAllOrdersQuery,
+} from "../../../features/order/orderAliSlice";
 //components
 import CustomPagination from "../../Pagination/CustomPagination";
 import Loader from "../../Loader/Loader";
+import { RiDeleteBinLine } from "react-icons/ri";
+import Modal from "../../Modal/Modal";
+import { persianTexts } from "../../../text";
+import { FiEdit } from "react-icons/fi";
+import { FaCheck } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const AdminOrders = () => {
+  const [isShowAcceptModal, setIsShowAcceptModal] = useState(false);
+  const [isShowRejectModal, setIsShowRejectModal] = useState(false);
+  const [orderId, setOrderId] = useState(null);
   const [pageInfo, setPageInfo] = useState({
     page: 1,
     limit: 10,
@@ -18,6 +30,7 @@ const AdminOrders = () => {
     isLoading,
     isSuccess,
   } = useGetAllOrdersQuery({ page: pageInfo.page, limit: pageInfo.limit });
+  const [changeStatusOrder] = useChangeStatusOrderMutation();
 
   const columns = [
     {
@@ -49,10 +62,7 @@ const AdminOrders = () => {
       sortable: false,
       disableColumnMenu: true,
       renderCell: (params) => (
-        <Tooltip
-          title={params.value}
-          classes={{ tooltip: "custom__tooltip" }}
-        >
+        <Tooltip title={params.value} classes={{ tooltip: "custom__tooltip" }}>
           <span>{params.value}</span>
         </Tooltip>
       ),
@@ -66,9 +76,7 @@ const AdminOrders = () => {
       editable: false,
       sortable: false,
       disableColumnMenu: true,
-      renderCell: (params) => (
-          <span>{params.row.userId.email}</span>
-      ),
+      renderCell: (params) => <span>{params.row.userId.email}</span>,
     },
     {
       field: "price",
@@ -80,7 +88,7 @@ const AdminOrders = () => {
       sortable: false,
       disableColumnMenu: true,
       renderCell: (params) => (
-          <span>{params.row.productId.price.toLocaleString()+" تومان"}</span>
+        <span>{params.row.productId.price.toLocaleString() + " تومان"}</span>
       ),
     },
     {
@@ -90,22 +98,104 @@ const AdminOrders = () => {
       align: "center",
       headerAlign: "center",
       editable: true,
-      type:"singleSelect",
-      valueOptions:["درحال بررسی","تایید شده","لغو شده"],
+      type: "singleSelect",
+      valueOptions: ["درحال بررسی", "تایید شده", "لغو شده"],
       sortable: false,
       disableColumnMenu: true,
       renderCell: (params) => {
-          if (params.value==="pending") return <button className="table__btn table__status--pending">در حال بررسی</button>
-          if (params.value==="success") return <button className="table__btn table__status--success">تایید شده</button>
-          if (params.value==="reject") return <button className="table__btn table__status--reject">لغو شده</button>
+        if (params.value === "pending")
+          return (
+            <button className="table__btn table__status--pending">
+              در حال بررسی
+            </button>
+          );
+        if (params.value === "delivered")
+          return (
+            <button className="table__btn table__status--success">
+              تایید شده
+            </button>
+          );
+        if (params.value === "cancelled")
+          return (
+            <button className="table__btn table__status--reject">
+              لغو شده
+            </button>
+          );
       },
+    },
+    {
+      field: "action",
+      headerName: "عملیات ها",
+      align: "center",
+      width: 100,
+      headerAlign: "center",
+      editable: false,
+      sortable: false,
+      disableColumnMenu: true,
+      renderCell: (params) => (
+        <div className="actionBtns">
+          <Tooltip title="تایید" classes={{ tooltip: "custom__tooltip" }}>
+            <button
+              className="accept"
+              onClick={() => {
+                setIsShowAcceptModal(true);
+                setOrderId(params.row._id);
+              }}
+            >
+              <FaCheck className="actions__icon" />
+            </button>
+          </Tooltip>
+          <Tooltip title="رد" classes={{ tooltip: "custom__tooltip" }}>
+            <button
+              className="delete"
+              onClick={() => {
+                setIsShowRejectModal(true);
+                setOrderId(params.row._id);
+              }}
+            >
+              <RiDeleteBinLine className="actions__icon" />
+            </button>
+          </Tooltip>
+        </div>
+      ),
     },
   ];
   const rows = orders?.data ?? [];
 
-  console.log("orders", orders);
+  const acceptOrderHandler = () => {
+    const data = {
+      orderId,
+      status: "delivered",
+    };
+    changeStatusOrder({data}).unwrap()
+    .then(res=>{
+      console.log("res",res);
+      toast.success("سفارش با موفقیت تایید شد")
+    })
+    .catch(error=>{
+      console.log("error",error);
+      toast.error("تایید سفارش با مشکل مواجه شد")
+    })
+  };
+  console.log("orders",orders);
   return (
     <>
+      {isShowAcceptModal && (
+        <Modal
+          message="آیا سفارش مورد نظر تایید شود ؟"
+          isShow={isShowAcceptModal}
+          setIsShow={setIsShowAcceptModal}
+          action={acceptOrderHandler}
+        />
+      )}
+      {isShowRejectModal && (
+        <Modal
+          message="آیا سفارش مورد نظر رد شود ؟"
+          isShow={isShowRejectModal}
+          setIsShow={setIsShowRejectModal}
+          action={removeProductHandler}
+        />
+      )}
       {isLoading && <Loader />}
       {isSuccess && (
         <div className="table">

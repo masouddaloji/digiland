@@ -657,6 +657,17 @@ a {
   color: var(--red);
   background: var(--red-25);
 }
+.table__invalid{
+  color: var(--red);
+  background: var(--red-25);
+padding: .5rem .7rem;
+border-radius: var(--border-box);
+}
+.accept{
+  color: var(--admin-green);
+  background-color: rgba(63, 184, 169, 0.2);
+}
+
 .table__price--success {
   color: var(--admin-green);
 }

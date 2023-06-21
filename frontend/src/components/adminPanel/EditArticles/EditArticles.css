@@ -1,0 +1,5 @@
+.editArticles{
+    background-color: var(--white);
+    border-radius: var(--border-box);
+    box-shadow: var(--box-shadow);
+}

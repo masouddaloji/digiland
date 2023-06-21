@@ -1,10 +1,13 @@
 import { useState } from "react";
 //packages
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { toast } from "react-toastify";
 //rtk query
-import { useDeleteUserMutation, useGetUsersQuery } from "../../../features/user/userApiSlice";
+import {
+  useDeleteUserMutation,
+  useGetUsersQuery,
+} from "../../../features/user/userApiSlice";
 //components
 import Loader from "../../Loader/Loader";
 import CustomPagination from "../../Pagination/CustomPagination";
@@ -17,6 +20,7 @@ import { FiEdit, FiUser } from "react-icons/fi";
 import "./AdminUsers.css";
 
 const AdminUsers = () => {
+  const navigate = useNavigate();
   const [userIdSelected, setUserIdSelected] = useState(null);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
@@ -33,33 +37,47 @@ const AdminUsers = () => {
     isLoading,
     isSuccess,
   } = useGetUsersQuery({ ...pageInfo });
-  const [deleteUser]=useDeleteUserMutation()
+  const [deleteUser] = useDeleteUserMutation();
+  console.log("users", users);
   const rows = users?.data ?? [];
 
   const columns = [
     {
+      field: "name",
+      headerName: "نام",
+      width: 120,
+      align: "center",
+      headerAlign: "center",
+      renderCell: (params) => {
+        if (params?.value) {
+          return <span>{params.value}</span>;
+        } else return <span className="table__invalid">بدون نام</span>;
+      },
+    },
+    {
       field: "email",
       headerName: "ایمیل",
-      minWidth:160,
+      minWidth: 160,
       flex: 1,
       align: "center",
       headerAlign: "center",
     },
-  
+
     {
       field: "orders",
       headerName: "سفارشات",
-      width:120,
+      width: 120,
       align: "center",
       headerAlign: "center",
       renderCell: (params) => (
         <button
-        className="table__btn showorder"
+          className="table__btn showorder"
           onClick={() => {
             setOrderDetails(params.row.orders);
             setIsShowOrder(true);
           }}
-        >سفارشات کاربر
+        >
+          سفارشات کاربر
         </button>
       ),
     },
@@ -69,7 +87,17 @@ const AdminUsers = () => {
       flex: 1,
       align: "center",
       headerAlign: "center",
-      renderCell:(params)=>"لرستان،کوهدشت،شهرک شهید رجایی"
+      renderCell: (params) => {
+        if (params?.value?.[0]) {
+          return (
+            <>
+              <span>{`${params?.value?.[0]?.state} , `}</span>
+              <span>{`${params?.value?.[0]?.city} , `}</span>
+              <span>{` ${params?.value?.[0]?.street}`}</span>
+            </>
+          );
+        } else return <span className="table__invalid">آدرس ثبت نشده</span>;
+      },
     },
     {
       field: "action",
@@ -104,18 +132,19 @@ const AdminUsers = () => {
     },
   ];
   const editUserHandler = () => {
-    console.log("edited");
+    navigate(`/admin-editusers/${userIdSelected}`);
   };
   const removeUserHandler = () => {
-    deleteUser(userIdSelected).unwrap()
-    .then(res=>{
-      toast.success("کاربر موردنظر با موفقیت حذف شد")
-    })
-    .catch(error=>{
-      toast.error("مشکلی در حذف کاربر موردنظر بوجود آمد")
-    })
+    deleteUser(userIdSelected)
+      .unwrap()
+      .then((res) => {
+        toast.success("کاربر موردنظر با موفقیت حذف شد");
+      })
+      .catch((error) => {
+        toast.error("مشکلی در حذف کاربر موردنظر بوجود آمد");
+      });
   };
-  console.log("users",users);
+  console.log("users", users);
   return (
     <>
       {isShowEditModal && (
@@ -134,7 +163,9 @@ const AdminUsers = () => {
           action={removeUserHandler}
         />
       )}
-      {isShowBasket && <InfoBasketUser details={basketDetails} setisShow={setIsShowBasket} />}
+      {isShowBasket && (
+        <InfoBasketUser details={basketDetails} setisShow={setIsShowBasket} />
+      )}
       {isLoading && <Loader />}
       {isSuccess && (
         <div className="table">

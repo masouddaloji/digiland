@@ -33,6 +33,7 @@ import AddArticles from "./components/adminPanel/AddArticles/AddArticles";
 import EditArticles from "./components/adminPanel/EditArticles/EditArticles";
 import Article from './Pages/Article/Article'
 import WebLog from "./Pages/Articles/WebLog";
+import EditUser from "./components/adminPanel/EditUser/EditUser";
 
 // styles
 import "./App.css";
@@ -88,6 +89,7 @@ export default function App() {
                     element={<EditProduct />}
                   />
                   <Route path="/admin-users" element={<AdminUsers />} />
+                  <Route path="/admin-editusers/:userId" element={<EditUser />} />
                   <Route path="/admin-orders" element={<AdminOrders />} />
                   <Route path="/admin-articles" element={<AdminArticles />} />
                   <Route path="/admin-addarticles" element={<AddArticles />} />

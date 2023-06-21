@@ -26,7 +26,16 @@ const orderApiSlice = shopApi.injectEndpoints({
         { type: "Order", id: "LIST" },
         { type: "Order", id: arg },
       ],
+
     }),
+    changeStatusOrder:builder.mutation({
+      query:(data)=>({
+        url:"/orders",
+        method:"POST",
+        body:data
+      }),
+      invalidatesTags:(result,error,arg)=>[{ type: "Order", id: "LIST" },{ type: "Order", id: arg?.orderId },]
+    })
   }),
 });
 
@@ -34,4 +43,5 @@ export const {
   useGetAllOrdersQuery,
   useGetOrdersQuery,
   useRemoveOrderByUserMutation,
+  useChangeStatusOrderMutation
 } = orderApiSlice;

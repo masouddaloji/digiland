@@ -72,8 +72,8 @@ const EditArticles = () => {
         >
           {(formik) => (
             <Form>
+                <div className="editArticles">
               <div className="col-12">
-                <div className="EditArticles">
                   <div className="row">
                     <div className="col-12 col-md-6">
                       <div className="col-12">
@@ -119,6 +119,7 @@ const EditArticles = () => {
                       />
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="col-12">
                       <button
@@ -134,6 +135,7 @@ const EditArticles = () => {
                       </button>
                     </div>
                   </div>
+
                 </div>
               </div>
             </Form>

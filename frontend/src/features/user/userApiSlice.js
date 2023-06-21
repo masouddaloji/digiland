@@ -11,7 +11,6 @@ const userApiAlice = shopApi.injectEndpoints({
     }),
     getUserById:builder.query({
       query:id=>`/users/${id}`,
-      transformResponse:response=>response.data,
       providesTags:(result, error, arg)=>[ { type: "Users", id: "LIST" }, { type: "Users", id: arg}],
     }),
     deleteUser: builder.mutation({
