@@ -12,10 +12,11 @@ import {
 import Loader from "../../Loader/Loader";
 import CustomPagination from "../../Pagination/CustomPagination";
 import Modal from "../../Modal/Modal";
-import InfoBasketUser from "../InfoBasketUser/InfoBasketUser";
 //icons
 import { RiDeleteBinLine } from "react-icons/ri";
-import { FiEdit, FiUser } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
+//persian text
+import { persianTexts } from "../../../text";
 //styles
 import "./AdminUsers.css";
 
@@ -24,10 +25,6 @@ const AdminUsers = () => {
   const [userIdSelected, setUserIdSelected] = useState(null);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
-  const [isShowBasket, setIsShowBasket] = useState(false);
-  const [isShowOrder, setIsShowOrder] = useState(false);
-  const [basketDetails, setBbasketDetails] = useState([]);
-  const [orderDetails, setOrderDetails] = useState([]);
   const [pageInfo, setPageInfo] = useState({
     page: 1,
     limit: 10,
@@ -64,26 +61,21 @@ const AdminUsers = () => {
     },
 
     {
-      field: "orders",
-      headerName: "سفارشات",
-      width: 120,
+      field: "phone",
+      headerName: "تلفن",
+      minWidth: 140,
       align: "center",
       headerAlign: "center",
-      renderCell: (params) => (
-        <button
-          className="table__btn showorder"
-          onClick={() => {
-            setOrderDetails(params.row.orders);
-            setIsShowOrder(true);
-          }}
-        >
-          سفارشات کاربر
-        </button>
-      ),
+      renderCell: (params) => {
+        if (params?.value) {
+          return <span>{params.value}</span>;
+        } else return <span className="table__invalid">بدون شماره</span>;
+      },
     },
     {
       field: "addresses",
       headerName: "آدرس",
+      minWidth: 180,
       flex: 1,
       align: "center",
       headerAlign: "center",
@@ -138,10 +130,10 @@ const AdminUsers = () => {
     deleteUser(userIdSelected)
       .unwrap()
       .then((res) => {
-        toast.success("کاربر موردنظر با موفقیت حذف شد");
+        toast.success(persianTexts.adminUsers.deleteSuccess);
       })
       .catch((error) => {
-        toast.error("مشکلی در حذف کاربر موردنظر بوجود آمد");
+        toast.error(persianTexts.adminUsers.deleteError);
       });
   };
   console.log("users", users);
@@ -163,17 +155,13 @@ const AdminUsers = () => {
           action={removeUserHandler}
         />
       )}
-      {isShowBasket && (
-        <InfoBasketUser details={basketDetails} setisShow={setIsShowBasket} />
-      )}
       {isLoading && <Loader />}
       {isSuccess && (
         <div className="table">
           <div className="table__header">
-            <h5 className="table__title">لیست کاربران</h5>
-            {/* <Link to="/adminpanel/add-products" className="table__btn">
-              افزودن محصول
-            </Link> */}
+            <h5 className="table__title">
+              {persianTexts.adminUsers.tableTitle}
+            </h5>
           </div>
           <div className="datagrid__container">
             <DataGrid

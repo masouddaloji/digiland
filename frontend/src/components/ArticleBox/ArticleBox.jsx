@@ -1,6 +1,6 @@
 //packages
 import { Link } from "react-router-dom";
-import { Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack, Tooltip } from "@mui/material";
 //hooks
 import useConvertDate from "../../hooks/useConvertDate";
 //icons
@@ -22,9 +22,11 @@ export default function ArticleBox(props) {
                 className="articleBox__img"
               />
             </div>
+            <Tooltip arrow title={title} classes={{ tooltip: "custom__tooltip" }}>
             <div className="articleBox__title">
               {title}
             </div>
+            </Tooltip>
           </Link>
           <div className="articleBox__details">
             <div className="articleBox__author">

@@ -7,9 +7,11 @@ import { useGetArticlesQuery } from "../../features/article/articleApiSlice";
 import ArticleReview from "../../components/articleReview/articleReview";
 import WeblogItem from "../../components/WeblogItem/WeblogItem";
 import LastArticles from "../../components/LastArticles/LastArticles";
+import Error from "../../components/Error/Error";
+//persian text
+import { persianTexts } from "../../text";
 //styles
 import "./WebLog.css";
-
 
 const WebLog = () => {
   const [pageInfo, setPageInfo] = useState({
@@ -27,29 +29,43 @@ const WebLog = () => {
         <div className="row">
           <div className="col-12 col-lg-8 col-xl-9">
             <div className="weblog__header max__blog">
-            <h2 className="weblog__title">وبلاگ</h2>
+              <h2 className="weblog__title">وبلاگ</h2>
             </div>
             {/* start show artcles */}
             <div className="weblog__content max__blog">
-              {isSuccess&& articles?.data?.length &&
+              {isSuccess && articles?.data?.length ? (
                 articles.data.map((article) => (
                   <div className="row" key={article._id}>
-                    <WeblogItem {...article} isLoading={isLoading} isSuccess={isSuccess}/>
+                    <WeblogItem
+                      {...article}
+                      isLoading={isLoading}
+                      isSuccess={isSuccess}
+                    />
                   </div>
-                ))}
-                {isLoading && Array(pageInfo.limit)
-                .fill(0).map(skeleton=><div className="row" key={nanoid()}>
-                    <WeblogItem isLoading={isLoading} />
-                  </div>)}
+                ))
+              ) : (
+                <Error
+                  type="warning"
+                  title={persianTexts.adminArticle.notFoundArticle}
+                />
+              )}
+              {isLoading &&
+                Array(pageInfo.limit)
+                  .fill(0)
+                  .map((skeleton) => (
+                    <div className="row" key={nanoid()}>
+                      <WeblogItem isLoading={isLoading} />
+                    </div>
+                  ))}
             </div>
             {/* end show artcles */}
           </div>
-            {/* start show review artcles */}
+          {/* start show review artcles */}
           <div className="col-12 col-lg-4 col-xl-3">
-                <ArticleReview isLoading={isLoading}/>
-                  <LastArticles isLoading={isLoading}/>
+            <ArticleReview isLoading={isLoading} />
+            <LastArticles isLoading={isLoading} />
           </div>
-            {/* end show review artcles */}
+          {/* end show review artcles */}
         </div>
       </div>
     </section>

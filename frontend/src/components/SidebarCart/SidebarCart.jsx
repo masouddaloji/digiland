@@ -31,6 +31,7 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
   const maskRef = useRef();
   const sideBarCartRef = useRef();
 
+  
   useOutsideClick({ref:maskRef,setStateHandler:setIsShowSideBarCart})
   return (
     <>

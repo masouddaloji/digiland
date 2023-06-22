@@ -9,6 +9,7 @@ import {
 } from "../../../features/article/articleApiSlice";
 //components
 import FormControl from "../../FormControl/FormControl";
+import Loader from "../../Loader/Loader";
 //validator
 import { articleSchema } from "../../Validator/Validator";
 //icons
@@ -17,7 +18,6 @@ import { MdUploadFile } from "react-icons/md";
 import { persianTexts } from "../../../text";
 //styles
 import "./EditArticles.css";
-import Loader from "../../Loader/Loader";
 
 const EditArticles = () => {
     const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 //packages
 import { toast } from "react-toastify";
 //rtk query
@@ -11,9 +11,11 @@ import { persianTexts } from "../../text";
 import "./ProductCount.css";
 
 function ProductCount(props) {
+  const [productCount,setProductCount]=useState(null)
   const { value, minValue, maxValue, productId,setIsLoadingUpdateCount }=props
   const [incrementItem,{isLoading:incrementLoading}]=useIncrementItemMutation()
   const [decrementItem,{isLoading:decrementLoading}]=useDecrementItemMutation()
+
   useEffect(()=>{
     setIsLoadingUpdateCount(incrementLoading)
   },[incrementLoading])
@@ -35,7 +37,9 @@ function ProductCount(props) {
       .catch(error=>toast.error(persianTexts.basket.decrementProductError))
     }
   };
-
+useEffect(()=>{
+setProductCount(value)
+},[value])
   return (
     <div className="quantity">
       <span
@@ -49,7 +53,7 @@ function ProductCount(props) {
         className="quantity__input ss02"
         min={minValue}
         max={maxValue}
-        value={value}
+        value={productCount}
       />
 
       <span

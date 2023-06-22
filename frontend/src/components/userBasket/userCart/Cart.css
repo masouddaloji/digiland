@@ -235,29 +235,7 @@
   .cart__productsWrapper{
     border: none;
   }
-  .user__table thead{
-    display: none;
-  }
-  .user__table tr{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-  }
- 
-  .user__table td{
-    position: relative;
-    padding: 1rem 0;
-    border-bottom: 1px solid #eee ;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row-reverse;
-    gap: 2rem;
-  }
-  .user__table td::after{
-    content: attr(data-title);
-    font-size: 1.2rem;
-  }
+
   .cart__productImglink,.cart__removeIcon{
     margin: 0 auto;
   }

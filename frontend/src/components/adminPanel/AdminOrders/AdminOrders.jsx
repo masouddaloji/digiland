@@ -2,6 +2,7 @@ import { useState } from "react";
 //packages
 import { DataGrid } from "@mui/x-data-grid";
 import { Tooltip } from "@mui/material";
+import { toast } from "react-toastify";
 //rtk query
 import {
   useChangeStatusOrderMutation,
@@ -10,12 +11,15 @@ import {
 //components
 import CustomPagination from "../../Pagination/CustomPagination";
 import Loader from "../../Loader/Loader";
-import { RiDeleteBinLine } from "react-icons/ri";
 import Modal from "../../Modal/Modal";
+import Error from "../../Error/Error";
+//hooks
+import useConvertDate from "../../../hooks/useConvertDate";
+//persian text
 import { persianTexts } from "../../../text";
-import { FiEdit } from "react-icons/fi";
+//icons
+import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCheck } from "react-icons/fa";
-import { toast } from "react-toastify";
 
 const AdminOrders = () => {
   const [isShowAcceptModal, setIsShowAcceptModal] = useState(false);
@@ -89,6 +93,19 @@ const AdminOrders = () => {
       disableColumnMenu: true,
       renderCell: (params) => (
         <span>{params.row.productId.price.toLocaleString() + " تومان"}</span>
+      ),
+    },
+    {
+      field: "createdAt",
+      headerName: "تاریخ",
+      width: 160,
+      align: "center",
+      headerAlign: "center",
+      editable: false,
+      sortable: false,
+      disableColumnMenu: true,
+      renderCell: (params) => (
+        <span>{useConvertDate(params.value)}</span>
       ),
     },
     {
@@ -170,19 +187,21 @@ const AdminOrders = () => {
     changeStatusOrder({data}).unwrap()
     .then(res=>{
       console.log("res",res);
-      toast.success("سفارش با موفقیت تایید شد")
+      toast.success(persianTexts.adminOrders.orderAccept)
     })
     .catch(error=>{
       console.log("error",error);
-      toast.error("تایید سفارش با مشکل مواجه شد")
+      toast.error(persianTexts.adminOrders.orderReject)
     })
   };
-  console.log("orders",orders);
+const rejectOrderHandler=()=>{
+  
+}
   return (
     <>
       {isShowAcceptModal && (
         <Modal
-          message="آیا سفارش مورد نظر تایید شود ؟"
+          message={persianTexts.adminOrders.acceptModal}
           isShow={isShowAcceptModal}
           setIsShow={setIsShowAcceptModal}
           action={acceptOrderHandler}
@@ -190,18 +209,22 @@ const AdminOrders = () => {
       )}
       {isShowRejectModal && (
         <Modal
-          message="آیا سفارش مورد نظر رد شود ؟"
+          message={persianTexts.adminOrders.rejectModal}
           isShow={isShowRejectModal}
           setIsShow={setIsShowRejectModal}
-          action={removeProductHandler}
+          action={rejectOrderHandler}
         />
       )}
       {isLoading && <Loader />}
       {isSuccess && (
         <div className="table">
           <div className="table__header">
-            <h5 className="table__title">لیست سفارشات</h5>
+            <h5 className="table__title">
+            {persianTexts.adminOrders.tableTitle}
+            </h5>
           </div>
+          {orders.data.length?
+          <>
           <div className="datagrid__container">
             <DataGrid
               rows={rows}
@@ -222,6 +245,10 @@ const AdminOrders = () => {
               setData={setPageInfo}
             />
           )}
+          </>
+          :<Error type="warning" title={persianTexts.adminOrders.notOrders} />}
+          
+
         </div>
       )}
     </>

@@ -17,7 +17,6 @@ const articleApiSlice = shopApi.injectEndpoints({
 
     getArticleById: builder.query({
       query: (id) => `/articles/reviews/${id}`,
-      transformResponse: (response) => response?.data,
       providesTags: (result, error, arg) => [{ type: "Article", id: arg }],
     }),
     getArticleReviews:builder.query({

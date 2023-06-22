@@ -35,6 +35,7 @@ const MainPanel = () => {
     {id:nanoid(),title:"سفارش در انتظار پرداخت",count:1,icon:<FaMoneyCheckAlt className="userItem__icon"/>},
     {id:nanoid(),title:"سفارش لغو شده",count:0,icon:<BsFileEarmarkExcel className="userItem__icon"/>},
   ]
+  console.log("userInfos",userInfos);
   return (
    <>
      {userInfosLoading && 

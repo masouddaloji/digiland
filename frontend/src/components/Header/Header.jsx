@@ -212,13 +212,13 @@ export default function Header({}) {
                         onClick={() => setShowMobileMenu(true)}
                       />
                     </div>
-                    <div className="mobileHeader__logoBox">
+                    <Link to="/" className="mobileHeader__logoBox">
                       <img
                         src="/images/logo-mobile.png"
                         alt="logo site for mobile"
                         className="mobileHeader__logoImg"
                       />
-                    </div>
+                    </Link>
                   </div>
                 </div>
                 <div className="col-4 col-md-6">

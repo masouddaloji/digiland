@@ -34,6 +34,7 @@ import EditArticles from "./components/adminPanel/EditArticles/EditArticles";
 import Article from './Pages/Article/Article'
 import WebLog from "./Pages/Articles/WebLog";
 import EditUser from "./components/adminPanel/EditUser/EditUser";
+import OrderInfo from "./components/userPanel/OrderInfo/OrderInfo";
 
 // styles
 import "./App.css";
@@ -102,6 +103,7 @@ export default function App() {
             <Route element={<UserPanel />}>
               <Route path="/userpanel" element={<MainPanel />} />
               <Route path="/userorders" element={<Orders />} />
+              <Route path="/userorderInfo/:orderId" element={<OrderInfo />} />
               <Route path="/userfavorite" element={<Favorite />} />
               <Route path="/usersetting" element={<UserSetting />} />
               <Route path="/useraddress" element={<Address />} />

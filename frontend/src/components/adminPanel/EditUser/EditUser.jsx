@@ -60,12 +60,12 @@ const EditUser = () => {
     updateUser({ data: userInfo, id: userId })
       .unwrap()
       .then((res) => {
-        toast.success("تغییرات با موفقیت ذخیره شد");
+        toast.success(persianTexts.editUser.updateSuccess);
         navigate("/admin-users");
       })
       .catch((error) => {
         console.log("error", error);
-        toast.error("مشکلی در ذخیره تغییرات بوجود امد");
+        toast.error(persianTexts.editUser.updateError);
       });
   };
 

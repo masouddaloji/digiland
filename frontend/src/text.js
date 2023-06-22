@@ -254,6 +254,9 @@ export const persianTexts = {
       removeProductError:
         "مشکلی در حذف محصول به وجود آمده، لطفاً دوباره تلاش کنید",
     },
+    tableTitle:"لیست محصولات",
+    addproduct:" افزودن محصول",
+    notProducts:"محصولی یافت نشد"
   },
   favorite: {
     header: "محصولات مورد علاقه",
@@ -336,5 +339,27 @@ export const persianTexts = {
     btn:"ذخیره تغییرات",
     editArticleSuccess:"تغییرات با موفقیت ذخیره شد",
     editArticleError:"ذخیره تغییرات با مشکل مواجه شد"
-  }
+  },
+  mainAdmin:{
+  lastOrders:"آخرین سفارشات",
+  allOrders:" کل سفارشات"
+  },
+  adminUsers:{
+    tableTitle:"لیست کاربران",
+    deleteSuccess:"کاربر موردنظر با موفقیت حذف شد",
+    deleteError:"مشکلی در حذف کاربر موردنظر بوجود آمد"
+  },
+  editUser:{
+    updateSuccess:"تغییرات با موفقیت ذخیره شد",
+    updateError:"مشکلی در ذخیره تغییرات بوجود امد"
+  },
+  adminOrders:{
+    acceptModal:"آیا سفارش مورد نظر تایید شود ؟",
+    rejectModal:"آیا سفارش مورد نظر رد شود ؟",
+    tableTitle:"لیست سفارشات",
+    orderAccept:"سفارش با موفقیت تایید شد",
+    orderReject:"تایید سفارش با مشکل مواجه شد",
+    notOrders:"سفارشی یافت نشد"
+  },
+
 };

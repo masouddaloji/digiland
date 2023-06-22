@@ -98,8 +98,8 @@
 .user__date {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: center;
+  gap: 1.5rem;
 }
 .date__item {
   display: flex;

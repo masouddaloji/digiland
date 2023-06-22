@@ -514,41 +514,45 @@ a {
 .user__table__wrapper {
   border: 0.1rem solid var(--gray);
   border-radius: var(--border-box);
+  background-color: var(--white);
+  font-family: var(--iran-bold);
 }
 .user__table {
   width: 100%;
   border: none;
   outline: none;
-  font-family: var(--iran-bold);
   border-collapse: collapse;
-  text-align: center;
+  text-align: start;
   display: table;
+  color: #555;
+  font-size: 1.2rem;
 }
 .user__table thead {
   background: #f9f9f9;
-  border-bottom: 1px solid var(--gray);
-  color: #333;
+  border-bottom: 0.1rem solid #eeeff1;
+  color: #444;
   font-size: 1.3rem;
-  font-family: var(--iran-bold);
 }
-.user__table th {
-  padding: 0.7rem;
+.user__table th,.user__table td {
+  padding: 1rem;
+  text-align: start;
 }
-.user__table td {
-  padding: 1rem 0.5rem;
-  vertical-align: middle;
-}
+
 .user__table td .currentPrice {
   font-size: 1.2rem;
   margin-right: 0;
 }
-.user__table tr {
-  border-bottom: 1px solid var(--gray);
+.user__table thead tr,
+.user__table tbody tr,
+.user__table tfoot tr:not(:last-child)
+ {
+  border-bottom: 0.1rem solid #eeeff1;
 }
 .user__table tbody tr {
   position: relative;
   font-size: 1.2rem;
 }
+
 /* end user table style */
 
 /* start admin table style */
@@ -660,7 +664,7 @@ a {
 .table__invalid{
   color: var(--red);
   background: var(--red-25);
-padding: .5rem .7rem;
+padding: .2rem .7rem;
 border-radius: var(--border-box);
 }
 .accept{
@@ -704,7 +708,6 @@ border-radius: var(--border-box);
 .customdata.MuiDataGrid-root,
 .usertable.MuiDataGrid-root {
   border: none;
-  font-family: var(--iran-bold);
 }
 
 .MuiTooltip-tooltip.custom__tooltip {
@@ -748,7 +751,13 @@ background-color: var(--gray-text);
   right: 2.1rem;
   border-radius: .2rem;
 }
-
+.user__form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 52rem;
+  margin: 0 auto;
+}
 .ss02 {
   -moz-font-feature-settings: "ss02";
   -webkit-font-feature-settings: "ss02";
@@ -930,22 +939,21 @@ background-color: var(--gray-text);
   .user__table__wrapper {
     border: none;
   }
-  .user__table thead {
+ 
+  .user__table thead,.user__table tfoot tr td:first-child {
     display: none;
   }
   .user__table tr {
     display: flex;
     flex-direction: column;
   }
-
-  .user__table td {
-    position: relative;
-    padding: 1rem;
+  .user__table td{
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: row-reverse;
     gap: 2rem;
+    font-size: 1.1rem;
   }
   .user__table td:not(:last-child) {
     border-bottom: 1px solid #eee;
@@ -954,9 +962,12 @@ background-color: var(--gray-text);
     content: attr(data-title);
     font-size: 1.2rem;
   }
-  .user__table tbody tr {
+  /* .user__table tbody tr {
     margin-bottom: 2rem;
-  }
+  } */
+  /* .user__table tfoot tr {
+    margin-bottom: 2rem;
+  } */
 }
 /*end responsive user table */
 

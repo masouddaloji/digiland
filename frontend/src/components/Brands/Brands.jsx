@@ -62,7 +62,9 @@ export default function Brands({
   );
   return (
     <ul className="brands">
-      <li>
+     {filteredBrandsBySearch?.length?
+     <>
+     <li>
         <input
           type="search"
           className="filter__input"
@@ -82,6 +84,8 @@ export default function Brands({
           <span className="brands__brandTitle">{brand.perTitle}</span>
         </li>
       ))}
+     </>
+     :null}
     </ul>
   );
 }

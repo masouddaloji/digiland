@@ -12,6 +12,8 @@ import Loader from "../../Loader/Loader";
 import useConvertDate from "../../../hooks/useConvertDate";
 // adminPanelItems
 import { adminPanelItems } from "./../../../Constants";
+//persiantext
+import { persianTexts } from "../../../text";
 // styles
 import "./MainAdmin.css";
 
@@ -128,9 +130,9 @@ const MainAdmin = () => {
         <div className="col-12">
           <div className="table">
             <div className="table__header">
-              <h5 className="table__title">آخرین سفارشات</h5>
+              <h5 className="table__title">{persianTexts.mainAdmin.lastOrders}</h5>
               <Link to="/admin-addproducts" className="table__btn btn__black">
-                کل سفارشات
+              {persianTexts.mainAdmin.allOrders}
               </Link>
             </div>
             <div className="datagrid__container">

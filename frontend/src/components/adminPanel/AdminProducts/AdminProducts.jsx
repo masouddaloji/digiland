@@ -14,7 +14,7 @@ import Star from "../../Star/Star";
 import CustomPagination from "../../Pagination/CustomPagination";
 import Modal from "../../Modal/Modal";
 import Loader from "../../Loader/Loader";
-
+import Error from "../../Error/Error";
 //icons
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
@@ -116,7 +116,7 @@ const AdminProducts = () => {
     {
       field: "rating",
       headerName: "امتیاز",
-      width: 130,
+      minWidth: 130,
       headerAlign: "center",
       align: "center",
       renderCell: (params) => Star(params.row.rating),
@@ -183,11 +183,15 @@ const AdminProducts = () => {
       {isSuccess && (
         <div className="table">
           <div className="table__header">
-            <h5 className="table__title">لیست محصولات</h5>
+            <h5 className="table__title">
+            {persianTexts.adminProduct.tableTitle}
+            </h5>
             <Link to="/admin-addproducts" className="table__btn btn__black">
-              افزودن محصول
+            {persianTexts.adminProduct.addproduct}
             </Link>
           </div>
+          {products.data.length?
+          <>
           <div className="datagrid__container">
             <DataGrid
               rows={rows}
@@ -209,6 +213,9 @@ const AdminProducts = () => {
               setData={setPageInfo}
             />
           )}
+          </>
+          :<Error type="warning" title={persianTexts.adminProduct.notProducts} />}
+         
         </div>
       )}
     </>
