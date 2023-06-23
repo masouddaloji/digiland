@@ -4,6 +4,8 @@ import { Formik, Form } from "formik";
 import { toast } from "react-toastify";
 //rtk query
 import { useRegisterUserMutation } from "../../features/auth/authApiSlice";
+//hooks
+import useTitle from "../../hooks/useTitle";
 // icons
 import { MdLock } from "react-icons/md";
 import { HiOutlineMail } from "react-icons/hi";
@@ -20,6 +22,7 @@ export default function Register() {
   const [registerUser, { isSuccess, isLoading, isError }] =
     useRegisterUserMutation();
   const navigate = useNavigate();
+  useTitle("ساخت حساب")
   const registerHandler = async (data) => {
     const userData = {
       email: data.registerEmail,

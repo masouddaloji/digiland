@@ -34,8 +34,8 @@ export const authApiSlice = shopApi.injectEndpoints({
         }
       },
       invalidatesTags: [
+        { type: "Basket", id: "LIST" },
         { type: "Auth", id: "LIST" },
-        { type: "Basket", id: "LIST" }, 
       ],
     }),
     getRefreshToken: builder.mutation({
@@ -46,8 +46,8 @@ export const authApiSlice = shopApi.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          const {accessToken}=data
-          dispatch(setToken({accessToken}));
+          const { accessToken } = data;
+          dispatch(setToken({ accessToken }));
         } catch (error) {
           console.log(error);
         }

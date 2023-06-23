@@ -3,8 +3,11 @@ import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link, useNavigate } from "react-router-dom";
 import {Tooltip } from "@mui/material";
+import { toast } from "react-toastify";
 //rtk query
 import { useDeleteArticleMutation, useGetArticlesQuery } from "../../../features/article/articleApiSlice";
+//hooks
+import useTitle from "../../../hooks/useTitle";
 //components
 import Loader from "../../Loader/Loader";
 import Error from "../../Error/Error";
@@ -14,7 +17,6 @@ import { persianTexts } from "../../../text";
 //icons
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-import { toast } from "react-toastify";
 
 const AdminArticles = () => {
   const navigate = useNavigate();
@@ -138,6 +140,7 @@ const AdminArticles = () => {
       toast.error(persianTexts.adminArticle.deleteArticleError)
     })
   };
+  useTitle("مقالات")
   return (
     <>
       {isShowEditModal && (

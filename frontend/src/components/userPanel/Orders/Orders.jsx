@@ -1,41 +1,51 @@
+import { useState } from "react";
 //packages
-import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 //rtk query
 import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
-import { useGetOrdersQuery } from "../../../features/order/orderAliSlice";
+import { useGetOrdersQuery, useRemoveOrderByUserMutation } from "../../../features/order/orderApiSlice";
 //components
+import Modal from "../../Modal/Modal";
 import Error from "../../Error/Error";
 import Loader from "../../Loader/Loader";
 //hooks
 import useAuth from "../../../hooks/useAuth";
 import useConvertDate from "../../../hooks/useConvertDate";
+import useTitle from "../../../hooks/useTitle";
+//persian text
+import { persianTexts } from "../../../text";
 //styles
 import "./Orders.css";
 
 const Orders = () => {
+  const[orderId,setOrderId]=useState(null)
+  const[isShowDeleteOrder,setIsShowDeleteOrder]=useState(false)
   const { userID } = useAuth();
   const { data, isLoading, isSuccess } = useGetUserByIdQuery(userID);
+  const [removeOrderByUser]=useRemoveOrderByUserMutation()
   const navigate = useNavigate();
-  const rows = [
-    {
-      _id: 1012,
-      orderID: "#3414",
-      date: new Date(),
-      status: "در حال بررسی",
-      total: 9950000,
-    },
-    {
-      _id: 1013,
-      orderID: "#8694",
-      date: new Date(),
-      status: "در حال بررسی",
-      total: 10250000,
-    },
-  ];
-  console.log("data", data);
+  useTitle("سفارشات کاربر")
+  const rejectOrderHandler=()=>{
+    removeOrderByUser(orderId).unwrap()
+    .then(res=>{
+      toast.success(persianTexts.userOrders.successDelete)
+    })
+    .catch(error=>{
+      toast.error(persianTexts.userOrders.errorDelete)
+      console.log("error",error);
+    })
+  }
   return (
     <>
+          {isShowDeleteOrder && (
+        <Modal
+          message={persianTexts.userOrders.modalMessage}
+          isShow={isShowDeleteOrder}
+          setIsShow={setIsShowDeleteOrder}
+          action={rejectOrderHandler}
+        />
+      )}
       {isLoading && <Loader />}
       {isSuccess && (
         <div className="user-order">
@@ -74,7 +84,10 @@ const Orders = () => {
                           >
                             نمایش
                           </button>
-                          <button className="cansel-orderBtn">لغو سفارش</button>
+                          <button className="cansel-orderBtn" onClick={()=>{
+                            setOrderId(order._id)
+                            setIsShowDeleteOrder(true)
+                          }}>لغو سفارش</button>
                         </div>
                       </td>
                     </tr>
@@ -83,7 +96,7 @@ const Orders = () => {
               </table>
             </div>
           ) : (
-            <Error type="warning" title="سفارشی یافت نشد" />
+            <Error type="warning" title={persianTexts.userOrders.notFound} />
           )}
         </div>
       )}

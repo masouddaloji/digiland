@@ -8,6 +8,7 @@ import Search from "../Search/Search";
 import { toast } from "react-toastify";
 import SidebarCart from "../SidebarCart/SidebarCart";
 //rtk query
+import { useGetUserByIdQuery } from "../../features/user/userApiSlice";
 import { useLogOutUserMutation } from "../../features/auth/authApiSlice";
 import { useGetBasketQuery } from "../../features/basket/basketApiSlice";
 //hooks
@@ -27,9 +28,9 @@ import { persianTexts } from "../../text";
 // styles
 import "./Header.css";
 
-export default function Header({}) {
+export default function Header() {
   const mobileMoskRef = useRef();
-  const { userName, userRole } = useAuth();
+  const { userName, userRole,userID } = useAuth();
   const [logOutUser] = useLogOutUserMutation();
   const {
     data: baskets,
@@ -37,11 +38,14 @@ export default function Header({}) {
     isSuccess: basketSuccess,
     isError: basketError,
   } = useGetBasketQuery();
+  const { data, isLoading, isSuccess } = useGetUserByIdQuery(userID);
+
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [deviceWidth, setDeviceWidth] = useState({ width: window.innerWidth });
   const [isShowSideBarCart, setIsShowSideBarCart] = useState(false);
 
   useOutsideClick({ ref: mobileMoskRef, setStateHandler: setShowMobileMenu });
+  
   const logoutHandler = async () => {
     await logOutUser()
       .unwrap()
@@ -60,7 +64,6 @@ export default function Header({}) {
     window.addEventListener("resize", resizaHandler);
     return () => window.removeEventListener("resize", resizaHandler);
   }, []);
-
   return (
     <>
       {deviceWidth.width >= 992 ? (
@@ -77,7 +80,7 @@ export default function Header({}) {
               <div className="col-lg-3">
                 <Link to="/" className="header__logo-box">
                   <img
-                    src="/images/logo/1.png"
+                    src="/images/logo/logoF.png"
                     alt="logo-img"
                     className="header__logo-img"
                   />
@@ -103,7 +106,7 @@ export default function Header({}) {
                         <RiUserSettingsLine className="fullIcon" />
                       </div>
                       <span className="header__userName">
-                        خوش اومدی {userName}
+                        خوش اومدی {data?.name??data?.email?.split("@")[0]}
                       </span>
                       <ul className="header__userOptions">
                         {userRole === "superAdmin" || userRole === "admin" ? (

@@ -260,6 +260,8 @@ export const persianTexts = {
   },
   favorite: {
     header: "محصولات مورد علاقه",
+    modalMessage:"آیااز علاقه مندی ها حذف شود ؟",
+    notFound:"لیست علاقه مندی های شما خالی می باشد",
     showBtn: "مشاهده",
     deleteBtn: "حذف",
     addtoFavorite:{
@@ -361,5 +363,10 @@ export const persianTexts = {
     orderReject:"تایید سفارش با مشکل مواجه شد",
     notOrders:"سفارشی یافت نشد"
   },
-
+userOrders:{
+  successDelete:"سفارش شما با موفقیت لغو شد",
+  errorDelete:"لغو سفارش با مشکل مواجه شد",
+  modalMessage:"آیا سفارش انتخابی لغو شود ؟",
+  notFound:"سفارشی یافت نشد"
+}
 };

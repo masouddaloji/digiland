@@ -20,6 +20,7 @@ import Error from "../../components/Error/Error";
 //hooks
 import useAuth from "../../hooks/useAuth";
 import useConvertDate from "../../hooks/useConvertDate";
+import useTitle from "../../hooks/useTitle";
 //constanst
 import { allInfosBtn } from "../../Constants";
 //persianText
@@ -118,7 +119,7 @@ export default function Product() {
       toast.warning(persianTexts.header.notLoginInBasket);
     }
   };
-  console.log("product", product);
+  useTitle(product?.data?.title)
   return (
     <div className={`product ${isLoading ? "product--loader" : null}`}>
       {isLoading && <Loader />}
@@ -452,7 +453,7 @@ export default function Product() {
                         <h3 className="allComments__title">
                           نقد ها و بررسی ها
                           {product?.data?.reviews?.length ? (
-                            <span>{product.reviews.length}</span>
+                            <span>{product.data.reviews.length}</span>
                           ) : null}
                         </h3>
                         <ul className="allComments__sorted">
@@ -466,7 +467,7 @@ export default function Product() {
                       <ul className="userComment__wrapper">
                         {product?.data?.reviews?.length ? (
                           <>
-                            {product.reviews.map((review) => (
+                            {product.data.reviews.map((review) => (
                               <li
                                 className="userComment__item"
                                 key={review._id}

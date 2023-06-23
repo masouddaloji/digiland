@@ -1,6 +1,6 @@
 //packages
 import { Link } from "react-router-dom";
-import { Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack, Tooltip } from "@mui/material";
 import { toast } from "react-toastify";
 //rtk query
 import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
@@ -51,9 +51,11 @@ export default function ProductCart(props) {
             />
           </div>
           <Link to={`/product/${_id}`}>
-            <h2 className="product__title" title={title}>
+          <Tooltip arrow title={title} classes={{ tooltip: "custom__tooltip" }}>
+            <h2 className="product__title">
               {title}
             </h2>
+            </Tooltip>
           </Link>
           <div className="priceBox">
             {offPrice ? (
@@ -80,21 +82,22 @@ export default function ProductCart(props) {
           </div>
           <div className="product__quickAccessBox">
             <div className="product__rightBox">
+              <Tooltip placement="top" arrow title="افزودن به سبد خرید" classes={{ tooltip: "custom__tooltip" }}>
               <div
-                className="product__addToBasketBox mainHasTooltip"
+                className="product__addToBasketBox cursor"
                 onClick={addToBasketHandler}
               >
                 <MdOutlineAddShoppingCart className="Product__addToBasketIcon" />
-                <span className="tooltip">افزودن به سبد خرید</span>
               </div>
-
+                </Tooltip>
+                <Tooltip placement="top" arrow title="افزودن به علاقه مندی ها" classes={{ tooltip: "custom__tooltip" }}>
               <div
-                className="product__iconBox mainHasTooltip"
+                className="product__iconBox cursor"
                 onClick={() => addToFavoriteHandler(_id)}
               >
-                <IoMdHeartEmpty className="fullIcon" />
-                <span className="tooltip">افزودن به علاقه مندی ها</span>
+                <IoMdHeartEmpty className="fullIcon favorite__icon" />
               </div>
+              </Tooltip>
             </div>
             <div className="product__leftBox">{Star(rating)}</div>
           </div>

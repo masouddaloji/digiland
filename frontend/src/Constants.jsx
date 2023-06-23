@@ -12,7 +12,7 @@ import {
   BsPrinter,
   BsTools,
 } from "react-icons/bs";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaUser } from "react-icons/fa";
 import { FaLaptopCode } from "react-icons/fa";
 import { FiCamera } from "react-icons/fi";
 import { IoAmericanFootballOutline, IoGridOutline } from "react-icons/io5";
@@ -419,6 +419,12 @@ export const adminSidebarItems = [
     icon: <RiArticleLine className="sidebarItem__mainIcon" />,
     title: "مقالات",
     link: "/admin-articles",
+  },
+  {
+    id: nanoid(),
+    icon: <FaUser className="sidebarItem__mainIcon" />,
+    title: "پروفایل",
+    link: "/userpanel",
   },
 ];
 export const userPanelSidebarItems = [

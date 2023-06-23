@@ -7,6 +7,8 @@ import {
   useGetProductByIdQuery,
   useUpdateProductMutation,
 } from "../../../features/Product/ProductApiSlice";
+//hooks
+import useTitle from "../../../hooks/useTitle";
 // variables
 import { persianTexts } from "../../../text";
 // components
@@ -75,6 +77,7 @@ const EditProduct = () => {
         toast.error(persianTexts.editProduct.editProductError);
       });
   };
+  useTitle("ویرایش محصول")
   return (
     <>
     {isLoading && <Loader />}

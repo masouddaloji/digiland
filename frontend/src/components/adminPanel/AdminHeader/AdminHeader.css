@@ -38,12 +38,13 @@
   color: var(--gray-text);
   transform: translateY(-50%);
 }
-.admin__header-details{
+.admin__header-details {
   display: flex;
   align-items: center;
   gap: 2rem;
 }
-.admin__headerLink {
+.admin__headerLink,
+.admin__header-notification {
   width: 4rem;
   height: 4rem;
   border-radius: 0.8rem;
@@ -53,6 +54,9 @@
   background-color: var(--white);
   position: relative;
 }
+.admin__header-notification {
+  z-index: 100;
+}
 .admin__headerIcon {
   width: 2.2rem;
   height: 2.5rem;
@@ -60,18 +64,109 @@
   display: block;
   position: relative;
 }
-
-.admin__headerLink::after {
-  content: "";
-  position: absolute;
-  top: 0.7rem;
-  right: 0.8rem;
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 50%;
-  background: var(--red);
+/* start notification */
+.notification__mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: -100%;
+  bottom: 0;
+  background-color: #8c8c8c78;
+  z-index: 80;
 }
-
+.notification__mask--show{
+  left: 0;
+}
+.notification {
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: 0;
+  width: 40rem;
+  background-color: var(--white);
+  z-index: 100;
+  border-radius: 1.2rem;
+  padding: 1.5rem 2rem;
+  display: none;
+}
+.notification--show{
+  display: block;
+}
+.notification__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--black-50);
+}
+.notification__header h4 {
+  font-size: 1.4rem;
+}
+.notification__header span {
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.notification ul {
+  margin: 1.5rem 0 0;
+}
+.notification ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+  padding-left: 5.2rem;
+}
+.notification ul li:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.notofication__img-box {
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+}
+.notification__img {
+  width: 100%;
+  object-fit: cover;
+}
+.notification__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  overflow: hidden;
+}
+.notification__text span {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+.notification__text span:first-child {
+  font-size: 1.2rem;
+  color: var(--black-50);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.notification__text span:last-child {
+  font-size: 1rem;
+  color: #99b2c6;
+}
+.not__read::after {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  background-color: #fa5757;
+  border-radius: 50%;
+}
+.notification__time {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  font-size: 1rem;
+  color: #b8b8b8;
+}
+/* end notification */
 .admin__headerProfileBox {
   cursor: pointer;
   overflow: hidden;
@@ -89,12 +184,11 @@
   height: 100%;
   object-fit: cover;
 }
-@media (max-width:767px){
-    .admin__header{
-        gap: 1rem;
-    }
-    .admin__header-details{
-      gap: 1rem;
-    }
+@media (max-width: 767px) {
+  .admin__header {
+    gap: 1rem;
+  }
+  .admin__header-details {
+    gap: 1rem;
+  }
 }
-

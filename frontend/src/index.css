@@ -410,40 +410,7 @@ a {
   justify-content: center;
   height: 2.8rem;
 }
-.mainHasTooltip {
-  position: relative;
-  transition: all 0.3s;
-}
-.tooltip {
-  position: absolute;
-  background-color: var(--black-50);
-  bottom: 140%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  color: var(--white);
-  padding: 0.25rem 0.5rem;
-  font-size: 0.8rem;
-  border-radius: var(--border-box);
-  white-space: nowrap;
-  transition: all 0.3s;
-  opacity: 0;
-  visibility: hidden;
-}
-.tooltip::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-right: auto;
-  transform: translateX(-50%);
-  border: 0.7rem solid;
-  border-color: var(--black-50) transparent transparent transparent;
-}
-.mainHasTooltip:hover .tooltip {
-  opacity: 1;
-  visibility: visible;
-}
+
 .starBox {
   width: 1.7rem;
   height: 1.7rem;
@@ -586,6 +553,7 @@ a {
   box-shadow: var(--box-shadow);
   padding: 3rem 1rem;
   background-color: var(--white);
+  font-family: var(--iran-bold);
 }
 .table__header {
   display: flex;
@@ -704,6 +672,7 @@ border-radius: var(--border-box);
 .customdata .css-1iyq7zh-MuiDataGrid-columnHeaders{
   color: #99b2c6;
   font-size: 1.2rem;
+  font-family: var(--iran-bold);
 }
 .customdata.MuiDataGrid-root,
 .usertable.MuiDataGrid-root {
@@ -712,7 +681,7 @@ border-radius: var(--border-box);
 
 .MuiTooltip-tooltip.custom__tooltip {
   font-family: var(--iran);
-  font-size: 1rem;
+  font-size:60%;
   background-color: var(--gray-100);
 }
 .customdata.css-12u49z-MuiDataGrid-root .MuiDataGrid-withBorderColor {
@@ -721,6 +690,8 @@ border-radius: var(--border-box);
 .customdata.MuiDataGrid-root .MuiDataGrid-row .MuiDataGrid-cell,
 .usertable.MuiDataGrid-root .MuiDataGrid-row .MuiDataGrid-cell {
   color: #747474;
+  font-family: var(--iran-bold);
+
   font-size: 1.1rem;
 }
 .customdata.MuiButtonBase-root.MuiMenuItem-root{

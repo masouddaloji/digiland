@@ -20,16 +20,16 @@ import "./SidebarUser.css";
 
 const SidebarUser = ({ isShow, setshow }) => {
   const { userID } = useAuth();
+  const navigate=useNavigate()
   const { data, isLoading, isSuccess } = useGetUserByIdQuery(userID);
   const [width, setWidth] = useState(window.innerWidth);
-  const navigate = useNavigate();
   const [logOutUser] = useLogOutUserMutation();
   const logOutHandler = () => {
     logOutUser()
       .unwrap()
       .then((res) => {
+        navigate('/', { replace: true });
         toast.success(persianTexts.useLogout.logoutSuccess);
-        navigate("/");
       })
       .catch((error) => toast.error(persianTexts.useLogout.logoutError));
   };
@@ -67,7 +67,7 @@ const SidebarUser = ({ isShow, setshow }) => {
 
   return (
     <div className={`${width >= 992 && "col-lg-4 col-xl-3"}`}>
-      <div className={`user-sidebar ${isShow && "user-sidebar--show"}`}>
+    {isSuccess && <div className={`user-sidebar ${isShow && "user-sidebar--show"}`}>
         {isShow && (
           <IoClose
             className="user-sidebar__closeIcon"
@@ -123,7 +123,8 @@ const SidebarUser = ({ isShow, setshow }) => {
             </div>
           </div>
         </nav>
-      </div>
+      </div>}
+      
     </div>
   );
 };

@@ -1,21 +1,20 @@
 // packages
-import { Outlet, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 //hooks
+import useAuth from "../../hooks/useAuth";
 
 const PrivateRoute = () => {
   const { userRole } = useAuth();
-  const navigate=useNavigate()
+  const location = useLocation();
 
-  const navigateToLogin = () => {
-    navigate("/login", { replace: true });
-  };
+  const content =
+    userRole === "admin" || userRole === "superAdmin" ? (
+      <Outlet />
+    ) : (
+      <Navigate to="/login" state={{ from: location }} replace />
+    );
 
-  return userRole === "admin" || userRole === "superAdmin" ? (
-    <Outlet/>
-  ) : (
-    navigateToLogin()
-  );
+  return content;
 };
 
 export default PrivateRoute;

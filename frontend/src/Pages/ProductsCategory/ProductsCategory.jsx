@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
 //rtk query
 import { useGetProductsQuery } from "../../features/Product/ProductApiSlice";
+//hooks
+import useTitle from "../../hooks/useTitle";
 //components
 import ShowCategory from "../../components/ShowCategory/ShowCategory";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
@@ -30,7 +32,7 @@ export default function ProductsCategory() {
   const [isShowSortList, setIsShowSortList] = useState(false);
   const [isShowFilterOptions, setIsShowFilterOptions] = useState(false);
   const [sortStatusPersian, setSortStatusPersian] = useState("");
-
+  useTitle("محصولات")
   const [pageInfo, setPageInfo] = useState({
     page: 1,
     limit: 12,

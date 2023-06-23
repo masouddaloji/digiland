@@ -10,18 +10,19 @@ import {
 // persian text
 import { persianTexts } from "../../../text";
 // components
+import Loader from "../../Loader/Loader";
 import FormControl from "../../FormControl/FormControl";
 //validator
 import { userUpdateSchema } from "../../Validator/Validator";
 //hooks
 import useAuth from "../../../hooks/useAuth";
+import useTitle from "../../../hooks/useTitle";
 //constants
 import { Iran } from "../../../Constants";
 //icons
 import { MdUploadFile } from "react-icons/md";
 //styles
 import "./UserSetting.css";
-import Loader from "../../Loader/Loader";
 
 const UserSetting = () => {
   const { userID } = useAuth();
@@ -30,7 +31,7 @@ const UserSetting = () => {
   const iranProvince = Object.keys(Iran);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [cities, setCities] = useState([]);
-
+  useTitle("ویرایش اطلاعات")
   useEffect(() => {
     if (Iran[selectedProvince]) setCities(Iran[selectedProvince]);
   }, [selectedProvince]);
@@ -85,13 +86,13 @@ const UserSetting = () => {
             <Form>
               <div className="userSetting">
                 <div className="row">
-                  <div className="col-12 col-lg-6">
+                  <div className="col-12 col-md-6 col-lg-6">
                     <FormControl controler="text" label="نام" name="name" />
                   </div>
-                  <div className="col-12 col-lg-6">
+                  <div className="col-12 col-md-6 col-lg-6">
                     <FormControl controler="text" label="تلفن" name="phone" />
                   </div>
-                  <div className="col-12 col-lg-6">
+                  <div className="col-12 col-md-6 col-lg-6">
                     <FormControl
                       controler="select"
                       label="استان"
@@ -102,7 +103,7 @@ const UserSetting = () => {
                       setSelectedProvince={setSelectedProvince}
                     />
                   </div>
-                  <div className="col-12 col-lg-6">
+                  <div className="col-12 col-md-6 col-lg-6">
                     <FormControl
                       controler="select"
                       label="شهر"
@@ -112,14 +113,14 @@ const UserSetting = () => {
                       options={cities}
                     />
                   </div>
-                  <div className="col-12 col-lg-6">
+                  <div className="col-12 col-md-6 col-lg-6">
                     <FormControl
                       controler="text"
                       label="خیابان"
                       name="street"
                     />
                   </div>
-                  <div className="col-12 col-lg-6">
+                  <div className="col-12 col-md-6 col-lg-6">
                     <FormControl
                       controler="text"
                       label="کد پستی"
@@ -127,7 +128,7 @@ const UserSetting = () => {
                     />
                   </div>
 
-                  <div className="col-12 col-lg-6">
+                  <div className="col-12 col-md-6 col-lg-6">
                     <FormControl
                       label="پروفایل"
                       placeholder={

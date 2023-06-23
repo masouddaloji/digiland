@@ -12,6 +12,7 @@ import { useLoginUserMutation } from "../../features/auth/authApiSlice";
 import FormControl from "../../components/FormControl/FormControl";
 //hook
 import usePersistLogin from "../../hooks/usePersistLogin";
+import useTitle from "../../hooks/useTitle";
 // validator
 import { LoginSchema } from "../../components/Validator/Validator";
 // icons
@@ -29,7 +30,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const userNameRef = useRef();
   const navigate = useNavigate();
-
+  useTitle("صفحه ورود")
   const persistHandler = () => {
     setPersist((prev) => !prev);
   };

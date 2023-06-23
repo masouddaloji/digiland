@@ -4,10 +4,14 @@ const userApiAlice = shopApi.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: ({ page, limit }) => `/users?page=${page}&limit=${limit}`,
-      providesTags: (result, error, arg) => [
-        { type: "Users", id: "LIST" },
-        ...result.data.map(({ _id }) => ({ type: "Users", id: _id })),
-      ],
+      providesTags: (result, error, arg) => {
+        if(result?.data?.length){
+          return [
+            { type: "Users", id: "LIST" },
+            ...result.data.map(({ _id }) => ({ type: "Users", id: _id })),
+          ]
+        }else return { type: "Users", id: "LIST" }
+      },
     }),
     getUserById: builder.query({
       query: (id) => `/users/${id}`,

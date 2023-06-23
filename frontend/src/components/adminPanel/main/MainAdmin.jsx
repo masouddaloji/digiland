@@ -3,13 +3,14 @@ import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 //rtk query
-import { useGetAllOrdersQuery } from "../../../features/order/orderAliSlice";
+import { useGetAllOrdersQuery } from "../../../features/order/orderApiSlice";
 // components
 import Chart from "../Chart/Chart";
 import ItemBoxAPanel from "../ItemBoxAPanel/ItemBoxAPanel";
 import Loader from "../../Loader/Loader";
 //hooks
 import useConvertDate from "../../../hooks/useConvertDate";
+import useTitle from "../../../hooks/useTitle";
 // adminPanelItems
 import { adminPanelItems } from "./../../../Constants";
 //persiantext
@@ -53,15 +54,15 @@ const MainAdmin = () => {
       renderCell: (params) => {
         if (params.row.status === "success") {
           return (
-            <spsn className="table__price--success">{`+ ${params.row.productId.price.toLocaleString()} تومان`}</spsn>
+            <span className="table__price--success">{`+ ${params.row.productId.price.toLocaleString()} تومان`}</span>
           );
         } else if (params.row.status === "pending") {
           return (
-            <spsn className="table__price--pending">{`${params.row.productId.price.toLocaleString()} تومان`}</spsn>
+            <span className="table__price--pending">{`${params.row.productId.price.toLocaleString()} تومان`}</span>
           );
         } else {
           return (
-            <spsn className="table__price--reject">{`- ${params.row.productId.price.toLocaleString()} تومان`}</spsn>
+            <span className="table__price--reject">{`- ${params.row.productId.price.toLocaleString()} تومان`}</span>
           );
         }
       },
@@ -75,38 +76,26 @@ const MainAdmin = () => {
       renderCell: (params) => {
         if (params.row.status === "success") {
           return (
-            <spsn className="table__btn table__status--success">تکمیل شده</spsn>
+            <span className="table__btn table__status--success">تکمیل شده</span>
           );
         } else if (params.row.status === "pending") {
           return (
-            <spsn className="table__btn table__status--pending">
+            <span className="table__btn table__status--pending">
               در حال بررسی
-            </spsn>
+            </span>
           );
         } else {
           return (
-            <spsn className="table__btn table__status--reject">لغو شده</spsn>
+            <span className="table__btn table__status--reject">لغو شده</span>
           );
         }
       },
     },
-    {
-      field: "action",
-      headerName: "عملیات",
-      width: 90,
-      align: "center",
-      headerAlign: "center",
-      renderCell: (params) => (
-        <button className="table__btn btn__black">جزئیات</button>
-      ),
-    },
+
   ];
   const rows = orders?.data ?? [];
-  const [pageDetails, setPageDetails] = useState({
-    isLoading: false,
-    newProducts: [],
-  });
 
+ useTitle("داشبورد")
   return (
   <>
   {isLoading && <Loader />}

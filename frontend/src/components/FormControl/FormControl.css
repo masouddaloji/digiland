@@ -3,6 +3,8 @@
   position: relative;
   margin-bottom: 1.5rem;
   max-width: 52rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 .editor__wrapper {
   width: 100%;
@@ -50,7 +52,6 @@
   font-size: 1.2rem;
   color: #b8b8b8;
   pointer-events: none;
-  
 }
 .input__icon,
 .password__status {

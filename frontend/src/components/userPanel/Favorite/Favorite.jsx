@@ -1,8 +1,13 @@
+import { useState } from "react";
 //packages
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 //components
 import Loader from "../../Loader/Loader";
+import Modal from "../../Modal/Modal";
+import Error from "../../Error/Error";
+//hooks
+import useTitle from "../../../hooks/useTitle";
 //rtk query
 import {
   useGetFavoriteQuery,
@@ -14,14 +19,17 @@ import { persianTexts } from "../../../text";
 import "./Favorite.css";
 
 const Favorite = () => {
+  const [favoriteId,setFavoriteId]=useState(null)
+  const [isshowDeleteFavorite,setIsshowDeleteFavorite]=useState(false)
   const [removeFromFavorite] = useRemoveFromFavoriteMutation();
   const {
     data: favoriteProducts,
     isLoading,
     isSuccess,
   } = useGetFavoriteQuery();
-  const removeFromFavoriteHandler = (id) => {
-    removeFromFavorite(id)
+
+  const removeFromFavoriteHandler = () => {
+    removeFromFavorite(favoriteId)
       .unwrap()
       .then((response) => {
         toast.success(persianTexts.favorite.removeFromFavorite.success);
@@ -30,14 +38,23 @@ const Favorite = () => {
         toast.error(persianTexts.favorite.removeFromFavorite.error);
       });
   };
+  useTitle("علاقه مندی ها")
   return (
     <>
+         {isshowDeleteFavorite && (
+        <Modal
+          message={persianTexts.favorite.modalMessage}
+          isShow={isshowDeleteFavorite}
+          setIsShow={setIsshowDeleteFavorite}
+          action={removeFromFavoriteHandler}
+        />
+      )}
       {isLoading && <Loader />}
       {isSuccess && (
         <div className="favorite">
           <h3 className="favorite__header">{persianTexts.favorite.header}</h3>
           <div className="favorite__item-wrapper">
-            {favoriteProducts?.length &&
+            {favoriteProducts?.length ?
               favoriteProducts.map((product) => (
                 <div className="favorite__item" key={product._id}>
                   <div className="favorite__item-imageBox">
@@ -57,13 +74,16 @@ const Favorite = () => {
                     </Link>
                     <button
                       className="favorite__item-btn favorite__item-delete"
-                      onClick={() => removeFromFavoriteHandler(product._id)}
+                      onClick={() => {
+                        setFavoriteId(product._id)
+                        setIsshowDeleteFavorite(true)
+                      }}
                     >
                       {persianTexts.favorite.deleteBtn}
                     </button>
                   </div>
                 </div>
-              ))}
+              )):<Error type="warning" title={persianTexts.favorite.notFound} />}
           </div>
         </div>
       )}

@@ -4,8 +4,13 @@ import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 //rtk query
 import { useAddToOrderMutation } from "../../../features/basket/basketApiSlice";
+import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
+//hooks
+import useAuth from "../../../hooks/useAuth";
+import useTitle from "../../../hooks/useTitle";
 //components
 import FormControl from "../../FormControl/FormControl";
+import Loader from "../../Loader/Loader";
 //validator
 import { checkInformationSchema } from "../../Validator/Validator";
 //icons
@@ -14,9 +19,6 @@ import { TbDiscount2 } from "react-icons/tb";
 import { Iran } from "../../../Constants";
 //styles
 import "./CheckInformation.css";
-import useAuth from "../../../hooks/useAuth";
-import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
-import Loader from "../../Loader/Loader";
 
 function CheckInformation() {
   const [addToOrder] = useAddToOrderMutation();
@@ -35,7 +37,7 @@ function CheckInformation() {
     checkTelephone: userInfos?.phone ?? "",
     acceptTerms: false,
   };
-  console.log("userInfos", userInfos);
+  useTitle("بررسی اطلاعات")
 
   const [showDiscount, setShowDiscount] = useState(false);
   const iranProvince = Object.keys(Iran);

@@ -1,9 +1,12 @@
 //packages
 import { Link } from "react-router-dom";
+//hooks
+import useTitle from "../../../hooks/useTitle";
 //styles
 import "./SubmitOrder.css";
 
 function SubmitOrder() {
+  useTitle("ثبت سفارش")
   return (
     <div className="row">
       <div className="col-12">

@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 //rtk query
 import { useAddArticleMutation } from "../../../features/article/articleApiSlice";
+//hooks
+import useTitle from "../../../hooks/useTitle";
 //components
 import FormControl from "../../FormControl/FormControl";
 //validator
@@ -18,7 +20,7 @@ import "./AddArticles.css";
 const AddArticles = () => {
   const navigate=useNavigate()
   const [addArticle]=useAddArticleMutation()
-  
+  useTitle("افزودن مقاله")
   const initialValues = {
     articleTitle: "",
     articleImage: "",

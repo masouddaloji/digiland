@@ -8,6 +8,8 @@ import ArticleReview from "../../components/articleReview/articleReview";
 import WeblogItem from "../../components/WeblogItem/WeblogItem";
 import LastArticles from "../../components/LastArticles/LastArticles";
 import Error from "../../components/Error/Error";
+//hooks
+import useTitle from "../../hooks/useTitle";
 //persian text
 import { persianTexts } from "../../text";
 //styles
@@ -23,6 +25,7 @@ const WebLog = () => {
     isLoading,
     isSuccess,
   } = useGetArticlesQuery({ page: pageInfo.page, limit: pageInfo.limit });
+  useTitle("مقالات")
   return (
     <section className="weblog">
       <div className="container">

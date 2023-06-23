@@ -19,7 +19,7 @@ const AdminPanelLayout = () => {
   }, [window.innerWidth]);
 
   return (
-    <div className="admin">
+    <div className="admin ss02">
       <Sidebar
         width={width}
         isShow={isShowSidebar}

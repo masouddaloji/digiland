@@ -7,6 +7,8 @@ import {
   useGetArticleByIdQuery,
   useUpdateArticleMutation,
 } from "../../../features/article/articleApiSlice";
+//hooks
+import useTitle from "../../../hooks/useTitle";
 //components
 import FormControl from "../../FormControl/FormControl";
 import Loader from "../../Loader/Loader";
@@ -27,7 +29,7 @@ const EditArticles = () => {
     isLoading,
     isSuccess,
   } = useGetArticleByIdQuery(articleId);
-
+  useTitle("ویرایش مقاله")
 
   const [updateArticle] = useUpdateArticleMutation();
 

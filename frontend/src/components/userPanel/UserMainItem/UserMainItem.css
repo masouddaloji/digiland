@@ -9,6 +9,8 @@
     gap: 1.5rem;
     position: relative;
     overflow: hidden;
+    min-width: 20rem;
+    max-width: 20rem;
 }
 .userItem span{
     color: var(--blue);
@@ -17,6 +19,7 @@
 .userItem p{
     font-size: 1.2rem;
     color: var(--black-05);
+    white-space: nowrap;
 }
 .userItem__icon{
     position: absolute;

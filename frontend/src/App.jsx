@@ -35,6 +35,7 @@ import Article from './Pages/Article/Article'
 import WebLog from "./Pages/Articles/WebLog";
 import EditUser from "./components/adminPanel/EditUser/EditUser";
 import OrderInfo from "./components/userPanel/OrderInfo/OrderInfo";
+import RequiredLogin from "./components/userPanel/RequiredLogin/RequiredLogin";
 
 // styles
 import "./App.css";
@@ -61,6 +62,7 @@ export default function App() {
               </Route>
               {/* end product  */}
               {/* start basket */}
+              <Route element={<RequiredLogin />}>
               <Route element={<BasketLayout />}>
                 <Route path="/basket" element={<Cart />} />
                 <Route
@@ -68,6 +70,7 @@ export default function App() {
                   element={<CheckInformation />}
                 />
                 <Route path="/order-pay" element={<SubmitOrder />} />
+              </Route>
               </Route>
               {/* end basket */}
               {/* start product info */}
@@ -100,6 +103,7 @@ export default function App() {
             </Route>
             {/* end adminpanel */}
 
+            <Route element={<RequiredLogin />}>
             <Route element={<UserPanel />}>
               <Route path="/userpanel" element={<MainPanel />} />
               <Route path="/userorders" element={<Orders />} />
@@ -107,6 +111,7 @@ export default function App() {
               <Route path="/userfavorite" element={<Favorite />} />
               <Route path="/usersetting" element={<UserSetting />} />
               <Route path="/useraddress" element={<Address />} />
+            </Route>
             </Route>
             {/* end userpanel */}
           </Route>

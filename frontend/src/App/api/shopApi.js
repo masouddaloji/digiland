@@ -18,17 +18,13 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result?.error?.status === 401 || result?.error?.status === 403) {
+  if (result?.error?.status === 401 ) {
     const refreshResult = await baseQuery("/auth/refresh", api, extraOptions);
 
     if (refreshResult?.data) {
       api.dispatch(setToken({ ...refreshResult.data }));
       result = await baseQuery(args, api, extraOptions);
     } else {
-      // if (refreshResult?.error?.status === 403) {
-      //   refreshResult.error.data.message = "Your login has expired.";
-      // }
-      // return refreshResult;
       api.dispatch(logOut());
     }
   }
@@ -39,6 +35,7 @@ const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
 export const shopApi = createApi({
   reducerPath: "shopApi",
   baseQuery: baseQueryWithRefreshToken,
+  refetchOnReconnect: true,
   tagTypes: [
     "Product",
     "Users",

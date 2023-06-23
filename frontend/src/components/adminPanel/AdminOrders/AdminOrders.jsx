@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import {
   useChangeStatusOrderMutation,
   useGetAllOrdersQuery,
-} from "../../../features/order/orderAliSlice";
+} from "../../../features/order/orderApiSlice";
 //components
 import CustomPagination from "../../Pagination/CustomPagination";
 import Loader from "../../Loader/Loader";
@@ -15,6 +15,7 @@ import Modal from "../../Modal/Modal";
 import Error from "../../Error/Error";
 //hooks
 import useConvertDate from "../../../hooks/useConvertDate";
+import useTitle from "../../../hooks/useTitle";
 //persian text
 import { persianTexts } from "../../../text";
 //icons
@@ -197,6 +198,7 @@ const AdminOrders = () => {
 const rejectOrderHandler=()=>{
   
 }
+useTitle("سفارشات")
   return (
     <>
       {isShowAcceptModal && (

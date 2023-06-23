@@ -23,19 +23,21 @@ const orderApiSlice = shopApi.injectEndpoints({
         method: "DELETE",
       }),
       invalidatesTags: (result, error, arg) => [
+        { type: "Users", id: "LIST" },
         { type: "Order", id: "LIST" },
-        { type: "Order", id: arg },
       ],
-
     }),
-    changeStatusOrder:builder.mutation({
-      query:(data)=>({
-        url:"/orders",
-        method:"POST",
-        body:data
+    changeStatusOrder: builder.mutation({
+      query: (data) => ({
+        url: "/orders",
+        method: "POST",
+        body: data,
       }),
-      invalidatesTags:(result,error,arg)=>[{ type: "Order", id: "LIST" },{ type: "Order", id: arg?.orderId },]
-    })
+      invalidatesTags: (result, error, arg) => [
+        { type: "Order", id: "LIST" },
+        { type: "Order", id: arg?.orderId },
+      ],
+    }),
   }),
 });
 
@@ -43,5 +45,5 @@ export const {
   useGetAllOrdersQuery,
   useGetOrdersQuery,
   useRemoveOrderByUserMutation,
-  useChangeStatusOrderMutation
+  useChangeStatusOrderMutation,
 } = orderApiSlice;

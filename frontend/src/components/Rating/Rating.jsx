@@ -1,4 +1,3 @@
-import { useRef } from "react";
 //packages
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
@@ -21,7 +20,6 @@ import "./Rating.css";
 
 const Rating = ({typeRating,id}) => {
   const {token}=useSelector(state=>state.auth)
-  const formikRef = useRef();
   const navigate = useNavigate();
 
   const [addReview] = useAddReviewMutation();
@@ -54,7 +52,6 @@ const Rating = ({typeRating,id}) => {
   };
   return (
     <Formik
-      ref={formikRef}
       initialValues={{
         userRating: "",
         userComment: "",

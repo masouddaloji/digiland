@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 //rtk query
 import { useGetBasketQuery } from "../../../features/basket/basketApiSlice";
+//hooks
+import useTitle from "../../../hooks/useTitle";
 //components
 import Error from "../../Error/Error";
 import CartItem from "./CartItem";
@@ -22,7 +24,7 @@ function Cart() {
   } = useGetBasketQuery();
 
   const [postPrice, setPostPrice] = useState(10000);
-
+ useTitle("سبد خرید")
   return (
     <>
       {basket?.cartItems?.length > 0 ? (

@@ -15,6 +15,8 @@ import CustomPagination from "../../Pagination/CustomPagination";
 import Modal from "../../Modal/Modal";
 import Loader from "../../Loader/Loader";
 import Error from "../../Error/Error";
+//hooks
+import useTitle from "../../../hooks/useTitle";
 //icons
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
@@ -96,7 +98,10 @@ const AdminProducts = () => {
       align: "center",
       headerAlign: "center",
       renderCell: (params) => (
-        <Tooltip title={params.value.toLocaleString() + " تومان"} classes={{ tooltip: "custom__tooltip" }}>
+        <Tooltip
+          title={params.value.toLocaleString() + " تومان"}
+          classes={{ tooltip: "custom__tooltip" }}
+        >
           <span>{params.value.toLocaleString() + " تومان"}</span>
         </Tooltip>
       ),
@@ -160,7 +165,7 @@ const AdminProducts = () => {
   ];
 
   const rows = products?.data ?? [];
-
+  useTitle("محصولات")
   return (
     <>
       {isShowEditModal && (
@@ -181,41 +186,45 @@ const AdminProducts = () => {
       )}
       {isLoading && <Loader />}
       {isSuccess && (
-        <div className="table">
+        <div className="table ss02">
           <div className="table__header">
             <h5 className="table__title">
-            {persianTexts.adminProduct.tableTitle}
+              {persianTexts.adminProduct.tableTitle}
             </h5>
             <Link to="/admin-addproducts" className="table__btn btn__black">
-            {persianTexts.adminProduct.addproduct}
+              {persianTexts.adminProduct.addproduct}
             </Link>
           </div>
-          {products.data.length?
-          <>
-          <div className="datagrid__container">
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              getRowId={(row) => row._id}
-              rowHeight={45}
-              columnHeaderHeight={40}
-              loading={isLoading}
-              disableColumnSelector={true}
-              disableRowSelectionOnClick={true}
-              getRowClassName={getRowClassName}
-              className="ss02 customdata"
-            />
-          </div>
-          {products?.lastPage > 1 && (
-            <CustomPagination
-              page={pageInfo.page}
-              count={products?.lastPage}
-              setData={setPageInfo}
+          {products.data.length ? (
+            <>
+              <div className="datagrid__container">
+                <DataGrid
+                  rows={rows}
+                  columns={columns}
+                  getRowId={(row) => row._id}
+                  rowHeight={45}
+                  columnHeaderHeight={40}
+                  loading={isLoading}
+                  disableColumnSelector={true}
+                  disableRowSelectionOnClick={true}
+                  getRowClassName={getRowClassName}
+                  className="ss02 customdata"
+                />
+              </div>
+              {products?.lastPage > 1 && (
+                <CustomPagination
+                  page={pageInfo.page}
+                  count={products?.lastPage}
+                  setData={setPageInfo}
+                />
+              )}
+            </>
+          ) : (
+            <Error
+              type="warning"
+              title={persianTexts.adminProduct.notProducts}
             />
           )}
-          </>
-          :<Error type="warning" title={persianTexts.adminProduct.notProducts} />}
-         
         </div>
       )}
     </>

@@ -9,6 +9,8 @@ import CompanyProduct from "../../components/CompanyProduct/CompanyProduct";
 //redux
 import { nanoid } from "@reduxjs/toolkit";
 import { useGetIndexInfosQuery } from "../../features/indexPage/indexApiSlice";
+//hooks
+import useTitle from "../../hooks/useTitle";
 // icons
 import { BiLayerPlus } from "react-icons/bi";
 import { AiFillApple } from "react-icons/ai";
@@ -26,7 +28,7 @@ export default function Index() {
     isError,
     isSuccess,
   } = useGetIndexInfosQuery();
-
+  useTitle("دیجی لند")
   const articles = Array(6).fill(0);
   return (
     <div className="container">

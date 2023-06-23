@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useGetArticleByIdQuery } from "../../features/article/articleApiSlice";
 //hooks
 import useConvertDate from "../../hooks/useConvertDate";
+import useTitle from "../../hooks/useTitle";
 //components
 import Loader from "../../components/Loader/Loader";
 import Rating from "../../components/Rating/Rating";
@@ -29,7 +30,7 @@ const Article = () => {
     isLoading,
     isSuccess,
   } = useGetArticleByIdQuery(articleId);
-  console.log("articleInfo", articleInfo);
+  useTitle(articleInfo?.data?.title)
   return (
     <section className="article">
       <div className="container">

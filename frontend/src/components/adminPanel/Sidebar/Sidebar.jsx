@@ -1,20 +1,40 @@
 import { useRef } from "react";
 // packages
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
+//rtk query
+import { useLogOutUserMutation } from "../../../features/auth/authApiSlice";
 //hooks
 import useOutsideClick from "../../../hooks/useOutsideClick";
 //Constants
 import { adminSidebarItems } from "../../../Constants";
 //icons
-
+import { TbLogout } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
+//persian text
+import { persianTexts } from "../../../text";
 // styles
 import "./Sidebar.css";
 
 const Sidebar = ({ isShow, setIsShow, width }) => {
+  const navigate=useNavigate()
   const adminmaskRef = useRef();
   useOutsideClick({ ref: adminmaskRef, setStateHandler: setIsShow });
+
+  const [logOutUser] = useLogOutUserMutation();
+
+  const logoutAdminHandler = () => {
+    logOutUser()
+      .unwrap()
+      .then((response) => {
+        navigate('/', { replace: true });
+        toast.success(persianTexts.useLogout.logoutSuccess);
+      })
+      .catch((error) => {
+        toast.error(persianTexts.useLogout.logoutError);
+      });
+  };
   return (
     <>
       {width < 992 && (
@@ -60,6 +80,14 @@ const Sidebar = ({ isShow, setIsShow, width }) => {
               </NavLink>
             </li>
           ))}
+          <li className="sidebarItem" key={nanoid()} onClick={logoutAdminHandler}>
+            <div className="sidebarLink">
+              <span className="sidebarLink__iconBox">
+                <TbLogout className="sidebarItem__mainIcon" />
+              </span>
+              {<span>خروج</span>}
+            </div>
+          </li>
         </ul>
       </div>
     </>

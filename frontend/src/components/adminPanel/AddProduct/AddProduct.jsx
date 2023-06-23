@@ -8,6 +8,8 @@ import { persianTexts } from "../../../text";
 import FormControl from "../../FormControl/FormControl";
 //rtk query
 import { useAddProductMutation } from "../../../features/Product/ProductApiSlice";
+//hooks
+import useTitle from "../../../hooks/useTitle";
 // icons
 import { MdUploadFile, MdOutlineDriveFolderUpload } from "react-icons/md";
 // validator
@@ -64,6 +66,7 @@ const AddProduct = () => {
         toast.error(persianTexts.addProducts.createProductError);
       });
   };
+  useTitle("افزودن محصول")
   return (
     <Formik
       initialValues={initialValues}
