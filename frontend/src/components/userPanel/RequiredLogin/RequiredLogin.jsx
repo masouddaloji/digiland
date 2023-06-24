@@ -4,18 +4,17 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 //redux
 import { selectToken } from "../../../features/auth/authSlice";
 
-
 const RequiredLogin = () => {
-    const location = useLocation()
-const token=useSelector(selectToken)
+  const location = useLocation();
+  const token = useSelector(selectToken);
 
-    const content = (
-       token
-            ? <Outlet />
-            : <Navigate to="/login" state={{ from: location }} replace />
-    )
-
-    return content
-}
+  if (token) {
+    return <Outlet />;
+  } else {
+    return (
+      <Navigate to="/" state={{ from: location }} replace />
+    );
+  }
+};
 
 export default RequiredLogin;

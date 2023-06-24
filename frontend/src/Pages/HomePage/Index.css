@@ -43,7 +43,7 @@ del::after {
 
 .amazinOffer {
   width: 100%;
-  background: var(--red-50);
+  background:var(--blue);
   border-radius: var(--border-box);
   padding: 0 0.7rem;
 }

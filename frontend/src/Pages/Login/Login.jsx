@@ -28,7 +28,6 @@ export default function Login() {
   const [loginUser, { error }] = useLoginUserMutation();
   const [persist, setPersist] = usePersistLogin();
   const dispatch = useDispatch();
-  const userNameRef = useRef();
   const navigate = useNavigate();
   useTitle("صفحه ورود")
   const persistHandler = () => {
@@ -93,7 +92,6 @@ export default function Login() {
                       controler="text"
                       label="نام کاربری"
                       name="loginUserName"
-                      ref={userNameRef}
                       autoFocus
                       icon={<HiOutlineMail className="input__icon" />}
                     />

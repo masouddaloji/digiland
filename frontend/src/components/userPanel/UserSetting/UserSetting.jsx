@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 // packages
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 //rtk query
 import {
   useGetUserByIdQuery,
@@ -25,57 +26,65 @@ import { MdUploadFile } from "react-icons/md";
 import "./UserSetting.css";
 
 const UserSetting = () => {
+  const navigate=useNavigate()
   const { userID } = useAuth();
   const [updateUser] = useUpdateUserMutation();
   const { data: userInfos, isLoading, isSuccess } = useGetUserByIdQuery(userID);
   const iranProvince = Object.keys(Iran);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [cities, setCities] = useState([]);
-  useTitle("ویرایش اطلاعات")
+  useTitle("ویرایش اطلاعات");
   useEffect(() => {
     if (Iran[selectedProvince]) setCities(Iran[selectedProvince]);
   }, [selectedProvince]);
 
-  let initialValues = {
-    name: userInfos?.name ?? "",
-    image: userInfos?.image ?? "",
-    phone: userInfos?.phone ?? "",
-    state: userInfos?.addresses[0]?.state ?? "",
-    city: userInfos?.addresses[0]?.city ?? "",
-    street: userInfos?.addresses[0]?.street ?? "",
-    postalCode: userInfos?.addresses[0]?.postalCode ?? "",
-  };
+
   const changeInfoHandler = (data) => {
     const userInfo = {
       ...(data.name && { name: data.name }),
       ...(data.image && { image: data.image }),
       ...(data.phone && { phone: data.phone }),
-      ...(data.state||data.city||data.street ||data.postalCode && {
-        addresses: [
-          {
-            ...(data.state && { state: data.state }),
-            ...(data.city && { city: data.city }),
-            ...(data.street && { street: data.street }),
-            ...(data.postalCode && { postalCode: data.postalCode }),
-          },
-        ],
-      }),
+      ...(data.state ||
+        data.city ||
+        data.street ||
+        (data.postalCode && {
+          addresses: [
+            {
+              ...(data.state && { state: data.state }),
+              ...(data.city && { city: data.city }),
+              ...(data.street && { street: data.street }),
+              ...(data.postalCode && { postalCode: data.postalCode }),
+            },
+          ],
+        })),
     };
 
     updateUser({ data: userInfo, id: userID })
       .unwrap()
-      .then((res) => toast.success("تغییرات با موفقیت ذخیره شد"))
+      .then((res) => {
+        toast.success("تغییرات با موفقیت ذخیره شد")
+        navigate("/userpanel")
+      })
       .catch((error) => {
         console.log("error", error);
         toast.error("مشکلی در ذخیره تغییرات بوجود امد");
       });
   };
+  console.log("userInfos",userInfos);
   return (
     <>
       {isLoading && <Loader />}
       {isSuccess && (
         <Formik
-          initialValues={initialValues}
+          initialValues={{
+            name: userInfos?.name ?? "",
+            image: userInfos?.image ?? "",
+            phone: userInfos?.phone ?? "",
+            state: userInfos?.addresses[0]?.state ?? "",
+            city: userInfos?.addresses[0]?.city ?? "",
+            street: userInfos?.addresses[0]?.street ?? "",
+            postalCode: userInfos?.addresses[0]?.postalCode ?? "",
+          }}
           validationSchema={userUpdateSchema}
           onSubmit={async (values, { resetForm }) => {
             await changeInfoHandler(values);

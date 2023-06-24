@@ -36,7 +36,7 @@ import WebLog from "./Pages/Articles/WebLog";
 import EditUser from "./components/adminPanel/EditUser/EditUser";
 import OrderInfo from "./components/userPanel/OrderInfo/OrderInfo";
 import RequiredLogin from "./components/userPanel/RequiredLogin/RequiredLogin";
-
+import NotFound from "./Pages/NotFound/NotFound";
 // styles
 import "./App.css";
 
@@ -119,7 +119,8 @@ export default function App() {
           {/* this routes not use Header and footer */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* start userpanel */}
+          <Route path="*" element={<NotFound />} />
+
         </Routes>
       </div>
     </div>

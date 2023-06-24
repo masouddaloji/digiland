@@ -65,7 +65,7 @@ const MainPanel = () => {
   if (userInfosSuccess) {
     lastOrders = userInfos?.orders?.slice(0, 2);
   }
-  useTitle("حساب کاربری")
+  useTitle("حساب کاربری");
   return (
     <>
       {userInfosLoading && favoriteProductsLoading && <Loader />}
@@ -74,7 +74,7 @@ const MainPanel = () => {
           {/* <div className="row"> */}
           <div className="user__item-wrapper">
             {userorderItem.map((item) => (
-              <UserMainItem {...item} />
+              <UserMainItem {...item} key={item.id} />
             ))}
           </div>
           {/* </div> */}
@@ -92,15 +92,17 @@ const MainPanel = () => {
                 <div className="userDetails__content ss02">
                   <div className="userDetails__item">
                     <span>نام</span>
-                    <span>{userInfos.email.split("@")[0]}</span>
+                    <span>
+                      {userInfos?.name ??"ثبت نشده"}
+                    </span>
                   </div>
                   <div className="userDetails__item">
                     <span>شماره موبایل</span>
-                    <span>09165478965</span>
+                    <span>{userInfos?.phone??"ثبت نشده"}</span>
                   </div>
                   <div className="userDetails__item">
                     <span>ایمیل</span>
-                    <span>{userInfos.email}</span>
+                    <span>{userInfos.email??"ثبت نشده"}</span>
                   </div>
                   <div className="userDetails__item">
                     <span>عضویت</span>
@@ -108,15 +110,15 @@ const MainPanel = () => {
                   </div>
                   <div className="userDetails__item">
                     <span>شهر</span>
-                    <span>کوهدشت</span>
+                    <span>{userInfos?.addresses?.[0]?.city??"ثبت نشده"}</span>
                   </div>
                   <div className="userDetails__item">
                     <span>کدپستی</span>
-                    <span>6841689654</span>
+                    <span>{userInfos?.addresses?.[0]?.postalCode??"ثبت نشده"}</span>
                   </div>
                   <div className="userDetails__item">
                     <span>آدرس</span>
-                    <span>شهرک شهید رجایی سی متری دوم</span>
+                    <span>{userInfos?.addresses?.[0]?.street??"ثبت نشده"}</span>
                   </div>
                 </div>
               </div>
@@ -206,17 +208,17 @@ const MainPanel = () => {
                     ))}
                   </div>
                 ) : (
-                 <div className="pad1">
-                 <Error
-                    type="warning"
-                    title={persianTexts.userOrders.notFound}
-                  />
-                 </div>
+                  <div className="pad1">
+                    <Error
+                      type="warning"
+                      title={persianTexts.userOrders.notFound}
+                    />
+                  </div>
                 )}
               </div>
             </div>
           </div>
-         {/* end user order */}
+          {/* end user order */}
         </div>
       )}
     </>
