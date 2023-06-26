@@ -1,6 +1,6 @@
 //packages
 import { Link } from "react-router-dom";
-import { Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack, Tooltip } from "@mui/material";
 //icons
 import { BsClockHistory } from "react-icons/bs";
 //styles
@@ -12,12 +12,14 @@ export default function SuggestedProductBox(props) {
   return (
     <>
       {isSuccess ? (
-        <div className="productBox">
-          <h2 className="suggestedproduct__title" title={title}>
+        <div className="productBox ss02">
+        <Tooltip placement="top" arrow title={title} classes={{ tooltip: "custom__tooltip" }}>
+          <h2 className="suggestedproduct__title" >
             <Link className="suggestedproduct__link" to={`/product/${_id}`}>
               {title}
             </Link>
           </h2>
+          </Tooltip>
           <div className="product__imgBox">
             <Link to={`/product/${_id}`}>
               <img

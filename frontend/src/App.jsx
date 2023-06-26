@@ -69,7 +69,7 @@ export default function App() {
                   path="/check-information"
                   element={<CheckInformation />}
                 />
-                <Route path="/order-pay" element={<SubmitOrder />} />
+                <Route path="/order-pay/:oId" element={<SubmitOrder />} />
               </Route>
               </Route>
               {/* end basket */}

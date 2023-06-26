@@ -669,7 +669,7 @@ export default function Product() {
               <Slider
                 isLoading={isLoading}
                 isSuccess={isSuccess}
-                slidesPerView={6}
+                slidesPerView={5}
                 spaceBetween={20}
                 autoplay={true}
                 loop={true}

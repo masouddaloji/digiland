@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 //packages
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 //rtk query
 import { useAddToOrderMutation } from "../../../features/basket/basketApiSlice";
@@ -21,8 +21,10 @@ import { Iran } from "../../../Constants";
 import "./CheckInformation.css";
 
 function CheckInformation() {
+  useTitle("بررسی اطلاعات");
   const [addToOrder] = useAddToOrderMutation();
   const { userID } = useAuth();
+  const navigate=useNavigate()
   const {
     data: userInfos,
     isLoading: userInfosLoading,
@@ -37,23 +39,25 @@ function CheckInformation() {
     checkTelephone: userInfos?.phone ?? "",
     acceptTerms: false,
   };
-  useTitle("بررسی اطلاعات")
 
   const [showDiscount, setShowDiscount] = useState(false);
   const iranProvince = Object.keys(Iran);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [cities, setCities] = useState([]);
-
+console.log("userInfos",userInfos);
   const addToOrderHandler = async () => {
-    try {
-      const promises = userInfos.basket?.cartItems?.map((item) =>
-        addToOrder(item?.productId?._id).unwrap()
-      );
-      const results = await Promise.all(promises);
-      console.log("results", results);
-    } catch (error) {
-      console.log("error", error);
-    }
+    userInfos.basket?.cartItems?.map((item) =>
+      addToOrder(item?.productId?._id)
+        .unwrap()
+        .then((response) => {
+          console.log("response", response);
+          navigate(`/order-pay/${response?.data?._id}`)
+
+        })
+        .catch((error) => {
+          console.log("error", error);
+        })
+    );
   };
   useEffect(() => {
     if (Iran[selectedProvince]) {

@@ -87,11 +87,15 @@
   border-radius: var(--border-box);
   font-size: 1.1rem;
   color: #333;
+  transition: all .3s;
 }
 .sideBarCart__LinkBasket:nth-child(1) {
   margin-left: 1.5rem;
 }
-
+.sideBarCart__LinkBasket:hover{
+  color: var(--white);
+  background-color: var(--blue);
+}
 .emptyBasket {
   width: 90%;
   height: 12rem;

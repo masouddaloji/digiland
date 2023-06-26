@@ -1,36 +1,31 @@
 import { useRef } from "react";
 // packages
 import { useField } from "formik";
-import {Editor} from "@tinymce/tinymce-react"
+import { Editor } from "@tinymce/tinymce-react";
 //redux
 import { useSelector } from "react-redux";
+import { useUploadCoverArticleMutation } from "../../features/article/articleApiSlice";
 
 const TextEditor = (props) => {
   const editorRef = useRef();
   const { token } = useSelector((state) => state?.auth);
   const [field, meta, helpers] = useField(props);
+  const [uploadCoverArticle] = useUploadCoverArticleMutation();
 
   const handleImageUpload = async (blobInfo, progress) => {
-    try {
-      const formData = new FormData();
-      formData.append('image', blobInfo.blob());  
-      const response = await fetch('http://localhost:8000/upload/articleimg', {
-        method: 'POST',
-        body: formData,
-        headers: {
-                Authorization: `Bearer ${token}`,
-              },
+    const formData = new FormData();
+    formData.append("image", blobInfo.blob());
+    console.log("blobInfo.blob()", blobInfo.blob());
+
+    const urlimage = uploadCoverArticle(formData)
+      .unwrap()
+      .then((response) => {
+        return `http://localhost:8000${response}`;
+      })
+      .catch((error) => {
+        throw new Error("Image upload failed : " + error.message);
       });
-  
-      if (!response.ok) {
-        throw new Error('HTTP Error: ' + response.status);
-      }
-  
-      const {path} = await response.json();
-      return `http://localhost:8000${path}`;
-    } catch (error) {
-      throw new Error('Image upload failed due to a XHR Transport error. Code: ' + error.message);
-    }
+    return urlimage;
   };
 
   return (

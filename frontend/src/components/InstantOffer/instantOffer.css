@@ -70,7 +70,7 @@ responsive
   }
   .instantOffer__ProductName {
 
-    margin: 1rem 0;
+    -webkit-line-clamp: 1;
   }
 }
 @media (max-width: 991px) {

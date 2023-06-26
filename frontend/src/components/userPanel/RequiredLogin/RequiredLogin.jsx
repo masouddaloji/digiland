@@ -3,12 +3,24 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 //redux
 import { selectToken } from "../../../features/auth/authSlice";
+import { useEffect, useState } from "react";
+import Loader from "../../Loader/Loader";
 
 const RequiredLogin = () => {
   const location = useLocation();
   const token = useSelector(selectToken);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (token) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+  if (isLoading) return(<Loader />)
+
+  if (!isLoading && token) {
     return <Outlet />;
   } else {
     return (

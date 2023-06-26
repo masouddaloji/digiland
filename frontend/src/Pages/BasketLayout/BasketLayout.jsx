@@ -11,7 +11,6 @@ import "./BasketLayout.css";
 
 function BasketLayout() {
   const { data: basket } = useGetBasketQuery();
-  const { checkinformation } = useParams();
   const { pathname } = useLocation();
   const basketCrumbs = pathname.split("/");
   return (
@@ -65,7 +64,6 @@ function BasketLayout() {
           <div className="row">
             <Outlet />
           </div>
-          
         </div>
       </div>
     </div>

@@ -1,47 +1,54 @@
 //packages
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+//rtk query
+import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
 //hooks
+import useAuth from "../../../hooks/useAuth";
 import useTitle from "../../../hooks/useTitle";
 //styles
 import "./SubmitOrder.css";
+import { BsCheckSquare } from "react-icons/bs";
 
 function SubmitOrder() {
+
+  const {oId}=useParams()
   useTitle("ثبت سفارش")
+  const { userID } = useAuth();
+  const { data, isLoading, isSuccess } = useGetUserByIdQuery(userID);
+console.log("data",data);
   return (
-    <div className="row">
-      <div className="col-12">
-        <div className="submitOrder">
+
+        <div className="submitOrder ss02">
+        <div className="submitOrder__success">
+        <BsCheckSquare className="submitOrder__success-icon"/>
+       <span>
+       متشکریم، سفارش شما دریافت شد.
+       </span>
+        </div>
           <ul className="submitOrder__details">
             <li className="submitOrder__item">
               <span>شماره سفارش : </span>
-              <strong>3619212</strong>
+              <span className="green-text">3619212</span>
             </li>
             <li className="submitOrder__item">
               <span>تاریخ : </span>
-              <strong>3619212</strong>
+              <span>22  خرداد 1402</span>
             </li>
             <li className="submitOrder__item">
               <span>قیمت نهایی : </span>
-              <bdi className="productPrice">
-                500,000
-                <span className="toman">تومان</span>
-              </bdi>
+              <span>16,000,000 تومان</span>
             </li>
           </ul>
           <div className="submitOrder__btns">
-            <Link to="/" className="submitOrder__btn submitOrder__btn--submit">
-              پرداخت
-            </Link>
             <Link
-              to="/basket/check-information"
-              className="submitOrder__btn submitOrder__btn--return"
+              to="/"
+              className="submitOrder__btn"
             >
-              بازگشت
+             بازگشت به صفحه اصلی
             </Link>
           </div>
+          <div className="submitOrder__divider"></div>
         </div>
-      </div>
-    </div>
   );
 }
 
