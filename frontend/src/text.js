@@ -192,7 +192,7 @@ export const persianTexts = {
   checkInformation: {
     fullName: {
       required: "لطفا نام و نام خانوادگی را وارد کنید",
-      min: "حداقل تعداد کاراکتر 6 می باشد",
+      min: "حداقل تعداد کاراکتر 3 می باشد",
     },
     province: {
       required: "لطفا استان خود را انتخاب کنید",
@@ -203,7 +203,7 @@ export const persianTexts = {
     address: {
       required: "لطفا آدرس خود را وارد کنید",
       min: "حداقل تعداد کاراکتر 8 می باشد",
-      max: "حداکثر تعداد کاراکتر 40 می باشد",
+      max: "حداکثر تعداد کاراکتر 50 می باشد",
     },
     postalCode: {
       required: "لطفا کدپستی خود را وارد کنید",
@@ -359,8 +359,10 @@ export const persianTexts = {
     acceptModal:"آیا سفارش مورد نظر تایید شود ؟",
     rejectModal:"آیا سفارش مورد نظر رد شود ؟",
     tableTitle:"لیست سفارشات",
-    orderAccept:"سفارش با موفقیت تایید شد",
-    orderReject:"تایید سفارش با مشکل مواجه شد",
+    orderAcceptSuccess:"سفارش با موفقیت تایید شد",
+    orderAcceptError:"تایید سفارش با مشکل مواجه شد",
+    orderRejectSuccess:"سفارش با موفقیت رد شد",
+    orderRejectError:"رد سفارش با مشکل مواجه شد",
     notOrders:"سفارشی یافت نشد"
   },
 userOrders:{

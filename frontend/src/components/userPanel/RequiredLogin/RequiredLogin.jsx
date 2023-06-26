@@ -18,11 +18,11 @@ const RequiredLogin = () => {
 
     return () => clearTimeout(timer);
   }, []);
-  if (isLoading) return(<Loader />)
 
   if (!isLoading && token) {
     return <Outlet />;
-  } else {
+  }
+  if (!isLoading && !token) {
     return (
       <Navigate to="/" state={{ from: location }} replace />
     );

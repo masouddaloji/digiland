@@ -3,10 +3,9 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 //rtk query
-import { useAddToOrderMutation } from "../../../features/basket/basketApiSlice";
-import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
+import { useAddToOrderMutation } from "../../../features/order/orderApiSlice";
+import { useGetBasketQuery } from "../../../features/basket/basketApiSlice";
 //hooks
-import useAuth from "../../../hooks/useAuth";
 import useTitle from "../../../hooks/useTitle";
 //components
 import FormControl from "../../FormControl/FormControl";
@@ -23,13 +22,9 @@ import "./CheckInformation.css";
 function CheckInformation() {
   useTitle("بررسی اطلاعات");
   const [addToOrder] = useAddToOrderMutation();
-  const { userID } = useAuth();
   const navigate=useNavigate()
-  const {
-    data: userInfos,
-    isLoading: userInfosLoading,
-    isSuccess: userInfosSuccess,
-  } = useGetUserByIdQuery(userID);
+  const {data:basket,isLoading,isSuccess}=useGetBasketQuery()
+
   let initialValues = {
     checkFullName: userInfos?.name ?? "",
     checkProvince: userInfos?.addresses?.[0]?.state ?? "",
@@ -44,7 +39,7 @@ function CheckInformation() {
   const iranProvince = Object.keys(Iran);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [cities, setCities] = useState([]);
-console.log("userInfos",userInfos);
+console.log("basket",basket);
   const addToOrderHandler = async () => {
     userInfos.basket?.cartItems?.map((item) =>
       addToOrder(item?.productId?._id)
@@ -69,8 +64,8 @@ console.log("userInfos",userInfos);
 
   return (
     <>
-      {userInfosLoading && <Loader />}
-      {userInfosSuccess && (
+      {isLoading && <Loader />}
+      {isSuccess && (
         <Formik
           initialValues={initialValues}
           validationSchema={checkInformationSchema}
@@ -183,10 +178,10 @@ console.log("userInfos",userInfos);
                             </tr>
                           </thead>
                           <tbody>
-                            {userInfos.basket?.cartItems?.map((item) => (
+                            {basket?.cartItems?.map((item) => (
                               <tr key={item._id}>
                                 <td>
-                                  {item.productId.title}{" "}
+                                  {item.productId.title}
                                   <span>
                                     {item.cartQuantity
                                       ? ` x ${item.cartQuantity}`
@@ -208,7 +203,7 @@ console.log("userInfos",userInfos);
                               <td>
                                 <span>
                                   <bdi className="productPrice">
-                                    {userInfos.basket?.totalAmount?.toLocaleString()}
+                                    {basket?.totalAmount?.toLocaleString()}
                                     <span className="toman">تومان</span>
                                   </bdi>
                                 </span>
@@ -217,7 +212,7 @@ console.log("userInfos",userInfos);
                             <tr>
                               <th>هزینه حمل و نقل</th>
                               <td>
-                                {userInfos.basket?.totalAmount > 1000000 ? (
+                                {basket?.totalAmount > 1000000 ? (
                                   " حمل و نقل رایگان"
                                 ) : (
                                   <span>
@@ -234,7 +229,7 @@ console.log("userInfos",userInfos);
                               <td>
                                 <span>
                                   <bdi className="productPrice">
-                                    {userInfos.basket?.totalAmount?.toLocaleString()}
+                                    {basket?.totalAmount?.toLocaleString()}
                                     <span className="toman">تومان</span>
                                   </bdi>
                                 </span>
@@ -246,7 +241,7 @@ console.log("userInfos",userInfos);
                                 <span>
                                   <bdi className="productPrice">
                                     {(
-                                      userInfos.basket?.totalAmount / 500
+                                      basket?.totalAmount / 500
                                     ).toLocaleString()}
                                     <span className="toman">تومان</span>
                                   </bdi>

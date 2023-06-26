@@ -104,7 +104,7 @@ export const userRatingSchema = Yup.object().shape({
 export const checkInformationSchema = Yup.object().shape({
   checkFullName: Yup.string()
     .required(persianTexts.checkInformation.fullName.required)
-    .min(6, persianTexts.checkInformation.fullName.min),
+    .min(3, persianTexts.checkInformation.fullName.min),
   checkProvince: Yup.string().required(
     persianTexts.checkInformation.province.required
   ),
@@ -112,7 +112,7 @@ export const checkInformationSchema = Yup.object().shape({
   checkAddress: Yup.string()
     .required(persianTexts.checkInformation.address.required)
     .min(8, persianTexts.checkInformation.address.min)
-    .max(40, persianTexts.checkInformation.address.max),
+    .max(50, persianTexts.checkInformation.address.max),
   checkPostalCode: Yup.string()
     .required(persianTexts.checkInformation.postalCode.required)
     .matches(postalCodePattern, persianTexts.checkInformation.postalCode.match),

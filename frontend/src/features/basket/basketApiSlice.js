@@ -7,7 +7,7 @@ export const basketApiSlice = shopApi.injectEndpoints({
       query: () => "/basket",
       transformResponse: (response) => response.data,
       providesTags: (result, error, arg) => {
-        if (result?.cartItems) {
+        if (result?.cartItems?.length) {
           return [
             { type: "Basket", id: "LIST" },
             ...result.cartItems.map(({ _id }) => ({ type: "Basket", id: _id })),
@@ -56,15 +56,7 @@ export const basketApiSlice = shopApi.injectEndpoints({
         { type: "Basket", id: arg },
       ],
     }),
-    addToOrder: builder.mutation({
-      query: (id) => ({
-        url: "/users/order",
-        method: "POST",
-        body: { productId:id, status:"pending" },
-      }),
-      transformResponse: (response) => console.log("response", response),
-      invalidatesTags: (result, error, arg) => [{ type: "Basket", id: "LIST" }],
-    }),
+    
 
   }),
 });
@@ -75,5 +67,4 @@ export const {
   useDecrementItemMutation,
   useEmptyBasketMutation,
   useRemoveItemMutation,
-  useAddToOrderMutation,
 } = basketApiSlice;

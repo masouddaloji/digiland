@@ -14,8 +14,24 @@ const orderApiSlice = shopApi.injectEndpoints({
       },
     }),
     getOrders: builder.query({
-      query: (id) => `/users/my-orders/${id}`,
-      transformResponse: (response) => console.log("response", response),
+      query: (id) => `/users/my-orders/${id}?page=1&limit=100`,
+      transformResponse: (response) => response.data,
+      providesTags: (result, error, arg) => {
+        if (result?.length) {
+          return [
+            { type: "Order", id: "LIST" },
+            ...result.map(({ _id }) => ({ type: "Order", id: _id })),
+          ];
+        } else return [{ type: "Order", id: "LIST" }];
+      },
+    }),
+    addToOrder: builder.mutation({
+      query: (id) => ({
+        url: "/users/order",
+        method: "POST",
+        body: { productId:id, status:"pending" },
+      }),
+      invalidatesTags: (result, error, arg) => [{type:"Order",id:"LIST"},{ type: "Basket", id: "LIST" }],
     }),
     removeOrderByUser: builder.mutation({
       query: (oId) => ({
@@ -23,14 +39,14 @@ const orderApiSlice = shopApi.injectEndpoints({
         method: "DELETE",
       }),
       invalidatesTags: (result, error, arg) => [
-        { type: "Users", id: "LIST" },
         { type: "Order", id: "LIST" },
+        { type: "Users", id: "LIST" },
       ],
     }),
     changeStatusOrder: builder.mutation({
       query: (data) => ({
         url: "/orders",
-        method: "POST",
+        method: "PUT",
         body: data,
       }),
       invalidatesTags: (result, error, arg) => [
@@ -44,6 +60,7 @@ const orderApiSlice = shopApi.injectEndpoints({
 export const {
   useGetAllOrdersQuery,
   useGetOrdersQuery,
+  useAddToOrderMutation,
   useRemoveOrderByUserMutation,
   useChangeStatusOrderMutation,
 } = orderApiSlice;

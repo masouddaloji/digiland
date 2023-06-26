@@ -23,6 +23,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCheck } from "react-icons/fa";
 
 const AdminOrders = () => {
+  useTitle("سفارشات");
   const [isShowAcceptModal, setIsShowAcceptModal] = useState(false);
   const [isShowRejectModal, setIsShowRejectModal] = useState(false);
   const [orderId, setOrderId] = useState(null);
@@ -105,9 +106,7 @@ const AdminOrders = () => {
       editable: false,
       sortable: false,
       disableColumnMenu: true,
-      renderCell: (params) => (
-        <span>{useConvertDate(params.value)}</span>
-      ),
+      renderCell: (params) => <span>{useConvertDate(params.value)}</span>,
     },
     {
       field: "status",
@@ -115,9 +114,7 @@ const AdminOrders = () => {
       width: 160,
       align: "center",
       headerAlign: "center",
-      editable: true,
-      type: "singleSelect",
-      valueOptions: ["درحال بررسی", "تایید شده", "لغو شده"],
+      editable: false,
       sortable: false,
       disableColumnMenu: true,
       renderCell: (params) => {
@@ -185,20 +182,34 @@ const AdminOrders = () => {
       orderId,
       status: "delivered",
     };
-    changeStatusOrder({data}).unwrap()
-    .then(res=>{
-      console.log("res",res);
-      toast.success(persianTexts.adminOrders.orderAccept)
-    })
-    .catch(error=>{
-      console.log("error",error);
-      toast.error(persianTexts.adminOrders.orderReject)
-    })
+    changeStatusOrder(data)
+      .unwrap()
+      .then((res) => {
+        console.log("res", res);
+        toast.success(persianTexts.adminOrders.orderAcceptSuccess);
+      })
+      .catch((error) => {
+        console.log("error", error);
+        toast.error(persianTexts.adminOrders.orderAcceptError);
+      });
   };
-const rejectOrderHandler=()=>{
-  
-}
-useTitle("سفارشات")
+  const rejectOrderHandler = () => {
+    const data = {
+      orderId,
+      status: "cancelled",
+    };
+    changeStatusOrder(data)
+      .unwrap()
+      .then((res) => {
+        console.log("res", res);
+        toast.success(persianTexts.adminOrders.orderReject);
+      })
+      .catch((error) => {
+        console.log("error", error);
+        toast.error(persianTexts.adminOrders.orderReject);
+      });
+  };
+
   return (
     <>
       {isShowAcceptModal && (
@@ -222,35 +233,35 @@ useTitle("سفارشات")
         <div className="table">
           <div className="table__header">
             <h5 className="table__title">
-            {persianTexts.adminOrders.tableTitle}
+              {persianTexts.adminOrders.tableTitle}
             </h5>
           </div>
-          {orders.data.length?
-          <>
-          <div className="datagrid__container">
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              getRowId={(row) => row._id}
-              rowHeight={45}
-              columnHeaderHeight={40}
-              loading={isLoading}
-              disableColumnSelector={true}
-              disableRowSelectionOnClick={true}
-              className="ss02 customdata"
-            />
-          </div>
-          {orders?.lastPage > 1 && (
-            <CustomPagination
-              page={pageInfo.page}
-              count={orders?.lastPage}
-              setData={setPageInfo}
-            />
+          {orders.data.length ? (
+            <>
+              <div className="datagrid__container">
+                <DataGrid
+                  rows={rows}
+                  columns={columns}
+                  getRowId={(row) => row._id}
+                  rowHeight={45}
+                  columnHeaderHeight={40}
+                  loading={isLoading}
+                  disableColumnSelector={true}
+                  disableRowSelectionOnClick={true}
+                  className="ss02 customdata"
+                />
+              </div>
+              {orders?.lastPage > 1 && (
+                <CustomPagination
+                  page={pageInfo.page}
+                  count={orders?.lastPage}
+                  setData={setPageInfo}
+                />
+              )}
+            </>
+          ) : (
+            <Error type="warning" title={persianTexts.adminOrders.notOrders} />
           )}
-          </>
-          :<Error type="warning" title={persianTexts.adminOrders.notOrders} />}
-          
-
         </div>
       )}
     </>

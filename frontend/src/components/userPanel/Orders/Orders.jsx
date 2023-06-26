@@ -22,7 +22,8 @@ const Orders = () => {
   const[orderId,setOrderId]=useState(null)
   const[isShowDeleteOrder,setIsShowDeleteOrder]=useState(false)
   const { userID } = useAuth();
-  const { data, isLoading, isSuccess } = useGetUserByIdQuery(userID);
+  // const { data, isLoading, isSuccess } = useGetUserByIdQuery(userID);
+  const{data:orders ,isLoading,isSuccess}=useGetOrdersQuery(userID)
   const [removeOrderByUser]=useRemoveOrderByUserMutation()
   const navigate = useNavigate();
   useTitle("سفارشات کاربر")
@@ -36,6 +37,7 @@ const Orders = () => {
       console.log("error",error);
     })
   }
+  console.log("orders",orders);
   return (
     <>
           {isShowDeleteOrder && (
@@ -49,7 +51,7 @@ const Orders = () => {
       {isLoading && <Loader />}
       {isSuccess && (
         <div className="user-order">
-          {data.orders?.length ? (
+          {orders?.length ? (
             <div className="user__table__wrapper">
               <table className="user__table">
                 <thead>
@@ -62,17 +64,17 @@ const Orders = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.orders.map((order) => (
+                  {orders.map((order) => (
                     <tr key={order._id}>
                       <td data-title="سفارش">{order._id}</td>
                       <td data-title="تاریخ">
                         {useConvertDate(order.createdAt)}
                       </td>
                       <td data-title="وضعیت">
-                        {order.status === "pending" ? "در حال بررسی" : null}
+                        {order.status === "pending" ? "در حال بررسی":order.status === "delivered" ? "تایید شده" : "رد شده"}
                       </td>
                       <td data-title="ارزش">
-                        {order.productId.price.toLocaleString()}
+                        {`${order.productId.price.toLocaleString()} تومان`}
                       </td>
                       <td data-title="عملیات‌ها">
                         <div className="actionBtns">

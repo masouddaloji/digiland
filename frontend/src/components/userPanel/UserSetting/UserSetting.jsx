@@ -41,22 +41,22 @@ const UserSetting = () => {
 
   const changeInfoHandler = (data) => {
     const userInfo = {
-      ...(data.name && { name: data.name }),
-      ...(data.image && { image: data.image }),
-      ...(data.phone && { phone: data.phone }),
+      ...(data.name ? { name: data.name }:null),
+      ...(data.image ? { image: data.image }:null),
+      ...(data.phone ? { phone: data.phone }:null),
       ...(data.state ||
         data.city ||
         data.street ||
-        (data.postalCode && {
+        data.postalCode ? {
           addresses: [
             {
-              ...(data.state && { state: data.state }),
-              ...(data.city && { city: data.city }),
-              ...(data.street && { street: data.street }),
-              ...(data.postalCode && { postalCode: data.postalCode }),
+              ...(data.state ? { state: data.state }:null),
+              ...(data.city ? { city: data.city }:null),
+              ...(data.street ? { street: data.street }:null),
+              ...(data.postalCode ? { postalCode: data.postalCode }:null),
             },
           ],
-        })),
+        }:null),
     };
 
     updateUser({ data: userInfo, id: userID })
