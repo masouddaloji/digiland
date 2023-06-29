@@ -44,97 +44,86 @@ const Select = (props) => {
 
   return (
     <div className="formControl__wrapper" ref={containerRef}>
-  <div className={`inputBox`}>
+      <div className={`inputBox`}>
+        <div
+          className={`checkbox ${
+            meta.touched && meta.error && "input--invalid"
+          }`}
+          onClick={() => setIsShowOptions(!isShowOptions)}
+        >
+          <span
+            className={`checkbox__header ${
+              meta.touched && meta.error ? "label--invalid" : undefined
+            }`}
+          >
+            {selectType === "rating"
+              ? options.find((option) => option.value === field.value)?.text
+              : selectValue}
+          </span>
+          <HiChevronDown className="dropdownIcon" />
+        </div>
 
-  <div
-        className={`checkbox ${meta.touched && meta.error && "input--invalid"}`}
-        onClick={() => setIsShowOptions(!isShowOptions)}
-      >
+        {options && (
+          <ul
+            className={`checkbox__lists ${
+              isShowOptions
+                ? "checkbox__lists checkbox__lists--show"
+                : "checkbox__lists"
+            }`}
+          >
+            {selectType === "province" && (
+              <input
+                type="text"
+                className="select__searchInput"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+            )}
+            {selectType === "color" || selectType === "rating"
+              ? options.map((option, index) => (
+                  <li
+                    className="checkbox__item"
+                    key={option.value}
+                    onClick={() => {
+                      setTouched(true);
+                      setValue(option.value);
+                      setIsShowOptions(false);
+                      setSelectValue(option.text);
+                      setSearchValue("");
+                    }}
+                  >
+                    {option.text}
+                  </li>
+                ))
+              : selectType === "province"
+              ? filterOptions.map((option, index) => (
+                  <li
+                    className="checkbox__item"
+                    key={option}
+                    onClick={() => {
+                      setValue(option);
+                      setSelectValue(option);
+                      setTouched(true);
+                      setIsShowOptions(false);
+                      setSelectedProvince?.(option);
+                      setSearchValue("");
+                    }}
+                  >
+                    {option}
+                  </li>
+                ))
+              : null}
+          </ul>
+        )}
+
+        {/* label for input */}
         <span
-          className={`checkbox__header ${
-            meta.touched && meta.error ? "label--invalid" : undefined
-          }`}
-        >
-          {selectType === "rating"
-            ?
-              options.find((option) => option.value === field.value)?.text
-            : selectValue }
-        </span>
-        <HiChevronDown className="dropdownIcon" />
-      </div>
-
-      {options && (
-        <ul
-          className={`checkbox__lists ${
-            isShowOptions
-              ? "checkbox__lists checkbox__lists--show"
-              : "checkbox__lists"
-          }`}
-        >
-          {selectType === "province" && (
-            <input
-              type="text"
-              className="select__searchInput"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-          )}
-          {selectType === "color" || selectType === "rating"
-            ? options.map((option, index) => (
-                <li
-                  className="checkbox__item"
-                  key={option.value}
-                  onClick={() => {
-                    setTouched(true);
-                    setValue(option.value);
-                    setIsShowOptions(false);
-                    setSelectValue(option.text);
-                    setSearchValue("");
-                  }}
-                >
-                  {option.text}
-                </li>
-              ))
-            : selectType === "province"
-            ? filterOptions.map((option, index) => (
-                <li
-                  className="checkbox__item"
-                  key={option}
-                  onClick={() => {
-                    setValue(option);
-                    setSelectValue(option);
-                    setTouched(true);
-                    setIsShowOptions(false);
-                    setSelectedProvince?.(option);
-                    setSearchValue("");
-                  }}
-                >
-                  {option}
-                </li>
-              ))
-            : null}
-        </ul>
-      )}
-
-
-
-
-
-{/* label for input */}
-  <span
-          className={`input__infoBox ${
-            field?.value && "input__infoBox--top"
-          }`}
+          className={`input__infoBox ${field?.value && "input__infoBox--top"}`}
         >
           {props?.icon ?? null}
           {props.label && <span className={`input__label`}>{props.label}</span>}
         </span>
-  </div>
-
-
-       
-
-  
+      </div>
 
       {meta.touched && meta.error ? (
         <span className="auth__error">{meta.error}</span>

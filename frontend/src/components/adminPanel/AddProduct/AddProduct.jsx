@@ -1,3 +1,4 @@
+import { useRef } from "react";
 // packages
 import { Form, Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,7 +22,7 @@ import "./AddProduct.css";
 
 const AddProduct = () => {
   const [addProduct] = useAddProductMutation();
-
+  const tableRef = useRef();
   const navigate = useNavigate();
   let initialValues = {
     productTitle: "",
@@ -60,13 +61,13 @@ const AddProduct = () => {
       .unwrap()
       .then((response) => {
         toast.success(persianTexts.addProducts.createProductSuccess);
-        navigate("/adminpanel/products");
+        navigate("/adminproducts");
       })
       .catch((error) => {
         toast.error(persianTexts.addProducts.createProductError);
       });
   };
-  useTitle("افزودن محصول")
+  useTitle("افزودن محصول");
   return (
     <Formik
       initialValues={initialValues}
@@ -78,7 +79,7 @@ const AddProduct = () => {
     >
       {(formik) => (
         <>
-          <div className="table">
+          <div className="table" ref={tableRef}>
             <div className="table__header">
               <h5 className="table__title">
                 {persianTexts.addProducts.header}
@@ -139,6 +140,7 @@ const AddProduct = () => {
                     controler="checkbox"
                     name="productColors"
                     options={colorOptions}
+                    ref={tableRef}
                   />
                 </div>
 
@@ -225,9 +227,7 @@ const AddProduct = () => {
               <div className="row btn__wrapper">
                 <button
                   className={`admin__btn ${
-                    formik.dirty && formik.isValid
-                      ? "admin__btn--active"
-                      : "admin__btn--disable"
+                    formik.dirty && formik.isValid && "admin__btn--active"
                   }`}
                   type="submit"
                   disabled={!(formik.dirty && formik.isValid)}

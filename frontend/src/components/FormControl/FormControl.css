@@ -25,10 +25,23 @@
   padding: 0 3rem 0 1rem;
   color: var(--gray-text);
   font-size: 1.2rem;
-  border: 0.15rem solid var(--gray);
+  border: .1rem solid var(--gray);
   outline: none;
   box-shadow: var(--box-shadow);
   border-radius: var(--border-box);
+}
+.checkbox {
+  width: 100%;
+  height: 4rem;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.4rem;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-box);
+  position: relative;
+  border: .1rem solid var(--gray);
 }
 .input__infoBox,
 .password__statusBox {
@@ -39,6 +52,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  z-index: 10;
 }
 .input__infoBox {
   right: 1rem;
@@ -226,22 +240,7 @@
   box-shadow: 0 1.2rem 1rem -1rem rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
-.checkbox__wrapper {
-  position: relative;
-}
-.checkbox {
-  width: 100%;
-  height: 3.6rem;
-  background: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1.4rem;
-  box-shadow: var(--box-shadow);
-  border-radius: var(--border-box);
-  position: relative;
-  border: 2px solid var(--gray);
-}
+
 .input--invalid {
   border-color: var(--red);
 }

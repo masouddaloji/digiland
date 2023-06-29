@@ -153,7 +153,7 @@ a {
   --white: #fff;
   --white-50: #f8f5fd;
   --black: #000;
-  --black-05:#555;
+  --black-05: #555;
   --padding: 1rem;
   --border-box: 0.6rem;
   --gold: #ffc717;
@@ -227,7 +227,6 @@ a {
   display: inline-block;
   vertical-align: middle;
 }
-
 
 /* start auth style */
 .auth {
@@ -500,7 +499,8 @@ a {
   color: #444;
   font-size: 1.3rem;
 }
-.user__table th,.user__table td {
+.user__table th,
+.user__table td {
   padding: 1rem;
   text-align: start;
 }
@@ -511,8 +511,7 @@ a {
 }
 .user__table thead tr,
 .user__table tbody tr,
-.user__table tfoot tr:not(:last-child)
- {
+.user__table tfoot tr:not(:last-child) {
   border-bottom: 0.1rem solid #eeeff1;
 }
 .user__table tbody tr {
@@ -524,26 +523,26 @@ a {
 
 /* start admin table style */
 .admin__btn {
-  display: inline-block;
-  text-align: center;
   width: 12rem;
-  padding: 0.5rem;
+  color: var(--white);
+  height: 3rem;
+  font-size: 1.1rem;
+  border-radius: var(--border-box);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   outline: none;
-  transition: all 0.3s;
-  color: var(--white);
-  border-radius: var(--border-box);
-  margin-left: 4rem;
-}
-.btn--disable,.admin__btn--disable {
-  background: var(--gray-25);
-}
-.admin__btn--active{
   background-color: var(--black);
+  margin-left: 1.5rem;
+}
+
+.admin__btn--active {
+
   cursor: pointer;
 }
-.admin__btn--active:hover{
-  background-color: #1F1F1E;
+.admin__btn--active:hover {
+  background-color: #1f1f1e;
 }
 
 .table {
@@ -629,13 +628,13 @@ a {
   color: var(--red);
   background: var(--red-25);
 }
-.table__invalid{
+.table__invalid {
   color: var(--red);
   background: var(--red-25);
-padding: .2rem .7rem;
-border-radius: var(--border-box);
+  padding: 0.2rem 0.7rem;
+  border-radius: var(--border-box);
 }
-.accept{
+.accept {
   color: var(--admin-green);
   background-color: rgba(63, 184, 169, 0.2);
 }
@@ -669,7 +668,7 @@ border-radius: var(--border-box);
   display: none !important;
 }
 
-.customdata .css-1iyq7zh-MuiDataGrid-columnHeaders{
+.customdata .css-1iyq7zh-MuiDataGrid-columnHeaders {
   color: #99b2c6;
   font-size: 1.2rem;
   font-family: var(--iran-bold);
@@ -681,7 +680,7 @@ border-radius: var(--border-box);
 
 .MuiTooltip-tooltip.custom__tooltip {
   font-family: var(--iran);
-  font-size:60%;
+  font-size: 60%;
   background-color: var(--gray-100);
 }
 .customdata.css-12u49z-MuiDataGrid-root .MuiDataGrid-withBorderColor {
@@ -694,35 +693,35 @@ border-radius: var(--border-box);
 
   font-size: 1.1rem;
 }
-.customdata.MuiButtonBase-root.MuiMenuItem-root{
-background-color: var(--gray-text);
+.customdata.MuiButtonBase-root.MuiMenuItem-root {
+  background-color: var(--gray-text);
 }
 
 /* end datagrid style */
-.markHeader{
+.markHeader {
   position: relative;
 }
-.markHeader::before{
+.markHeader::before {
   content: "";
   width: 1.8rem;
-  height: .2rem;
+  height: 0.2rem;
   background-color: var(--blue);
   position: absolute;
-  bottom: -.1rem;
+  bottom: -0.1rem;
   right: 0;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
 }
-.markHeader::after{
+.markHeader::after {
   content: "";
   width: 3rem;
-  height: .2rem;
+  height: 0.2rem;
   background-color: var(--gray-50);
   position: absolute;
-  bottom: -.1rem;
+  bottom: -0.1rem;
   right: 2.1rem;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
 }
-.user__form{
+.user__form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -910,15 +909,16 @@ background-color: var(--gray-text);
   .user__table__wrapper {
     border: none;
   }
- 
-  .user__table thead,.user__table tfoot tr td:first-child {
+
+  .user__table thead,
+  .user__table tfoot tr td:first-child {
     display: none;
   }
   .user__table tr {
     display: flex;
     flex-direction: column;
   }
-  .user__table td{
+  .user__table td {
     display: flex;
     align-items: center;
     justify-content: space-between;

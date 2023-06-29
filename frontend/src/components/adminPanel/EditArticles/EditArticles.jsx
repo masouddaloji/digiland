@@ -22,25 +22,16 @@ import { persianTexts } from "../../../text";
 import "./EditArticles.css";
 
 const EditArticles = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { articleId } = useParams();
   const {
     data: article,
     isLoading,
     isSuccess,
   } = useGetArticleByIdQuery(articleId);
-  useTitle("ویرایش مقاله")
+  useTitle("ویرایش مقاله");
 
   const [updateArticle] = useUpdateArticleMutation();
-
-  const initialValues = {
-    articleTitle: article?.title ?? "",
-    articleImage: article?.image ?? "",
-    articleDescription: article?.description ?? "",
-    articleWriter: article?.writer ?? "",
-    articleCategory: article?.category ?? "",
-  };
-
   const editArticleHandler = (articleInfo) => {
     const data = {
       title: articleInfo.articleTitle,
@@ -49,7 +40,7 @@ const EditArticles = () => {
       writer: articleInfo.articleWriter,
       category: articleInfo.articleCategory,
     };
-    updateArticle({id:articleId,data})
+    updateArticle({ id: articleId, data })
       .unwrap()
       .then((res) => {
         toast.success(persianTexts.editArticle.editArticleSuccess);
@@ -65,7 +56,13 @@ const EditArticles = () => {
       {isLoading && <Loader />}
       {isSuccess && (
         <Formik
-          initialValues={initialValues}
+          initialValues={{
+            articleTitle: article?.data?.title,
+            articleImage: article?.data?.image,
+            articleDescription: article?.data?.description,
+            articleWriter: article?.data?.writer,
+            articleCategory: article?.data?.category,
+          }}
           validationSchema={articleSchema}
           onSubmit={async (values, { resetForm }) => {
             await editArticleHandler(values);
@@ -74,8 +71,8 @@ const EditArticles = () => {
         >
           {(formik) => (
             <Form>
-                <div className="editArticles">
-              <div className="col-12">
+              <div className="editArticles">
+                <div className="col-12">
                   <div className="row">
                     <div className="col-12 col-md-6">
                       <div className="col-12">
@@ -122,22 +119,17 @@ const EditArticles = () => {
                     </div>
                   </div>
 
-                  <div className="row">
-                    <div className="col-12">
-                      <button
-                        className={`admin__btn ${
-                          formik.dirty && formik.isValid
-                            ? "admin__btn--active"
-                            : "admin__btn--disable"
-                        }`}
-                        type="submit"
-                        disabled={!(formik.dirty && formik.isValid)}
-                      >
-                        {persianTexts.editArticle.btn}
-                      </button>
-                    </div>
+                  <div className="row btn__wrapper">
+                    <button
+                      className={`admin__btn ${
+                        formik.dirty && formik.isValid && "admin__btn--active"
+                      }`}
+                      type="submit"
+                      disabled={!(formik.dirty && formik.isValid)}
+                    >
+                      {persianTexts.updateuserInfo.submitBtn}
+                    </button>
                   </div>
-
                 </div>
               </div>
             </Form>

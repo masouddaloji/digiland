@@ -18,9 +18,9 @@ import { persianTexts } from "../../../text";
 import "./AddArticles.css";
 
 const AddArticles = () => {
-  const navigate=useNavigate()
-  const [addArticle]=useAddArticleMutation()
-  useTitle("افزودن مقاله")
+  const navigate = useNavigate();
+  const [addArticle] = useAddArticleMutation();
+  useTitle("افزودن مقاله");
   const initialValues = {
     articleTitle: "",
     articleImage: "",
@@ -36,13 +36,15 @@ const AddArticles = () => {
       writer: articleInfo.articleWriter,
       category: articleInfo.articleCategory,
     };
-    addArticle(data).unwrap()
-    .then(res=>{
-      toast.success(persianTexts.addArticle.addArticleSuccess)
-      navigate("/admin-articles")
-    }).catch(error=>{
-      toast.error(persianTexts.addArticle.addArticleError)
-    })
+    addArticle(data)
+      .unwrap()
+      .then((res) => {
+        toast.success(persianTexts.addArticle.addArticleSuccess);
+        navigate("/admin-articles");
+      })
+      .catch((error) => {
+        toast.error(persianTexts.addArticle.addArticleError);
+      });
   };
 
   return (
@@ -56,70 +58,66 @@ const AddArticles = () => {
     >
       {(formik) => (
         <Form>
-        <div className="col-12">
-          <div className="addArticles">
-            <div className="row">
-              <div className="col-12 col-md-6">
-                <div className="col-12">
-                  <FormControl
-                    controler="text"
-                    name="articleTitle"
-                    label="عنوان"
-                  />
+          <div className="col-12">
+            <div className="addArticles">
+              <div className="row">
+                <div className="col-12 col-md-6">
+                  <div className="col-12">
+                    <FormControl
+                      controler="text"
+                      name="articleTitle"
+                      label="عنوان"
+                    />
+                  </div>
+                  <div className="col-12">
+                    <FormControl
+                      controler="text"
+                      name="articleWriter"
+                      label="نویسنده"
+                    />
+                  </div>
+                  <div className="col-12">
+                    <FormControl
+                      controler="text"
+                      name="articleCategory"
+                      label="دسته بندی"
+                    />
+                  </div>
                 </div>
-                <div className="col-12">
+                <div className="col-12 col-md-6">
                   <FormControl
-                    controler="text"
-                    name="articleWriter"
-                    label="نویسنده"
-                  />
-                </div>
-                <div className="col-12">
-                  <FormControl
-                    controler="text"
-                    name="articleCategory"
-                    label="دسته بندی"
+                    placeholder="کاور مقاله را انتخاب کنید"
+                    controler="file"
+                    accept="image/*"
+                    name="articleImage"
+                    icon={<MdUploadFile className="uploader__icon" />}
+                    typeuploader="articleUploader"
                   />
                 </div>
               </div>
-              <div className="col-12 col-md-6">
-                <FormControl
-                  placeholder="کاور مقاله را انتخاب کنید"
-                  controler="file"
-                  accept="image/*"
-                  name="articleImage"
-                  icon={<MdUploadFile className="uploader__icon" />}
-                  typeuploader="articleUploader"
-                />
-              </div>
-            </div>
 
-            <div className="row">
-              <div className="col-12">
-                <FormControl
-                  controler="editor"
-                  height={500}
-                  name="articleDescription"
-                />
+              <div className="row">
+                <div className="col-12">
+                  <FormControl
+                    controler="editor"
+                    height={500}
+                    name="articleDescription"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-12">
+              <div className="row btn__wrapper">
                 <button
                   className={`admin__btn ${
-                    formik.dirty && formik.isValid
-                      ? "admin__btn--active"
-                      : "admin__btn--disable"
+                    formik.dirty && formik.isValid && "admin__btn--active"
                   }`}
                   type="submit"
                   disabled={!(formik.dirty && formik.isValid)}
                 >
-                  {persianTexts.addArticle.addBtn}
+                  {persianTexts.updateuserInfo.submitBtn}
                 </button>
               </div>
             </div>
           </div>
-        </div>
         </Form>
       )}
     </Formik>

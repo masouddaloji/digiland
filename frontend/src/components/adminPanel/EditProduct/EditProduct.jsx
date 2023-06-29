@@ -13,7 +13,7 @@ import useTitle from "../../../hooks/useTitle";
 import { persianTexts } from "../../../text";
 // components
 import FormControl from "../../FormControl/FormControl";
-import Loader from './../../Loader/Loader'
+import Loader from "./../../Loader/Loader";
 // validator
 import { addProductsSchema } from "../../Validator/Validator";
 //icons
@@ -26,29 +26,15 @@ import "./EditProduct.css";
 const EditProduct = () => {
   const navigate = useNavigate();
   const { productID } = useParams();
- 
+
   const {
     data: productInfo,
     isLoading,
     isSuccess,
   } = useGetProductByIdQuery(productID);
-  const initialValues={
-    productTitle: productInfo?.title,
-    productPrice: productInfo?.price,
-    productRating: productInfo?.rating,
-    productQantity: productInfo?.quantity,
-    productCategory: productInfo?.subCategory,
-    productSegment: productInfo?.segment,
-    productColors: productInfo?.colors,
-    productBrand: productInfo?.brand,
-    productSubCategory: productInfo?.category,
-    productOffPrice: productInfo?.offPrice,
-    productShortDescription: productInfo?.shortDescription,
-    productFullDescription: productInfo?.fullDescription,
-    productCover: productInfo?.image,
-    productGallery: productInfo?.gallery,
-  }
+
   const [updateProduct] = useUpdateProductMutation();
+
   const updateProductHandler = (productInfos) => {
     const data = {
       title: productInfos.productTitle,
@@ -70,17 +56,18 @@ const EditProduct = () => {
       .unwrap()
       .then((response) => {
         toast.success(persianTexts.editProduct.editProductSuccess);
-        navigate("/adminpanel/products");
+        navigate("/adminproducts");
       })
       .catch((error) => {
         console.log("errore", error);
         toast.error(persianTexts.editProduct.editProductError);
       });
   };
-  useTitle("ویرایش محصول")
+
+  useTitle("ویرایش محصول");
   return (
     <>
-    {isLoading && <Loader />}
+      {isLoading && <Loader />}
       {isSuccess ? (
         <div className="table">
           <div className="table__header">
@@ -91,7 +78,22 @@ const EditProduct = () => {
           </div>
           <div className="edit__content">
             <Formik
-              initialValues={initialValues}
+              initialValues={{
+                productTitle: productInfo?.data?.title,
+                productPrice: productInfo?.data?.price,
+                productRating: productInfo?.data?.rating,
+                productQantity: productInfo?.data?.quantity,
+                productCategory: productInfo?.data?.subCategory,
+                productSegment: productInfo?.data?.segment,
+                productColors: productInfo?.data?.colors,
+                productBrand: productInfo?.data?.brand,
+                productSubCategory: productInfo?.data?.category,
+                productOffPrice: productInfo?.data?.offPrice,
+                productShortDescription: productInfo?.data?.shortDescription,
+                productFullDescription: productInfo?.data?.fullDescription,
+                productCover: productInfo?.data?.image,
+                productGallery: productInfo?.data?.gallery,
+              }}
               validationSchema={addProductsSchema}
               onSubmit={(values) => updateProductHandler(values)}
             >
@@ -259,9 +261,7 @@ const EditProduct = () => {
                     <div className="row btn__wrapper">
                       <button
                         className={`admin__btn ${
-                          formik.dirty && formik.isValid
-                            ? "btn--active"
-                            : "btn--disable"
+                          formik.dirty && formik.isValid && "admin__btn--active"
                         }`}
                         type="submit"
                         disabled={!(formik.dirty && formik.isValid)}

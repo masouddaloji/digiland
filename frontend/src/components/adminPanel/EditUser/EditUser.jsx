@@ -32,20 +32,20 @@ const EditUser = () => {
   const [cities, setCities] = useState([]);
 
   let initialValues = {
-    name: userInfos?.data?.name ?? "",
-    image: userInfos?.data?.image ?? "",
-    phone: userInfos?.data?.phone ?? "",
-    state: userInfos?.data?.addresses[0]?.state ?? "",
-    city: userInfos?.data?.addresses[0]?.city ?? "",
-    street: userInfos?.data?.addresses[0]?.street ?? "",
-    postalCode: userInfos?.data?.addresses[0]?.postalCode ?? "",
+    name: userInfos?.name ?? "",
+    image: userInfos?.image ?? "",
+    phone: userInfos?.phone ?? "",
+    state: userInfos?.addresses[0]?.state ?? "",
+    city: userInfos?.addresses[0]?.city ?? "",
+    street: userInfos?.addresses[0]?.street ?? "",
+    postalCode: userInfos?.addresses[0]?.postalCode ?? "",
   };
   const changeInfoHandler = (data) => {
     const userInfo = {
       ...(data.name && { name: data.name }),
       ...(data.image && { image: data.image }),
       ...(data.phone && { phone: data.phone }),
-      ...(data.state||data.city||data.street ||data.postalCode && {
+      ...((data.state || data.city || data.street || data.postalCode) && {
         addresses: [
           {
             ...(data.state && { state: data.state }),
@@ -72,7 +72,7 @@ const EditUser = () => {
   useEffect(() => {
     if (Iran[selectedProvince]) setCities(Iran[selectedProvince]);
   }, [selectedProvince]);
-
+  console.log("userInfos", userInfos);
   return (
     <>
       {isLoading && <Loader />}
@@ -144,8 +144,14 @@ const EditUser = () => {
                       typeuploader="profileUploader"
                     />
                   </div>
-                  <div className="col-12">
-                    <button type="submit" className="userSetting__btn">
+                  <div className="row btn__wrapper">
+                    <button
+                      className={`admin__btn ${
+                        formik.dirty && formik.isValid && "admin__btn--active"
+                      }`}
+                      type="submit"
+                      disabled={!(formik.dirty && formik.isValid)}
+                    >
                       {persianTexts.updateuserInfo.submitBtn}
                     </button>
                   </div>

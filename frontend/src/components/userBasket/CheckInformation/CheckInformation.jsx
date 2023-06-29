@@ -5,8 +5,10 @@ import { Formik, Form } from "formik";
 //rtk query
 import { useAddToOrderMutation } from "../../../features/order/orderApiSlice";
 import { useGetBasketQuery } from "../../../features/basket/basketApiSlice";
+import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
 //hooks
 import useTitle from "../../../hooks/useTitle";
+import useAuth from "../../../hooks/useAuth";
 //components
 import FormControl from "../../FormControl/FormControl";
 import Loader from "../../Loader/Loader";
@@ -21,10 +23,15 @@ import "./CheckInformation.css";
 
 function CheckInformation() {
   useTitle("بررسی اطلاعات");
+  const { userID } = useAuth();
   const [addToOrder] = useAddToOrderMutation();
-  const navigate=useNavigate()
-  const {data:basket,isLoading,isSuccess}=useGetBasketQuery()
-
+  const navigate = useNavigate();
+  const { data: basket, isLoading, isSuccess } = useGetBasketQuery();
+  const {
+    data: userInfos,
+    isLoading: userInfosLoading,
+    isSuccess: userInfosSuccess,
+  } = useGetUserByIdQuery(userID);
   let initialValues = {
     checkFullName: userInfos?.name ?? "",
     checkProvince: userInfos?.addresses?.[0]?.state ?? "",
@@ -39,21 +46,25 @@ function CheckInformation() {
   const iranProvince = Object.keys(Iran);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [cities, setCities] = useState([]);
-console.log("basket",basket);
-  const addToOrderHandler = async () => {
-    userInfos.basket?.cartItems?.map((item) =>
-      addToOrder(item?.productId?._id)
-        .unwrap()
-        .then((response) => {
-          console.log("response", response);
-          navigate(`/order-pay/${response?.data?._id}`)
+  console.log("basket", basket);
 
-        })
-        .catch((error) => {
-          console.log("error", error);
-        })
+const addToOrderHandler = async () => {
+  if (basket?.cartItems?.length) {
+    const promises = basket.cartItems.map((item) =>
+      addToOrder(item?.productId?._id)
     );
-  };
+    try {
+
+      const responses = await Promise.all(promises);
+      console.log("responses", responses);
+      alert("all product add to order")
+      // navigate(`/order-pay/${orderIds.join(",")}`);
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+};
+
   useEffect(() => {
     if (Iran[selectedProvince]) {
       setCities(Iran[selectedProvince]);
