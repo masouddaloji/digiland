@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 //packages
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Thumbs, Zoom } from "swiper";
@@ -20,19 +20,19 @@ const ProductGallery = ({ array = [] }) => {
   const [[x, y], setXY] = useState([0, 0]);
   const [[imgWidth, imgHeight], setImgSize] = useState([0, 0]);
 
-  const handleMouseEnter = (e) => {
+  const handleMouseEnter = useCallback((e) => {
     const element = e.currentTarget;
     const { width, height } = element.getBoundingClientRect();
     setImgSize([width, height]);
     setMagnifierSrc(e?.target?.src);
     setIsShowMagnifier(true);
-  };
+  },[]);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setIsShowMagnifier(false);
-  };
+  },[]);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     const element = e.currentTarget;
     const { top, left } = element.getBoundingClientRect();
     const x = e.touches
@@ -42,7 +42,7 @@ const ProductGallery = ({ array = [] }) => {
       ? e.touches[0].clientY - top - window.scrollY
       : e.pageY - top - window.scrollY;
     setXY([x, y]);
-  };
+  },[]);
 
   return (
     <div className="productGallery">
@@ -53,10 +53,6 @@ const ProductGallery = ({ array = [] }) => {
         zoom={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={swiperModules}
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: false,
-        // }}
         className="largSwiper"
         style={{ width: "100%" }}
       >

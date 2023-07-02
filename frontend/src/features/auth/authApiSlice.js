@@ -20,6 +20,14 @@ export const authApiSlice = shopApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: "Auth", id: "LIST" }],
     }),
+    loginSocial: builder.mutation({
+      query: (data) => ({
+        url: "/auth/social",
+        method: "POST",
+        body: {...data},
+      }),
+      invalidatesTags: [{ type: "Auth", id: "LIST" }],
+    }),
     logOutUser: builder.mutation({
       query: () => ({
         url: "/auth/logout",
@@ -60,6 +68,7 @@ export const authApiSlice = shopApi.injectEndpoints({
 export const {
   useRegisterUserMutation,
   useLoginUserMutation,
+  useLoginSocialMutation,
   useGetRefreshTokenMutation,
   useLogOutUserMutation,
 } = authApiSlice;

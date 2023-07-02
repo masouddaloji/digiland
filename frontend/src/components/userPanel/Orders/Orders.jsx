@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 //packages
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 //rtk query
-import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
 import { useGetOrdersQuery, useRemoveOrderByUserMutation } from "../../../features/order/orderApiSlice";
 //components
 import Modal from "../../Modal/Modal";
@@ -27,7 +26,8 @@ const Orders = () => {
   const [removeOrderByUser]=useRemoveOrderByUserMutation()
   const navigate = useNavigate();
   useTitle("سفارشات کاربر")
-  const rejectOrderHandler=()=>{
+
+  const rejectOrderHandler=useCallback(()=>{
     removeOrderByUser(orderId).unwrap()
     .then(res=>{
       toast.success(persianTexts.userOrders.successDelete)
@@ -36,8 +36,9 @@ const Orders = () => {
       toast.error(persianTexts.userOrders.errorDelete)
       console.log("error",error);
     })
-  }
-  console.log("orders",orders);
+  },[])
+
+
   return (
     <>
           {isShowDeleteOrder && (

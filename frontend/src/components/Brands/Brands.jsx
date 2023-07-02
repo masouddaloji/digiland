@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 //constants
 import { HiChevronDown } from "react-icons/hi";
 import { brands } from "../../Constants";
@@ -12,9 +12,9 @@ export default function Brands({
   subCategory,
 }) {
   const [searchedBrand, setSearchedBrand] = useState("");
-  const filterHandler = (brand) => {
+  const filterHandler = useCallback((brand) => {
     setFilter((prev) => ({ ...prev, brand }));
-  };
+  },[]);
 
   let uniqBrands = useMemo(() => {
     let currentBrandbyPage = [];

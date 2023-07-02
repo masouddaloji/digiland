@@ -1,9 +1,7 @@
 import { useRef } from "react";
 //packages
 import { Link } from "react-router-dom";
-//redux
-import { useSelector } from "react-redux";
-import { selectToken } from "../../features/auth/authSlice";
+
 //rtk query
 import { useGetBasketQuery } from "../../features/basket/basketApiSlice";
 //components
@@ -27,7 +25,6 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
     isError: basketError,
   } = useGetBasketQuery();
   const { userName } = useAuth();
-  const token = useSelector(selectToken);
   const maskRef = useRef();
   const sideBarCartRef = useRef();
 

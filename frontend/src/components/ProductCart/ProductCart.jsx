@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 //packages
 import { Link } from "react-router-dom";
 import { Skeleton, Stack, Tooltip } from "@mui/material";
@@ -21,7 +22,7 @@ export default function ProductCart(props) {
   const[addToFavorite]=useAddToFavoriteMutation()
   const { _id, title, image, offPrice, price, rating,  isLoading, isSuccess  } = props;
 
-  const addToBasketHandler = async() => {
+  const addToBasketHandler = useCallback(async() => {
     await addToBasket(_id).unwrap()
     .then(()=>{
       toast.success(persianTexts.basket.addtobasketSuccess)
@@ -29,8 +30,9 @@ export default function ProductCart(props) {
     .catch((error)=>{
       toast.error(persianTexts.basket.addtobasketError)
     })
-  };
-  const addToFavoriteHandler = async() => {
+  },[]);
+
+  const addToFavoriteHandler =useCallback( async() => {
     await addToFavorite(_id).unwrap()
     .then(()=>{
       toast.success(persianTexts.favorite.addtoFavorite.success)
@@ -38,7 +40,8 @@ export default function ProductCart(props) {
     .catch((error)=>{
       toast.error(persianTexts.favorite.addtoFavorite.error)
     })
-  };
+  },[]);
+
   return (
     <>
       {isSuccess ? (

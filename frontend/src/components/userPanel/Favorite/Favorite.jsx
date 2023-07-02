@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 //packages
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
@@ -28,7 +28,7 @@ const Favorite = () => {
     isSuccess,
   } = useGetFavoriteQuery();
 
-  const removeFromFavoriteHandler = () => {
+  const removeFromFavoriteHandler = useCallback(() => {
     removeFromFavorite(favoriteId)
       .unwrap()
       .then((response) => {
@@ -37,7 +37,7 @@ const Favorite = () => {
       .catch((error) => {
         toast.error(persianTexts.favorite.removeFromFavorite.error);
       });
-  };
+  },[]);
   useTitle("علاقه مندی ها")
   return (
     <>

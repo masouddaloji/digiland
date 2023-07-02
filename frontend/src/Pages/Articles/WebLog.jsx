@@ -16,6 +16,7 @@ import { persianTexts } from "../../text";
 import "./WebLog.css";
 
 const WebLog = () => {
+  useTitle("مقالات")
   const [pageInfo, setPageInfo] = useState({
     page: 1,
     limit: 10,
@@ -25,7 +26,6 @@ const WebLog = () => {
     isLoading,
     isSuccess,
   } = useGetArticlesQuery({ page: pageInfo.page, limit: pageInfo.limit });
-  useTitle("مقالات")
   return (
     <section className="weblog">
       <div className="container">

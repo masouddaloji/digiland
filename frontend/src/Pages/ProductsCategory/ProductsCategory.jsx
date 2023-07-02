@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 //packages
 import { useParams } from "react-router-dom";
 //redux
@@ -50,11 +50,13 @@ export default function ProductsCategory() {
     isSuccess,
     isError,
   } = useGetProductsQuery({ ...pageInfo });
-  const closeFilterMask = (e) => {
+  
+  const closeFilterMask = useCallback((e) => {
     if (maskRef.current === e.target) {
       setIsShowFilterOptions(false);
     }
-  };
+  },[]);
+
   useEffect(() => {
     setPageInfo((prev) => ({
       ...prev,
@@ -62,7 +64,7 @@ export default function ProductsCategory() {
       subCategory: subCategory ?? "",
     }));
   }, [categoryName, subCategory]);
-console.log("products",products);
+
   return (
     <div className="container">
 

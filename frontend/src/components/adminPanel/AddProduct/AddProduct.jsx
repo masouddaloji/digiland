@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 // packages
 import { Form, Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
@@ -40,7 +40,7 @@ const AddProduct = () => {
     productCover: null,
     productGallery: null,
   };
-  const createNewProduct = (productinfos) => {
+  const createNewProduct = useCallback((productinfos) => {
     const data = {
       title: productinfos.productTitle,
       segment: productinfos.productSegment,
@@ -66,7 +66,7 @@ const AddProduct = () => {
       .catch((error) => {
         toast.error(persianTexts.addProducts.createProductError);
       });
-  };
+  },[]);
   useTitle("افزودن محصول");
   return (
     <Formik

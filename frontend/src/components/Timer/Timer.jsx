@@ -1,5 +1,5 @@
 //styles
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./Timer.css";
 import { BsClockHistory } from "react-icons/bs";
 
@@ -9,7 +9,8 @@ const Timer = ({ offPrice }) => {
   const [minutes, setMinutes] = useState();
   const [second, setSecond] = useState();
   let interval;
-  const startTimer = () => {
+
+  const startTimer = useCallback(() => {
     const currentDate = new Date();
     const expireDate = new Date(
       currentDate.setDate(currentDate.getDate() + 14)
@@ -35,7 +36,7 @@ const Timer = ({ offPrice }) => {
         setSecond(expireSecond);
       }
     }, 1000);
-  };
+  },[]);
 
   useEffect(() => {
     startTimer();

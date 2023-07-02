@@ -14,7 +14,6 @@ const LastArticles = ({ isLoading }) => {
     isLoading: articlesLoading,
     isSuccess: articlesSuccess,
   } = useGetArticlesQuery({ page: 1, limit: 5 });
-  console.log("articles", articles);
   return (
     <section className="last-articles max__blog">
       {!isLoading ? (

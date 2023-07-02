@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 //packages
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
@@ -32,7 +33,7 @@ const EditArticles = () => {
   useTitle("ویرایش مقاله");
 
   const [updateArticle] = useUpdateArticleMutation();
-  const editArticleHandler = (articleInfo) => {
+  const editArticleHandler =useCallback( (articleInfo) => {
     const data = {
       title: articleInfo.articleTitle,
       image: articleInfo.articleImage,
@@ -49,7 +50,7 @@ const EditArticles = () => {
       .catch((error) => {
         toast.error(persianTexts.editArticle.editArticleError);
       });
-  };
+  },[]);
 
   return (
     <>

@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 //packages
 import { Autoplay, Pagination, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -27,7 +28,7 @@ function Slider({
   slidesPerView ,
   ...restprops
 }) {
-  const selectslide = (item) => {
+  const selectslide = useCallback((item) => {
     switch (slide) {
       case "SuggestedProductBox":
         return (
@@ -72,7 +73,7 @@ function Slider({
       default:
         return null;
     }
-  };
+  },[]);
   return (
     <Swiper
       {...restprops}

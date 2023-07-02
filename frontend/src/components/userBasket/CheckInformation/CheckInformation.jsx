@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 //packages
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 //rtk query
 import { useAddToOrderMutation } from "../../../features/order/orderApiSlice";
@@ -46,9 +46,9 @@ function CheckInformation() {
   const iranProvince = Object.keys(Iran);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [cities, setCities] = useState([]);
-  console.log("basket", basket);
+ 
 
-const addToOrderHandler = async () => {
+const addToOrderHandler = useCallback(async () => {
   if (basket?.cartItems?.length) {
     const promises = basket.cartItems.map((item) =>
       addToOrder(item?.productId?._id)
@@ -63,7 +63,7 @@ const addToOrderHandler = async () => {
       console.log("error", error);
     }
   }
-};
+},[]);
 
   useEffect(() => {
     if (Iran[selectedProvince]) {

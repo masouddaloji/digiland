@@ -17,10 +17,10 @@ import "./Cart.css";
 import Loader from "../../Loader/Loader";
 
 function Cart() {
+  useTitle("سبد خرید");
   const { data: basket, isLoading, isError, isSuccess } = useGetBasketQuery();
 
   const [postPrice, setPostPrice] = useState(10000);
-  useTitle("سبد خرید");
   return (
     <>
       {isLoading && <Loader />}

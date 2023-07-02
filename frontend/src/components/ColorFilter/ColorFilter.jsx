@@ -1,12 +1,13 @@
+import { useCallback } from "react";
 //constants
 import { colorOptions } from "../../Constants";
 //styles
 import "./ColorFilter.css";
 
 const ColorFilter = ({ filterInfo, setFilter }) => {
-  const setColorHandler = (color) => {
+  const setColorHandler = useCallback((color) => {
     setFilter((prev) => ({ ...prev, color }));
-  };
+  },[]);
   return (
     <div className="colorFilter">
       {colorOptions.map((color) => (

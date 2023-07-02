@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 //packages
 import { DataGrid } from "@mui/x-data-grid";
 import { Link, useNavigate } from "react-router-dom";
@@ -128,10 +128,12 @@ const AdminArticles = () => {
       ),
     },
   ];
-  const editHandler = () => {
+  
+  const editHandler = useCallback(() => {
     navigate(`/admin-editarticles/${articleIdSelected}`)
-  };
-  const removeArticleHandler = () => {
+  },[]);
+
+  const removeArticleHandler =useCallback( () => {
     deleteArticle(articleIdSelected).unwrap()
     .then(res=>{
       toast.success(persianTexts.adminArticle.deleteArticleSuccess)
@@ -139,7 +141,8 @@ const AdminArticles = () => {
     .catch(error=>{
       toast.error(persianTexts.adminArticle.deleteArticleError)
     })
-  };
+  },[]);
+
   useTitle("مقالات")
   return (
     <>

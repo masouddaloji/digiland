@@ -23,6 +23,7 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import "./Article.css";
 
 const Article = () => {
+  useTitle(articleInfo?.data?.title)
   const { token } = useSelector((state) => state.auth);
   const { articleId } = useParams();
   const {
@@ -30,7 +31,6 @@ const Article = () => {
     isLoading,
     isSuccess,
   } = useGetArticleByIdQuery(articleId);
-  useTitle(articleInfo?.data?.title)
   return (
     <section className="article">
       <div className="container">

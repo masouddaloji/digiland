@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 //packages
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -17,11 +17,11 @@ const SidebarCartItem = (props) => {
   const{_id,productId,cartQuantity}=props
   const {_id:productID,title,image,price,quantity}=productId
 
-  const removeProductFromBasketHandler = async () => {
+  const removeProductFromBasketHandler = useCallback(async () => {
     await removeItem(productID).unwrap()
-    .then(res=>console.log(res))
+    .then(res=>toast.success("محصول با موفقیت از سبد خرید حذف شد"))
     .catch(error=>toast.error("حذف محصول از سبد خرید با مشکل مواجه شد"))
-  };
+  },[]);
 
   return (
     <li className="sideBarCartItem" key={_id}>

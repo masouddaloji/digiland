@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 // packages
 import { nanoid } from "@reduxjs/toolkit";
 import { useField } from "formik";
@@ -47,14 +47,14 @@ const Uploader = (props) => {
     },
   ] = useUploadCoverArticleMutation();
 
-  const prepareImagesForUpload = (event) => {
+  const prepareImagesForUpload = useCallback((event) => {
     helpers.setTouched(true);
     let files = Array.from(event?.target?.files);
     if (files.length > 0) {
       setSelectedImages(files);
     }
-  };
-  const uploadHandler = async (e) => {
+  },[]);
+  const uploadHandler = useCallback(async (e) => {
     e.preventDefault();
     const formData = new FormData();
     if (props.typeuploader === "product-multi") {
@@ -90,9 +90,9 @@ const Uploader = (props) => {
         })
         .catch((error) => console.log("error in uploader", error));
     }
-  };
+  },[]);
 
-  const showErrorMeassage = () => {
+  const showErrorMeassage =useCallback( () => {
     switch (props.typeuploader) {
       case "product-multi":
         return persianTexts.uploader.productMulti.error;
@@ -105,23 +105,12 @@ const Uploader = (props) => {
       default:
         break;
     }
-  };
+  },[]);
 
   return (
     <>
       <div className="formControl__wrapper">
         <div className={`inputBox`}>
-          {/* {props.label && (
-            <label
-              htmlFor={field.name}
-              className={`input__label ${
-                meta.touched && meta.error && "label--invalid"
-              }`}
-            >
-              {props.label}
-            </label>
-          )} */}
-
           <div
             className={`uploader ${
               meta.touched &&

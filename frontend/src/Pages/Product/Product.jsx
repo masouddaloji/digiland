@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 //packages
 import { Link, useParams } from "react-router-dom";
 import domPurify from "dompurify";
@@ -12,7 +12,6 @@ import { useAddToFavoriteMutation } from "../../features/favorite/favoriteApisli
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import ProductGallery from "../../components/Slider/ProductGallery";
-import ProductCart from "../../components/ProductCart/ProductCart";
 import Slider from "../../components/Slider/Slider";
 import Loader from "../../components/Loader/Loader";
 import Rating from "../../components/Rating/Rating";
@@ -52,7 +51,7 @@ export default function Product() {
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
 
-  const showRatingResultPersian = (rate) => {
+  const showRatingResultPersian = useCallback((rate) => {
     switch (rate) {
       case 5:
         return "عالی";
@@ -68,8 +67,8 @@ export default function Product() {
       default:
         break;
     }
-  };
-  const selectColorStyle = (persianColor) => {
+  }, []);
+  const selectColorStyle = useCallback((persianColor) => {
     switch (persianColor) {
       case "قرمز":
         return { backgroundColor: "red" };
@@ -89,9 +88,9 @@ export default function Product() {
       default:
         break;
     }
-  };
+  }, []);
 
-  const addToBasketHandler = async (id) => {
+  const addToBasketHandler = useCallback(async (id) => {
     if (userName) {
       await addToBasket(id)
         .unwrap()
@@ -104,8 +103,8 @@ export default function Product() {
     } else {
       toast.warning(persianTexts.header.notLoginInBasket);
     }
-  };
-  const addToFavoriteHandler = async () => {
+  }, []);
+  const addToFavoriteHandler = useCallback(async () => {
     if (userName) {
       await addToFavorite(productId)
         .unwrap()
@@ -118,8 +117,9 @@ export default function Product() {
     } else {
       toast.warning(persianTexts.header.notLoginInBasket);
     }
-  };
-  useTitle(product?.data?.title)
+  }, []);
+
+  useTitle(product?.data?.title);
   return (
     <div className={`product ${isLoading ? "product--loader" : null}`}>
       {isLoading && <Loader />}

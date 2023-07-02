@@ -9,10 +9,6 @@ const Input = (props) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const inputRef = useRef();
 
-  /* ${
-              meta.touched && meta.error ? "label--invalid" : undefined
-            } */
-
   return (
     <div className="formControl__wrapper">
       <div className={`inputBox`}>

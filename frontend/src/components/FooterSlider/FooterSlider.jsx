@@ -1,5 +1,3 @@
-//packages
-import { Skeleton, Stack } from "@mui/material";
 //styles
 import "./FooterSlider.css";
 

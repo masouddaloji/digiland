@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 // packages
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
@@ -24,7 +24,7 @@ const Sidebar = ({ isShow, setIsShow, width }) => {
 
   const [logOutUser] = useLogOutUserMutation();
 
-  const logoutAdminHandler = () => {
+  const logoutAdminHandler = useCallback(() => {
     logOutUser()
       .unwrap()
       .then((response) => {
@@ -34,7 +34,7 @@ const Sidebar = ({ isShow, setIsShow, width }) => {
       .catch((error) => {
         toast.error(persianTexts.useLogout.logoutError);
       });
-  };
+  },[]);
   return (
     <>
       {width < 992 && (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 //packages
 import { DataGrid } from "@mui/x-data-grid";
 import { Tooltip } from "@mui/material";
@@ -177,7 +177,7 @@ const AdminOrders = () => {
   ];
   const rows = orders?.data ?? [];
 
-  const acceptOrderHandler = () => {
+  const acceptOrderHandler = useCallback(() => {
     const data = {
       orderId,
       status: "delivered",
@@ -192,8 +192,9 @@ const AdminOrders = () => {
         console.log("error", error);
         toast.error(persianTexts.adminOrders.orderAcceptError);
       });
-  };
-  const rejectOrderHandler = () => {
+  },[]);
+
+  const rejectOrderHandler = useCallback(() => {
     const data = {
       orderId,
       status: "cancelled",
@@ -208,7 +209,7 @@ const AdminOrders = () => {
         console.log("error", error);
         toast.error(persianTexts.adminOrders.orderReject);
       });
-  };
+  },[]);
 
   return (
     <>

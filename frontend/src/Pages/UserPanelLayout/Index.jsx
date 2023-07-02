@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 //packages
 import { Outlet } from "react-router-dom";
 //components
 import Header from "../../components/userPanel/Header/Header";
 import SidebarUser from "../../components/userPanel/SidebarUser/SidebarUser";
+import Loader from "../../components/Loader/Loader";
 //styles
 import "./index.css";
 
@@ -19,7 +20,7 @@ const UserPanel = () => {
       </div>
       <div className="container">
         <div className="row">
-            <SidebarUser isShow={isShowSidebar} setshow={setIsShowSidebar} />
+          <SidebarUser isShow={isShowSidebar} setshow={setIsShowSidebar} />
           <div className="col-12 col-lg-8 col-xl-9">
             <Outlet />
           </div>

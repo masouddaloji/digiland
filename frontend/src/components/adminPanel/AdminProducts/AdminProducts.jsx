@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 //packages
 import { Link, useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
@@ -40,10 +40,10 @@ const AdminProducts = () => {
   const [deleteProduct] = useDeleteProductMutation();
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
-  const editHandler = () => {
+  const editHandler =useCallback( () => {
     navigate(`/admin-editproduct/${productIdSelected}`);
-  };
-  const removeProductHandler = () => {
+  },[]);
+  const removeProductHandler =useCallback( () => {
     deleteProduct(productIdSelected)
       .unwrap()
       .then((res) => {
@@ -54,7 +54,7 @@ const AdminProducts = () => {
       .catch((error) => {
         toast.error(persianTexts.adminProduct.deleteProduct.removeProductError);
       });
-  };
+  },[]);
   function getRowClassName(params) {
     return params.rowIndex % 2 === 0 ? "even-row" : "odd-row";
   }

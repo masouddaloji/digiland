@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 // packages
 import { Link } from "react-router-dom";
 // components
@@ -46,7 +46,7 @@ export default function Header() {
 
   useOutsideClick({ ref: mobileMoskRef, setStateHandler: setShowMobileMenu });
   
-  const logoutHandler = async () => {
+  const logoutHandler =useCallback( async () => {
     await logOutUser()
       .unwrap()
       .then(() => {
@@ -55,12 +55,12 @@ export default function Header() {
       .catch((error) => {
         toast.error(persianTexts.useLogout.logoutError);
       });
-  };
+  },[]);
 
+  const resizaHandler = useCallback(() => {
+    setDeviceWidth({ width: window.innerWidth });
+  },[]);
   useEffect(() => {
-    const resizaHandler = () => {
-      setDeviceWidth({ width: window.innerWidth });
-    };
     window.addEventListener("resize", resizaHandler);
     return () => window.removeEventListener("resize", resizaHandler);
   }, []);

@@ -26,17 +26,24 @@ const Search = () => {
     brand: "",
     search: debounceQuery,
   });
+
   const {
     data: result,
     isLoading,
     isSuccess,
     isError,
   } = useGetProductsQuery({ ...searchParams });
-  const searchHandler = useCallback(() => setShowResult(true),[]);
-  useEffect(
+
+  const searchHandler = useCallback(() => setShowResult(true), []);
+
+  const setSearchbyDebounce = useCallback(
     () => setSearchParams((prev) => ({ ...prev, search: debounceQuery })),
-    [debounceQuery]
+    []
   );
+
+  useEffect(() => {
+    setSearchbyDebounce();
+  }, [debounceQuery]);
   return (
     <div className="serach__wrapper">
       <form className="searchBox" onSubmit={(e) => e.preventDefault()}>
@@ -68,7 +75,7 @@ const Search = () => {
           />
         )}
 
-        {showResult &&debounceQuery && (
+        {showResult && debounceQuery && (
           <div className="search-box__result-wrapper">
             {isLoading && <div className="search-box__loader"></div>}
             {isSuccess && (

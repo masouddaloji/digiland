@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 //packages
 import { NavLink, useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ const SidebarUser = ({ isShow, setshow }) => {
   const { data, isLoading, isSuccess } = useGetUserByIdQuery(userID);
   const [width, setWidth] = useState(window.innerWidth);
   const [logOutUser] = useLogOutUserMutation();
-  const logOutHandler = () => {
+  const logOutHandler = useCallback(() => {
     logOutUser()
       .unwrap()
       .then((res) => {
@@ -32,13 +32,14 @@ const SidebarUser = ({ isShow, setshow }) => {
         toast.success(persianTexts.useLogout.logoutSuccess);
       })
       .catch((error) => toast.error(persianTexts.useLogout.logoutError));
-  };
+  },[]);
   const today = new Date();
   const oneDaybefore=new Date().setDate(today.getDate()-1)
   const oneDayAfter=new Date().setDate(today.getDate()+1)
   const twoDaybefore=new Date().setDate(today.getDate()-2)
   const twoDayAftyer=new Date().setDate(today.getDate()+2)
-  const convertDate = (date) => {
+
+  const convertDate = useCallback((date) => {
     const options = {
       day: "numeric",
       month: "long",
@@ -51,15 +52,17 @@ const SidebarUser = ({ isShow, setshow }) => {
         <span>{month}</span>
       </span>
     );
-  };
+  },[]);
+
   useEffect(() => {
     useConvertDate(new Date());
   }, []);
 
+  const resizeHandler =useCallback( () => {
+    setWidth(window.innerWidth);
+  },[]);
+
   useEffect(() => {
-    const resizeHandler = () => {
-      setWidth(window.innerWidth);
-    };
     window.addEventListener("resize", resizeHandler);
     return () => window.removeEventListener("resize", resizeHandler);
   }, [window.innerWidth]);

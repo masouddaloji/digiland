@@ -167,10 +167,12 @@ const MainPanel = () => {
                       </div>
                     ))
                   ) : (
+                    <div className="pad1">
                     <Error
                       type="warning"
                       title={persianTexts.favorite.notFound}
                     />
+                    </div>
                   )}
                 </div>
               </div>

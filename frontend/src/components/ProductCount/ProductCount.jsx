@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 //packages
 import { toast } from "react-toastify";
 //rtk query
@@ -11,41 +11,50 @@ import { persianTexts } from "../../text";
 import "./ProductCount.css";
 
 function ProductCount(props) {
-  const [productCount,setProductCount]=useState(null)
-  const { value, minValue, maxValue, productId,setIsLoadingUpdateCount }=props
-  const [incrementItem,{isLoading:incrementLoading}]=useIncrementItemMutation()
-  const [decrementItem,{isLoading:decrementLoading}]=useDecrementItemMutation()
+  const { value, minValue, maxValue, productId, setIsLoadingUpdateCount } =
+    props;
 
-  useEffect(()=>{
-    setIsLoadingUpdateCount(incrementLoading)
-  },[incrementLoading])
+  const [productCount, setProductCount] = useState(value);
+  const [incrementItem, { isLoading: incrementLoading }] =
+    useIncrementItemMutation();
+  const [decrementItem, { isLoading: decrementLoading }] =
+    useDecrementItemMutation();
 
-  useEffect(()=>{
-    setIsLoadingUpdateCount(decrementLoading)
-  },[decrementLoading])
+  useEffect(() => {
+    setIsLoadingUpdateCount(incrementLoading);
+  }, [incrementLoading]);
 
-  const increment = async () => {
+  useEffect(() => {
+    setIsLoadingUpdateCount(decrementLoading);
+  }, [decrementLoading]);
+
+  const increment = useCallback(async () => {
     if (value < maxValue) {
-      await incrementItem(productId).unwrap()
-      .catch(error=>toast.error(persianTexts.basket.incrementProductError))
+      await incrementItem(productId)
+        .unwrap()
+        .catch((error) =>
+          toast.error(persianTexts.basket.incrementProductError)
+        );
     }
-  };
+  }, []);
 
-  const decrement = async () => {
+  const decrement = useCallback(async () => {
     if (value > minValue) {
-      await decrementItem(productId).unwrap()
-      .catch(error=>toast.error(persianTexts.basket.decrementProductError))
+      await decrementItem(productId)
+        .unwrap()
+        .catch((error) =>
+          toast.error(persianTexts.basket.decrementProductError)
+        );
     }
-  };
-useEffect(()=>{
-setProductCount(value)
-},[value])
+  }, []);
+
+  useEffect(() => {
+    setProductCount(value);
+  }, [value]);
+
   return (
     <div className="quantity">
-      <span
-        onClick={() => increment()}
-        className="quantity__btn quantity__btnRight"
-      >
+      <span onClick={increment} className="quantity__btn quantity__btnRight">
         <FiPlus className="quantity__icon" />
       </span>
       <input
@@ -54,12 +63,10 @@ setProductCount(value)
         min={minValue}
         max={maxValue}
         value={productCount}
+        readOnly 
       />
 
-      <span
-        onClick={() => decrement()}
-        className="quantity__btn quantity__btnLeft"
-      >
+      <span onClick={decrement} className="quantity__btn quantity__btnLeft">
         <FiMinus className="quantity__icon" />
       </span>
     </div>

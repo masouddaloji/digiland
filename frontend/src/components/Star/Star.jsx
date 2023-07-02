@@ -1,3 +1,4 @@
+import { memo } from 'react'
 //redux
 import { nanoid } from '@reduxjs/toolkit'
 //icons
@@ -5,7 +6,7 @@ import { IoIosStar, IoIosStarOutline } from 'react-icons/io'
 //styles
 import './Star.css'
 
-const Star = (rating) => {
+const Star = memo((rating) => {
   return (
     <>
        {Array(5 - rating)
@@ -20,6 +21,7 @@ const Star = (rating) => {
             ))}
     </>
   )
-}
+})
+
 
 export default Star
