@@ -1,0 +1,32 @@
+.userItem{
+    background-color: var(--white);
+    padding:1.5rem 2rem;
+    border-radius: var(--border-box);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    min-width: 20rem;
+    max-width: 20rem;
+}
+.userItem span{
+    color: var(--blue);
+    font-size: 1.4rem;
+}
+.userItem p{
+    font-size: 1.2rem;
+    color: var(--black-05);
+    white-space: nowrap;
+}
+.userItem__icon{
+    position: absolute;
+    top: 50%;
+    left: -1rem;
+    width: 4rem;
+    height: 4rem;
+    transform: translateY(-50%) rotate(-20deg);
+    color: #eff1f5ad;
+}

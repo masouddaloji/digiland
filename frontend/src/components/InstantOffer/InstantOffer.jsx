@@ -1,6 +1,6 @@
 //packages
 import { Link } from "react-router-dom";
-import { Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack, Tooltip } from "@mui/material";
 
 //styles
 import "./instantOffer.css";
@@ -23,13 +23,14 @@ const InstantOffer = (props) => {
               className="instantOffer__img"
             />
           </div>
+          <Tooltip placement="bottom" arrow title= {title} classes={{ tooltip: "custom__tooltip" }}>
           <Link
             className="instantOffer__ProductName"
-            title={title}
             to={`product/${_id}`}
           >
             {title}
           </Link>
+          </Tooltip>
           <div className="priceBox ss02">
             <del>
               <bdi className="productPrice">{price}</bdi>

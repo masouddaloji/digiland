@@ -18,14 +18,16 @@ const CustomPagination = ({page, count, setData }) => {
       <Pagination
         className="mui__pagination"
         count={count}
-        color="primary"
+        size="small"
         page={page}
         boundaryCount={2}
         onChange={changePageHandler}
         showFirstButton
         showLastButton
+        shape="rounded"
         renderItem={(item) => (
           <PaginationItem
+          className="ss02"
             slots={{
               previous: HiChevronLeft,
               next: HiChevronRight,

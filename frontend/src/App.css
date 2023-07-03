@@ -25,6 +25,11 @@
   background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb:hover{
-  background-color: var(--gray-text);
+  background-color: var(--gray-75);
 
+}
+@media (max-width:991px){
+  ::-webkit-scrollbar{
+    display: none;
+  }
 }

@@ -1,5 +1,5 @@
 .pagination{
-    margin: 3rem 0;
+    margin-top: 2rem;
     direction: ltr;
     display: flex;
     align-items: center;
@@ -7,8 +7,8 @@
 }
 .mui__pagination ul li button{
     font-family: var(--iran);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 }
 .mui__pagination ul li button svg{
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }

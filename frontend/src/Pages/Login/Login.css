@@ -10,88 +10,29 @@
   margin-right: 0.5rem;
 }
 .login__btns {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 0.8rem;
-    margin: 1rem 0;
-}
-.login__btn {
-  height: 3.6rem;
-  display: block;
-  color: var(--white);
-  border: none;
-  outline: none;
-  cursor: pointer;
-  transition: all .7s;
-  margin: 1rem 0;
-  border-radius: var(--border-box);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 52rem;
+  padding: 0 0.8rem;
+  margin-bottom: 1rem;
 }
 
-.login__btn--disable {
-  background: #848484;
-  cursor: default;
-}
-.login__btn--active {
-  background: var(--blue);
-  transition: all .3s;
-
-}
-.login__btn--active:hover {
-  background: var(--blue-hover);
-}
 .login__forget {
   color: #848484;
   border: none;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   outline: none;
   background: transparent;
-  font-family:var(--iran-bold)
-
+  font-family: var(--iran-bold);
 }
-
 .login__forget:hover {
   color: var(--blue);
+}
 
-}
-.login__divider {
-  display: block;
-  border-bottom: 1px dashed #e8e8e8;
-  text-align: center;
-  margin: 0.8rem 0;
-}
-.login__divider i {
-  position: relative;
-  background-color: #f0f0f0;
-  bottom: -12px;
-  border-radius: 40px;
-  font-size: 1.2rem;
-  color: var(--black-50);
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  display: inline-block;
-}
-.login__boxToRegister {
-  margin: 1rem 0 2rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.login__linkToRegister {
-  width: 50%;
-  color: var(--black-50);
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all .3s;
-}
-.login__iconToRegister {
-  font-size: 1.8rem;
-  margin-left: 0.8rem;
-}
-.login__linkToRegister:hover{
-  color: var(--blue-hover);
+
+.login__registerLink {
+  color: var(--blue);
+  padding-right: 0.7rem;
 }

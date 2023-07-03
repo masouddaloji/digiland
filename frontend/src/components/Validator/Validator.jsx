@@ -7,7 +7,7 @@ const phoneNumberPattern = /^(\+98|098|0|0098|98)?(9\d{9})$/;
 const userNamePattern = /[A-Za-z0-9._]{8,25}/;
 const passwordPattern =
   /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~!@#$%&*-+=:;,._₹]).{8,25}$/;
-// const coverPattern = /(\.jpg|\.jpeg|\.png)$/i;
+const postalCodePattern = /^\d{5}-?\d{5}$/;
 
 export const RegisterSchema = Yup.object().shape({
   registerEmail: Yup.string()
@@ -100,4 +100,67 @@ export const userRatingSchema = Yup.object().shape({
   userComment: Yup.string(persianTexts.rating.userComment.string)
     .required(persianTexts.rating.userComment.required)
     .min(5, persianTexts.rating.userComment.min),
+});
+export const checkInformationSchema = Yup.object().shape({
+  checkFullName: Yup.string()
+    .required(persianTexts.checkInformation.fullName.required)
+    .min(3, persianTexts.checkInformation.fullName.min),
+  checkProvince: Yup.string().required(
+    persianTexts.checkInformation.province.required
+  ),
+  checkCity: Yup.string().required(persianTexts.checkInformation.city.required),
+  checkAddress: Yup.string()
+    .required(persianTexts.checkInformation.address.required)
+    .min(8, persianTexts.checkInformation.address.min)
+    .max(50, persianTexts.checkInformation.address.max),
+  checkPostalCode: Yup.string()
+    .required(persianTexts.checkInformation.postalCode.required)
+    .matches(postalCodePattern, persianTexts.checkInformation.postalCode.match),
+  checkTelephone: Yup.string()
+    .required(persianTexts.checkInformation.telephone.required)
+    .matches(phoneNumberPattern, persianTexts.checkInformation.telephone.match),
+  acceptTerms: Yup.boolean()
+    .required(persianTexts.checkInformation.acceptTerms.required)
+    .oneOf([true], persianTexts.checkInformation.acceptTerms.required),
+});
+export const userUpdateSchema = Yup.object().shape({
+  name: Yup.string(persianTexts.updateuserInfo.schema.name.string)
+    .min(4, persianTexts.updateuserInfo.schema.name.min)
+    .max(10, persianTexts.updateuserInfo.schema.name.max),
+  image: Yup.string(),
+  phone: Yup.string().matches(
+    phoneNumberPattern,
+    postalCodePattern,
+    persianTexts.updateuserInfo.schema.phone.match
+  ),
+  state: Yup.string(),
+  city: Yup.string(),
+  street: Yup.string(persianTexts.updateuserInfo.schema.street.string).max(
+    35,
+    persianTexts.updateuserInfo.schema.street.max
+  ),
+  postalCode: Yup.string().matches(
+    postalCodePattern,
+    persianTexts.updateuserInfo.schema.postalCode
+  ),
+});
+export const articleSchema = Yup.object().shape({
+  articleTitle: Yup.string(persianTexts.addArticle.articleTitle.string)
+    .required(persianTexts.addArticle.articleTitle.required)
+    .min(5, persianTexts.addArticle.articleTitle.min),
+
+  articleImage: Yup.string(persianTexts.addArticle.articleImage.string)
+    .required(persianTexts.addArticle.articleImage.required),
+
+  articleDescription: Yup.string(persianTexts.addArticle.articleDescription.string)
+    .required(persianTexts.addArticle.articleDescription.required)
+    .min(10, persianTexts.addArticle.articleDescription.min),
+
+  articleWriter: Yup.string(persianTexts.addArticle.articleWriter.string)
+    .required(persianTexts.addArticle.articleWriter.required)
+    .min(5, persianTexts.addArticle.articleWriter.min),
+
+  articleCategory: Yup.string(persianTexts.addArticle.articleCategory.string)
+    .required(persianTexts.addArticle.articleCategory.required)
+    .min(4, persianTexts.addArticle.articleCategory.min),
 });

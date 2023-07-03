@@ -1,60 +1,60 @@
-//redux
-import { useDispatch } from "react-redux";
-import {
-  productDecrementInBasket,
-  productIncrementInBasket,
-  getBasket,
-} from "./../../features/basketSlice";
-//component
-import privateAxios from "../../api/privateAxios";
-//hooks
-import useAuth from "../../hooks/useAuth";
-import useBasket from "../../hooks/useBasket";
+import { useCallback, useEffect, useState } from "react";
+//packages
+import { toast } from "react-toastify";
+//rtk query
+import { useDecrementItemMutation, useIncrementItemMutation } from "../../features/basket/basketApiSlice";
 //icons
 import { FiPlus, FiMinus } from "react-icons/fi";
+//persian text
+import { persianTexts } from "../../text";
 //styles
 import "./ProductCount.css";
 
-function ProductCount({ value, minValue, maxValue, productId }) {
-  const dispatch = useDispatch();
-  const { auth } = useAuth();
-  const { getUserBasket } = useBasket();
+function ProductCount(props) {
+  const { value, minValue, maxValue, productId, setIsLoadingUpdateCount } =
+    props;
 
-  const increment = async () => {
+  const [productCount, setProductCount] = useState(value);
+  const [incrementItem, { isLoading: incrementLoading }] =
+    useIncrementItemMutation();
+  const [decrementItem, { isLoading: decrementLoading }] =
+    useDecrementItemMutation();
+
+  useEffect(() => {
+    setIsLoadingUpdateCount(incrementLoading);
+  }, [incrementLoading]);
+
+  useEffect(() => {
+    setIsLoadingUpdateCount(decrementLoading);
+  }, [decrementLoading]);
+
+  const increment = useCallback(async () => {
     if (value < maxValue) {
-      dispatch(
-        productIncrementInBasket({ id: productId, token: auth?.token })
-      ).then(() => dispatch(getBasket(auth?.token)));
+      await incrementItem(productId)
+        .unwrap()
+        .catch((error) =>
+          toast.error(persianTexts.basket.incrementProductError)
+        );
     }
-  };
+  }, []);
 
-  const decrement = async () => {
+  const decrement = useCallback(async () => {
     if (value > minValue) {
-      dispatch(
-        productDecrementInBasket({ id: productId, token: auth?.token })
-      ).then(() => dispatch(getBasket(auth?.token)));
-      //   await privateAxios
-      //     .delete(`basket/${productId}`, {
-      //       headers: { Authorization: `Bearer ${auth?.token}` },
-      //     })
-      //     .then((res) => {
-      //       console.log(res);
-      //       if (res.status === 200) {
-      //         getUserBasket();
-      //       }
-      //     })
-      //     .catch((error) => console.log(error));
-      // } else {
-      //   return null;
+      await decrementItem(productId)
+        .unwrap()
+        .catch((error) =>
+          toast.error(persianTexts.basket.decrementProductError)
+        );
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    setProductCount(value);
+  }, [value]);
 
   return (
     <div className="quantity">
-      <span
-        onClick={() => increment()}
-        className="quantity__btn quantity__btnRight"
-      >
+      <span onClick={increment} className="quantity__btn quantity__btnRight">
         <FiPlus className="quantity__icon" />
       </span>
       <input
@@ -62,13 +62,11 @@ function ProductCount({ value, minValue, maxValue, productId }) {
         className="quantity__input ss02"
         min={minValue}
         max={maxValue}
-        value={value}
+        value={productCount}
+        readOnly 
       />
 
-      <span
-        onClick={() => decrement()}
-        className="quantity__btn quantity__btnLeft"
-      >
+      <span onClick={decrement} className="quantity__btn quantity__btnLeft">
         <FiMinus className="quantity__icon" />
       </span>
     </div>

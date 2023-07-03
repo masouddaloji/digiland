@@ -1,0 +1,18 @@
+.aminUser__userRole{
+    font-size: 2.4rem;
+}
+.adminUser__btn{
+    border: none;
+    outline: none;
+    border-radius: var(--border-btn);
+    padding: 0.5rem 1.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-family: var(--iran-bold);
+    color: var(--white);
+    transition: all .3s;
+}
+.showorder{
+    background: var(--admin-green);
+    
+}

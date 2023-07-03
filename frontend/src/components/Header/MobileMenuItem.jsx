@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 //icons
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
-
 const MobileMenuItem = (props) => {
-  const { title, subMenu,link } = props;
+  const { title, subMenu, link, setShow } = props;
   const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
   return (
     <div
@@ -29,7 +28,11 @@ const MobileMenuItem = (props) => {
             }`}
           >
             {subMenu.map((subMenu) => (
-              <li className="mobileMenu__subItem" key={subMenu.id}>
+              <li
+                className="mobileMenu__subItem"
+                key={subMenu.id}
+                onClick={() => setShow(false)}
+              >
                 <Link className="mobileMenu__subLink" to={subMenu.link}>
                   {subMenu.title}
                 </Link>

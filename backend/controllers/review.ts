@@ -109,11 +109,18 @@ export const getReviewsByProductId = async (
       productId: { $exists: false },
     });
 
+
+
     if (!productWithReviews) {
       errorGenerate("Product not found", 404);
     }
+    const relatedProducts = await Product.find({
+      category: productWithReviews!.category,
+    }).limit(10);
+
     res.status(200).send({
       data: productWithReviews,
+      related:relatedProducts,
       currentPage: pageNumber,
       nextPage: pageNumber + 1,
       previoousPage: pageNumber - 1,
@@ -136,7 +143,6 @@ export const getReviewsByArticleId = async (
     if (!mongoose.Types.ObjectId.isValid(req.params.aid)) {
       errorGenerate("Invalid ID", 400);
     }
-
     const pageNumber = parseInt(req.query.page || "1");
     const nPerPage = parseInt(req.query.limit || "6");
     const articleWithReviews = await Article.findById(req.params.aid)
@@ -160,8 +166,11 @@ export const getReviewsByArticleId = async (
     if (!articleWithReviews) {
       errorGenerate("Article has no reviews", 404);
     }
+    const relatedArticles = await Article.find().limit(10);
+
     res.status(200).send({
       data: articleWithReviews,
+      related:relatedArticles,
       currentPage: pageNumber,
       nextPage: pageNumber + 1,
       previoousPage: pageNumber - 1,

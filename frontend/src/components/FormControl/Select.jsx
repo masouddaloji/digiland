@@ -1,125 +1,133 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 //packages
-import { useField, useFormikContext } from "formik";
+import { useField } from "formik";
+//hooks
+import useOutsideClick from "../../hooks/useOutsideClick";
 //icons
 import { HiChevronDown } from "react-icons/hi";
-//persian text
-import { persianTexts } from "../../text";
 
 const Select = (props) => {
+  const containerRef = useRef();
   const [field, meta, helpers] = useField(props);
-  const { setFieldValue, setFieldTouched, resetForm } = useFormikContext();
+  const { setTouched, setValue } = helpers;
+  const { options, label, icon, selectType, setSelectedProvince, placeholder } =
+    props;
+
+  const [selectValue, setSelectValue] = useState(field.value);
+
   const [isShowOptions, setIsShowOptions] = useState(false);
 
-  const tochedHandler = () => {
-    setFieldTouched(field.name, true);
-  };
-  const [selectValue, setSelectValue] = useState("");
-  const containerRef = useRef();
+  const [searchValue, setSearchValue] = useState("");
+
+  // filter optioon when selectType === "province"
+  const filterOptions = useMemo(() => {
+    if (selectType === "province") {
+      if (options?.length === 0) return [];
+
+      return options?.filter((option) => option.includes(searchValue.trim()));
+    }
+  }, [options, searchValue]);
+
+  useOutsideClick({ ref: containerRef, setStateHandler: setIsShowOptions });
 
   useEffect(() => {
-    const outsideClickHandler = (e) => {
-      if (!containerRef?.current?.contains(e.target)) {
-        setIsShowOptions(false);
-      }
-    };
-    document.body.addEventListener("click", outsideClickHandler);
-    return () => {
-      document.body.removeEventListener("click", outsideClickHandler);
-    };
-  }, []);
-
-  useEffect(() => {
-    const convertRatingNumberToText = (number) => {
-      switch (number) {
-        case 1: {
-          setSelectValue("بد");
-          break;
-        }
-        case 2: {
-          setSelectValue("متوسط");
-          break;
-        }
-        case 3: {
-          setSelectValue("خوب");
-          break;
-        }
-        case 4: {
-          setSelectValue("خیلی خوب");
-          break;
-        }
-        case 5: {
-          setSelectValue("عالی");
-          break;
-        }
-
-        default: {
-          setSelectValue(
-            persianTexts.admin.products.placeholder.inputPlaceholderRating
-          );
-          break;
-        }
-      }
-    };
-    convertRatingNumberToText(field.value);
+    if (
+      selectType === "province" &&
+      !field.value &&
+      typeof setSelectedProvince === "function"
+    ) {
+      setSelectedProvince("");
+      setSelectValue("");
+    }
+    if (!field.value) setSelectValue("");
   }, [field.value]);
 
   return (
     <div className="formControl__wrapper" ref={containerRef}>
-      {props?.label && (
-        <label
-          htmlFor={field.name}
-          className={`formControl__label ${
-            meta.touched && meta.error ? "label--invalid" : undefined
+      <div className={`inputBox`}>
+        <div
+          className={`checkbox ${
+            meta.touched && meta.error && "input--invalid"
           }`}
+          onClick={() => setIsShowOptions(!isShowOptions)}
         >
-          {props?.icon ? props.icon : null}
-          {props.label}
-        </label>
-      )}
-      <div
-        className={`checkbox ${
-          meta.touched && meta.error && "formControl--invalid"
-        }`}
-        onClick={() => setIsShowOptions(!isShowOptions)}
-      >
+          <span
+            className={`checkbox__header ${
+              meta.touched && meta.error ? "label--invalid" : undefined
+            }`}
+          >
+            {selectType === "rating"
+              ? options.find((option) => option.value === field.value)?.text
+              : selectValue}
+          </span>
+          <HiChevronDown className="dropdownIcon" />
+        </div>
+
+        {options && (
+          <ul
+            className={`checkbox__lists ${
+              isShowOptions
+                ? "checkbox__lists checkbox__lists--show"
+                : "checkbox__lists"
+            }`}
+          >
+            {selectType === "province" && (
+              <input
+                type="text"
+                className="select__searchInput"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+            )}
+            {selectType === "color" || selectType === "rating"
+              ? options.map((option, index) => (
+                  <li
+                    className="checkbox__item"
+                    key={option.value}
+                    onClick={() => {
+                      setTouched(true);
+                      setValue(option.value);
+                      setIsShowOptions(false);
+                      setSelectValue(option.text);
+                      setSearchValue("");
+                    }}
+                  >
+                    {option.text}
+                  </li>
+                ))
+              : selectType === "province"
+              ? filterOptions.map((option, index) => (
+                  <li
+                    className="checkbox__item"
+                    key={option}
+                    onClick={() => {
+                      setValue(option);
+                      setSelectValue(option);
+                      setTouched(true);
+                      setIsShowOptions(false);
+                      setSelectedProvince?.(option);
+                      setSearchValue("");
+                    }}
+                  >
+                    {option}
+                  </li>
+                ))
+              : null}
+          </ul>
+        )}
+
+        {/* label for input */}
         <span
-          className={`checkbox__header ${
-            meta.touched && meta.error ? "label--invalid" : undefined
-          }`}
+          className={`input__infoBox ${field?.value && "input__infoBox--top"}`}
         >
-          {selectValue ? selectValue : props.placeholder}
+          {props?.icon ?? null}
+          {props.label && <span className={`input__label`}>{props.label}</span>}
         </span>
-        <HiChevronDown className="dropdownIcon" />
       </div>
 
-      {props.options && (
-        <ul
-          className={`checkbox__lists ${
-            isShowOptions
-              ? "checkbox__lists checkbox__lists--show"
-              : "checkbox__lists"
-          }`}
-        >
-          {props?.options?.map((option, index) => (
-            <li
-              className="checkbox__item"
-              key={option.value}
-              onClick={() => {
-                tochedHandler();
-                setFieldValue(field.name, option.value);
-                setIsShowOptions(false);
-              }}
-            >
-              {option.text}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {meta.touched && meta.error && (
+      {meta.touched && meta.error ? (
         <span className="auth__error">{meta.error}</span>
-      )}
+      ) : null}
     </div>
   );
 };

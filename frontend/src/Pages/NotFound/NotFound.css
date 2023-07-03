@@ -1,0 +1,135 @@
+.notFound{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 1rem;
+}
+.notFound > span{
+    position: absolute;
+    width: 10rem;
+    height:3rem;
+    border-radius: var(--border-btn);
+    animation: moveSpan 5s ease-in-out 2s infinite;
+    opacity: .75;
+}
+.notFound > span:nth-child(1){
+    top: 15%;
+    left: 10%;
+    background-color: #0000001c;
+    animation-delay: .5s;
+}
+.notFound > span:nth-child(2){
+    top: 30%;
+    left:90%;
+    background:linear-gradient(90deg, #ffffff 0%, #eff1f5 100%);
+    animation-delay: 3.5s;
+}
+.notFound > span:nth-child(3){
+    top: 45%;
+    left: 50%;
+    height: 4rem;
+    width: 12rem;
+    background-color: #0000001c;
+    animation-delay:2.5s;
+}
+.notFound > span:nth-child(4){
+    top:65%;
+    left:60%;
+    background:linear-gradient(90deg, #ffffff 0%, #eff1f5 100%);
+    animation-delay: 1.5s;
+}
+.notFound > span:nth-child(5){
+    top: 80%;
+    left: 30%;
+    background-color: #0000001c;
+    animation-delay: .5s;
+}
+.notFound__content{
+display: flex;
+flex-direction: column;
+align-items: center;
+position: relative;
+z-index: 10;
+}
+.notFound__title{
+font-size: 11rem;
+font-weight: 600;
+position: relative;
+letter-spacing: .4rem;
+}
+.notFound__title i{
+    display: inline-block;
+    vertical-align: middle;
+}
+.notFound__title i:nth-of-type(odd){
+    color: var(--blue);
+}
+.notFound__title i:nth-of-type(even){
+    color: var(--black-50);
+    animation:zero ease-in-out 2s infinite ;
+}
+.notFound__text{
+color: #555;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 1rem;
+}
+.notFound__text p{
+    font-size: 1.3rem;
+    text-align: center;
+    line-height: 1.8;
+}
+.notFound__text span{
+    font-size: 1.1rem;
+    color: #888;
+}
+.notFound__link{
+background-color: var(--black-50);
+color: var(--white);
+font-size: 1.2rem;
+padding: 1rem 2rem;
+border-radius: 2.5rem;
+display: block;
+margin-top: 2rem;
+animation:linkAnim linear 2s infinite ;
+
+}
+
+@keyframes zero{
+    0% {
+        transform:scale(1) rotateY(0deg); 
+      }
+      50% {
+        transform:scale(1.1)rotateY(-180deg);
+       
+      }
+      100% {
+        transform:scale(1) rotateY(-360deg); 
+      
+      }
+}
+@keyframes linkAnim{
+    0% {
+        transform: translateY(0); 
+      }
+      50% {
+        transform: translateY(.5rem); 
+      
+      }
+      100% {
+        transform: translateY(0); 
+      
+      }
+}
+@keyframes moveSpan{
+    0%,100%{
+        left: 10%;
+    }
+    50%{
+        left: 80%;
+    }
+
+}

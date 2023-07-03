@@ -1,0 +1,34 @@
+.admin {
+  display: flex;
+  width: 100%;
+  background-color: #f1f4fa;
+}
+.admin__main {
+  width: 100%;
+  transition: all 0.3s;
+  position: relative;
+}
+.admin__content {
+  position: absolute;
+  top: 2rem;
+  left: .8rem;
+  right: .8rem;
+}
+/* responsive */
+
+@media (min-width: 576px) {
+  .admin__content {
+    left: 2rem;
+    right: 2rem;
+  }
+}
+@media (min-width: 992px) {
+  .admin__content {
+    right: calc(4rem + 25%);
+  }
+}
+@media (min-width: 1200px) {
+  .admin__content {
+    right: calc(4rem + 16.6666%);
+  }
+}

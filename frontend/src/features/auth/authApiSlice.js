@@ -18,6 +18,15 @@ export const authApiSlice = shopApi.injectEndpoints({
         method: "POST",
         body: { ...userInfo },
       }),
+      invalidatesTags: [{ type: "Auth", id: "LIST" }],
+    }),
+    loginSocial: builder.mutation({
+      query: (data) => ({
+        url: "/auth/social",
+        method: "POST",
+        body: {...data},
+      }),
+      invalidatesTags: [{ type: "Auth", id: "LIST" }],
     }),
     logOutUser: builder.mutation({
       query: () => ({
@@ -32,6 +41,10 @@ export const authApiSlice = shopApi.injectEndpoints({
           console.log(error);
         }
       },
+      invalidatesTags: [
+        { type: "Basket", id: "LIST" },
+        { type: "Auth", id: "LIST" },
+      ],
     }),
     getRefreshToken: builder.mutation({
       query: () => ({
@@ -47,6 +60,7 @@ export const authApiSlice = shopApi.injectEndpoints({
           console.log(error);
         }
       },
+      invalidatesTags: [{ type: "Auth", id: "LIST" }],
     }),
   }),
 });
@@ -54,6 +68,7 @@ export const authApiSlice = shopApi.injectEndpoints({
 export const {
   useRegisterUserMutation,
   useLoginUserMutation,
+  useLoginSocialMutation,
   useGetRefreshTokenMutation,
   useLogOutUserMutation,
 } = authApiSlice;

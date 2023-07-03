@@ -1,86 +1,148 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+//packages
+import { DataGrid } from "@mui/x-data-grid";
+import { Link } from "react-router-dom";
+//rtk query
+import { useGetAllOrdersQuery } from "../../../features/order/orderApiSlice";
 // components
 import Chart from "../Chart/Chart";
 import ItemBoxAPanel from "../ItemBoxAPanel/ItemBoxAPanel";
-import BestSellingTable from "../Table/Table";
-//import variables
+import Loader from "../../Loader/Loader";
+//hooks
+import useConvertDate from "../../../hooks/useConvertDate";
+import useTitle from "../../../hooks/useTitle";
+// adminPanelItems
 import { adminPanelItems } from "./../../../Constants";
+//persiantext
+import { persianTexts } from "../../../text";
 // styles
 import "./MainAdmin.css";
-import Table from "../Table/Table";
-import axios from "../../../api/axios";
-import Loader from "../../Loader/Loader";
-import Star from "../../Star/Star";
 
 const MainAdmin = () => {
-  const [pageDetails,setPageDetails]=useState({
-    isLoading:false,
-    newProducts:[]
-  })
-  useEffect(()=>{
-    setPageDetails(prev=>({...prev,isLoading:true}))
-    const getData=async()=>{
-      await axios.get("products?page=1&limit=6")
-      .then(res=>setPageDetails(prev=>({...prev,isLoading:false,newProducts:res?.data?.data})))
-      .catch(error=>console.log(error))
-    }
-    getData()
-  },[])
+  const { data: orders, isLoading, isSuccess } = useGetAllOrdersQuery({page:1,limit:6});
+  const columns = [
+    {
+      field: "_id",
+      headerName: "آیدی",
+      width: 180,
+      align: "start",
+      headerAlign: "center",
+    },
+    {
+      field: "title",
+      headerName: "محصول",
+      minWidth: 200,
+      flex: 1,
+      align: "start",
+      headerAlign: "center",
+      renderCell: (params) => params.row.productId.title,
+    },
+    {
+      field: "date",
+      headerName: "تاریخ",
+      width: 90,
+      align: "center",
+      headerAlign: "center",
+      renderCell: (params) => useConvertDate(params.row.createdAt),
+    },
+    {
+      field: "price",
+      headerName: "قیمت",
+      width: 150,
+      align: "center",
+      headerAlign: "center",
+      renderCell: (params) => {
+        if (params.row.status === "success") {
+          return (
+            <span className="table__price--success">{`+ ${params.row.productId.price.toLocaleString()} تومان`}</span>
+          );
+        } else if (params.row.status === "pending") {
+          return (
+            <span className="table__price--pending">{`${params.row.productId.price.toLocaleString()} تومان`}</span>
+          );
+        } else {
+          return (
+            <span className="table__price--reject">{`- ${params.row.productId.price.toLocaleString()} تومان`}</span>
+          );
+        }
+      },
+    },
+    {
+      field: "status",
+      headerName: "وضعیت",
+      width: 90,
+      align: "center",
+      headerAlign: "center",
+      renderCell: (params) => {
+        if (params.row.status === "success") {
+          return (
+            <span className="table__btn table__status--success">تکمیل شده</span>
+          );
+        } else if (params.row.status === "pending") {
+          return (
+            <span className="table__btn table__status--pending">
+              در حال بررسی
+            </span>
+          );
+        } else {
+          return (
+            <span className="table__btn table__status--reject">لغو شده</span>
+          );
+        }
+      },
+    },
+
+  ];
+  const rows = orders?.data ?? [];
+
+ useTitle("داشبورد")
   return (
- <>
-  {!pageDetails.isLoading?   <section className="adminSection">
+  <>
+  {isLoading && <Loader />}
+    {isSuccess && 
+      <div className="indexAdmin">
       <div className="row">
         {adminPanelItems.map((item) => (
-          <div className="col-sm-6 col-lg-4 col-xl-3" key={item.id}>
+          <div className="col-12 col-sm-6 col-lg-4 col-xl-3" key={item.id}>
             <ItemBoxAPanel {...item} />
           </div>
         ))}
       </div>
+      {/* chart */}
       <div className="row">
         <div className="col-12">
           <Chart />
         </div>
       </div>
+      {/* table */}
       <div className="row">
         <div className="col-12">
-          <Table title="جدیدترین محصولات" link="/adminpanel/products" linkTitle="نمایش همه">
-            <table>
-              <thead>
-                <tr>
-                  <td>عکس</td>
-                  <td>محصول</td>
-                  <td>قیمت</td>
-                  <td>تعداد</td>
-                  <td>دسته بندی</td>
-                  <td>برند</td>
-                  <td>امتیاز</td>
-                </tr>
-              </thead>
-              <tbody>
-              {pageDetails.newProducts?.map(item=>  <tr key={item._id}>
-                  <td>
-                    <div className="table__imageBox">
-                      <img src={`http://localhost:8000${item.image}`} alt="" className="table__img"/>
-                    </div>
-                  </td>
-                  <td title={item.title}>{item.title}</td>
-                  <td>{item.price.toLocaleString()}</td>
-                  <td>{item.quantity}</td>
-                  <td>{item.category}</td>
-                  <td>{item.brand}</td>
-                  <td>{Star(item.rating)}</td>
-                </tr>)}
-              
-              </tbody>
-            </table>
-          </Table>
-        </div>
-        <div className="row">
-          <div className="col-12"></div>
+          <div className="table">
+            <div className="table__header">
+              <h5 className="table__title">{persianTexts.mainAdmin.lastOrders}</h5>
+              <Link to="/admin-addproducts" className="table__btn btn__black">
+              {persianTexts.mainAdmin.allOrders}
+              </Link>
+            </div>
+            <div className="datagrid__container">
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                getRowId={(row) => row._id}
+                rowHeight={45}
+                columnHeaderHeight={40}
+                loading={isLoading}
+                disableColumnSelector={true}
+                disableRowSelectionOnClick={true}
+                className="ss02 customdata"
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </section>:<Loader/>}
- </>
+    </div>
+    }
+  </>
   );
 };
 

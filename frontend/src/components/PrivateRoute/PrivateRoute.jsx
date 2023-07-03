@@ -1,29 +1,23 @@
 // packages
-import { useNavigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 //hooks
 import useAuth from "../../hooks/useAuth";
 
-const PrivateRoute = ({ children }) => {
-  const navigateToLogin = () => {
-    navigate("/login", { replace: true });
-  };
+const PrivateRoute = () => {
+  const { userRole } = useAuth();
+  const location = useLocation();
 
-  const { auth } = useAuth();
-  const navigate = useNavigate();
-  if (!auth || !auth.token) {
-    navigateToLogin();
-    return null;
-  }
+  const content = userRole ? (
+    userRole === "admin" || userRole === "superAdmin" ? (
+      <Outlet />
+    ) : (
+      <Navigate to="/login" state={{ from: location }} replace />
+    )
+  ) : (
+   null
+  );
 
-  const decode = jwtDecode(auth.token);
-
-  if (decode.role !== "admin" && decode.role !== "superAdmin") {
-    navigateToLogin();
-    return null;
-  }
-
-  return <>{children}</>;
+  return content;
 };
 
 export default PrivateRoute;

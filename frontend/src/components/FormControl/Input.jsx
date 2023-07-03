@@ -1,4 +1,4 @@
-import  { useRef, useState } from "react";
+import { useRef, useState } from "react";
 // packages
 import { useField } from "formik";
 // icons
@@ -8,25 +8,13 @@ const Input = (props) => {
   const [field, meta, helpers] = useField(props);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const inputRef = useRef();
+
   return (
     <div className="formControl__wrapper">
-      {props.label && (
-        <label
-          htmlFor={field.name}
-          className={`formControl__label ${
-            meta.touched && meta.error ? "label--invalid" : undefined
-          }`}
-        >
-          {props?.icon ? props.icon : null}
-          {props.label}
-        </label>
-      )}
-      <div className={`formControl__box`}>
+      <div className={`inputBox`}>
         <input
           ref={inputRef}
-          className={`input  ${
-            meta.touched && meta.error ? "formControl--invalid" : undefined
-          }`}
+          className={`${meta.touched && meta.error && "input--invalid"}`}
           autoComplete="off"
           id={field.name}
           {...props}
@@ -39,18 +27,30 @@ const Input = (props) => {
               : "text"
           }
         />
+        <span
+          className={`input__infoBox ${
+            field?.value && "input__infoBox--top"
+          }`}
+        >
+          {props?.icon ?? null}
+          {props.label && <span className={`input__label`}>{props.label}</span>}
+        </span>
         {props?.controler === "password" && (
           <>
             {!isShowPassword ? (
-              <BiShow
-                className="password__status"
-                onClick={() => setIsShowPassword(!isShowPassword)}
-              />
+              <span className="password__statusBox">
+                <BiShow
+                  className="password__status"
+                  onClick={() => setIsShowPassword(!isShowPassword)}
+                />
+              </span>
             ) : (
-              <BiHide
-                className="password__status"
-                onClick={() => setIsShowPassword(!isShowPassword)}
-              />
+              <span className="password__statusBox">
+                <BiHide
+                  className="password__status"
+                  onClick={() => setIsShowPassword(!isShowPassword)}
+                />
+              </span>
             )}
           </>
         )}

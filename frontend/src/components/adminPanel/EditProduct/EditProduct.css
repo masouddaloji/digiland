@@ -1,0 +1,7 @@
+
+.edit__content {
+  overflow-y: scroll;
+}
+.edit__content::-webkit-scrollbar {
+  display: none;
+}

@@ -91,9 +91,17 @@ export const getProduct = async (
       return res.status(404).json({ message: "Product not found" });
     }
 
+    const relatedProducts = await Product.find({
+      category: product.category,
+    }).limit(10);
+
     res
       .status(200)
-      .json({ message: "Product found successfully", data: product });
+      .json({
+        message: "Product found successfully",
+        data: product,
+        relatedProducts,
+      });
   } catch (err) {
     next(err);
   }
@@ -113,6 +121,7 @@ export const getProducts = async (
       sort?: string;
       search?: string;
       subCategory?: string;
+      brand?: string;
     }
   >,
   res: Response,
@@ -128,6 +137,9 @@ export const getProducts = async (
   }
   if (query?.subCategory) {
     filters.subCategory = { $in: query.subCategory.split("/") };
+  }
+  if (query?.brand) {
+    filters.brand = { $in: query.brand.split("/") };
   }
   if (query?.color) {
     filters.colors = { $in: query.color.split("/") };

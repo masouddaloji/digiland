@@ -1,17 +1,15 @@
-import  { useContext, useRef } from "react";
+import { useRef } from "react";
 // library
 import { Link } from "react-router-dom";
 // icons
 import { FiChevronDown, FiPhoneCall } from "react-icons/fi";
 import { BiHome } from "react-icons/bi";
-// variables
-import ProductsContext from "../../Context/ProductsContext";
+// onstants
 import { menus } from "../../Constants";
 // styles
 import "./Navbar.css";
 
 function Navbar() {
-  const productContext = useContext(ProductsContext);
   const meniItemRef = useRef();
   const subMenuRef = useRef();
   return (
@@ -58,7 +56,7 @@ function Navbar() {
             <span>021</span>
           </div>
           <div className="header__phoneBox">
-            <FiPhoneCall className="contact__icon fullIcon" />
+            <FiPhoneCall className="contact__icon" />
           </div>
         </div>
       </div>

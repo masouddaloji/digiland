@@ -11,9 +11,15 @@ const schema = {
     optional: true,
     max: 6,
     items: {
-      type: "string",
-      trim: true,
-      min: 10,
+      type: "object",
+      // trim: true,
+      // min: 10,
+      props: {
+        state: "string",
+        city: "string",
+        street: "string",
+        postalCode: "string",
+      },
     },
   },
   $$strict: true, // no additional properties allowed

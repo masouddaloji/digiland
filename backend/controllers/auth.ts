@@ -71,7 +71,7 @@ export const login = async (
     }
 
     const accessToken = jwt.sign(
-      { email: foundUser!.email, role: foundUser!.role },
+      { email: foundUser!.email, role: foundUser!.role, userId: foundUser!._id },
       process.env.ACCESS_TOKEN_SECRET?.toString()!,
       { expiresIn: "1h" }
     );
@@ -130,7 +130,7 @@ export const refresh = async (
       errorGenerate("Unauthorized", 401);
     }
     const accessToken = jwt.sign(
-      { email: foundUser!.email, role: foundUser!.role },
+      { email: foundUser!.email, role: foundUser!.role, userId: foundUser!._id },
       process.env.ACCESS_TOKEN_SECRET?.toString()!,
       { expiresIn: "15m" }
     );
@@ -198,7 +198,7 @@ export const social = async (
       await Social.create({ username, profileUrl, userId: foundUser._id });
     }
     const accessToken = jwt.sign(
-      { email: foundUser!.email, role: foundUser!.role },
+      { email: foundUser!.email, role: foundUser!.role, userId: foundUser!._id },
       process.env.ACCESS_TOKEN_SECRET?.toString()!,
       { expiresIn: "15m" }
     );

@@ -1,0 +1,118 @@
+.mask {
+  position: fixed;
+  top: 0;
+  right: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.25);
+  transition: all 0.3s;
+  cursor: url("./images/close.png"), default;
+}
+.mask--show {
+  right: 0;
+}
+.sideBarCart {
+  position: fixed;
+  top: 0;
+  right: -29rem;
+  bottom: 0;
+  width: 29rem;
+  background: #f4f4f4;
+  z-index: 100;
+  color: #454545;
+  font-size: 1.2rem;
+  padding: 1rem 0;
+  transition: all 0.3s;
+}
+
+.sideBarCart--show {
+  right: 0;
+}
+.sideBarCart__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid #eaeaec;
+}
+.sideBarCart__header div {
+  display: flex;
+  align-items: center;
+}
+.sideBarCart__headerCount {
+  color: var(--white);
+  background: var(--gold);
+  margin-right: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.6rem;
+  width: 1.6rem;
+  border-radius: 0.2rem;
+}
+.sideBarCart__headerCloseBtn {
+  font-size: 1.8rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.sideBarCart__headerCloseBtn:hover {
+  transform: rotate(180deg);
+}
+.sideBarCart__Lists {
+}
+
+.sideBarCart__totalPriceAndLinks {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.5rem 1.5rem 3rem 1.5rem;
+  margin-top: 1rem;
+  background: rgb(234, 234, 236);
+}
+.sideBarCart__totalPriceAndLinks .flex {
+  margin-bottom: 1.5rem;
+}
+.sideBarCart__Links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sideBarCart__LinkBasket {
+  background: var(--white);
+  width: calc(50% - 2rem);
+  padding: 0.6rem 0;
+  text-align: center;
+  border-radius: var(--border-box);
+  font-size: 1.1rem;
+  color: #333;
+  transition: all .3s;
+}
+.sideBarCart__LinkBasket:nth-child(1) {
+  margin-left: 1.5rem;
+}
+.sideBarCart__LinkBasket:hover{
+  color: var(--white);
+  background-color: var(--blue);
+}
+.emptyBasket {
+  width: 90%;
+  height: 12rem;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+  border-radius: var(--border-box);
+}
+.emptyBasket__icon {
+  font-size: 3.2rem;
+  margin-bottom: 1rem;
+  color: #999;
+}
+.emptyBasket__text {
+  font-size: 1.1rem;
+  color: var(--black-50);
+}

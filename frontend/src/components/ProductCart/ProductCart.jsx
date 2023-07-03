@@ -1,29 +1,57 @@
+import { useCallback } from "react";
 //packages
 import { Link } from "react-router-dom";
-import { Skeleton, Stack } from "@mui/material";
-//redux
-import { useDispatch } from "react-redux";
-import { addToBasket, getBasket } from "../../features/basketSlice";
+import { Skeleton, Stack, Tooltip } from "@mui/material";
+import { toast } from "react-toastify";
+//rtk query
+import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
+import { useAddToFavoriteMutation } from "../../features/favorite/favoriteApislice";
 //components
 import Star from "../Star/Star";
-//hooks
-import useAuth from "../../hooks/useAuth";
+//persian text
+import { persianTexts } from "../../text";
 //icons
 import { IoMdHeartEmpty } from "react-icons/io";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 //styles
 import "./ProductCart.css";
+import { useSelector } from "react-redux";
+import { selectToken } from "../../features/auth/authSlice";
 
 export default function ProductCart(props) {
-  const dispatch = useDispatch();
-  const { auth } = useAuth();
+  const token=useSelector(selectToken)
+  const[addToBasket]=useAddToBasketMutation()
+  const[addToFavorite]=useAddToFavoriteMutation()
   const { _id, title, image, offPrice, price, rating,  isLoading, isSuccess  } = props;
-  const addToBasketHandler = () => {
-    dispatch(addToBasket({ id: _id, token: auth?.token })).then(() =>
-      dispatch(getBasket(auth?.token))
-    );
-  };
+  const addToBasketHandler = useCallback(async() => {
+if(token){
+  await addToBasket(_id).unwrap()
+  .then(()=>{
+    toast.success(persianTexts.basket.addtobasketSuccess)
+  })
+  .catch((error)=>{
+    toast.error(persianTexts.basket.addtobasketError)
+  })
+}else{
+  toast.warning(persianTexts.basket.notLoginForaddTobasket)
+}
+  },[]);
+
+  const addToFavoriteHandler =useCallback( async() => {
+  if(token){
+    await addToFavorite(_id).unwrap()
+    .then(()=>{
+      toast.success(persianTexts.favorite.addtoFavorite.success)
+    })
+    .catch((error)=>{
+      toast.error(persianTexts.favorite.addtoFavorite.error)
+    })
+  }else{
+    toast.warning(persianTexts.favorite.addtoFavorite.notLogin)
+  }
+  },[]);
+
   return (
     <>
       {isSuccess ? (
@@ -36,9 +64,11 @@ export default function ProductCart(props) {
             />
           </div>
           <Link to={`/product/${_id}`}>
-            <h2 className="product__title" title={title}>
+          <Tooltip arrow title={title} classes={{ tooltip: "custom__tooltip" }}>
+            <h2 className="product__title">
               {title}
             </h2>
+            </Tooltip>
           </Link>
           <div className="priceBox">
             {offPrice ? (
@@ -65,21 +95,22 @@ export default function ProductCart(props) {
           </div>
           <div className="product__quickAccessBox">
             <div className="product__rightBox">
+              <Tooltip placement="top" arrow title="افزودن به سبد خرید" classes={{ tooltip: "custom__tooltip" }}>
               <div
-                className="product__addToBasketBox mainHasTooltip"
+                className="product__addToBasketBox cursor"
                 onClick={addToBasketHandler}
               >
                 <MdOutlineAddShoppingCart className="Product__addToBasketIcon" />
-                <span className="tooltip">افزودن به سبد خرید</span>
               </div>
-
+                </Tooltip>
+                <Tooltip placement="top" arrow title="افزودن به علاقه مندی ها" classes={{ tooltip: "custom__tooltip" }}>
               <div
-                className="product__iconBox mainHasTooltip"
-                onClick={() => addToFavorite(_id)}
+                className="product__iconBox cursor"
+                onClick={() => addToFavoriteHandler(_id)}
               >
-                <IoMdHeartEmpty className="fullIcon" />
-                <span className="tooltip">افزودن به علاقه مندی ها</span>
+                <IoMdHeartEmpty className="fullIcon favorite__icon" />
               </div>
+              </Tooltip>
             </div>
             <div className="product__leftBox">{Star(rating)}</div>
           </div>

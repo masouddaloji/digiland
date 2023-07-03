@@ -1,7 +1,8 @@
 
 .product__title {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   height: 4rem;
+  line-height: 1.8;
   font-family: var(--iran-bold);
   color: var(--black-50);
   display: -webkit-box;
@@ -53,7 +54,15 @@
   margin-right: 0.9rem;
   color: #666;
 }
-
+.favorite__icon{
+  transition: all .3s;
+}
+.favorite__icon:hover{
+  color: var(--blue);
+}
+.cursor{
+  cursor: pointer;
+}
 .product__leftBox {
   display: flex;
   align-items: center;

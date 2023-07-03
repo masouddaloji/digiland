@@ -1,420 +1,228 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 //packages
-import { Form, Formik } from "formik";
+import { Link, useNavigate } from "react-router-dom";
+import { DataGrid } from "@mui/x-data-grid";
 import { toast } from "react-toastify";
-// variables
-import { persianTexts } from "../../../text";
-//redux
-import { useDispatch, useSelector } from "react-redux";
+import { Tooltip } from "@mui/material";
+//rtk query
 import {
-  updateProduct,
-  getProducts,
-  deleteProduct,
-} from "../../../features/productsSlice";
+  useDeleteProductMutation,
+  useGetProductsQuery,
+} from "../../../features/Product/ProductApiSlice";
 // components
-import Error from "../../Error/Error";
-import Table from "../Table/Table";
 import Star from "../../Star/Star";
-import FormControl from "../../FormControl/FormControl";
 import CustomPagination from "../../Pagination/CustomPagination";
+import Modal from "../../Modal/Modal";
+import Loader from "../../Loader/Loader";
+import Error from "../../Error/Error";
 //hooks
-import useAuth from "../../../hooks/useAuth";
-// validator
-import { addProductsSchema } from "../../Validator/Validator";
+import useTitle from "../../../hooks/useTitle";
 //icons
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-import { MdUploadFile, MdOutlineDriveFolderUpload } from "react-icons/md";
-//constannst
-import { ratingOptions, colorOptions } from "../../../Constants";
-
+//persian text
+import { persianTexts } from "../../../text";
 // styles
 import "./AdminProducts.css";
-import LoaderComponent from "../../Loader/LoaderComponent";
 
 const AdminProducts = () => {
-  const dispatch = useDispatch();
-  const { status, error, updateStatus, deleteStatus } = useSelector(
-    (state) => state.products
-  );
-  const { data, hasNextPage, currentPage, lastPage, total } = useSelector(
-    (state) => state.products.data
-  );
-
+  const navigate = useNavigate();
+  const [productIdSelected, setProductIdSelected] = useState(null);
   const [pageInfo, setPageInfo] = useState({
     page: 1,
-    countInPage: 10,
+    limit: 10,
   });
+  const {
+    data: products,
+    isLoading,
+    isSuccess,
+  } = useGetProductsQuery({ ...pageInfo });
+  const [deleteProduct] = useDeleteProductMutation();
   const [isShowEditModal, setIsShowEditModal] = useState(false);
-  const [productEditDetails, setProductEditDetails] = useState({});
-  const editRef = useRef();
-  const { auth } = useAuth();
-  const removeProductHandler = (id) => {
-    dispatch(deleteProduct({id,token:auth?.token})).then(() =>
-      dispatch(
-        getProducts({ page: pageInfo.page, limit: pageInfo.countInPage })
-      )
-    );
-  };
-  const updateProductHandler = (productInfos) => {
-    const data = {
-      title: productInfos.productTitle,
-      segment: productInfos.productSegment,
-      image: productInfos.productCover,
-      gallery: productInfos.productGallery,
-      offPrice: Number(productInfos.productOffPrice),
-      price: Number(productInfos.productPrice),
-      rating: Number(productInfos.productRating),
-      quantity: Number(productInfos.productQantity),
-      colors: productInfos.productColors,
-      category: productInfos.productSubCategory,
-      subCategory: productInfos.productCategory,
-      shortDescription: productInfos.productShortDescription,
-      fullDescription: productInfos.productFullDescription,
-      brand: productInfos.productBrand,
-    };
-    dispatch(
-      updateProduct({ data, token: auth?.token, id: productEditDetails?._id })
-    ).then(() =>
-      getProducts({
-        page: pageInfo.page,
-        limit: pageInfo.countInPage,
+  const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+  const editHandler =useCallback( () => {
+    navigate(`/admin-editproduct/${productIdSelected}`);
+  },[]);
+  const removeProductHandler =useCallback( () => {
+    deleteProduct(productIdSelected)
+      .unwrap()
+      .then((res) => {
+        toast.success(
+          persianTexts.adminProduct.deleteProduct.removeProductSuccess
+        );
       })
-    );
-  };
-  useEffect(() => {
-    dispatch(getProducts({ page: pageInfo.page, limit: pageInfo.countInPage }));
-  }, [pageInfo.page, pageInfo.countInPage]);
+      .catch((error) => {
+        toast.error(persianTexts.adminProduct.deleteProduct.removeProductError);
+      });
+  },[]);
 
+  const columns = [
+    {
+      field: "image",
+      headerName: "عکس",
+      width: 60,
+      align: "center",
+      headerAlign: "center",
+      editable: false,
+      sortable: false,
+      disableColumnMenu: true,
+      renderCell: (params) => (
+        <div className="table__imageBox">
+          <img
+            alt="product image"
+            className="table__img"
+            src={`http://localhost:8000${params.row.image}`}
+          />
+        </div>
+      ),
+    },
+    {
+      field: "title",
+      headerName: "محصول",
+      minWidth: 200,
+      flex: 1,
+      align: "start",
+      headerAlign: "center",
+      renderCell: (params) => (
+        <Tooltip title={params.value} classes={{ tooltip: "custom__tooltip" }}>
+          <span>{params.value}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      field: "price",
+      headerName: "قیمت",
+      width: 100,
+      align: "center",
+      headerAlign: "center",
+      renderCell: (params) => (
+        <Tooltip
+          title={params.value.toLocaleString() + " تومان"}
+          classes={{ tooltip: "custom__tooltip" }}
+        >
+          <span>{params.value.toLocaleString() + " تومان"}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      field: "quantity",
+      headerName: "تعداد",
+      width: 60,
+      align: "center",
+      headerAlign: "center",
+      renderCell: (params) => (
+        <Tooltip title={params.value} classes={{ tooltip: "custom__tooltip" }}>
+          <span>{params.value}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      field: "rating",
+      headerName: "امتیاز",
+      minWidth: 130,
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params) => Star(params.row.rating),
+    },
+    {
+      field: "action",
+      headerName: "عملیات ها",
+      align: "center",
+      width: 100,
+      headerAlign: "center",
+      editable: false,
+      sortable: false,
+      disableColumnMenu: true,
+      renderCell: (params) => (
+        <div className="actionBtns">
+          <Tooltip title="ویرایش" classes={{ tooltip: "custom__tooltip" }}>
+            <button
+              className="edit"
+              onClick={() => {
+                setIsShowEditModal(true);
+                setProductIdSelected(params.row._id);
+              }}
+            >
+              <FiEdit className="actions__icon" />
+            </button>
+          </Tooltip>
+          <Tooltip title="حذف" classes={{ tooltip: "custom__tooltip" }}>
+            <button
+              className="delete"
+              onClick={() => {
+                setIsShowDeleteModal(true);
+                setProductIdSelected(params.row._id);
+              }}
+            >
+              <RiDeleteBinLine className="actions__icon" />
+            </button>
+          </Tooltip>
+        </div>
+      ),
+    },
+  ];
+
+  const rows = products?.data ?? [];
+  useTitle("محصولات")
   return (
     <>
       {isShowEditModal && (
-        <div
-          className="edit__container"
-          // onClick={(e)=>{
-          //   if(e.target!==editRef?.current){
-          //     setIsShowEditModal(false)
-          //   }
-          // }}
-        >
-          <div className="edit__content" ref={editRef}>
-            <Formik
-              initialValues={{
-                productTitle: productEditDetails?.title,
-                productPrice: productEditDetails?.price,
-                productRating: productEditDetails?.rating,
-                productQantity: productEditDetails?.quantity,
-                productCategory: productEditDetails?.subCategory,
-                productSegment: productEditDetails?.segment,
-                productColors: productEditDetails?.colors,
-                productBrand: productEditDetails?.brand,
-                productSubCategory: productEditDetails?.category,
-                productOffPrice: productEditDetails?.offPrice,
-                productShortDescription: productEditDetails?.shortDescription,
-                productFullDescription: productEditDetails?.fullDescription,
-                productCover: productEditDetails?.image,
-                productGallery: productEditDetails?.gallery,
-              }}
-              validationSchema={addProductsSchema}
-              onSubmit={(values) => updateProductHandler(values)}
-            >
-              {(formik) => (
-                <>
-                  <Form className="edit__form">
-                    <div className="row">
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label.inputLabelTitle
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderTitle
-                          }
-                          controler="text"
-                          name="productTitle"
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label.inputLabelPrice
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderPrice
-                          }
-                          controler="text"
-                          name="productPrice"
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label.inputLabelRating
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderRating
-                          }
-                          controler="select"
-                          name="productRating"
-                          options={ratingOptions}
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label.inputLabelQuantity
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderQuantity
-                          }
-                          controler="text"
-                          name="productQantity"
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label.inputLabelCategory
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderCategory
-                          }
-                          controler="text"
-                          name="productCategory"
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label.inputLabelSegment
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderSegment
-                          }
-                          controler="text"
-                          name="productSegment"
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label.inputLabelColors
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderColors
-                          }
-                          controler="checkbox"
-                          name="productColors"
-                          options={colorOptions}
-                        />
-                      </div>
-
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label.inputLabelBrand
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderBrand
-                          }
-                          controler="text"
-                          name="productBrand"
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label
-                              .inputLabelSubCategory
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderSubCategory
-                          }
-                          controler="text"
-                          name="productSubCategory"
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label.inputLabelOffPrice
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderOffPrice
-                          }
-                          controler="text"
-                          name="productOffPrice"
-                        />
-                      </div>
-                      <div className="col-md-12">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label
-                              .inputLabelShortDescription
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderShortDescription
-                          }
-                          controler="editor"
-                          name="productShortDescription"
-                        />
-                      </div>
-
-                      <div className="col-12">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label
-                              .inputLabelFullDescription
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderFullDescription
-                          }
-                          controler="editor"
-                          name="productFullDescription"
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label.inputLabelCover
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderCover
-                          }
-                          controler="file"
-                          accept="image/*"
-                          name="productCover"
-                          icon={<MdUploadFile className="uploader__icon" />}
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <FormControl
-                          label={
-                            persianTexts.admin.products.label.inputLabelGallery
-                          }
-                          icon={
-                            <MdOutlineDriveFolderUpload className="uploader__icon" />
-                          }
-                          placeholder={
-                            persianTexts.admin.products.placeholder
-                              .inputPlaceholderGallery
-                          }
-                          controler="file"
-                          accept="image/*"
-                          name="productGallery"
-                          multiple
-                        />
-                      </div>
-                    </div>
-                    <div className="row btn__wrapper">
-                      <button
-                        className={`admin__btn ${
-                          formik.dirty && formik.isValid
-                            ? "btn--active"
-                            : "btn--disable"
-                        }`}
-                        type="submit"
-                        disabled={!(formik.dirty && formik.isValid)}
-                      >
-                        {persianTexts.admin.products.btn}
-                      </button>
-                    </div>
-                  </Form>
-                </>
-              )}
-            </Formik>
-          </div>
-        </div>
+        <Modal
+          message={persianTexts.adminProduct.deleteModalTitle}
+          isShow={isShowEditModal}
+          setIsShow={setIsShowEditModal}
+          action={editHandler}
+        />
       )}
-      <Table
-        title="لیست محصولات"
-        link="/adminpanel/add-products"
-        linkTitle="افزودن محصول جدید"
-      >
-        <table>
-          <thead>
-            <tr>
-              <td>عکس</td>
-              <td>محصول</td>
-              <td>قیمت</td>
-              <td>تعداد</td>
-              <td>دسته بندی</td>
-              <td>برند</td>
-              <td>امتیاز</td>
-              <td>عملیات</td>
-            </tr>
-          </thead>
-          {status === "success" ? (
+      {isShowDeleteModal && (
+        <Modal
+          message={persianTexts.adminProduct.editModalTitle}
+          isShow={isShowDeleteModal}
+          setIsShow={setIsShowDeleteModal}
+          action={removeProductHandler}
+        />
+      )}
+      {isLoading && <Loader />}
+      {isSuccess && (
+        <div className="table ss02">
+          <div className="table__header">
+            <h5 className="table__title">
+              {persianTexts.adminProduct.tableTitle}
+            </h5>
+            <Link to="/admin-addproducts" className="table__btn btn__black">
+              {persianTexts.adminProduct.addproduct}
+            </Link>
+          </div>
+          {products.data.length ? (
             <>
-              <tbody>
-                {data.map((item) => (
-                  <tr key={item._id}>
-                    <td>
-                      <div className="table__imageBox">
-                        <img
-                          src={`http://localhost:8000${item.image}`}
-                          alt="product image"
-                          className="table__img"
-                        />
-                      </div>
-                    </td>
-                    <td title={item.title}>{item.title}</td>
-                    <td>{item.price.toLocaleString()}</td>
-                    <td>{item.quantity}</td>
-                    <td>{item.category}</td>
-                    <td>{item.brand}</td>
-                    <td>{Star(item.rating)}</td>
-                    <td>
-                      <div className="actionBtns">
-                        <span
-                          className="edit"
-                          title="ویرایش"
-                          onClick={() => {
-                            setIsShowEditModal(true);
-                            setProductEditDetails({ ...item });
-                          }}
-                        >
-                          <FiEdit className="actions__icon" />
-                        </span>
-                        <span
-                          className="delete"
-                          title="حذف"
-                          onClick={() => removeProductHandler(item._id)}
-                        >
-                          <RiDeleteBinLine className="actions__icon" />
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+              <div className="datagrid__container">
+                <DataGrid
+                  rows={rows}
+                  columns={columns}
+                  getRowId={(row) => row._id}
+                  rowHeight={45}
+                  columnHeaderHeight={40}
+                  loading={isLoading}
+                  disableColumnSelector={true}
+                  disableRowSelectionOnClick={true}
+                  className="ss02 customdata"
+                />
+              </div>
+              {products?.lastPage > 1 && (
+                <CustomPagination
+                  page={pageInfo.page}
+                  count={products?.lastPage}
+                  setData={setPageInfo}
+                />
+              )}
             </>
           ) : (
-            <LoaderComponent />
+            <Error
+              type="warning"
+              title={persianTexts.adminProduct.notProducts}
+            />
           )}
-        </table>
-      </Table>
-      {hasNextPage && (
-        <CustomPagination
-          setData={setPageInfo}
-          page={currentPage}
-          count={lastPage}
-        />
+        </div>
       )}
     </>
   );

@@ -43,7 +43,7 @@ del::after {
 
 .amazinOffer {
   width: 100%;
-  background: var(--red-50);
+  background:var(--blue);
   border-radius: var(--border-box);
   padding: 0 0.7rem;
 }
@@ -59,7 +59,6 @@ del::after {
 }
 .amazinOffer__img {
   width: 100%;
-  animation: offerBlinker 1.5s infinite;
 }
 
 .bannerBox,.bannerBoxImg,.newProduct {
@@ -83,17 +82,7 @@ animation
     transform: rotate(0deg);
   }
 }
-@keyframes offerBlinker {
-  0%,
-  100% {
-    opacity: 0;
-    visibility: hidden;
-  }
-  50% {
-    opacity: 1;
-    visibility: visible;
-  }
-}
+
 /* 
 ==================
 responsive

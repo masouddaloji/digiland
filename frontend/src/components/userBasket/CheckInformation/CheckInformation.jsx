@@ -1,263 +1,289 @@
-import  { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 //packages
-import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Formik, Form } from "formik";
+//rtk query
+import { useAddToOrderMutation } from "../../../features/order/orderApiSlice";
+import { useGetBasketQuery } from "../../../features/basket/basketApiSlice";
+import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
 //hooks
-import useBasket from "../../../hooks/useBasket";
+import useTitle from "../../../hooks/useTitle";
+import useAuth from "../../../hooks/useAuth";
+//components
+import FormControl from "../../FormControl/FormControl";
+import Loader from "../../Loader/Loader";
+//validator
+import { checkInformationSchema } from "../../Validator/Validator";
 //icons
 import { TbDiscount2 } from "react-icons/tb";
+//constants
+import { Iran } from "../../../Constants";
 //styles
 import "./CheckInformation.css";
+import { toast } from "react-toastify";
 
 function CheckInformation() {
+  useTitle("بررسی اطلاعات");
+  const { userID } = useAuth();
+  const [addToOrder] = useAddToOrderMutation();
+  const navigate = useNavigate();
+  const { data: basket, isLoading, isSuccess } = useGetBasketQuery();
+  const {
+    data: userInfos,
+    isLoading: userInfosLoading,
+    isSuccess: userInfosSuccess,
+  } = useGetUserByIdQuery(userID);
+  let initialValues = {
+    checkFullName: userInfos?.name ?? "",
+    checkProvince: userInfos?.addresses?.[0]?.state ?? "",
+    checkCity: userInfos?.addresses?.[0]?.city ?? "",
+    checkAddress: userInfos?.addresses?.[0]?.street ?? "",
+    checkPostalCode: userInfos?.addresses?.[0]?.postalCode ?? "",
+    checkTelephone: userInfos?.phone ?? "",
+    acceptTerms: false,
+  };
+
   const [showDiscount, setShowDiscount] = useState(false);
-  const {basketInfo}=useBasket()
+  const iranProvince = Object.keys(Iran);
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [cities, setCities] = useState([]);
+ 
+
+const addToOrderHandler = useCallback(async () => {
+  if (basket?.cartItems?.length) {
+      addToOrder(basket.cartItems[0].productId._id).unwrap()
+      .then(response=>{
+        console.log("response add order",response)
+        toast.success("سفارش شما با موفقیت ثبت شد")
+        navigate(`/order-pay/${response.data._id}`)
+      })
+      .catch(error=>{
+        toast.error("ثبت سفارش با مشکل مواجه شد")
+        console.log("error add order",error);
+      })
+  }
+},[]);
+
+  useEffect(() => {
+    if (Iran[selectedProvince]) {
+      setCities(Iran[selectedProvince]);
+    } else {
+      setCities(null);
+    }
+  }, [selectedProvince]);
+
   return (
-    <div className="col-12">
-      <div className="information">
-        <div className="useDiscount">
-          <TbDiscount2 className="useDiscount__icon" />
-          کد تخفیف دارید؟
-          <span
-            className="useDiscount__showContent"
-            onClick={() => setShowDiscount(!showDiscount)}
-          >
-            برای نوشتن کد اینجا کلیک کنید
-          </span>
-        </div>
-        <div
-          className={`discountCode`}
-          style={{ display: showDiscount ? "block" : "none" }}
+    <>
+      {isLoading && <Loader />}
+      {isSuccess && (
+        <Formik
+          initialValues={initialValues}
+          validationSchema={checkInformationSchema}
+          onSubmit={async (values, { resetForm }) => {
+            addToOrderHandler(values);
+            resetForm();
+          }}
         >
-          <span className="discountCode__title">کدتخفیف</span>
-          <div className="discountCode__getCode">
-            <input
-              type="text"
-              name=""
-              id=""
-              className="discountCode__input"
-              placeholder="کد تخفیف"
-            />
-            <button className="discountCode__btnSend">اعمال کدتخفیف</button>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 col-sm-12 col-md-6">
-            <div className="purchaerDetails">
-              <h3 className="purchaerDetails__title">جزئیات صورتحساب</h3>
-              <label
-                htmlFor="purchaerName"
-                className="purchaerDetails__label mandatory__label"
-              >
-                نام
-              </label>
-              <input
-                type="text"
-                name=""
-                id="purchaerName"
-                className="purchaerDetails__input"
-              />
-              <label
-                htmlFor="purchaerFamily"
-                className="purchaerDetails__label mandatory__label"
-              >
-                نام خانوادگی
-              </label>
-              <input
-                type="text"
-                name=""
-                id="purchaerFamily"
-                className="purchaerDetails__input"
-              />
-              <label
-                htmlFor="purchaerCompanyName"
-                className="purchaerDetails__label "
-              >
-                نام شرکت
-              </label>
-              <input
-                type="text"
-                name=""
-                id="purchaerCompanyName"
-                className="purchaerDetails__input"
-              />
-              <label
-                htmlFor="purchaerprovince"
-                className="purchaerDetails__label mandatory__label"
-              >
-                استان
-              </label>
-              <input
-                type="text"
-                name=""
-                id="purchaerprovince"
-                className="purchaerDetails__input"
-              />
-              <label
-                htmlFor="purchaerCity"
-                className="purchaerDetails__label mandatory__label"
-              >
-                شهر{" "}
-              </label>
-              <input
-                type="text"
-                name=""
-                id="purchaerCity"
-                className="purchaerDetails__input"
-              />
-              <label
-                htmlFor="purchaerAddress"
-                className="purchaerDetails__label mandatory__label"
-              >
-                آدرس
-              </label>
-              <input
-                type="text"
-                name=""
-                id="purchaerAddress"
-                className="purchaerDetails__input"
-              />
-              <label
-                htmlFor="purchaerPostalCode"
-                className="purchaerDetails__label mandatory__label"
-              >
-                کد پستی
-              </label>
-              <input
-                type="text"
-                name=""
-                id="purchaerPostalCode"
-                className="purchaerDetails__input"
-              />
-              <label
-                htmlFor="purchaerPhone"
-                className="purchaerDetails__label mandatory__label"
-              >
-                تلفن
-              </label>
-              <input
-                type="text"
-                name=""
-                id="purchaerPhone"
-                className="purchaerDetails__input"
-              />
-              <label
-                htmlFor="purchaerName"
-                className="purchaerDetails__label mandatory__label"
-              >
-                آدرس ایمیل
-              </label>
-              <input
-                type="text"
-                name=""
-                id="purchaerName"
-                className="purchaerDetails__input"
-              />
-            </div>
-          </div>
-          <div className="col-12 col-sm-12 col-md-6">
-            <div className="detailsOrder">
-              <h3 className="detailsOrder__title">سفارش شما</h3>
-              <div className="orders">
-                <table className="orders__table">
-                  <thead>
-                    <tr>
-                      <th>محصول</th>
-                      <th>قیمت</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {basketInfo?.cartItems?.map(item=> <tr key={item._id}>
-                      <td>
-                        {item?.productId?.title} <span>{item.cartQuantity?` x ${item.cartQuantity}`:null}</span>
-                      </td>
-                      <td>
-                        <bdi className="productPrice">
-                        {item?.productId?.price?.toLocaleString()}
-                          <span className="toman">تومان</span>
-                        </bdi>
-                      </td>
-                    </tr>)}
-                   
-                    {/* <tr>
-                      <td>
-                        گوشی موبایل شیائومی مدل POCO X3 Pro M2102J20SG NFC دو
-                        سیم‌ کارت ظرفیت 256
-                      </td>
-                      <td>
-                        <bdi className="productPrice">
-                          4,100,000
-                          <span className="toman">تومان</span>
-                        </bdi>
-                      </td>
-                    </tr> */}
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th>جمع جزء</th>
-                      <td>
-                        <span>
-                          <bdi className="productPrice">
-                            {basketInfo?.totalAmount?.toLocaleString()}
-                            <span className="toman">تومان</span>
-                          </bdi>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>هزینه حمل و نقل</th>
-                      <td>
-                      {basketInfo?.totalAmount>1000000?" حمل و نقل رایگان":<span>
-                          <bdi className="productPrice">
-                            14,500,000
-                            <span className="toman">تومان</span>
-                          </bdi>
-                        </span>}                       
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>مجموع</th>
-                      <td>
-                        <span>
-                          <bdi className="productPrice">
-                          {basketInfo?.totalAmount?.toLocaleString()}
-                            <span className="toman">تومان</span>
-                          </bdi>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>تخفیف شما از این خرید </th>
-                      <td>
-                        <span>
-                          <bdi className="productPrice">
-                            500,000
-                            <span className="toman">تومان</span>
-                          </bdi>
-                        </span>
-                      </td>
-                    </tr>
-                  </tfoot>
-                </table>
+          {(formik) => (
+            <div className="information">
+              {/* start Discount */}
+              <div className="useDiscount">
+                <TbDiscount2 className="useDiscount__icon" />
+                کد تخفیف دارید؟
+                <span
+                  className="useDiscount__showContent"
+                  onClick={() => setShowDiscount(!showDiscount)}
+                >
+                  برای نوشتن کد اینجا کلیک کنید
+                </span>
               </div>
-                <div className="submit__order">
-                <div className="termsAndConditions">
+              <div
+                className={`discountCode`}
+                style={{ display: showDiscount ? "block" : "none" }}
+              >
+                <span className="discountCode__title">کدتخفیف</span>
+                <div className="discountCode__getCode">
                   <input
-                    className="termsAndConditions__input"
-                    type="checkbox"
+                    type="text"
                     name=""
                     id=""
+                    className="discountCode__input"
+                    placeholder="کد تخفیف"
                   />
-                  من شرایط و مقررات سایت را خوانده ام و آن را می پذیرم.
+                  <button className="discountCode__btnSend">
+                    اعمال کدتخفیف
+                  </button>
                 </div>
-                <Link to="/basket/order-pay" className="orderBtn">
-                  ثبت سفارش
-                </Link>
+              </div>
+              {/* end Discount */}
+              <Form>
+                <div className="row">
+                  <div className="col-12 col-md-6">
+                    <div className="user__form">
+                      <div className="row">
+                        <h3 className="purchaerDetails__title">
+                          جزئیات صورتحساب
+                        </h3>
+                        <div className="col-12">
+                          <FormControl
+                            controler="text"
+                            label="نام و نام خانوادگی"
+                            name="checkFullName"
+                          />
+                        </div>
+                        <div className="col-12 col-sm-6 col-md-12 col-lg-6">
+                          <FormControl
+                            controler="select"
+                            label="استان"
+                            name="checkProvince"
+                            options={iranProvince}
+                            placeholder="استان راانتخاب کنید"
+                            selectType="province"
+                            setSelectedProvince={setSelectedProvince}
+                          />
+                        </div>
+                        <div className="col-12 col-sm-6 col-md-12 col-lg-6">
+                          <FormControl
+                            controler="select"
+                            label="شهر"
+                            name="checkCity"
+                            placeholder="شهر راانتخاب کنید"
+                            selectType="province"
+                            options={cities}
+                          />
+                        </div>
+                        <div className="col-12">
+                          <FormControl
+                            controler="text"
+                            label="آدرس"
+                            name="checkAddress"
+                          />
+                        </div>
+                        <div className="col-12">
+                          <FormControl
+                            controler="text"
+                            label="کد پستی"
+                            name="checkPostalCode"
+                          />
+                        </div>
+                        <div className="col-12">
+                          <FormControl
+                            controler="text"
+                            label="تلفن"
+                            name="checkTelephone"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <div className="detailsOrder">
+                      <h3 className="detailsOrder__title">سفارشات شما</h3>
+                      <div className="orders">
+                        <table className="orders__table">
+                          <thead>
+                            <tr>
+                              <th>محصول</th>
+                              <th>قیمت</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {basket?.cartItems?.map((item) => (
+                              <tr key={item._id}>
+                                <td>
+                                  {item.productId.title}
+                                  <span>
+                                    {item.cartQuantity
+                                      ? ` x ${item.cartQuantity}`
+                                      : null}
+                                  </span>
+                                </td>
+                                <td>
+                                  <bdi className="productPrice">
+                                    {item.productId.price.toLocaleString()}
+                                    <span className="toman">تومان</span>
+                                  </bdi>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <th>جمع جزء</th>
+                              <td>
+                                <span>
+                                  <bdi className="productPrice">
+                                    {basket?.totalAmount?.toLocaleString()}
+                                    <span className="toman">تومان</span>
+                                  </bdi>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>هزینه حمل و نقل</th>
+                              <td>
+                                {basket?.totalAmount > 1000000 ? (
+                                  " حمل و نقل رایگان"
+                                ) : (
+                                  <span>
+                                    <bdi className="productPrice">
+                                      200,000
+                                      <span className="toman">تومان</span>
+                                    </bdi>
+                                  </span>
+                                )}
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>مجموع</th>
+                              <td>
+                                <span>
+                                  <bdi className="productPrice">
+                                    {basket?.totalAmount?.toLocaleString()}
+                                    <span className="toman">تومان</span>
+                                  </bdi>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>تخفیف شما از این خرید </th>
+                              <td>
+                                <span>
+                                  <bdi className="productPrice">
+                                    {(
+                                      basket?.totalAmount / 500
+                                    ).toLocaleString()}
+                                    <span className="toman">تومان</span>
+                                  </bdi>
+                                </span>
+                              </td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
+                      <div className="submit__order">
+                        <FormControl controler="terms" name="acceptTerms" />
+
+                        <button
+                          className={`orderBtn ${
+                            formik.dirty && formik.isValid
+                              ? "orderBtn--active"
+                              : null
+                          }`}
+                          disabled={!(formik.dirty && formik.isValid)}
+                        >
+                          ثبت سفارش
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </Form>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          )}
+        </Formik>
+      )}
+    </>
   );
 }
 

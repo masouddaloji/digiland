@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+
 // packages
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 //components
-import axios from "../../api/axios";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import Slider from "../../components/Slider/Slider";
 import CompanyProduct from "../../components/CompanyProduct/CompanyProduct";
 //redux
 import { nanoid } from "@reduxjs/toolkit";
-import { useGetIndexInfosQuery } from "../../features/indexPage/indexApi";
+import { useGetIndexInfosQuery } from "../../features/indexPage/indexApiSlice";
+//hooks
+import useTitle from "../../hooks/useTitle";
 // icons
 import { BiLayerPlus } from "react-icons/bi";
 import { AiFillApple } from "react-icons/ai";
@@ -22,28 +23,13 @@ import "./Index.css";
 
 export default function Index() {
   const {
-    data: products,
+    data: mainPage,
     isLoading,
     isError,
     isSuccess,
-  } = useGetIndexInfosQuery("getIndexInfos");
+  } = useGetIndexInfosQuery();
+  useTitle("دیجی لند")
   const articles = Array(6).fill(0);
-  const [pageInfos, setPageInfos] = useState({
-    newProducts: [],
-    appleProducts: [],
-    amazinOffer: [],
-  });
-  useEffect(() => {
-    if (isSuccess) {
-      const newProducts = products.slice(0, 6);
-      const appleProducts = products
-        .filter((item) => item.brand === "apple")
-        .slice(0, 6);
-      const amazinOffer = products.filter((product) => product.offPrice >= 10);
-      setPageInfos({ newProducts, appleProducts, amazinOffer });
-    }
-  }, [products]);
-
   return (
     <div className="container">
       {/* header slider */}
@@ -74,7 +60,7 @@ export default function Index() {
                 pagination={true}
                 loop={isSuccess?true:false}
                 autoplay={isSuccess?true:false}
-                array={pageInfos.amazinOffer}
+                array={mainPage?.suddenlySeggestedProducts}
                 slide="instantOffer"
               />
             </div>
@@ -123,7 +109,7 @@ export default function Index() {
               loop={isSuccess?true:false}
               navigation={isSuccess?true:false}
               autoplay={isSuccess?true:false}
-              array={pageInfos.amazinOffer}
+              array={mainPage?.wonderfulSeggestedProducts}
               slide="SuggestedProductBox"
             />
           </div>
@@ -165,6 +151,7 @@ export default function Index() {
               link="/"
               btnLink="/"
               bg="var(--main-backgroundColor)"
+              isLoading={isLoading}
             />
           </div>
         </div>
@@ -177,7 +164,7 @@ export default function Index() {
               spaceBetween={10}
               loop={isSuccess?true:false}
               navigation={isSuccess?true:false}
-              array={pageInfos.newProducts}
+              array={mainPage?.latestProducts}
               slide="ProductCart"
             />
           </div>
@@ -191,13 +178,14 @@ export default function Index() {
               title="محصولات اپل"
               icon={<AiFillApple className="sectionHeader__icon" />}
               bg="var(--main-backgroundColor)"
+              isLoading={isLoading}
             />
           </div>
         </div>
         <div className="row">
           {isSuccess
-            ? pageInfos?.appleProducts?.length > 0 &&
-              pageInfos.appleProducts.map((item) => (
+            ? mainPage.latestApple.length > 0 &&
+              mainPage.latestApple.map((item) => (
                 <div className="col-12 col-md-6 col-lg-4" key={item._id}>
                   <CompanyProduct
                     {...item}
@@ -223,6 +211,7 @@ export default function Index() {
               btnLink="/"
               bg="var(--main-backgroundColor)"
               icon={<GrRss className="sectionHeader__icon" />}
+              isLoading={isLoading}
             />
           </div>
         </div>
@@ -236,12 +225,12 @@ export default function Index() {
               spaceBetween={10}
               loop={isSuccess?true:false}
               navigation={isSuccess?true:false}
-              array={articles}
+              array={mainPage?.articles}
               slide="ArticleBox"
             />
           </div>
         </div>
       </section>
     </div>
-  );
+     );
 }

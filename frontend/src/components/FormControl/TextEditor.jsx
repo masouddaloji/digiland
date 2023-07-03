@@ -1,47 +1,38 @@
-import  { useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 // packages
-import { useField, useFormikContext } from "formik";
+import { useField } from "formik";
 import { Editor } from "@tinymce/tinymce-react";
+//redux
+import { useSelector } from "react-redux";
+import { useUploadCoverArticleMutation } from "../../features/article/articleApiSlice";
 
 const TextEditor = (props) => {
-  const [field, meta, helpers] = useField(props);
-  const { setFieldValue, setFieldTouched, handleBlur } = useFormikContext();
-  const containerRef = useRef();
   const editorRef = useRef();
+  const { token } = useSelector((state) => state?.auth);
+  const [field, meta, helpers] = useField(props);
+  const [uploadCoverArticle] = useUploadCoverArticleMutation();
 
-  const change = () => {
-    if (editorRef?.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
-  useEffect(() => {
-    const outSideClickHandler = (e) => {
-      const isIn = !containerRef?.current?.contains(e.target);
-      if (isIn) {
-        handleBlur(e);
-      }
-    };
-    document.body.addEventListener("click", outSideClickHandler);
-    return () => {
-      document.body.removeEventListener("click", outSideClickHandler);
-    };
-  }, []);
+  const handleImageUpload =useCallback( async (blobInfo, progress) => {
+    const formData = new FormData();
+    formData.append("image", blobInfo.blob());
+    console.log("blobInfo.blob()", blobInfo.blob());
+
+    const urlimage = uploadCoverArticle(formData)
+      .unwrap()
+      .then((response) => {
+        return `http://localhost:8000${response}`;
+      })
+      .catch((error) => {
+        throw new Error("Image upload failed : " + error.message);
+      });
+    return urlimage;
+  },[]);
+
   return (
-    <div className="formControl__wrapper">
-      {props.label && (
-        <label
-          htmlFor={field.name}
-          className={`formControl__label ${
-            meta.touched && meta.error ? "label--invalid" : undefined
-          }`}
-        >
-          {props.label}
-        </label>
-      )}
-
+    <div className="editor__wrapper">
       <div
         className={`editor__box ${
-          meta.touched && meta.error ? "formControl--invalid" : ""
+          meta.touched && meta.error ? "input--invalid" : ""
         }`}
       >
         <Editor
@@ -49,16 +40,17 @@ const TextEditor = (props) => {
           onInit={(evt, editor) => (editorRef.current = editor)}
           value={field?.value}
           onEditorChange={(content) => {
-            setFieldTouched(field?.name, true);
-            setFieldValue(field?.name, content);
+            helpers.setTouched(true);
+            helpers.setValue(content);
           }}
           {...props}
           {...field}
           ref={editorRef}
           init={{
-            content_css:"false",
-            directionality:"rtl",
-            height: 300,
+            images_upload_handler: handleImageUpload,
+            content_css: "false",
+            directionality: "rtl",
+            height: props.height,
             menubar: true,
             plugins: [
               "advlist",
@@ -83,7 +75,7 @@ const TextEditor = (props) => {
             toolbar:
               "undo redo | blocks | " +
               "bold italic forecolor | alignleft aligncenter " +
-              "alignright alignjustify | bullist numlist outdent indent | " +
+              "alignright alignjustify | outdent indent | " +
               "removeformat| table | help",
           }}
         />

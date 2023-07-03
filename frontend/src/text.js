@@ -1,13 +1,6 @@
 export const persianTexts = {
   adminpanel: {
     productsNotFound: "هیچ محصولی یافت نشد",
-    createProductSuccess: "محصول با موفقیت افزوده شد",
-    createProductError: "افزودن محصول جدید با خطا مواجه شد",
-    removeProductSuccess: "محصول مورد نظر با موفقیت حذف شد",
-    removeProductError: "حذف محصول با مشکل مواجه شد لطفا دوباره تلاش نمایید",
-    editProductSuccess: "اطلاعات محصول مورد نظر با موفقیت ویرایش شد",
-    editProductError:
-      "ویرایش اطلاعات محصول مورد نظر با مشکل مواجه شد لطفا دوباره تلاش نمایید",
   },
   error: {
     register: {
@@ -106,7 +99,6 @@ export const persianTexts = {
   admin: {
     products: {
       label: {
-        addProductsTitle: "افزودن محصول جدید",
         inputLabelTitle: "عنوان محصول",
         inputLabelPrice: "قیمت محصول",
         inputLabelRating: "امتیاز محصول",
@@ -118,38 +110,30 @@ export const persianTexts = {
         inputLabelShortDescription: "توضیحات محصول",
         inputLabelFullDescription: "اطلاعات محصول",
         inputLabelBrand: "برند محصول",
-        inputLabelOffPrice: "درصد تخفیف محصول",
-        inputLabelCover: "کاور اصلی محصول",
-        inputLabelGallery: "مجموعه عکس های محصول",
+        inputLabelOffPrice: "تخفیف محصول",
+        inputLabelCover: "کاور محصول",
+        inputLabelGallery: "عکس های محصول",
       },
       placeholder: {
-        inputPlaceholderTitle: "گوشی سامسونگ s23 اولترا 256گیگ",
-        inputPlaceholderPrice: "50,000,000",
-        inputPlaceholderRating: "لطفا امتیاز محصول را انتخاب کنید",
-        inputPlaceholderQuantity: 20,
-        inputPlaceholderCategory: "الکترونیک",
-        inputPlaceholderSubCategory: "موبایل",
-        inputPlaceholderSegment: "s23 ultra 256 gb",
-        inputPlaceholderColors: "لطفا رنگ های محصول را انتخاب کنید",
-        inputPlaceholderShortDescription: "لطفا توضیحات محصول را وارد کنید",
-        inputPlaceholderFullDescription: "لطفا اطلاعات محصول را وارد کنید",
-        inputPlaceholderBrand: "samsung",
-        inputPlaceholderOffPrice: 15,
-        inputPlaceholderCover: "لطفا عکس اصلی محصول را انتخاب کنید",
-        inputPlaceholderGallery: "لطفا همه ی عکس های محصول را انتخاب کنید",
+        inputPlaceholderCover: "کاور محصول را انتخاب کنید",
+        inputPlaceholderGallery: "عکس های محصول را انتخاب کنید",
       },
-
-      btn: "افزودن محصول",
     },
   },
   register: {
     registerSuccess: "شما با موفقیت عضو شدید لطفا وارد حساب خود شوید",
     registerError: "ثبت نام شما با مشکل مواجه شد لطفا دوباره تلاش کنید",
+    registerBtn: "عضویت",
+    registerTitle: "ایجاد حساب کاربری",
   },
   login: {
     logginSuccess: "شما با موفقیت وارد شدید",
     loginNotMatch: "نام کاربری یا رمز عبور اشتباه است",
     logginError: "ورود به حساب کاربری با مشکل مواجه شد لطفا دوباره تلاش کنید",
+    headerTitle: "ورود به حساب کاربری",
+    otherAcount: "با حساب های دیگر وارد شوید",
+    notRegister: "هنوز ثبت نام نکرده اید؟ ",
+    createAccountLink: "ثبت نام",
   },
   productInfo: {
     warning: `هشدار سامانه همتا: در صورت انجام معامله، از فروشنده کد
@@ -160,10 +144,6 @@ export const persianTexts = {
     قبول است که پلمپ کالا باز نشده باشد.`,
     commentRules:
       "خلاصه قوانین زیر را مطالعه کنید:<br /><br /> فارسی بنویسید و از کیبورد فارسی استفاده کنید. بهتر است از فضای خالی (Space) بیش&zwnj;از&zwnj;حدِ معمول، شکلک یا ایموجی استفاده نکنید و از کشیدن حروف یا کلمات با صفحه&zwnj;کلید بپرهیزید.<br /><br /> نظرات خود را براساس تجربه و استفاده&zwnj;ی عملی و با دقت به نکات فنی ارسال کنید؛ بدون تعصب به محصول خاص، مزایا و معایب را بازگو کنید و بهتر است از ارسال نظرات چندکلمه&zwnj;&zwnj;ای خودداری کنید.<br /><br /> بهتر است در نظرات خود از تمرکز روی عناصر متغیر مثل قیمت، پرهیز کنید.<br /><br /> به کاربران و سایر اشخاص احترام بگذارید. پیام&zwnj;هایی که شامل محتوای توهین&zwnj;آمیز و کلمات نامناسب باشند، حذف می&zwnj;شوند.",
-
-    addtofavorateSuccess: "محصول مورد نظر به لیست علاقه مندی های شما افزوده شد",
-    addtofavorateError:
-      "افزودن محصول مورد نظر به لیست علاقه مندی ها با مشکل مواجه شد",
     firstTologin: "ابتدا وارد حساب کاربری خود شوید",
     notFindReviews: "هیچ نظری یافت نشد",
     productRatingFromUsers: "امتیاز کالا از دیدگاه کاربران",
@@ -184,24 +164,215 @@ export const persianTexts = {
       min: "حداقل تعداد کاراکتر 8 می باشد",
     },
     submit: {
-      success: "امتیاز شما با موفقیت ثبت شد",
-      error: "ثبت امتیاز شما با مشکل مواجه شد لطفا دوباره تلاش نمایید",
-      warning: "برای امتیاز دادن ابتدا وارد حساب کاربری خود بشوید",
+      success: "نظر شما با موفقیت ثبت شد",
+      error: "ثبت نظر شما با مشکل مواجه شد",
+      warning: "برای نظر دادن ابتدا وارد حساب کاربری خود بشوید",
     },
   },
   header: {
-    emptyBasket: "سبد خرید شما خالی می باشد",
     notLoginInBasket: "لطفا وارد حساب کاربری خود شوید",
   },
   productsCategory: {
     noProducts: "محصولی پیدا نشد",
+    noResponse: "خطا در ارتباط با سرور",
   },
-  basket:{
+  basket: {
+    basketBtn: "ادامه جهت تسویه حساب",
+    emptyBasket: "سبد خرید شما خالی می باشد",
+    notLoginForaddTobasket:
+      "لطفا وارد حساب خود شوید",
     addtobasketSuccess: "محصول مورد نظر به سبد خرید شما افزوده شد",
     addtobasketError: "افزودن محصول مورد نظر به سبد خرید با مشکل مواجه شد",
-    removeFromBasketSuccess:"محصول مورد نظر با موفقیت از سبد خرید حذف شد",
-    removeFromBasketError:"حذف محصول از سبد خرید با مشکل مواجه شد لطفا دوباره تلاش نمایید",
-    incrementProductError:"افزایش تعداد محصول مورد نظر در سبد خرید با مشکل مواجه شد لطفا دوباره تلاش نمایید",
-    decrementProductError:"کاهش تعداد محصول مورد نظر در سبد خرید با مشکل مواجه شد لطفا دوباره تلاش نمایید",
-  }
+    removeFromBasketSuccess: "محصول مورد نظر با موفقیت از سبد خرید حذف شد",
+    removeFromBasketError:
+      "حذف محصول از سبد خرید با مشکل مواجه شد لطفا دوباره تلاش نمایید",
+    incrementProductError:
+      "افزایش تعداد محصول در سبد خرید با مشکل مواجه شد لطفا دوباره تلاش نمایید",
+    decrementProductError:
+      "کاهش تعداد محصول در سبد خرید با مشکل مواجه شد لطفا دوباره تلاش نمایید",
+  },
+  checkInformation: {
+    fullName: {
+      required: "لطفا نام و نام خانوادگی را وارد کنید",
+      min: "حداقل تعداد کاراکتر 3 می باشد",
+    },
+    province: {
+      required: "لطفا استان خود را انتخاب کنید",
+    },
+    city: {
+      required: "لطفا شهر خود را انتخاب کنید",
+    },
+    address: {
+      required: "لطفا آدرس خود را وارد کنید",
+      min: "حداقل تعداد کاراکتر 8 می باشد",
+      max: "حداکثر تعداد کاراکتر 50 می باشد",
+    },
+    postalCode: {
+      required: "لطفا کدپستی خود را وارد کنید",
+      match: "لطفا یک کدپستی معتبر وارد کنید",
+    },
+    telephone: {
+      required: "لطفا شماره تلفن خود را وارد کنید",
+      match: "لطفا یک شماره تلفن معتبر وارد کنید",
+    },
+    acceptTerms: {
+      required: "شما باید قوانین سایت را بپذیرید",
+    },
+  },
+  uploader: {
+    productMulti: {
+      success: "عکس های محصول آپلود شدند",
+      error: "حجم عکس های انتخابی نباید بیشتر از 4 مگابایت باشد",
+    },
+    productsingle: {
+      success: "کاور محصول آپلود شد",
+      error: "حجم فایل بیشتر از چهار مگابایت است",
+    },
+    profile: {
+      success: "عکس پروفایل آپلود شد",
+      error: "حجم فایل بیشتر از چهار مگابایت است",
+    },
+  },
+  addProducts: {
+    createProductSuccess: "افزودن محصول با موفقیت انجام شد",
+    createProductError: "خطایی در افزودن محصول جدید رخ داد",
+    submitBtn: "افزودن محصول",
+    returntoProductPage: "صفحه محصولات",
+    header: "افزودن محصول",
+  },
+  editProduct: {
+    submitBtn: "اعمال تغییرات",
+    editProductSuccess: "ویرایش موفقیت‌آمیز اطلاعات محصول",
+    editProductError: "ویرایش اطلاعات محصول دچار مشکل شد",
+    returntoProductPage: "صفحه محصولات",
+    header: "ویرایش اطلاعات محصول",
+  },
+
+  adminProduct: {
+    deleteModalTitle: "آیا مایل به ویرایش محصول موردنظر هستید؟",
+    editModalTitle: "آیا مایل به حذف محصول موردنظر هستید؟",
+    deleteProduct: {
+      removeProductSuccess: "محصول مورد نظر با موفقیت حذف شد",
+      removeProductError:
+        "مشکلی در حذف محصول به وجود آمده، لطفاً دوباره تلاش کنید",
+    },
+    tableTitle: "لیست محصولات",
+    addproduct: " افزودن محصول",
+    notProducts: "محصولی یافت نشد",
+  },
+  favorite: {
+    header: "محصولات مورد علاقه",
+    modalMessage: "آیااز علاقه مندی ها حذف شود ؟",
+    notFound: "لیست علاقه مندی های شما خالی می باشد",
+    showBtn: "مشاهده",
+    deleteBtn: "حذف",
+    addtoFavorite: {
+      success: "محصول انتخابی به لیست علاقه‌مندی‌های شما افزوده شد.",
+      error: "اضافه کردن محصول به لیست علاقه‌مندی‌ها با مشکل مواجه شد.",
+      notLogin:
+        "لطفا وارد حساب خود شوید",
+    },
+    removeFromFavorite: {
+      success: "محصول انتخابی با موفقیت از لیست علاقه‌مندی‌های شما حذف شد.",
+      error: "مشکلی در حذف محصول از لیست علاقه‌مندی‌ها وجود دارد. ",
+    },
+  },
+  address: {
+    description: "آدرس ثبت شده ی شما به شرح زیر است",
+    listHeader: "آدرس حمل و نقل",
+    link: "ویرایش",
+  },
+  updateuserInfo: {
+    schema: {
+      name: {
+        string: "لطفا نام را بصورت متن وارد کنید",
+        min: "حداقل کاراکتر 4 می باشد",
+        max: "حداکثر کاراکتر 10 می باشد",
+      },
+      image: {},
+      phone: {
+        match: "لطفا شماره تلفن معتبر وارد کنید",
+      },
+      street: {
+        max: "حداکثر 35 کاراکتر وارد کنید",
+        string: "لطفا آدرس خیابان را بصورت متن صحیح وارد کنید",
+      },
+      postalCode: "لطفا کد پستی معتبر وارد کنید",
+    },
+    submitBtn: "ذخیره تغییرات",
+    uploaderPlaceholder: "لطفا عکس پروفایل را انتخاب کنید",
+  },
+  addArticle: {
+    articleTitle: {
+      string: "عنوان مقاله باید بصورت متن باشد",
+      required: "وارد کردن عنوان مقاله الزامی است",
+      min: "حداقل تعداد کاراکتر عنوان پنج می باشد",
+    },
+    articleImage: {
+      string: "آدرس عکس باید بصورت متن باشد",
+      required: "وارد کردن عکس الزامی است",
+    },
+    articleDescription: {
+      string: "توضیحات مقاله باید بصورت متن باشد",
+      required: "وارد کردن توضیحات مقاله الزامی است",
+      min: "حداقل تعداد کاراکتر توضیحات ده می باشد",
+    },
+    articleWriter: {
+      string: "نام نویسنده باید بصورت متن باشد",
+      required: "وارد کردن نام نویسنده مقاله الزامی است",
+      min: "حداقل تعداد کاراکتر نام نویسنده پنج می باشد",
+    },
+    articleCategory: {
+      string: "دسته بندی مقاله باید بصورت متن باشد",
+      required: "وارد کردن دسته بندی مقاله الزامی است",
+      min: "حداقل تعداد کاراکتر دسته بندی چهار می باشد",
+    },
+    addBtn: "ایجاد مقاله جدید",
+    addArticleSuccess: "مقاله جدید با موفقیت ایجاد شد",
+    addArticleError: "ایجاد مقاله با مشکل مواجه شد",
+  },
+
+  adminArticle: {
+    tableTitle: "لیست مقاله ها",
+    addLink: "افزودن مقاله",
+    notFoundArticle: "مقاله ای وجود ندارد",
+    editModal: "آیا مایل به ویرایش مقاله موردنظر هستید؟",
+    deleteModal: "آیا مایل به حذف مقاله موردنظر هستید؟",
+    deleteArticleSuccess: "مقاله با موفقیت حذف شد",
+    deleteArticleError: "حذف مقاله با مشکل مواجه شد",
+  },
+  editArticle: {
+    btn: "ذخیره تغییرات",
+    editArticleSuccess: "تغییرات با موفقیت ذخیره شد",
+    editArticleError: "ذخیره تغییرات با مشکل مواجه شد",
+  },
+  mainAdmin: {
+    lastOrders: "آخرین سفارشات",
+    allOrders: " کل سفارشات",
+  },
+  adminUsers: {
+    tableTitle: "لیست کاربران",
+    deleteSuccess: "کاربر موردنظر با موفقیت حذف شد",
+    deleteError: "مشکلی در حذف کاربر موردنظر بوجود آمد",
+  },
+  editUser: {
+    updateSuccess: "تغییرات با موفقیت ذخیره شد",
+    updateError: "مشکلی در ذخیره تغییرات بوجود امد",
+  },
+  adminOrders: {
+    acceptModal: "آیا سفارش مورد نظر تایید شود ؟",
+    rejectModal: "آیا سفارش مورد نظر رد شود ؟",
+    tableTitle: "لیست سفارشات",
+    orderAcceptSuccess: "سفارش با موفقیت تایید شد",
+    orderAcceptError: "تایید سفارش با مشکل مواجه شد",
+    orderRejectSuccess: "سفارش با موفقیت رد شد",
+    orderRejectError: "رد سفارش با مشکل مواجه شد",
+    notOrders: "سفارشی یافت نشد",
+  },
+  userOrders: {
+    successDelete: "سفارش شما با موفقیت لغو شد",
+    errorDelete: "لغو سفارش با مشکل مواجه شد",
+    modalMessage: "آیا سفارش انتخابی لغو شود ؟",
+    notFound: "سفارشی یافت نشد",
+  },
 };

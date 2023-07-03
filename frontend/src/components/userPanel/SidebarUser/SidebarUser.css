@@ -1,0 +1,210 @@
+.user-sidebar {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--white);
+  position: relative;
+  margin-top: -8rem;
+  overflow-y: scroll;
+  z-index: 200;
+}
+.user-sidebar::-webkit-scrollbar {
+  display: none;
+}
+.user-sidebar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  right: 1rem;
+  height: 7rem;
+  border-bottom: 0.1rem dashed #c3c3c3;
+  border-radius: 0 0 5rem 5rem;
+  box-shadow: 0 1rem 1rem -0.7rem rgba(0, 0, 0, 0.1);
+}
+
+.user-sidebar__closeIcon {
+  display: none;
+  font-size: 2rem;
+  color: var(--white);
+  background-color: var(--gray-25);
+  border-radius: 0.5rem;
+}
+.user-sidebar__navigation {
+  padding: 2rem 1rem 1rem;
+}
+
+.user-sidebar__profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user-sidebar__profile-box {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  position: relative;
+}
+.user-sidebar__profile-box::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -0.4rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.2rem;
+  background-color: #ffd001;
+  transform: translateY(-50%) rotate(45deg);
+  z-index: 100;
+}
+.user-sidebar__profile-box::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -0.4rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.2rem;
+  background-color: #ffd001;
+  transform: translateY(-50%) rotate(45deg);
+  box-shadow: 0.2rem 0 0.5rem #ffd001;
+  z-index: 100;
+}
+.user-sidebar__profile-box-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 0.2rem solid;
+  border-color: #ffd001 #ffd001 transparent transparent;
+  transform: rotate(140deg);
+  box-shadow: 0 0 14px -7px #ffd001;
+  z-index: 100;
+}
+.user-sidebar__profile-img {
+  width: 100%;
+  height: 100%;
+  background-color: var(--white);
+  z-index: 10;
+  position: relative;
+  border-radius: 50%;
+}
+.user-sidebar__profile-name {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  color: var(--gray-text);
+}
+.user__date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.date__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: var(--border-box);
+  width: 4.2rem;
+  padding: 1rem .3rem;
+  border: .1rem dashed var(--gray-50);
+}
+.date__current .date__item{
+  background-color: #404763;
+  border: none;
+}
+.date__current .date__item span:first-child,.date__item span:first-child{
+  background-color: var(--white);
+  border-radius: var(--border-box);
+  display: block;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--black-05);
+  font-size: 1.2rem;
+}
+.date__current .date__item span:last-child{
+  color: var(--white);
+  margin-top: .7rem;
+  font-size: 1.1rem;
+}
+.date__item span:last-child{
+  margin-top: .7rem;
+  font-size: 1.1rem;
+  color: var(--black-05);
+
+}
+.user-sidebar__links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  color: var(--black-05);
+  margin-top: 2rem;
+}
+.user-sidebar__link {
+  display: flex;
+  align-items: center;
+  line-height: 3;
+  font-size: 1.3rem;
+  background-color: #f6f7f9;
+  border-radius: var(--border-box);
+  padding: 0 1rem 0 0;
+  transition: all 0.3s;
+  position: relative;
+  cursor: pointer;
+}
+
+.user-sidebar__link:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.user-sidebar__link:hover:not(.user-sidebar__link.active) {
+  color: var(--blue);
+  transform: translateX(-1rem);
+  box-shadow: 1rem 0 1.5rem -0.4rem rgba(0, 0, 0, 0.1);
+}
+
+.user-sidebar__link.active {
+  background-color: var(--blue);
+  color: var(--white);
+}
+.user-sidebar__link.active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -2rem;
+  height: 100%;
+  width: 1rem;
+  background-color: var(--blue);
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.user-sidebar__icon {
+  font-size: 2rem;
+  margin-left: 1rem;
+}
+@media (max-width: 991px) {
+  .user-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 28rem;
+    right: -28rem;
+    transition: all 0.4s;
+    margin-top: unset;
+    z-index: 100;
+  }
+  .user-sidebar--show {
+    right: 0;
+  }
+  .user-sidebar__closeIcon {
+    display: inline-block;
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 200;
+  }
+}
