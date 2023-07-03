@@ -6,7 +6,11 @@ import { IoIosStar, IoIosStarOutline } from 'react-icons/io'
 //styles
 import './Star.css'
 
+<<<<<<< HEAD
 const Star =(rating) => {
+=======
+const Star = memo((rating) => {
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   return (
     <>
        {Array(5 - rating)
@@ -21,7 +25,8 @@ const Star =(rating) => {
             ))}
     </>
   )
-}
+})
+
 
 
 export default Star

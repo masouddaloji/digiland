@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+import { Suspense, useState } from "react";
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
 //packages
 import { Outlet } from "react-router-dom";
 //components
 import Header from "../../components/userPanel/Header/Header";
 import SidebarUser from "../../components/userPanel/SidebarUser/SidebarUser";
+<<<<<<< HEAD
+=======
+import Loader from "../../components/Loader/Loader";
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
 //styles
 import "./index.css";
 

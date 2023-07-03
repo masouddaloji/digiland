@@ -123,17 +123,29 @@ export const persianTexts = {
   register: {
     registerSuccess: "شما با موفقیت عضو شدید لطفا وارد حساب خود شوید",
     registerError: "ثبت نام شما با مشکل مواجه شد لطفا دوباره تلاش کنید",
+<<<<<<< HEAD
     registerBtn: "عضویت",
     registerTitle: "ایجاد حساب کاربری",
+=======
+    registerBtn:"عضویت",
+    registerTitle:"ایجاد حساب کاربری",
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   },
   login: {
     logginSuccess: "شما با موفقیت وارد شدید",
     loginNotMatch: "نام کاربری یا رمز عبور اشتباه است",
     logginError: "ورود به حساب کاربری با مشکل مواجه شد لطفا دوباره تلاش کنید",
+<<<<<<< HEAD
     headerTitle: "ورود به حساب کاربری",
     otherAcount: "با حساب های دیگر وارد شوید",
     notRegister: "هنوز ثبت نام نکرده اید؟ ",
     createAccountLink: "ثبت نام",
+=======
+    headerTitle:"ورود به حساب کاربری",
+    otherAcount:"با حساب های دیگر وارد شوید",
+    notRegister:"هنوز ثبت نام نکرده اید؟ ",
+    createAccountLink:"ثبت نام"
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   },
   productInfo: {
     warning: `هشدار سامانه همتا: در صورت انجام معامله، از فروشنده کد
@@ -179,8 +191,11 @@ export const persianTexts = {
   basket: {
     basketBtn: "ادامه جهت تسویه حساب",
     emptyBasket: "سبد خرید شما خالی می باشد",
+<<<<<<< HEAD
     notLoginForaddTobasket:
       "لطفا وارد حساب خود شوید",
+=======
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
     addtobasketSuccess: "محصول مورد نظر به سبد خرید شما افزوده شد",
     addtobasketError: "افزودن محصول مورد نظر به سبد خرید با مشکل مواجه شد",
     removeFromBasketSuccess: "محصول مورد نظر با موفقیت از سبد خرید حذف شد",
@@ -256,6 +271,7 @@ export const persianTexts = {
       removeProductError:
         "مشکلی در حذف محصول به وجود آمده، لطفاً دوباره تلاش کنید",
     },
+<<<<<<< HEAD
     tableTitle: "لیست محصولات",
     addproduct: " افزودن محصول",
     notProducts: "محصولی یافت نشد",
@@ -276,6 +292,26 @@ export const persianTexts = {
       success: "محصول انتخابی با موفقیت از لیست علاقه‌مندی‌های شما حذف شد.",
       error: "مشکلی در حذف محصول از لیست علاقه‌مندی‌ها وجود دارد. ",
     },
+=======
+    tableTitle:"لیست محصولات",
+    addproduct:" افزودن محصول",
+    notProducts:"محصولی یافت نشد"
+  },
+  favorite: {
+    header: "محصولات مورد علاقه",
+    modalMessage:"آیااز علاقه مندی ها حذف شود ؟",
+    notFound:"لیست علاقه مندی های شما خالی می باشد",
+    showBtn: "مشاهده",
+    deleteBtn: "حذف",
+    addtoFavorite:{
+      success: "محصول انتخابی به لیست علاقه‌مندی‌های شما افزوده شد.",
+      error:"اضافه کردن محصول به لیست علاقه‌مندی‌ها با مشکل مواجه شد.",
+    },
+    removeFromFavorite:{
+      success:"محصول انتخابی با موفقیت از لیست علاقه‌مندی‌های شما حذف شد.",
+      error:"مشکلی در حذف محصول از لیست علاقه‌مندی‌ها وجود دارد. "
+    }
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   },
   address: {
     description: "آدرس ثبت شده ی شما به شرح زیر است",
@@ -302,6 +338,7 @@ export const persianTexts = {
     submitBtn: "ذخیره تغییرات",
     uploaderPlaceholder: "لطفا عکس پروفایل را انتخاب کنید",
   },
+<<<<<<< HEAD
   addArticle: {
     articleTitle: {
       string: "عنوان مقاله باید بصورت متن باشد",
@@ -375,4 +412,79 @@ export const persianTexts = {
     modalMessage: "آیا سفارش انتخابی لغو شود ؟",
     notFound: "سفارشی یافت نشد",
   },
+=======
+  addArticle:{
+    articleTitle:{
+      string:"عنوان مقاله باید بصورت متن باشد",
+      required:"وارد کردن عنوان مقاله الزامی است",
+      min:"حداقل تعداد کاراکتر عنوان پنج می باشد"
+    },
+    articleImage:{
+      string:"آدرس عکس باید بصورت متن باشد",
+      required:"وارد کردن عکس الزامی است",
+    },
+    articleDescription:{
+      string:"توضیحات مقاله باید بصورت متن باشد",
+      required:"وارد کردن توضیحات مقاله الزامی است",
+      min:"حداقل تعداد کاراکتر توضیحات ده می باشد"
+    },
+    articleWriter:{
+      string:"نام نویسنده باید بصورت متن باشد",
+      required:"وارد کردن نام نویسنده مقاله الزامی است",
+      min:"حداقل تعداد کاراکتر نام نویسنده پنج می باشد"
+    },
+    articleCategory:{
+      string:"دسته بندی مقاله باید بصورت متن باشد",
+      required:"وارد کردن دسته بندی مقاله الزامی است",
+      min:"حداقل تعداد کاراکتر دسته بندی چهار می باشد"
+    },
+    addBtn:"ایجاد مقاله جدید",
+    addArticleSuccess:"مقاله جدید با موفقیت ایجاد شد",
+    addArticleError:"ایجاد مقاله با مشکل مواجه شد",
+  },
+
+  adminArticle:{
+    tableTitle:"لیست مقاله ها",
+    addLink:"افزودن مقاله",
+    notFoundArticle:"مقاله ای وجود ندارد",
+    editModal:"آیا مایل به ویرایش مقاله موردنظر هستید؟",
+    deleteModal:"آیا مایل به حذف مقاله موردنظر هستید؟",
+    deleteArticleSuccess:"مقاله با موفقیت حذف شد",
+    deleteArticleError:"حذف مقاله با مشکل مواجه شد"
+  },
+  editArticle:{
+    btn:"ذخیره تغییرات",
+    editArticleSuccess:"تغییرات با موفقیت ذخیره شد",
+    editArticleError:"ذخیره تغییرات با مشکل مواجه شد"
+  },
+  mainAdmin:{
+  lastOrders:"آخرین سفارشات",
+  allOrders:" کل سفارشات"
+  },
+  adminUsers:{
+    tableTitle:"لیست کاربران",
+    deleteSuccess:"کاربر موردنظر با موفقیت حذف شد",
+    deleteError:"مشکلی در حذف کاربر موردنظر بوجود آمد"
+  },
+  editUser:{
+    updateSuccess:"تغییرات با موفقیت ذخیره شد",
+    updateError:"مشکلی در ذخیره تغییرات بوجود امد"
+  },
+  adminOrders:{
+    acceptModal:"آیا سفارش مورد نظر تایید شود ؟",
+    rejectModal:"آیا سفارش مورد نظر رد شود ؟",
+    tableTitle:"لیست سفارشات",
+    orderAcceptSuccess:"سفارش با موفقیت تایید شد",
+    orderAcceptError:"تایید سفارش با مشکل مواجه شد",
+    orderRejectSuccess:"سفارش با موفقیت رد شد",
+    orderRejectError:"رد سفارش با مشکل مواجه شد",
+    notOrders:"سفارشی یافت نشد"
+  },
+userOrders:{
+  successDelete:"سفارش شما با موفقیت لغو شد",
+  errorDelete:"لغو سفارش با مشکل مواجه شد",
+  modalMessage:"آیا سفارش انتخابی لغو شود ؟",
+  notFound:"سفارشی یافت نشد"
+}
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
 };

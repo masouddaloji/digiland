@@ -6,7 +6,10 @@ import { useGetBasketQuery } from "../../../features/basket/basketApiSlice";
 //hooks
 import useTitle from "../../../hooks/useTitle";
 //components
+<<<<<<< HEAD
 import Loader from "../../Loader/Loader";
+=======
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
 import Error from "../../Error/Error";
 import CartItem from "./CartItem";
 //persian text
@@ -15,15 +18,29 @@ import { persianTexts } from "../../../text";
 import { FaChevronLeft, FaShippingFast } from "react-icons/fa";
 //styles
 import "./Cart.css";
+import Loader from "../../Loader/Loader";
 
 function Cart() {
   useTitle("سبد خرید");
+<<<<<<< HEAD
   const { data: basket, isLoading, isSuccess } = useGetBasketQuery();
   const [postPrice, setPostPrice] = useState(10000);
   return (
         <>
           {basket?.cartItems?.length ? (
             <div className="row">
+=======
+  const { data: basket, isLoading, isError, isSuccess } = useGetBasketQuery();
+
+  const [postPrice, setPostPrice] = useState(10000);
+  return (
+    <>
+      {isLoading && <Loader />}
+      {isSuccess && (
+        <>
+          {basket?.cartItems?.length ? (
+            <>
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
               <div className="col-12 col-lg-9">
                 <div className="cart">
                   <div className="cart__productsWrapper">
@@ -115,11 +132,21 @@ function Cart() {
                   </div>
                 </div>
               </div>
+<<<<<<< HEAD
             </div>
           ) : (
             <Error title={persianTexts.basket.emptyBasket} type="warning" />
           )}
 </>
+=======
+            </>
+          ) : (
+            <Error title={persianTexts.basket.emptyBasket} type="warning" />
+          )}
+        </>
+      )}
+    </>
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   );
 }
 

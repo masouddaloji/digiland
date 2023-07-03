@@ -51,6 +51,7 @@ function CheckInformation() {
 
 const addToOrderHandler = useCallback(async () => {
   if (basket?.cartItems?.length) {
+<<<<<<< HEAD
       addToOrder(basket.cartItems[0].productId._id).unwrap()
       .then(response=>{
         console.log("response add order",response)
@@ -61,6 +62,20 @@ const addToOrderHandler = useCallback(async () => {
         toast.error("ثبت سفارش با مشکل مواجه شد")
         console.log("error add order",error);
       })
+=======
+    const promises = basket.cartItems.map((item) =>
+      addToOrder(item?.productId?._id)
+    );
+    try {
+
+      const responses = await Promise.all(promises);
+      console.log("responses", responses);
+      alert("all product add to order")
+      // navigate(`/order-pay/${orderIds.join(",")}`);
+    } catch (error) {
+      console.log("error", error);
+    }
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   }
 },[]);
 

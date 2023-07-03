@@ -25,7 +25,10 @@
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
     "react-error-boundary": "^4.0.10",
+=======
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
     "react-icons": "^4.9.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.7.0",

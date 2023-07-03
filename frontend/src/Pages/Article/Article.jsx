@@ -23,16 +23,30 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import "./Article.css";
 
 const Article = () => {
+<<<<<<< HEAD
+=======
+  useTitle(articleInfo?.data?.title)
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   const { token } = useSelector((state) => state.auth);
   const { articleId } = useParams();
   const {
     data: articleInfo,
+<<<<<<< HEAD
     isSuccess,
   } = useGetArticleByIdQuery(articleId);
   useTitle(articleInfo?.data?.title)
   return (
     <section className="article">
       <div className="container">
+=======
+    isLoading,
+    isSuccess,
+  } = useGetArticleByIdQuery(articleId);
+  return (
+    <section className="article">
+      <div className="container">
+        {isLoading && <Loader />}
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
         {isSuccess && (
           <>
             <div className="row">
@@ -86,7 +100,11 @@ const Article = () => {
 
                   {articleInfo?.related?.length && (
               <Slider
+<<<<<<< HEAD
                 isLoading={false}
+=======
+                isLoading={isLoading}
+>>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
                 isSuccess={isSuccess}
                 slidesPerView={3}
                 spaceBetween={15}
