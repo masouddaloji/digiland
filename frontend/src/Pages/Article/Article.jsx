@@ -33,6 +33,7 @@ const Article = () => {
   return (
     <section className="article">
       <div className="container">
+      {isLoading && <Loader />}
         {isSuccess && (
           <>
             <div className="row">
@@ -40,7 +41,7 @@ const Article = () => {
                 <h2 className="article__title">{articleInfo?.data?.title}</h2>
                 <div className="article__imgBox">
                   <img
-                    src={`https://digiland-app.iran.liara.run${articleInfo?.data?.image}`}
+                    src={`http://localhost:8000${articleInfo?.data?.image}`}
                     alt=""
                     className="article__img"
                   />

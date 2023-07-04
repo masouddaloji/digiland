@@ -4,9 +4,7 @@
   padding-top: 0.8rem;
   position: relative;
 }
-.product--loader{
-  height: 80vh;
-}
+
 .product__wrapper {
   width: 100%;
   box-shadow: 0px 1px 7px -3px rgba(0, 0, 0, 0.14);

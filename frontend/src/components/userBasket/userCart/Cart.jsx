@@ -21,6 +21,9 @@ function Cart() {
   const { data: basket, isLoading, isSuccess } = useGetBasketQuery();
   const [postPrice, setPostPrice] = useState(10000);
   return (
+    <>
+      {isLoading && <Loader />}
+      {isSuccess && (
         <>
           {basket?.cartItems?.length ? (
             <div className="row">
@@ -119,7 +122,9 @@ function Cart() {
           ) : (
             <Error title={persianTexts.basket.emptyBasket} type="warning" />
           )}
-</>
+        </>
+      )}
+    </>
   );
 }
 

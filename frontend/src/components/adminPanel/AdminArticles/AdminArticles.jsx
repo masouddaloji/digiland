@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 //packages
 import { DataGrid } from "@mui/x-data-grid";
 import { Link, useNavigate } from "react-router-dom";
@@ -49,7 +49,7 @@ const AdminArticles = () => {
           <img
           alt="article image"
           className="table__img"
-          src={`https://digiland-app.iran.liara.run${params.value}`}
+          src={`http://localhost:8000${params.value}`}
         />
         </div>
       ),
@@ -129,11 +129,11 @@ const AdminArticles = () => {
     },
   ];
   
-  const editHandler = useCallback(() => {
+  const editHandler = () => {
     navigate(`/admin-editarticles/${articleIdSelected}`)
-  },[]);
+  }
 
-  const removeArticleHandler =useCallback( () => {
+  const removeArticleHandler = () => {
     deleteArticle(articleIdSelected).unwrap()
     .then(res=>{
       toast.success(persianTexts.adminArticle.deleteArticleSuccess)
@@ -141,7 +141,7 @@ const AdminArticles = () => {
     .catch(error=>{
       toast.error(persianTexts.adminArticle.deleteArticleError)
     })
-  },[]);
+  }
 
   useTitle("مقالات")
   return (

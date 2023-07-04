@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // packages
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
@@ -39,7 +39,7 @@ const UserSetting = () => {
   }, [selectedProvince]);
 
 
-  const changeInfoHandler = useCallback((data) => {
+  const changeInfoHandler = (data) => {
     const userInfo = {
       ...(data.name ? { name: data.name }:null),
       ...(data.image ? { image: data.image }:null),
@@ -69,7 +69,7 @@ const UserSetting = () => {
         console.log("error", error);
         toast.error("مشکلی در ذخیره تغییرات بوجود امد");
       });
-  },[]);
+  }
   return (
     <>
       {isLoading && <Loader />}

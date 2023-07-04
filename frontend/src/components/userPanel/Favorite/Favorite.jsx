@@ -15,8 +15,7 @@ import {
 } from "../../../features/favorite/favoriteApislice";
 //persian text
 import { persianTexts } from "../../../text";
-//styles
-import "./Favorite.css";
+
 
 const Favorite = () => {
   const [favoriteId,setFavoriteId]=useState(null)
@@ -28,7 +27,7 @@ const Favorite = () => {
     isSuccess,
   } = useGetFavoriteQuery();
 
-  const removeFromFavoriteHandler = useCallback(() => {
+  const removeFromFavoriteHandler = () => {
     removeFromFavorite(favoriteId)
       .unwrap()
       .then((response) => {
@@ -37,7 +36,8 @@ const Favorite = () => {
       .catch((error) => {
         toast.error(persianTexts.favorite.removeFromFavorite.error);
       });
-  },[]);
+  }
+
   useTitle("علاقه مندی ها")
   return (
     <>
@@ -59,7 +59,7 @@ const Favorite = () => {
                 <div className="favorite__item" key={product._id}>
                   <div className="favorite__item-imageBox">
                     <img
-                      src={`https://digiland-app.iran.liara.run${product.image}`}
+                      src={`http://localhost:8000${product.image}`}
                       alt=""
                       className="favorite__item-image"
                     />

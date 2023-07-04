@@ -190,7 +190,7 @@ const Uploader = (props) => {
                   <div className="upload__previewBox" key={nanoid()}>
                     <img
                       className="upload__previewImage"
-                      src={`https://digiland-app.iran.liara.run${item}`}
+                      src={`http://localhost:8000${item}`}
                     />
                   </div>
                 ))
@@ -199,7 +199,7 @@ const Uploader = (props) => {
                 <div className="upload__previewBox">
                   <img
                     className="upload__previewImage"
-                    src={`https://digiland-app.iran.liara.run${field.value}`}
+                    src={`http://localhost:8000${field.value}`}
                   />
                 </div>
               ) : null}

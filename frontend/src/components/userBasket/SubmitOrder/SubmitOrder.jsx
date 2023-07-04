@@ -1,3 +1,4 @@
+import {useState } from "react";
 //packages
 import { Link, useParams } from "react-router-dom";
 //rtk query
@@ -5,12 +6,12 @@ import { useGetOrdersQuery } from "../../../features/order/orderApiSlice";
 //hooks
 import useAuth from "../../../hooks/useAuth";
 import useTitle from "../../../hooks/useTitle";
+import useConvertDate from "../../../hooks/useConvertDate";
 //icons
 import { BsCheckSquare } from "react-icons/bs";
 //styles
 import "./SubmitOrder.css";
-import { useEffect, useState } from "react";
-import useConvertDate from "../../../hooks/useConvertDate";
+import Loader from "../../Loader/Loader";
 
 function SubmitOrder() {
   const [orderDetails, setOrderDetails] = useState(null);
@@ -18,15 +19,14 @@ function SubmitOrder() {
   const { data: orders, isLoading, isSuccess } = useGetOrdersQuery(userID);
   const { oId } = useParams();
   useTitle("ثبت سفارش");
-  console.log("orders", orders);
-
-  console.log("orderDetails", orderDetails);
   let order;
   if (isSuccess) {
     order = orders.filter((order) => order._id === oId);
   }
   return (
     <>
+     {isLoading && <Loader />}
+     {isSuccess && <>
       {order?.length && (
         <div className="submitOrder ss02">
           <div className="submitOrder__success">
@@ -55,6 +55,7 @@ function SubmitOrder() {
           <div className="submitOrder__divider"></div>
         </div>
       )}
+     </>}
     </>
   );
 }

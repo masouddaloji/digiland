@@ -20,7 +20,7 @@ const TextEditor = (props) => {
     const urlimage = uploadCoverArticle(formData)
       .unwrap()
       .then((response) => {
-        return `https://digiland-app.iran.liara.run${response}`;
+        return `http://localhost:8000${response}`;
       })
       .catch((error) => {
         throw new Error("Image upload failed : " + error.message);

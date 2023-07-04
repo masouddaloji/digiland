@@ -35,7 +35,7 @@ const AdminHeader = ({ isShow, setIsShow, width }) => {
               <li>
                 <div className="notofication__img-box">
                   <img
-                    src="https://digiland-app.iran.liara.run/uploads/images/ZNTcoLw_BRgX9AAYcD0UC_boy.jpg"
+                    src="http://localhost:8000/uploads/images/ZNTcoLw_BRgX9AAYcD0UC_boy.jpg"
                     alt=""
                     className="notification__img"
                   />
@@ -49,7 +49,7 @@ const AdminHeader = ({ isShow, setIsShow, width }) => {
               <li>
                 <div className="notofication__img-box">
                   <img
-                   src="https://digiland-app.iran.liara.run/uploads/images/ZNTcoLw_BRgX9AAYcD0UC_boy.jpg"
+                   src="http://localhost:8000/uploads/images/ZNTcoLw_BRgX9AAYcD0UC_boy.jpg"
                     alt=""
                     className="notification__img"
                   />

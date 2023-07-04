@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 //packages
 import { useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
@@ -122,10 +122,10 @@ const AdminUsers = () => {
       ),
     },
   ];
-  const editUserHandler = useCallback(() => {
+  const editUserHandler = () => {
     navigate(`/admin-editusers/${userIdSelected}`);
-  },[]);
-  const removeUserHandler = useCallback(() => {
+  }
+  const removeUserHandler = () => {
     deleteUser(userIdSelected)
       .unwrap()
       .then((res) => {
@@ -134,7 +134,7 @@ const AdminUsers = () => {
       .catch((error) => {
         toast.error(persianTexts.adminUsers.deleteError);
       });
-  },[]);
+  }
   return (
     <>
       {isShowEditModal && (

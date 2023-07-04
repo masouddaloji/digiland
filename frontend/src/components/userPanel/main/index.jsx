@@ -1,8 +1,10 @@
+
 //packages
 import { nanoid } from "@reduxjs/toolkit";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 //rtk query
-import { useGetFavoriteQuery } from "../../../features/favorite/favoriteApislice";
+import { useGetFavoriteQuery, useRemoveFromFavoriteMutation } from "../../../features/favorite/favoriteApislice";
 import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
 //hooks
 import useAuth from "../../../hooks/useAuth";
@@ -60,11 +62,22 @@ const MainPanel = () => {
       icon: <BsFileEarmarkExcel className="userItem__icon" />,
     },
   ];
-
+  const [removeFromFavorite] = useRemoveFromFavoriteMutation();
   let lastOrders;
   if (userInfosSuccess) {
     lastOrders = userInfos?.orders?.slice(0, 2);
   }
+  const removeFromFavoriteHandler = (id) => {
+    removeFromFavorite(id)
+      .unwrap()
+      .then((response) => {
+        toast.success(persianTexts.favorite.removeFromFavorite.success);
+      })
+      .catch((error) => {
+        toast.error(persianTexts.favorite.removeFromFavorite.error);
+      });
+  }
+
   useTitle("حساب کاربری");
   return (
     <>
@@ -140,7 +153,7 @@ const MainPanel = () => {
                       <div className="favorite__item" key={product._id}>
                         <div className="favorite__item-imageBox">
                           <img
-                            src={`https://digiland-app.iran.liara.run${product.image}`}
+                            src={`http://localhost:8000${product.image}`}
                             alt=""
                             className="favorite__item-image"
                           />

@@ -36,6 +36,45 @@ import { TbChecklist, TbTriangle, TbTriangleInverted } from "react-icons/tb";
 //styles
 import "./Product.css";
 
+const showRatingResultPersian = (rate) => {
+  switch (rate) {
+    case 5:
+      return "عالی";
+    case 4:
+      return "خیلی خوب";
+    case 3:
+      return "خوب";
+    case 2:
+      return "متوسط";
+    case 1:
+      return "بد";
+
+    default:
+      break;
+  }
+}
+const selectColorStyle = (persianColor) => {
+  switch (persianColor) {
+    case "قرمز":
+      return { backgroundColor: "red" };
+    case "مشکی":
+      return { backgroundColor: "black" };
+    case "طلائی":
+      return { backgroundColor: "gold" };
+    case "آبی":
+      return { backgroundColor: "blue" };
+    case "سبز":
+      return { backgroundColor: "green" };
+    case "سفید":
+      return { backgroundColor: "white" };
+    case "صورتی":
+      return { backgroundColor: "pink" };
+
+    default:
+      break;
+  }
+}
+
 export default function Product() {
   const { productId } = useParams();
   const {
@@ -49,46 +88,9 @@ export default function Product() {
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
 
-  const showRatingResultPersian = useCallback((rate) => {
-    switch (rate) {
-      case 5:
-        return "عالی";
-      case 4:
-        return "خیلی خوب";
-      case 3:
-        return "خوب";
-      case 2:
-        return "متوسط";
-      case 1:
-        return "بد";
 
-      default:
-        break;
-    }
-  }, []);
-  const selectColorStyle = useCallback((persianColor) => {
-    switch (persianColor) {
-      case "قرمز":
-        return { backgroundColor: "red" };
-      case "مشکی":
-        return { backgroundColor: "black" };
-      case "طلائی":
-        return { backgroundColor: "gold" };
-      case "آبی":
-        return { backgroundColor: "blue" };
-      case "سبز":
-        return { backgroundColor: "green" };
-      case "سفید":
-        return { backgroundColor: "white" };
-      case "صورتی":
-        return { backgroundColor: "pink" };
 
-      default:
-        break;
-    }
-  }, []);
-
-  const addToBasketHandler = useCallback(async (id) => {
+  const addToBasketHandler = async (id) => {
     if (userName) {
       await addToBasket(id)
         .unwrap()
@@ -101,8 +103,8 @@ export default function Product() {
     } else {
       toast.warning(persianTexts.header.notLoginInBasket);
     }
-  }, []);
-  const addToFavoriteHandler = useCallback(async () => {
+  }
+  const addToFavoriteHandler = async () => {
     if (userName) {
       await addToFavorite(productId)
         .unwrap()
@@ -115,11 +117,11 @@ export default function Product() {
     } else {
       toast.warning(persianTexts.header.notLoginInBasket);
     }
-  }, []);
+  }
 
   useTitle(product?.data?.title);
   return (
-    <div className={`product ${isLoading ? "product--loader" : null}`}>
+    <div className="product">
       {isLoading && <Loader />}
       {isSuccess && (
         <div className="container">

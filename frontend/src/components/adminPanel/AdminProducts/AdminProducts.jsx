@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 //packages
 import { Link, useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
@@ -40,10 +40,10 @@ const AdminProducts = () => {
   const [deleteProduct] = useDeleteProductMutation();
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
-  const editHandler =useCallback( () => {
+  const editHandler =() => {
     navigate(`/admin-editproduct/${productIdSelected}`);
-  },[]);
-  const removeProductHandler =useCallback( () => {
+  }
+  const removeProductHandler =() => {
     deleteProduct(productIdSelected)
       .unwrap()
       .then((res) => {
@@ -54,7 +54,7 @@ const AdminProducts = () => {
       .catch((error) => {
         toast.error(persianTexts.adminProduct.deleteProduct.removeProductError);
       });
-  },[]);
+  }
 
   const columns = [
     {
@@ -71,7 +71,7 @@ const AdminProducts = () => {
           <img
             alt="product image"
             className="table__img"
-            src={`https://digiland-app.iran.liara.run${params.row.image}`}
+            src={`http://localhost:8000${params.row.image}`}
           />
         </div>
       ),

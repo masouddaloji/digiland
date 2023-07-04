@@ -732,6 +732,19 @@ a {
   margin: 0 auto;
 }
 /* start favorite */
+.favorite {
+  background-color: var(--white);
+  border-radius: var(--border-box);
+  box-shadow: var(--box-shadow);
+}
+.favorite__header {
+  display: block;
+  width: 100%;
+  font-size: 1.3rem;
+  padding: 0 2rem;
+  line-height: 3.4;
+  border-bottom: 0.1rem solid #f5f5f5;
+}
 .favorite__item-wrapper {
   display: flex;
   overflow-x: auto;
@@ -791,6 +804,13 @@ a {
 }
 .favorite__item-show:hover {
   background-color: var(--gray-text);
+  color: var(--white);
+}
+.favorite__item-delete {
+  background-color: var(--red-05);
+}
+.favorite__item-delete:hover {
+  background-color: var(--red-50);
   color: var(--white);
 }
 /* end favorite */

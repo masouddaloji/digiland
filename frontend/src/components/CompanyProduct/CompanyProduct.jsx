@@ -18,7 +18,7 @@ export default function CompanyProduct(props) {
             <div className="CompanyProduct__banner">
               <img
                 className="CompanyProduct__img"
-                src={`https://digiland-app.iran.liara.run${image}`}
+                src={`http://localhost:8000${image}`}
                 alt="CompanyProduct image"
               />
             </div>

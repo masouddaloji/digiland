@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 //packages
 import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
@@ -49,7 +49,7 @@ function CheckInformation() {
   const [cities, setCities] = useState([]);
  
 
-const addToOrderHandler = useCallback(async () => {
+const addToOrderHandler = async () => {
   if (basket?.cartItems?.length) {
       addToOrder(basket.cartItems[0].productId._id).unwrap()
       .then(response=>{
@@ -62,7 +62,7 @@ const addToOrderHandler = useCallback(async () => {
         console.log("error add order",error);
       })
   }
-},[]);
+}
 
   useEffect(() => {
     if (Iran[selectedProvince]) {

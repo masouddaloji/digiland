@@ -1,15 +1,13 @@
-.app__wrapper{
+.app__wrapper {
   width: 100%;
   height: 100vh;
   overflow-y: scroll;
   direction: ltr;
-
 }
 .app {
   width: 100%;
   height: 100%;
   direction: rtl;
-
 }
 ::-webkit-scrollbar {
   width: 1.4rem;
@@ -17,19 +15,51 @@
 ::-webkit-scrollbar-track {
   background-color: var(--gray-05);
 }
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: var(--gray-25);
   min-height: 3rem;
   border-radius: 2.5rem;
-  border: .4rem solid transparent;
+  border: 0.4rem solid transparent;
   background-clip: content-box;
 }
-::-webkit-scrollbar-thumb:hover{
+::-webkit-scrollbar-thumb:hover {
   background-color: var(--gray-75);
-
 }
-@media (max-width:991px){
-  ::-webkit-scrollbar{
+.error_boundary {
+  width: 80%;
+  background-color: var(--white);
+  padding: 1.5rem 1rem;
+  border-radius: var(--border-box);
+  box-shadow: var(--box-shadow);
+  margin: 5rem auto;
+  color: var(--black-05);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+.error_boundary p {
+  padding-top: 1rem;
+}
+.error_boundary button {
+  border: none;
+  outline: none;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  background-color: var(--blue);
+  color: var(--white);
+  cursor: pointer;
+}
+
+@media (max-width: 575px) {
+  .error_boundary {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+@media (max-width: 991px) {
+  ::-webkit-scrollbar {
     display: none;
   }
 }

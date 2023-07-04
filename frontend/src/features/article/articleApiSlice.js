@@ -25,7 +25,7 @@ const articleApiSlice = shopApi.injectEndpoints({
     }),
     uploadCoverArticle: builder.mutation({
       query: (data) => ({
-        url: "https://digiland-app.iran.liara.run/upload/articleimg",
+        url: "http://localhost:8000/upload/articleimg",
         method: "POST",
         body: data,
       }),

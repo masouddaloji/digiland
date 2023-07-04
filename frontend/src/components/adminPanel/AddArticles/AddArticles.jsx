@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 //packages
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
@@ -29,7 +28,7 @@ const AddArticles = () => {
     articleWriter: "",
     articleCategory: "",
   };
-  const createNewArticle = useCallback((articleInfo) => {
+  const createNewArticle = (articleInfo) => {
     const data = {
       title: articleInfo.articleTitle,
       image: articleInfo.articleImage,
@@ -46,7 +45,7 @@ const AddArticles = () => {
       .catch((error) => {
         toast.error(persianTexts.addArticle.addArticleError);
       });
-  },[]);
+  }
 
   return (
     <Formik

@@ -17,7 +17,7 @@ export default function ArticleBox(props) {
           <Link className="articleBox__link" to={`/article/${_id}`}>
             <div className="articleBox__banner">
               <img
-                src={`https://digiland-app.iran.liara.run${image}`}
+                src={`http://localhost:8000${image}`}
                 alt="article banner"
                 className="articleBox__img"
               />

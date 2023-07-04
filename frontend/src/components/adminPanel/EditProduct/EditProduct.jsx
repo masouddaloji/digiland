@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+
 //packages
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
@@ -36,7 +36,7 @@ const EditProduct = () => {
 
   const [updateProduct] = useUpdateProductMutation();
 
-  const updateProductHandler = useCallback((productInfos) => {
+  const updateProductHandler = (productInfos) => {
     const data = {
       title: productInfos.productTitle,
       segment: productInfos.productSegment,
@@ -63,7 +63,7 @@ const EditProduct = () => {
         console.log("errore", error);
         toast.error(persianTexts.editProduct.editProductError);
       });
-  },[]);
+  }
 
   useTitle("ویرایش محصول");
   return (

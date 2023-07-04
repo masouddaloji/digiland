@@ -28,7 +28,7 @@ const LastArticles = ({ isLoading }) => {
                     className="last-articles__link"
                   >
                     <img
-                      src={`https://digiland-app.iran.liara.run${article.image}`}
+                      src={`http://localhost:8000${article.image}`}
                       alt=""
                       className="last-articles__img"
                     />

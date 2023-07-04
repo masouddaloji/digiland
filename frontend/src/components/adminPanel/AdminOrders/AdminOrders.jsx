@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 //packages
 import { DataGrid } from "@mui/x-data-grid";
 import { Tooltip } from "@mui/material";
@@ -53,7 +53,7 @@ const AdminOrders = () => {
           <img
             alt="product image"
             className="table__img"
-            src={`https://digiland-app.iran.liara.run${params.row.productId.image}`}
+            src={`http://localhost:8000${params.row.productId.image}`}
           />
         </div>
       ),
@@ -177,7 +177,7 @@ const AdminOrders = () => {
   ];
   const rows = orders?.data ?? [];
 
-  const acceptOrderHandler = useCallback(() => {
+  const acceptOrderHandler =() => {
     const data = {
       orderId,
       status: "delivered",
@@ -192,9 +192,9 @@ const AdminOrders = () => {
         console.log("error", error);
         toast.error(persianTexts.adminOrders.orderAcceptError);
       });
-  },[]);
+  }
 
-  const rejectOrderHandler = useCallback(() => {
+  const rejectOrderHandler =() => {
     const data = {
       orderId,
       status: "cancelled",
@@ -209,7 +209,7 @@ const AdminOrders = () => {
         console.log("error", error);
         toast.error(persianTexts.adminOrders.orderReject);
       });
-  },[]);
+  }
 
   return (
     <>

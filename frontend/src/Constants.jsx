@@ -39,37 +39,37 @@ export const services = [
     id: nanoid(),
     title: "موبایل و لپ تاپ",
     icon: <MdOutlineDevices className="f-24" />,
-    link: "/",
+    link: "/products/digital",
   },
   {
     id: nanoid(),
     title: "ماشین های اداری",
     icon: <BsPrinter className="f-24" />,
-    link: "/",
+    link: "/products/digital/workstation",
   },
   {
     id: nanoid(),
     title: "صوتی و تصویری",
     icon: <TbDeviceTvOld className="f-24" />,
-    link: "/",
+    link: "/products/household-appliances",
   },
   {
     id: nanoid(),
     title: "زیبایی و سلامت",
     icon: <RiHeartPulseLine className="f-24" />,
-    link: "/",
+    link: "/products/beauty-health",
   },
   {
     id: nanoid(),
     title: "ورزش و سرگرمی",
     icon: <IoMdFootball className="f-24" />,
-    link: "/",
+    link: "/products/sport-entertainment",
   },
   {
     id: nanoid(),
     title: "ابزارآلات",
     icon: <BsTools className="f-24" />,
-    link: "/",
+    link: "/products/tools-electronics",
   },
 ];
 export const menus = [

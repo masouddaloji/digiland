@@ -28,7 +28,7 @@ export default function SuggestedProductBox(props) {
           <div className="product__imgBox">
             <Link to={`/product/${_id}`}>
               <img
-                src={`https://digiland-app.iran.liara.run${image}`}
+                src={`http://localhost:8000${image}`}
                 alt="off product image"
                 className="product__img"
               />

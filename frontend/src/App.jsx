@@ -1,9 +1,9 @@
-import { Suspense } from "react";
-import { lazy } from "react";
+import { lazy,Suspense } from "react";
 // packages
 import { Routes, Route } from "react-router-dom";
 import {ErrorBoundary} from 'react-error-boundary'
-
+//components
+import Loader from "./components/Loader/Loader";
 
 const Loadable = (Component) => (props) => {
   return (
@@ -30,7 +30,7 @@ const Index = Loadable(lazy(() => import("./Pages/HomePage/Index")))
 const ProductsCategory = Loadable(lazy(() =>import("./Pages/ProductsCategory/ProductsCategory")))
 const Product = Loadable(lazy(() => import("./Pages/Product/Product")))
 const Cart = Loadable(lazy(() => import("./components/userBasket/userCart/Cart")))
-
+const Favorite = Loadable(lazy(() => import("./components/userPanel/Favorite/Favorite")))
 const CheckInformation = Loadable(lazy(() =>import("./components/userBasket/CheckInformation/CheckInformation")))
 const SubmitOrder = Loadable(lazy(() =>import("./components/userBasket/SubmitOrder/SubmitOrder")))
 const MainAdmin = Loadable(lazy(() => import("./components/adminPanel/main/MainAdmin")))
@@ -42,7 +42,6 @@ const AddProduct = Loadable(lazy(() =>import("./components/adminPanel/AddProduct
 const EditProduct = Loadable(lazy(() =>import("./components/adminPanel/EditProduct/EditProduct")))
 const Orders = Loadable(lazy(() => import("./components/userPanel/Orders/Orders")))
 const MainPanel = Loadable(lazy(() => import("./components/userPanel/main")))
-const Favorite = Loadable(lazy(() => import("./components/userPanel/Favorite/Favorite")))
 const UserSetting = Loadable(lazy(() =>import("./components/userPanel/UserSetting/UserSetting")))
 const Address = Loadable(lazy(() => import("./components/userPanel/Address/Address")))
 const AddArticles = Loadable(lazy(() =>import("./components/adminPanel/AddArticles/AddArticles")))
@@ -53,17 +52,17 @@ const EditUser = Loadable(lazy(() =>import("./components/adminPanel/EditUser/Edi
 const OrderInfo = Loadable(lazy(() =>import("./components/userPanel/OrderInfo/OrderInfo")))
 const NotFound = Loadable(lazy(() => import("./Pages/NotFound/NotFound")))
 
+
 // styles
 import "./App.css";
-import Loader from "./components/Loader/Loader";
 
 export default function App() {
   function ErrorFallback({ error, resetErrorBoundary }) {
     return (
-      <div role="alert">
-        <p>Something went wrong:</p>
+      <div role="alert" className="error_boundary">
+        <p>ارتباط با سرور برقرار نشد</p>
         <pre>{error.message}</pre>
-        <button onClick={resetErrorBoundary}>Try again</button>
+        <button onClick={resetErrorBoundary}>تازه سازی صفحه</button>
       </div>
     );
   }
@@ -88,18 +87,7 @@ export default function App() {
                 />
               </Route>
               {/* end product  */}
-              {/* start basket */}
-              <Route element={<RequiredLogin />}>
-                <Route element={<BasketLayout />}>
-                  <Route path="/basket" element={<Cart />} />
-                  <Route
-                    path="/check-information"
-                    element={<CheckInformation />}
-                  />
-                  <Route path="/order-pay/:oId" element={<SubmitOrder />} />
-                </Route>
-              </Route>
-              {/* end basket */}
+        
               {/* start product info */}
               <Route path="/product/:productId" element={<Product />} />
               {/* end product info */}
@@ -109,7 +97,6 @@ export default function App() {
               {/* end article  */}
             </Route>
             {/* start adminpanel */}
-            <Route element={<PersistLogin />}>
               <Route element={<PrivateRoute />}>
                 <Route element={<AdminPanelLayout />}>
                   <Route path="/adminpanel" element={<MainAdmin />} />
@@ -133,9 +120,20 @@ export default function App() {
                   />
                 </Route>
               </Route>
-            </Route>
             {/* end adminpanel */}
-
+                  {/* start basket */}
+                  <Route element={<RequiredLogin />}>
+                <Route element={<BasketLayout />}>
+                  <Route path="/basket" element={<Cart />} />
+                  <Route
+                    path="/check-information"
+                    element={<CheckInformation />}
+                  />
+                  <Route path="/order-pay/:oId" element={<SubmitOrder />} />
+                </Route>
+              </Route>
+              {/* end basket */}
+              {/* start user panel */}
             <Route element={<RequiredLogin />}>
               <Route element={<UserPanel />}>
                 <Route path="/userpanel" element={<MainPanel />} />

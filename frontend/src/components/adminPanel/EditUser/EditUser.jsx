@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 //packages
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Formik } from "formik";
@@ -39,7 +39,7 @@ const EditUser = () => {
     street: userInfos?.addresses[0]?.street ?? "",
     postalCode: userInfos?.addresses[0]?.postalCode ?? "",
   };
-  const changeInfoHandler = useCallback((data) => {
+  const changeInfoHandler = (data) => {
     const userInfo = {
       ...(data.name && { name: data.name }),
       ...(data.image && { image: data.image }),
@@ -66,7 +66,7 @@ const EditUser = () => {
         console.log("error", error);
         toast.error(persianTexts.editUser.updateError);
       });
-  },[]);
+  }
 
   useEffect(() => {
     if (Iran[selectedProvince]) setCities(Iran[selectedProvince]);
