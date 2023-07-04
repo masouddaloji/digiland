@@ -12,13 +12,8 @@ const AdminPanelLayout = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [isShowSidebar, setIsShowSidebar] = useState(false);
 
-<<<<<<< HEAD
   const resizeHandler = useCallback(() => setWidth(window.innerWidth),[]);
   useEffect(() => {
-=======
-  useEffect(() => {
-    const resizeHandler = useCallback(() => setWidth(window.innerWidth),[]);
->>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
     window.addEventListener("resize", resizeHandler);
     return () => window.removeEventListener("resize", resizeHandler);
   }, [window.innerWidth]);

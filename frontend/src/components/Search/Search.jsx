@@ -34,12 +34,10 @@ const Search = () => {
     isError,
   } = useGetProductsQuery({ ...searchParams });
 
-  const searchHandler = useCallback(() => setShowResult(true), []);
+  const searchHandler = () => setShowResult(true);
 
-  const setSearchbyDebounce = useCallback(
-    () => setSearchParams((prev) => ({ ...prev, search: debounceQuery })),
-    []
-  );
+  const setSearchbyDebounce = () =>
+    setSearchParams((prev) => ({ ...prev, search: debounceQuery }));
 
   useEffect(() => {
     setSearchbyDebounce();

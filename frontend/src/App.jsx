@@ -4,6 +4,7 @@ import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import {ErrorBoundary} from 'react-error-boundary'
 
+
 const Loadable = (Component) => (props) => {
   return (
     <Suspense fallback={<Loader />}>
@@ -19,11 +20,12 @@ import RequiredLogin from "./components/userPanel/RequiredLogin/RequiredLogin";
 //layouts
 import Layout from "./components/Layout/Layout"
 import BasketLayout from "./Pages/BasketLayout/BasketLayout"
-const AdminPanelLayout= Loadable(lazy(() => import("./Pages/AdminPanel/AdminPanelLayout")))
-const UserPanel= Loadable(lazy(() => import("./Pages/UserPanelLayout/Index")))
+import AdminPanelLayout from "./Pages/AdminPanel/AdminPanelLayout"
+import UserPanel from "./Pages/UserPanelLayout/Index"
 // pages
 import Login from "./Pages/Login/Login"
 import Register from "./Pages/Register/Register"
+
 const Index = Loadable(lazy(() => import("./Pages/HomePage/Index")))
 const ProductsCategory = Loadable(lazy(() =>import("./Pages/ProductsCategory/ProductsCategory")))
 const Product = Loadable(lazy(() => import("./Pages/Product/Product")))

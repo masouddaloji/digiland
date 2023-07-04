@@ -15,11 +15,7 @@ const PrivateRoute = () => {
       <Navigate to="/login" state={{ from: location }} replace />
     )
   ) : (
-<<<<<<< HEAD
    null
-=======
-    <Loader />
->>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   );
 
   return content;

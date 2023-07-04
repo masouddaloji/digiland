@@ -20,7 +20,6 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../../features/auth/authSlice";
 
 export default function ProductCart(props) {
-<<<<<<< HEAD
   const token=useSelector(selectToken)
   const[addToBasket]=useAddToBasketMutation()
   const[addToFavorite]=useAddToFavoriteMutation()
@@ -41,23 +40,6 @@ if(token){
 
   const addToFavoriteHandler =useCallback( async() => {
   if(token){
-=======
-  const[addToBasket]=useAddToBasketMutation()
-  const[addToFavorite]=useAddToFavoriteMutation()
-  const { _id, title, image, offPrice, price, rating,  isLoading, isSuccess  } = props;
-
-  const addToBasketHandler = useCallback(async() => {
-    await addToBasket(_id).unwrap()
-    .then(()=>{
-      toast.success(persianTexts.basket.addtobasketSuccess)
-    })
-    .catch((error)=>{
-      toast.error(persianTexts.basket.addtobasketError)
-    })
-  },[]);
-
-  const addToFavoriteHandler =useCallback( async() => {
->>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
     await addToFavorite(_id).unwrap()
     .then(()=>{
       toast.success(persianTexts.favorite.addtoFavorite.success)
@@ -65,12 +47,9 @@ if(token){
     .catch((error)=>{
       toast.error(persianTexts.favorite.addtoFavorite.error)
     })
-<<<<<<< HEAD
   }else{
     toast.warning(persianTexts.favorite.addtoFavorite.notLogin)
   }
-=======
->>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   },[]);
 
   return (

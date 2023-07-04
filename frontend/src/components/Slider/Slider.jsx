@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-=======
-import { useCallback } from "react";
->>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
 //packages
 import { Autoplay, Pagination, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -32,7 +27,7 @@ function Slider({
   slidesPerView ,
   ...restprops
 }) {
-  const selectslide = useCallback((item) => {
+  const selectslide =(item) => {
     switch (slide) {
       case "SuggestedProductBox":
         return (
@@ -77,11 +72,7 @@ function Slider({
       default:
         return null;
     }
-<<<<<<< HEAD
   }
-=======
-  },[]);
->>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   return (
     <Swiper
       {...restprops}
