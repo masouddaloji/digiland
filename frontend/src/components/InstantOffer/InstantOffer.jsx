@@ -18,7 +18,7 @@ const InstantOffer = (props) => {
           </div>
           <div className="instantOffer__imgBox">
             <img
-              src={`http://localhost:8000${image}`}
+              src={`https://digiland-app.iran.liara.run${image}`}
               alt="instantOffer image"
               className="instantOffer__img"
             />

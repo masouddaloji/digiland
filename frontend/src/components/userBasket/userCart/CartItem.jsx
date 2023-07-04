@@ -41,7 +41,7 @@ const CartItem = (props) => {
       <td>
         <Link to={`/product/${_id}`} className="cart__productImglink">
           <img
-            src={`http://localhost:8000${image}`}
+            src={`https://digiland-app.iran.liara.run${image}`}
             alt="image products"
             className="cart__productImg"
           />

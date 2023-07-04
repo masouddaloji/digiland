@@ -55,7 +55,6 @@ const AdminProducts = () => {
         toast.error(persianTexts.adminProduct.deleteProduct.removeProductError);
       });
   },[]);
-<<<<<<< HEAD
 
   const columns = [
     {
@@ -72,7 +71,7 @@ const AdminProducts = () => {
           <img
             alt="product image"
             className="table__img"
-            src={`http://localhost:8000${params.row.image}`}
+            src={`https://digiland-app.iran.liara.run${params.row.image}`}
           />
         </div>
       ),
@@ -163,117 +162,6 @@ const AdminProducts = () => {
     },
   ];
 
-=======
-  function getRowClassName(params) {
-    return params.rowIndex % 2 === 0 ? "even-row" : "odd-row";
-  }
-  const columns = [
-    {
-      field: "image",
-      headerName: "عکس",
-      width: 60,
-      align: "center",
-      headerAlign: "center",
-      editable: false,
-      sortable: false,
-      disableColumnMenu: true,
-      renderCell: (params) => (
-        <div className="table__imageBox">
-          <img
-            alt="product image"
-            className="table__img"
-            src={`http://localhost:8000${params.row.image}`}
-          />
-        </div>
-      ),
-    },
-    {
-      field: "title",
-      headerName: "محصول",
-      minWidth: 200,
-      flex: 1,
-      align: "start",
-      headerAlign: "center",
-      renderCell: (params) => (
-        <Tooltip title={params.value} classes={{ tooltip: "custom__tooltip" }}>
-          <span>{params.value}</span>
-        </Tooltip>
-      ),
-    },
-    {
-      field: "price",
-      headerName: "قیمت",
-      width: 100,
-      align: "center",
-      headerAlign: "center",
-      renderCell: (params) => (
-        <Tooltip
-          title={params.value.toLocaleString() + " تومان"}
-          classes={{ tooltip: "custom__tooltip" }}
-        >
-          <span>{params.value.toLocaleString() + " تومان"}</span>
-        </Tooltip>
-      ),
-    },
-    {
-      field: "quantity",
-      headerName: "تعداد",
-      width: 60,
-      align: "center",
-      headerAlign: "center",
-      renderCell: (params) => (
-        <Tooltip title={params.value} classes={{ tooltip: "custom__tooltip" }}>
-          <span>{params.value}</span>
-        </Tooltip>
-      ),
-    },
-    {
-      field: "rating",
-      headerName: "امتیاز",
-      minWidth: 130,
-      headerAlign: "center",
-      align: "center",
-      renderCell: (params) => Star(params.row.rating),
-    },
-    {
-      field: "action",
-      headerName: "عملیات ها",
-      align: "center",
-      width: 100,
-      headerAlign: "center",
-      editable: false,
-      sortable: false,
-      disableColumnMenu: true,
-      renderCell: (params) => (
-        <div className="actionBtns">
-          <Tooltip title="ویرایش" classes={{ tooltip: "custom__tooltip" }}>
-            <button
-              className="edit"
-              onClick={() => {
-                setIsShowEditModal(true);
-                setProductIdSelected(params.row._id);
-              }}
-            >
-              <FiEdit className="actions__icon" />
-            </button>
-          </Tooltip>
-          <Tooltip title="حذف" classes={{ tooltip: "custom__tooltip" }}>
-            <button
-              className="delete"
-              onClick={() => {
-                setIsShowDeleteModal(true);
-                setProductIdSelected(params.row._id);
-              }}
-            >
-              <RiDeleteBinLine className="actions__icon" />
-            </button>
-          </Tooltip>
-        </div>
-      ),
-    },
-  ];
-
->>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   const rows = products?.data ?? [];
   useTitle("محصولات")
   return (
@@ -317,10 +205,6 @@ const AdminProducts = () => {
                   loading={isLoading}
                   disableColumnSelector={true}
                   disableRowSelectionOnClick={true}
-<<<<<<< HEAD
-=======
-                  getRowClassName={getRowClassName}
->>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
                   className="ss02 customdata"
                 />
               </div>

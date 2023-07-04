@@ -15,7 +15,6 @@ import { persianTexts } from "../../../text";
 import { FaChevronLeft, FaShippingFast } from "react-icons/fa";
 //styles
 import "./Cart.css";
-import Loader from "../../Loader/Loader";
 
 function Cart() {
   useTitle("سبد خرید");

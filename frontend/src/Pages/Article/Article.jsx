@@ -23,30 +23,16 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import "./Article.css";
 
 const Article = () => {
-<<<<<<< HEAD
-=======
-  useTitle(articleInfo?.data?.title)
->>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
   const { token } = useSelector((state) => state.auth);
   const { articleId } = useParams();
   const {
     data: articleInfo,
-<<<<<<< HEAD
     isSuccess,
   } = useGetArticleByIdQuery(articleId);
   useTitle(articleInfo?.data?.title)
   return (
     <section className="article">
       <div className="container">
-=======
-    isLoading,
-    isSuccess,
-  } = useGetArticleByIdQuery(articleId);
-  return (
-    <section className="article">
-      <div className="container">
-        {isLoading && <Loader />}
->>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
         {isSuccess && (
           <>
             <div className="row">
@@ -54,7 +40,7 @@ const Article = () => {
                 <h2 className="article__title">{articleInfo?.data?.title}</h2>
                 <div className="article__imgBox">
                   <img
-                    src={`http://localhost:8000${articleInfo?.data?.image}`}
+                    src={`https://digiland-app.iran.liara.run${articleInfo?.data?.image}`}
                     alt=""
                     className="article__img"
                   />
@@ -100,11 +86,7 @@ const Article = () => {
 
                   {articleInfo?.related?.length && (
               <Slider
-<<<<<<< HEAD
                 isLoading={false}
-=======
-                isLoading={isLoading}
->>>>>>> 33141c47ad9eb4d4803098adedfff5306c9a917b
                 isSuccess={isSuccess}
                 slidesPerView={3}
                 spaceBetween={15}

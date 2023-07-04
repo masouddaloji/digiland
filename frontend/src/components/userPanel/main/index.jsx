@@ -140,7 +140,7 @@ const MainPanel = () => {
                       <div className="favorite__item" key={product._id}>
                         <div className="favorite__item-imageBox">
                           <img
-                            src={`http://localhost:8000${product.image}`}
+                            src={`https://digiland-app.iran.liara.run${product.image}`}
                             alt=""
                             className="favorite__item-image"
                           />

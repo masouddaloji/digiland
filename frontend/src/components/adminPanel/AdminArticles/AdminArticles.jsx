@@ -49,7 +49,7 @@ const AdminArticles = () => {
           <img
           alt="article image"
           className="table__img"
-          src={`http://localhost:8000${params.value}`}
+          src={`https://digiland-app.iran.liara.run${params.value}`}
         />
         </div>
       ),

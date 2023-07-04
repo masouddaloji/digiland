@@ -60,7 +60,7 @@ const ProductGallery = ({ array = [] }) => {
           <SwiperSlide key={index}>
             <div className="slider-larg-img-box">
               <img
-                src={`http://localhost:8000${item}`}
+                src={`https://digiland-app.iran.liara.run${item}`}
                 alt="product image"
                 className="product__largeImage"
                 onTouchStart={handleMouseEnter}
@@ -112,7 +112,7 @@ const ProductGallery = ({ array = [] }) => {
           {array?.map((item, index) => (
             <SwiperSlide key={index}>
               <img
-                src={`http://localhost:8000${item}`}
+                src={`https://digiland-app.iran.liara.run${item}`}
                 alt="product image"
                 className="product__smallImage"
               />

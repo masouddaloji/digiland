@@ -1,10 +1,9 @@
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 // Packages
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
-import jwtDecode from "jwt-decode";
 //redux
 import { useDispatch } from "react-redux";
 import { setToken } from "../../features/auth/authSlice";

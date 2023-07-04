@@ -42,8 +42,6 @@ export default function Product() {
     data: product,
     isSuccess,
     isLoading,
-    isError,
-    error,
   } = useGetProductByIdQuery(productId);
   const [addToBasket] = useAddToBasketMutation();
   const [addToFavorite] = useAddToFavoriteMutation();

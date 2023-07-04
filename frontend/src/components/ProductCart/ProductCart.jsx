@@ -58,7 +58,7 @@ if(token){
         <div className="productBox">
           <div className="product__imgBox">
             <img
-              src={`http://localhost:8000${image}`}
+              src={`https://digiland-app.iran.liara.run${image}`}
               alt="new product image"
               className="product__img"
             />

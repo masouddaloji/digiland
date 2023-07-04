@@ -83,7 +83,7 @@ const SidebarUser = ({ isShow, setshow }) => {
               <div className="user-sidebar__profile-box-border"></div>
               {isSuccess && data?.image ? (
                 <img
-                  src={`http://localhost:8000${data.image}`}
+                  src={`https://digiland-app.iran.liara.run${data.image}`}
                   alt=""
                   className="user-sidebar__profile-img"
                 />

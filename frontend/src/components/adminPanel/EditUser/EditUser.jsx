@@ -19,8 +19,7 @@ import { Iran } from "../../../Constants";
 import { persianTexts } from "../../../text";
 //icons
 import { MdUploadFile } from "react-icons/md";
-//styles
-import "./EditUser.css";
+
 
 const EditUser = () => {
   const { userId } = useParams();

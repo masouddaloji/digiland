@@ -31,7 +31,7 @@ const SidebarCartItem = (props) => {
       <div className="sideBarCartItem__imgBox">
         <Link to={`/product/${_id}`} className="sideBarCartItem__Link">
           <img
-            src={`http://localhost:8000${image}`}
+            src={`https://digiland-app.iran.liara.run${image}`}
             alt="mini image products"
             className="sideBarCartItem__img"
           />

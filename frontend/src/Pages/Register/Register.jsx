@@ -16,8 +16,7 @@ import FormControl from "../../components/FormControl/FormControl";
 import { RegisterSchema } from "../../components/Validator/Validator";
 // text
 import { persianTexts } from "../../text";
-// styles
-import "./Register.css";
+
 
 export default function Register() {
   const [registerUser, { isSuccess, isLoading, isError }] =

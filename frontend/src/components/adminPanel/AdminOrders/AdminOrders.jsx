@@ -53,7 +53,7 @@ const AdminOrders = () => {
           <img
             alt="product image"
             className="table__img"
-            src={`http://localhost:8000${params.row.productId.image}`}
+            src={`https://digiland-app.iran.liara.run${params.row.productId.image}`}
           />
         </div>
       ),

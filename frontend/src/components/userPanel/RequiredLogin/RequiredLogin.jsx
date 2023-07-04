@@ -4,7 +4,6 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 //redux
 import { selectToken } from "../../../features/auth/authSlice";
 import { useEffect, useState } from "react";
-import Loader from "../../Loader/Loader";
 
 const RequiredLogin = () => {
   const location = useLocation();

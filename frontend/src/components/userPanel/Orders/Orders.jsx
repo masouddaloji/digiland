@@ -21,13 +21,12 @@ const Orders = () => {
   const[orderId,setOrderId]=useState(null)
   const[isShowDeleteOrder,setIsShowDeleteOrder]=useState(false)
   const { userID } = useAuth();
-  // const { data, isLoading, isSuccess } = useGetUserByIdQuery(userID);
   const{data:orders ,isLoading,isSuccess}=useGetOrdersQuery(userID)
   const [removeOrderByUser]=useRemoveOrderByUserMutation()
   const navigate = useNavigate();
   useTitle("سفارشات کاربر")
 
-  const rejectOrderHandler=useCallback(()=>{
+  const rejectOrderHandler=()=>{
     removeOrderByUser(orderId).unwrap()
     .then(res=>{
       toast.success(persianTexts.userOrders.successDelete)
@@ -36,7 +35,7 @@ const Orders = () => {
       toast.error(persianTexts.userOrders.errorDelete)
       console.log("error",error);
     })
-  },[])
+  }
 
 
   return (
