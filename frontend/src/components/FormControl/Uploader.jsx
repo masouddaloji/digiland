@@ -13,6 +13,8 @@ import { persianTexts } from "../../text";
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import { useUploadProfileMutation } from "../../features/user/userApiSlice";
 import { useUploadCoverArticleMutation } from "../../features/article/articleApiSlice";
+//utils
+import { addImageFallback } from "../../utils/utils";
 
 const Uploader = (props) => {
   const [field, meta, helpers] = useField(props);
@@ -190,7 +192,8 @@ const Uploader = (props) => {
                   <div className="upload__previewBox" key={nanoid()}>
                     <img
                       className="upload__previewImage"
-                      src={`http://localhost:8000${item}`}
+                      src={`https://digiland-app.iran.liara.run${item}`}
+                      onError={addImageFallback}
                     />
                   </div>
                 ))
@@ -199,7 +202,8 @@ const Uploader = (props) => {
                 <div className="upload__previewBox">
                   <img
                     className="upload__previewImage"
-                    src={`http://localhost:8000${field.value}`}
+                    src={`https://digiland-app.iran.liara.run${field.value}`}
+                    onError={addImageFallback}
                   />
                 </div>
               ) : null}

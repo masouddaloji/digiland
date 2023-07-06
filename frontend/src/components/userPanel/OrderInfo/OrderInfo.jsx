@@ -2,6 +2,7 @@
 import { useParams } from "react-router-dom";
 //rtk query
 import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
+import { useGetOrdersQuery } from "../../../features/order/orderApiSlice";
 //components
 import Loader from "../../Loader/Loader";
 //hooks
@@ -20,10 +21,11 @@ import "./OrderInfo.css";
 const OrderInfo = () => {
   const { orderId } = useParams();
   const { userID } = useAuth();
+  const { data: orders, isLoading:ordersLoading, isSuccess:ordersSuccess } = useGetOrdersQuery(userID);
   const { data: userData, isLoading, isSuccess } = useGetUserByIdQuery(userID);
   let orderDetails;
-  if (isSuccess) {
-    orderDetails = userData?.orders?.find((order) => order._id === orderId);
+  if (ordersSuccess) {
+    orderDetails = orders?.find((order) => order._id === orderId);
   }
   useTitle("جزئیات سفارش")
   return (

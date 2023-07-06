@@ -1,7 +1,8 @@
 //packages
 import { Link } from "react-router-dom";
 import { Skeleton, Stack, Tooltip } from "@mui/material";
-
+//utils
+import { addImageFallback } from "../../utils/utils";
 //styles
 import "./instantOffer.css";
 
@@ -18,9 +19,10 @@ const InstantOffer = (props) => {
           </div>
           <div className="instantOffer__imgBox">
             <img
-              src={`http://localhost:8000${image}`}
+              src={`https://digiland-app.iran.liara.run${image}`}
               alt="instantOffer image"
               className="instantOffer__img"
+              onError={addImageFallback}
             />
           </div>
           <Tooltip placement="bottom" arrow title= {title} classes={{ tooltip: "custom__tooltip" }}>

@@ -5,6 +5,8 @@ import { Skeleton, Stack, Tooltip } from "@mui/material";
 import useConvertDate from "../../hooks/useConvertDate";
 //icons
 import { BsClockHistory } from "react-icons/bs";
+//utils
+import { addImageFallback } from "../../utils/utils";
 //styles
 import "./ArticleBox.css";
 
@@ -17,9 +19,10 @@ export default function ArticleBox(props) {
           <Link className="articleBox__link" to={`/article/${_id}`}>
             <div className="articleBox__banner">
               <img
-                src={`http://localhost:8000${image}`}
+                src={`https://digiland-app.iran.liara.run${image}`}
                 alt="article banner"
                 className="articleBox__img"
+                onError={addImageFallback}
               />
             </div>
             <Tooltip arrow title={title} classes={{ tooltip: "custom__tooltip" }}>

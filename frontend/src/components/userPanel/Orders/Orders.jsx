@@ -33,7 +33,6 @@ const Orders = () => {
     })
     .catch(error=>{
       toast.error(persianTexts.userOrders.errorDelete)
-      console.log("error",error);
     })
   }
 

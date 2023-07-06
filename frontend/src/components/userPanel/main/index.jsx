@@ -19,6 +19,8 @@ import { BsFileEarmarkExcel } from "react-icons/bs";
 import { FaAngleLeft, FaMoneyCheckAlt } from "react-icons/fa";
 import { MdOutlineContentPasteSearch } from "react-icons/md";
 import { HiOutlineDocumentCheck } from "react-icons/hi2";
+//utils
+import { addImageFallback } from "../../../utils/utils";
 //persian text
 import { persianTexts } from "../../../text";
 //styles
@@ -153,9 +155,10 @@ const MainPanel = () => {
                       <div className="favorite__item" key={product._id}>
                         <div className="favorite__item-imageBox">
                           <img
-                            src={`http://localhost:8000${product.image}`}
+                            src={`https://digiland-app.iran.liara.run${product.image}`}
                             alt=""
                             className="favorite__item-image"
+                            onError={addImageFallback}
                           />
                         </div>
                         <h4 className="favorite__item-title">

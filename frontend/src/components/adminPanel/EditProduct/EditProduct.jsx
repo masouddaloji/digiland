@@ -60,7 +60,6 @@ const EditProduct = () => {
         navigate("/adminproducts");
       })
       .catch((error) => {
-        console.log("errore", error);
         toast.error(persianTexts.editProduct.editProductError);
       });
   }

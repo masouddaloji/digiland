@@ -15,12 +15,11 @@ const TextEditor = (props) => {
   const handleImageUpload =useCallback( async (blobInfo, progress) => {
     const formData = new FormData();
     formData.append("image", blobInfo.blob());
-    console.log("blobInfo.blob()", blobInfo.blob());
 
     const urlimage = uploadCoverArticle(formData)
       .unwrap()
       .then((response) => {
-        return `http://localhost:8000${response}`;
+        return `https://digiland-app.iran.liara.run${response}`;
       })
       .catch((error) => {
         throw new Error("Image upload failed : " + error.message);

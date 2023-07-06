@@ -15,6 +15,8 @@ import {
 } from "../../../features/favorite/favoriteApislice";
 //persian text
 import { persianTexts } from "../../../text";
+//utils
+import { addImageFallback } from "../../../utils/utils";
 
 
 const Favorite = () => {
@@ -59,9 +61,10 @@ const Favorite = () => {
                 <div className="favorite__item" key={product._id}>
                   <div className="favorite__item-imageBox">
                     <img
-                      src={`http://localhost:8000${product.image}`}
+                      src={`https://digiland-app.iran.liara.run${product.image}`}
                       alt=""
                       className="favorite__item-image"
+                      onError={addImageFallback}
                     />
                   </div>
                   <h4 className="favorite__item-title">{product.title}</h4>

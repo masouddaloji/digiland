@@ -351,14 +351,12 @@ a {
   overflow: hidden;
   border-radius: var(--border-box);
   background: var(--white);
-  padding: 1rem;
   text-align: center;
   box-shadow: var(--box-shadow);
+ 
 }
 .product__imgBox {
   width: 100%;
-  height: auto;
-  margin: 2rem auto;
 }
 .product__img {
   width: 100%;
@@ -372,12 +370,12 @@ a {
 
 .productPrice {
   color: var(--gray-text);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   display: inline-block;
   line-height: 2;
 }
 .currentPrice {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: var(--blue);
   display: inline-block;
   margin-right: 1rem;

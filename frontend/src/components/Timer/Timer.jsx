@@ -46,7 +46,7 @@ const Timer = ({ offPrice }) => {
     <div className="suggestedproduct__time-Percent">
       {offPrice ? (
         <div className="suggestedproduct__percent">
-          <span>{offPrice} %</span>
+          <span>%{offPrice} </span>
         </div>
       ) : null}
 

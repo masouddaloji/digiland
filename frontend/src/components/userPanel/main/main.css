@@ -19,6 +19,7 @@
 }
 .pad1{
     padding: 1rem;
+    width: 100%;
 }
 .userDetails__header{
 display: flex;

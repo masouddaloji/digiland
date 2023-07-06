@@ -3,6 +3,9 @@ import { useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Skeleton, Stack, Tooltip } from "@mui/material";
 import { toast } from "react-toastify";
+//redux
+import { useSelector } from "react-redux";
+import { selectToken } from "../../features/auth/authSlice";
 //rtk query
 import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
 import { useAddToFavoriteMutation } from "../../features/favorite/favoriteApislice";
@@ -13,11 +16,12 @@ import { persianTexts } from "../../text";
 //icons
 import { IoMdHeartEmpty } from "react-icons/io";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
-
+//utils
+import { addImageFallback } from "../../utils/utils";
 //styles
 import "./ProductCart.css";
-import { useSelector } from "react-redux";
-import { selectToken } from "../../features/auth/authSlice";
+
+
 
 export default function ProductCart(props) {
   const token=useSelector(selectToken)
@@ -58,12 +62,15 @@ if(token){
         <div className="productBox">
           <div className="product__imgBox">
             <img
-              src={`http://localhost:8000${image}`}
+              src={`https://digiland-app.iran.liara.run${image}`}
+              onError={addImageFallback}
               alt="new product image"
               className="product__img"
             />
           </div>
-          <Link to={`/product/${_id}`}>
+
+        <div className="productBox__content">
+        <Link to={`/product/${_id}`}>
           <Tooltip arrow title={title} classes={{ tooltip: "custom__tooltip" }}>
             <h2 className="product__title">
               {title}
@@ -114,6 +121,7 @@ if(token){
             </div>
             <div className="product__leftBox">{Star(rating)}</div>
           </div>
+        </div>
         </div>
       ) :isLoading? (
         <div className="productBox">

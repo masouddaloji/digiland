@@ -20,6 +20,8 @@ import useTitle from "../../../hooks/useTitle";
 //icons
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
+//utils
+import { addImageFallback } from "../../../utils/utils";
 //persian text
 import { persianTexts } from "../../../text";
 // styles
@@ -71,7 +73,8 @@ const AdminProducts = () => {
           <img
             alt="product image"
             className="table__img"
-            src={`http://localhost:8000${params.row.image}`}
+            src={`https://digiland-app.iran.liara.run${params.row.image}`}
+            onError={addImageFallback}
           />
         </div>
       ),

@@ -38,7 +38,6 @@ const Rating = ({typeRating,id}) => {
       })
       .catch((error) => {
         toast.error(persianTexts.rating.submit.error);
-        console.log(error);
       });
     }else{
       addReviewArticle({ data, id }).unwrap()
@@ -47,7 +46,6 @@ const Rating = ({typeRating,id}) => {
       })
       .catch((error) => {
         toast.error(persianTexts.rating.submit.error);
-        console.log(error);
       });
     }
   },[]);

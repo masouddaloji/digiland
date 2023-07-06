@@ -1,14 +1,21 @@
 import { useRef, useState } from "react";
+//rtk query
+import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
 //hooks
+import useAuth from "../../../hooks/useAuth";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 //icons
 import { HiOutlineSearch } from "react-icons/hi";
 import { BsBell } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
+//utils
+import { addImageFallback } from "../../../utils/utils";
 //styles
 import "./AdminHeader.css";
 
 const AdminHeader = ({ isShow, setIsShow, width }) => {
+  const {userID}=useAuth()
+  const {data:user,isSuccess}=useGetUserByIdQuery(userID)
   const notifRef=useRef()
   const [isShowNotification, setIsShowNotification] = useState(false);
   useOutsideClick({ ref: notifRef, setStateHandler: setIsShowNotification })
@@ -35,7 +42,7 @@ const AdminHeader = ({ isShow, setIsShow, width }) => {
               <li>
                 <div className="notofication__img-box">
                   <img
-                    src="http://localhost:8000/uploads/images/ZNTcoLw_BRgX9AAYcD0UC_boy.jpg"
+                    src="https://digiland-app.iran.liara.run/uploads/images/ZNTcoLw_BRgX9AAYcD0UC_boy.jpg"
                     alt=""
                     className="notification__img"
                   />
@@ -49,7 +56,7 @@ const AdminHeader = ({ isShow, setIsShow, width }) => {
               <li>
                 <div className="notofication__img-box">
                   <img
-                   src="http://localhost:8000/uploads/images/ZNTcoLw_BRgX9AAYcD0UC_boy.jpg"
+                   src="https://digiland-app.iran.liara.run/uploads/images/ZNTcoLw_BRgX9AAYcD0UC_boy.jpg"
                     alt=""
                     className="notification__img"
                   />
@@ -69,11 +76,17 @@ const AdminHeader = ({ isShow, setIsShow, width }) => {
 
         </div>
         <div className="admin__headerProfileBox">
-          <img
-            src="/images/profile/profile.jpg"
-            alt=""
+        {isSuccess?<img
+            src={user?.image}
+            alt="admin porofile image"
             className="admin__headerProfile"
-          />
+            onError={addImageFallback}
+          />: <img
+            src="images/avatar.png"
+            alt="admin porofile image"
+            className="admin__headerProfile"
+          />}
+         
         </div>
       </div>
     </header>

@@ -4,6 +4,8 @@ import { Skeleton, Stack } from "@mui/material";
 //icons
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoIosStar } from "react-icons/io";
+//utils
+import { addImageFallback } from "../../utils/utils";
 //styles
 import "./CompanyProduct.css";
 
@@ -15,13 +17,13 @@ export default function CompanyProduct(props) {
       {isSuccess ? (
         <div className="companyProduct">
           <Link to={`/product/${_id}`} className="companyProduct__link">
-            <div className="CompanyProduct__banner">
               <img
                 className="CompanyProduct__img"
-                src={`http://localhost:8000${image}`}
+                src={`https://digiland-app.iran.liara.run${image}`}
                 alt="CompanyProduct image"
+                onError={addImageFallback}
               />
-            </div>
+
             <div className="CompanyProduct__info">
               <div>
                 <h3 className="CompanyProduct__title" title={title}>

@@ -17,6 +17,8 @@ import { persianTexts } from "../../../text";
 //icons
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
+//utils
+import { addImageFallback } from "../../../utils/utils";
 
 const AdminArticles = () => {
   const navigate = useNavigate();
@@ -49,7 +51,8 @@ const AdminArticles = () => {
           <img
           alt="article image"
           className="table__img"
-          src={`http://localhost:8000${params.value}`}
+          src={`https://digiland-app.iran.liara.run${params.value}`}
+          onError={addImageFallback}
         />
         </div>
       ),

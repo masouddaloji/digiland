@@ -19,6 +19,8 @@ import { FiFolder } from "react-icons/fi";
 import { GoCommentDiscussion } from "react-icons/go";
 import { BiCommentDetail } from "react-icons/bi";
 import { AiOutlineRetweet } from "react-icons/ai";
+//utils
+import { addImageFallback } from "../../utils/utils";
 //styles
 import "./Article.css";
 
@@ -27,6 +29,7 @@ const Article = () => {
   const { articleId } = useParams();
   const {
     data: articleInfo,
+    isLoading,
     isSuccess,
   } = useGetArticleByIdQuery(articleId);
   useTitle(articleInfo?.data?.title)
@@ -41,9 +44,10 @@ const Article = () => {
                 <h2 className="article__title">{articleInfo?.data?.title}</h2>
                 <div className="article__imgBox">
                   <img
-                    src={`http://localhost:8000${articleInfo?.data?.image}`}
+                    src={`https://digiland-app.iran.liara.run${articleInfo?.data?.image}`}
                     alt=""
                     className="article__img"
+                    onError={addImageFallback}
                   />
                 </div>
                 <div className="article__infoBox">

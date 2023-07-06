@@ -8,6 +8,8 @@ import { useRemoveItemMutation } from '../../features/basket/basketApiSlice';
 import ProductCount from "../ProductCount/ProductCount";
 // icons
 import { CgCloseO } from "react-icons/cg";
+//utils
+import { addImageFallback } from '../../utils/utils';
 //styles
 import './SidebarCartItem.css'
 
@@ -31,9 +33,10 @@ const SidebarCartItem = (props) => {
       <div className="sideBarCartItem__imgBox">
         <Link to={`/product/${_id}`} className="sideBarCartItem__Link">
           <img
-            src={`http://localhost:8000${image}`}
+            src={`https://digiland-app.iran.liara.run${image}`}
             alt="mini image products"
             className="sideBarCartItem__img"
+            onError={addImageFallback}
           />
         </Link>
         <CgCloseO

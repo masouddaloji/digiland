@@ -2,20 +2,16 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 1.5rem 0;
-    gap: 2rem;
+    justify-content: space-evenly;
   }
   .suggestedproduct__percent {
     background: var(--red-50);
-    height: 1.9rem;
-    border-radius: 0 1.5rem 1.5rem 0;
-    font-size: 1.2rem;
-    padding: 0.2rem 0.6rem 0 0.5rem;
+    border-radius: 1.5rem;
+    font-size: 1rem;
+    padding:.2rem .7rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0.4rem 0 0.4rem rgba(0, 0, 0, 0.25);
   }
   .suggestedproduct__percent span {
     color: var(--white);
@@ -23,6 +19,7 @@
     display: block;
   }
   .suggestedproduct__time {
+    width: 9rem;
     font-family: var(--iran);
     font-size: 1.2rem;
     color: #828282;

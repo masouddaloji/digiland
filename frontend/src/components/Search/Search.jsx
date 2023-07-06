@@ -89,7 +89,7 @@ const Search = () => {
                       >
                         <div className="search-box__result-banner">
                           <img
-                            src={`http://localhost:8000${item.image}`}
+                            src={`https://digiland-app.iran.liara.run${item.image}`}
                             alt="Photo search result"
                             className="search-box__result-img"
                           />

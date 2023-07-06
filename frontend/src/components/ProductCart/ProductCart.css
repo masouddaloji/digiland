@@ -1,4 +1,10 @@
 
+.productBox__content{
+  padding:1.5rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
 .product__title {
   font-size: 1.3rem;
   height: 4rem;
@@ -10,7 +16,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 1.5rem;
   transition: all 0.3s;
 }
 
@@ -19,7 +24,6 @@
 }
 .product__quickAccessBox {
   display: flex;
-  margin: 1.5rem 0;
   align-items: center;
   justify-content: space-between;
 }

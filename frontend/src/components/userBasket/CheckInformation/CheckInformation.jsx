@@ -53,13 +53,11 @@ const addToOrderHandler = async () => {
   if (basket?.cartItems?.length) {
       addToOrder(basket.cartItems[0].productId._id).unwrap()
       .then(response=>{
-        console.log("response add order",response)
         toast.success("سفارش شما با موفقیت ثبت شد")
         navigate(`/order-pay/${response.data._id}`)
       })
       .catch(error=>{
         toast.error("ثبت سفارش با مشکل مواجه شد")
-        console.log("error add order",error);
       })
   }
 }

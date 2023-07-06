@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Skeleton, Stack, Tooltip } from "@mui/material";
 //components
 import Timer from "../Timer/Timer";
+//utils
+import { addImageFallback } from "../../utils/utils";
 //styles
 import "./SuggestedProductBox.css";
 
@@ -26,15 +28,18 @@ export default function SuggestedProductBox(props) {
             </h2>
           </Tooltip>
           <div className="product__imgBox">
-            <Link to={`/product/${_id}`}>
+            <Link to={`/product/${_id}`}  className="suggestedproduct__imgLink">
               <img
-                src={`http://localhost:8000${image}`}
+                src={`https://digiland-app.iran.liara.run${image}`}
                 alt="off product image"
                 className="product__img"
+                onError={addImageFallback}
               />
             </Link>
           </div>
-          <div className="suggestedproduct__priceBox">
+         <div className="productBox__content">
+           
+         <div className="suggestedproduct__priceBox">
             {offPrice ? (
               <>
                 <del>
@@ -51,12 +56,19 @@ export default function SuggestedProductBox(props) {
                 </span>
               </>
             ) : (
-              <bdi className="productPrice ss02 ">{price.toLocaleString()}</bdi>
+              <span>
+                  <bdi className="currentPrice ss02 ">
+                    {" "}
+                    {price.toLocaleString()}
+                  </bdi>
+                  <span className="toman">تومان</span>
+                </span>
             )}
           </div>
           {/* start timer */}
           <Timer offPrice={offPrice}/>
           {/* end timer */}
+         </div>
         </div>
       ) : isLoading ? (
         <div className="productBox">

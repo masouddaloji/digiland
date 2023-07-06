@@ -21,6 +21,8 @@ import { persianTexts } from "../../../text";
 //icons
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCheck } from "react-icons/fa";
+//utils
+import { addImageFallback } from "../../../utils/utils";
 
 const AdminOrders = () => {
   useTitle("سفارشات");
@@ -53,7 +55,8 @@ const AdminOrders = () => {
           <img
             alt="product image"
             className="table__img"
-            src={`http://localhost:8000${params.row.productId.image}`}
+            src={`https://digiland-app.iran.liara.run${params.row.productId.image}`}
+            onError={addImageFallback}
           />
         </div>
       ),
@@ -185,11 +188,9 @@ const AdminOrders = () => {
     changeStatusOrder(data)
       .unwrap()
       .then((res) => {
-        console.log("res", res);
         toast.success(persianTexts.adminOrders.orderAcceptSuccess);
       })
       .catch((error) => {
-        console.log("error", error);
         toast.error(persianTexts.adminOrders.orderAcceptError);
       });
   }
@@ -202,11 +203,9 @@ const AdminOrders = () => {
     changeStatusOrder(data)
       .unwrap()
       .then((res) => {
-        console.log("res", res);
         toast.success(persianTexts.adminOrders.orderReject);
       })
       .catch((error) => {
-        console.log("error", error);
         toast.error(persianTexts.adminOrders.orderReject);
       });
   }

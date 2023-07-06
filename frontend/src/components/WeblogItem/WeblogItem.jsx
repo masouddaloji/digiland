@@ -59,7 +59,7 @@ const WeblogItem = (props) => {
             <div className="col-12 col-sm-4">
               <div className="weblog-item__img-box">
                 <img
-                  src={`http://localhost:8000${image}`}
+                  src={`https://digiland-app.iran.liara.run${image}`}
                   alt=""
                   className="weblog-item__img"
                 />

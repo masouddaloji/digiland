@@ -4,6 +4,7 @@
   "description": "progress app",
   "main": "server.js",
   "scripts": {
+    "build": "tsc",
     "start": "node dist/server.js",
     "dev": "ts-node-dev --respawn --transpile-only server.ts"
   },

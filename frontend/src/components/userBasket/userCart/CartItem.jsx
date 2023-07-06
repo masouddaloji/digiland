@@ -7,6 +7,8 @@ import { useRemoveItemMutation } from "../../../features/basket/basketApiSlice";
 import ProductCount from "../../ProductCount/ProductCount";
 //icons
 import { IoMdClose } from "react-icons/io";
+//utils
+import { addImageFallback } from "../../../utils/utils";
 //styles
 import "./CartItem.css";
 
@@ -41,9 +43,10 @@ const CartItem = (props) => {
       <td>
         <Link to={`/product/${_id}`} className="cart__productImglink">
           <img
-            src={`http://localhost:8000${image}`}
+            src={`https://digiland-app.iran.liara.run${image}`}
             alt="image products"
             className="cart__productImg"
+            onError={addImageFallback}
           />
         </Link>
       </td>
