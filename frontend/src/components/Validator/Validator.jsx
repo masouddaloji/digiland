@@ -119,9 +119,6 @@ export const checkInformationSchema = Yup.object().shape({
   checkTelephone: Yup.string()
     .required(persianTexts.checkInformation.telephone.required)
     .matches(phoneNumberPattern, persianTexts.checkInformation.telephone.match),
-  acceptTerms: Yup.boolean()
-    .required(persianTexts.checkInformation.acceptTerms.required)
-    .oneOf([true], persianTexts.checkInformation.acceptTerms.required),
 });
 export const userUpdateSchema = Yup.object().shape({
   name: Yup.string(persianTexts.updateuserInfo.schema.name.string)

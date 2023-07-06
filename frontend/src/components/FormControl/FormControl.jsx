@@ -34,9 +34,6 @@ function FormControl(props) {
     case "editor": {
       return <TextEditor {...props} />;
     }
-    case "terms":{
-      return <Terms {...props}/>
-    }
     default:
       return null;
   }

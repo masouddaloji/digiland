@@ -66,7 +66,6 @@ const UserSetting = () => {
         navigate("/userpanel")
       })
       .catch((error) => {
-        console.log("error", error);
         toast.error("مشکلی در ذخیره تغییرات بوجود امد");
       });
   }

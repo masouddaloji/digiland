@@ -2,16 +2,21 @@ import { useEffect, useState } from "react";
 //packages
 import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
+import { toast } from "react-toastify";
 //rtk query
 import { useAddToOrderMutation } from "../../../features/order/orderApiSlice";
 import { useGetBasketQuery } from "../../../features/basket/basketApiSlice";
-import { useGetUserByIdQuery } from "../../../features/user/userApiSlice";
+import {
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+} from "../../../features/user/userApiSlice";
 //hooks
 import useTitle from "../../../hooks/useTitle";
 import useAuth from "../../../hooks/useAuth";
 //components
 import FormControl from "../../FormControl/FormControl";
 import Loader from "../../Loader/Loader";
+import Terms from "../../FormControl/Terms";
 //validator
 import { checkInformationSchema } from "../../Validator/Validator";
 //icons
@@ -20,12 +25,19 @@ import { TbDiscount2 } from "react-icons/tb";
 import { Iran } from "../../../Constants";
 //styles
 import "./CheckInformation.css";
-import { toast } from "react-toastify";
 
 function CheckInformation() {
+  const [showDiscount, setShowDiscount] = useState(false);
+  const iranProvince = Object.keys(Iran);
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [cities, setCities] = useState([]);
+  const [isAcceptTerms, setIsAcceptTerms] = useState(false);
+  const [isErrorTerms, setIsErrorTerms] = useState(false);
+
   useTitle("بررسی اطلاعات");
   const { userID } = useAuth();
   const [addToOrder] = useAddToOrderMutation();
+  const [updateUser] = useUpdateUserMutation();
   const navigate = useNavigate();
   const { data: basket, isLoading, isSuccess } = useGetBasketQuery();
   const {
@@ -33,34 +45,72 @@ function CheckInformation() {
     isLoading: userInfosLoading,
     isSuccess: userInfosSuccess,
   } = useGetUserByIdQuery(userID);
-  let initialValues = {
-    checkFullName: userInfos?.name ?? "",
-    checkProvince: userInfos?.addresses?.[0]?.state ?? "",
-    checkCity: userInfos?.addresses?.[0]?.city ?? "",
-    checkAddress: userInfos?.addresses?.[0]?.street ?? "",
-    checkPostalCode: userInfos?.addresses?.[0]?.postalCode ?? "",
-    checkTelephone: userInfos?.phone ?? "",
-    acceptTerms: false,
+
+  const submitAddress = (data) => {
+    const userInfo = {
+      ...(data.checkFullName ? { name: data.checkFullName } : null),
+      ...(data.image ? { image: data.image } : null),
+      ...(data.checkTelephone ? { phone: data.checkTelephone } : null),
+      ...(data.checkProvince ||
+      data.checkCity ||
+      data.checkAddress ||
+      data.checkPostalCode
+        ? {
+            addresses: [
+              {
+                ...(data.checkProvince ? { state: data.checkProvince } : null),
+                ...(data.checkCity ? { city: data.checkCity } : null),
+                ...(data.checkAddress ? { street: data.checkAddress } : null),
+                ...(data.checkPostalCode
+                  ? { postalCode: data.checkPostalCode }
+                  : null),
+              },
+            ],
+          }
+        : null),
+    };
+
+    updateUser({ data: userInfo, id: userID })
+      .unwrap()
+      .then((res) => {
+        toast.success("تغییرات با موفقیت ذخیره شد");
+      })
+      .catch((error) => {
+        toast.error("مشکلی در ذخیره تغییرات بوجود امد");
+      });
+  };
+  const addToOrderHandler = () => {
+    if (isAcceptTerms) {
+      if (
+        userInfos?.name &&
+        userInfos?.phone &&
+        userInfos?.addresses?.[0]?.state &&
+        userInfos?.addresses?.[0]?.city &&
+        userInfos?.addresses?.[0]?.postalCode &&
+        userInfos?.addresses?.[0]?.street
+      ) {
+        addToOrder(basket.cartItems[0].productId._id)
+          .unwrap()
+          .then((response) => {
+            toast.success("سفارش شما با موفقیت ثبت شد");
+            navigate(`/order-pay/${response.data._id}`);
+          })
+          .catch((error) => {
+            toast.error("ثبت سفارش با مشکل مواجه شد");
+          });
+      } else {
+        toast.error("لطفا یک ادرس ثبت کنید");
+      }
+    } else {
+      setIsErrorTerms(true);
+    }
   };
 
-  const [showDiscount, setShowDiscount] = useState(false);
-  const iranProvince = Object.keys(Iran);
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [cities, setCities] = useState([]);
- 
-
-const addToOrderHandler = async () => {
-  if (basket?.cartItems?.length) {
-      addToOrder(basket.cartItems[0].productId._id).unwrap()
-      .then(response=>{
-        toast.success("سفارش شما با موفقیت ثبت شد")
-        navigate(`/order-pay/${response.data._id}`)
-      })
-      .catch(error=>{
-        toast.error("ثبت سفارش با مشکل مواجه شد")
-      })
-  }
-}
+  useEffect(() => {
+    if (isAcceptTerms) {
+      setIsErrorTerms(false);
+    }
+  }, [isAcceptTerms]);
 
   useEffect(() => {
     if (Iran[selectedProvince]) {
@@ -69,16 +119,25 @@ const addToOrderHandler = async () => {
       setCities(null);
     }
   }, [selectedProvince]);
-
+  console.log("userInfos", userInfos);
   return (
     <>
       {isLoading && <Loader />}
       {isSuccess && (
         <Formik
-          initialValues={initialValues}
+          initialValues={{
+            checkFullName: userInfos?.name,
+            checkProvince: userInfos?.addresses?.[0]?.state,
+            checkCity: userInfos?.addresses?.[0]?.city,
+            checkAddress: userInfos?.addresses?.[0]?.street,
+            checkPostalCode: userInfos?.addresses?.[0]?.postalCode,
+            checkTelephone: userInfos?.phone,
+          }}
           validationSchema={checkInformationSchema}
+          validateOnMount
+          validateOnBlur="false"
           onSubmit={async (values, { resetForm }) => {
-            addToOrderHandler(values);
+            submitAddress(values);
             resetForm();
           }}
         >
@@ -114,9 +173,11 @@ const addToOrderHandler = async () => {
                 </div>
               </div>
               {/* end Discount */}
-              <Form>
-                <div className="row">
-                  <div className="col-12 col-md-6">
+              <div className="row">
+                {/* start submit address */}
+
+                <div className="col-12 col-md-6">
+                  <Form>
                     <div className="user__form">
                       <div className="row">
                         <h3 className="purchaerDetails__title">
@@ -171,112 +232,113 @@ const addToOrderHandler = async () => {
                             name="checkTelephone"
                           />
                         </div>
+                        <div className="col-12">
+                          <button className="orderBtn" type="submit">
+                            ثبت آدرس
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="col-12 col-md-6">
-                    <div className="detailsOrder">
-                      <h3 className="detailsOrder__title">سفارشات شما</h3>
-                      <div className="orders">
-                        <table className="orders__table">
-                          <thead>
-                            <tr>
-                              <th>محصول</th>
-                              <th>قیمت</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {basket?.cartItems?.map((item) => (
-                              <tr key={item._id}>
-                                <td>
-                                  {item.productId.title}
-                                  <span>
-                                    {item.cartQuantity
-                                      ? ` x ${item.cartQuantity}`
-                                      : null}
-                                  </span>
-                                </td>
-                                <td>
-                                  <bdi className="productPrice">
-                                    {item.productId.price.toLocaleString()}
-                                    <span className="toman">تومان</span>
-                                  </bdi>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                          <tfoot>
-                            <tr>
-                              <th>جمع جزء</th>
-                              <td>
-                                <span>
-                                  <bdi className="productPrice">
-                                    {basket?.totalAmount?.toLocaleString()}
-                                    <span className="toman">تومان</span>
-                                  </bdi>
-                                </span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <th>هزینه حمل و نقل</th>
-                              <td>
-                                {basket?.totalAmount > 1000000 ? (
-                                  " حمل و نقل رایگان"
-                                ) : (
-                                  <span>
-                                    <bdi className="productPrice">
-                                      200,000
-                                      <span className="toman">تومان</span>
-                                    </bdi>
-                                  </span>
-                                )}
-                              </td>
-                            </tr>
-                            <tr>
-                              <th>مجموع</th>
-                              <td>
-                                <span>
-                                  <bdi className="productPrice">
-                                    {basket?.totalAmount?.toLocaleString()}
-                                    <span className="toman">تومان</span>
-                                  </bdi>
-                                </span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <th>تخفیف شما از این خرید </th>
-                              <td>
-                                <span>
-                                  <bdi className="productPrice">
-                                    {(
-                                      basket?.totalAmount / 500
-                                    ).toLocaleString()}
-                                    <span className="toman">تومان</span>
-                                  </bdi>
-                                </span>
-                              </td>
-                            </tr>
-                          </tfoot>
-                        </table>
-                      </div>
-                      <div className="submit__order">
-                        <FormControl controler="terms" name="acceptTerms" />
+                  </Form>
+                </div>
+                {/* end submit address */}
 
-                        <button
-                          className={`orderBtn ${
-                            formik.dirty && formik.isValid
-                              ? "orderBtn--active"
-                              : null
-                          }`}
-                          disabled={!(formik.dirty && formik.isValid)}
-                        >
-                          ثبت سفارش
-                        </button>
-                      </div>
+                <div className="col-12 col-md-6">
+                  <div className="detailsOrder">
+                    <h3 className="detailsOrder__title">سفارشات شما</h3>
+                    <div className="orders">
+                      <table className="orders__table">
+                        <thead>
+                          <tr>
+                            <th>محصول</th>
+                            <th>قیمت</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {basket?.cartItems?.map((item) => (
+                            <tr key={item._id}>
+                              <td>
+                                {item.productId.title}
+                                <span>
+                                  {item.cartQuantity
+                                    ? ` x ${item.cartQuantity}`
+                                    : null}
+                                </span>
+                              </td>
+                              <td>
+                                <bdi className="productPrice">
+                                  {item.productId.price.toLocaleString()}
+                                  <span className="toman">تومان</span>
+                                </bdi>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <th>جمع جزء</th>
+                            <td>
+                              <span>
+                                <bdi className="productPrice">
+                                  {basket?.totalAmount?.toLocaleString()}
+                                  <span className="toman">تومان</span>
+                                </bdi>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>هزینه حمل و نقل</th>
+                            <td>
+                              {basket?.totalAmount > 1000000 ? (
+                                " حمل و نقل رایگان"
+                              ) : (
+                                <span>
+                                  <bdi className="productPrice">
+                                    200,000
+                                    <span className="toman">تومان</span>
+                                  </bdi>
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>مجموع</th>
+                            <td>
+                              <span>
+                                <bdi className="productPrice">
+                                  {basket?.totalAmount?.toLocaleString()}
+                                  <span className="toman">تومان</span>
+                                </bdi>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>تخفیف شما از این خرید </th>
+                            <td>
+                              <span>
+                                <bdi className="productPrice">
+                                  {(basket?.totalAmount / 500).toLocaleString()}
+                                  <span className="toman">تومان</span>
+                                </bdi>
+                              </span>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <div className="submit__order">
+                      <Terms
+                        setIsAccept={setIsAcceptTerms}
+                        isError={isErrorTerms}
+                      />
+
+                      <button className="orderBtn" onClick={addToOrderHandler}>
+                        ثبت سفارش
+                      </button>
                     </div>
                   </div>
                 </div>
-              </Form>
+              </div>
             </div>
           )}
         </Formik>

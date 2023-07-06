@@ -1,24 +1,28 @@
-//packages
-import { useField } from "formik";
+import { useEffect, useState } from "react";
+//persian text
+import { persianTexts } from "../../text";
 
-const Terms = (props) => {
-  const [field, meta, helpers] = useField(props);
-  const { setTouched, setValue } = helpers;
+
+const Terms = ({setIsAccept,isError}) => {
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  
+useEffect(()=>{
+setIsAccept(acceptTerms)
+},[acceptTerms])
+
   return (
     <>
       <div className="termsAndConditions">
         <input
           type="checkbox"
           name="acceptTerms"
-          onChange={(e) => {
-            setTouched(true);
-            setValue(e.target.checked);
-          }}
+          checked={acceptTerms}
+          onChange={() =>setAcceptTerms(!acceptTerms)}
         />
         من شرایط و مقررات سایت را خوانده ام و آن را می پذیرم.
       </div>
-      {meta.touched && meta.error ? (
-        <span className="auth__error">{meta.error}</span>
+      {isError && !acceptTerms ? (
+        <span className="auth__error">{persianTexts.checkInformation.acceptTerms.required}</span>
       ) : null}
     </>
   );

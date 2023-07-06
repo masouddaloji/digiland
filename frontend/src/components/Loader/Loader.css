@@ -23,7 +23,7 @@
   height: 9rem;
   direction: ltr;
   border-radius: 50%;
-  animation: rotate 1.2s linear infinite;
+  animation: rotate 1.5s linear infinite;
 }
 .loader::before {
   content: "";

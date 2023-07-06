@@ -21,10 +21,10 @@ import "./SidebarUser.css";
 const SidebarUser = ({ isShow, setshow }) => {
   const { userID } = useAuth();
   const navigate = useNavigate();
-  const { data, isLoading, isSuccess } = useGetUserByIdQuery(userID);
+  const { data, isSuccess } = useGetUserByIdQuery(userID);
   const [width, setWidth] = useState(window.innerWidth);
   const [logOutUser] = useLogOutUserMutation();
-  const logOutHandler = useCallback(() => {
+  const logOutHandler = () => {
     logOutUser()
       .unwrap()
       .then((res) => {
@@ -32,7 +32,7 @@ const SidebarUser = ({ isShow, setshow }) => {
         toast.success(persianTexts.useLogout.logoutSuccess);
       })
       .catch((error) => toast.error(persianTexts.useLogout.logoutError));
-  }, []);
+  }
   const today = new Date();
   const oneDaybefore = new Date().setDate(today.getDate() - 1);
   const oneDayAfter = new Date().setDate(today.getDate() + 1);
@@ -58,9 +58,9 @@ const SidebarUser = ({ isShow, setshow }) => {
     useConvertDate(new Date());
   }, []);
 
-  const resizeHandler = useCallback(() => {
+  const resizeHandler =() => {
     setWidth(window.innerWidth);
-  }, []);
+  }
 
   useEffect(() => {
     window.addEventListener("resize", resizeHandler);

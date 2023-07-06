@@ -4,10 +4,7 @@ import "./Timer.css";
 import { BsClockHistory } from "react-icons/bs";
 
 const Timer = ({ offPrice }) => {
-  const [day, setDay] = useState();
-  const [houer, setHouer] = useState();
-  const [minutes, setMinutes] = useState();
-  const [second, setSecond] = useState();
+  const [time, setTime] = useState({ day: 0, hour: 0, minutes: 0, second: 0 });
   let interval;
 
   const startTimer = useCallback(() => {
@@ -20,26 +17,33 @@ const Timer = ({ offPrice }) => {
       const now = new Date().getTime();
       const distance = expireDate - now;
       const expireDays = Math.floor(distance / (24 * 60 * 60 * 1000));
-      const expireHouer = Math.floor(
+      const expireHours = Math.floor(
         (distance % (24 * 60 * 60 * 1000)) / (1000 * 60 * 60)
       );
       const expireMinutes = Math.floor(
         (distance % (60 * 60 * 1000)) / (1000 * 60)
       );
       const expireSecond = Math.floor((distance % (60 * 1000)) / 1000);
+
+      setTime({
+        day: expireDays,
+        hour: expireHours,
+        minutes: expireMinutes,
+        second: expireSecond,
+      });
+
       if (distance < 0) {
-        clearInterval(interval.current);
-      } else {
-        setDay(expireDays);
-        setHouer(expireHouer);
-        setMinutes(expireMinutes);
-        setSecond(expireSecond);
+        clearInterval(interval);
       }
     }, 1000);
-  },[]);
+  }, []);
 
   useEffect(() => {
     startTimer();
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   return (
@@ -48,15 +52,20 @@ const Timer = ({ offPrice }) => {
         <div className="suggestedproduct__percent">
           <span>%{offPrice} </span>
         </div>
-      ) : null}
+      ):null}
 
       <div className="suggestedproduct__time">
-        <span className="timer">{day < 10 ? `0${day}` : day}</span>:
-        <span className="timer">{houer < 10 ? `0${houer}` : houer}</span>:
-        <span className="timer">{minutes < 10 ? `0${minutes}` : minutes}</span>:
-        <span className="suggestedproduct__time-gold">
-          {second < 10 ? `0${second}` : second}
-        </span>
+        <span className="timer">{`${String(time.day).padStart(2, "0")}`}</span>:
+        <span className="timer">{`${String(time.hour).padStart(2, "0")}`}</span>
+        :
+        <span className="timer">{`${String(time.minutes).padStart(
+          2,
+          "0"
+        )}`}</span>
+        :
+        <span className="suggestedproduct__time-gold">{`${String(
+          time.second
+        ).padStart(2, "0")}`}</span>
       </div>
       <div className="suggestedproduct__icon-box">
         <BsClockHistory className="fullIcon" />

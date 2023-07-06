@@ -38,8 +38,7 @@ const userApiAlice = shopApi.injectEndpoints({
         body: { ...data },
       }),
       invalidatesTags: (result, error, arg) => [
-        { type: "Users", id: "LIST" },
-        { type: "Users", id: arg.id },
+        { type: "Users", id: "LIST" }
       ],
     }),
     uploadProfile: builder.mutation({

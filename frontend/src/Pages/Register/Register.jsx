@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 // packages
 import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
@@ -23,7 +22,7 @@ export default function Register() {
     useRegisterUserMutation();
   const navigate = useNavigate();
   useTitle("ساخت حساب")
-  const registerHandler = useCallback(async (data) => {
+  const registerHandler = async (data) => {
     const userData = {
       email: data.registerEmail,
       pwd: data.registerPassword,
@@ -37,7 +36,7 @@ export default function Register() {
       .catch((error) => {
         toast.error(persianTexts.register.registerError);
       });
-  },[]);
+  }
   return (
     <Formik
       initialValues={{
