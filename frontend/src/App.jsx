@@ -69,8 +69,7 @@ export default function App() {
   return (
     <div className="app__wrapper">
       <div className="app">
-      {/* <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}> */}
-      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={()=>console.log("reset")}>
+      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
         <Routes>
           {/* start persistLogin */}
           <Route element={<PersistLogin />}>
