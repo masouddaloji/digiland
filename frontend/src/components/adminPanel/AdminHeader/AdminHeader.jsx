@@ -76,16 +76,12 @@ const AdminHeader = ({ isShow, setIsShow, width }) => {
 
         </div>
         <div className="admin__headerProfileBox">
-        {isSuccess?<img
-            src={user?.image}
+        {isSuccess && <img
+            src={user?.image??"images/avatar.png"}
             alt="admin porofile image"
             className="admin__headerProfile"
-            onError={addImageFallback}
-          />: <img
-            src="images/avatar.png"
-            alt="admin porofile image"
-            className="admin__headerProfile"
-          />}
+            onError={addImageFallback}/>
+          }
          
         </div>
       </div>

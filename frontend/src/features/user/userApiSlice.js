@@ -47,6 +47,16 @@ const userApiAlice = shopApi.injectEndpoints({
       }),
       transformResponse: (response) => response.path,
     }),
+    convertUserToAdmin: builder.mutation({
+      query: (email) => ({
+        url: "/admins",
+        method: "POST",
+        body: {
+          email,
+        },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "Users", id: "LIST" }],
+    }),
   }),
 });
 
@@ -56,4 +66,5 @@ export const {
   useDeleteUserMutation,
   useUpdateUserMutation,
   useUploadProfileMutation,
+  useConvertUserToAdminMutation
 } = userApiAlice;

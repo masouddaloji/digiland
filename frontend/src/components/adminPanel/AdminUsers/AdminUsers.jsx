@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { toast } from "react-toastify";
 //rtk query
 import {
+  useConvertUserToAdminMutation,
   useDeleteUserMutation,
   useGetUsersQuery,
 } from "../../../features/user/userApiSlice";
@@ -12,6 +13,8 @@ import {
 import Loader from "../../Loader/Loader";
 import CustomPagination from "../../Pagination/CustomPagination";
 import Modal from "../../Modal/Modal";
+//custom hook
+import useAuth from "../../../hooks/useAuth";
 //icons
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
@@ -21,6 +24,7 @@ import { persianTexts } from "../../../text";
 import "./AdminUsers.css";
 
 const AdminUsers = () => {
+  const { userRole } = useAuth();
   const navigate = useNavigate();
   const [userIdSelected, setUserIdSelected] = useState(null);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
@@ -35,8 +39,40 @@ const AdminUsers = () => {
     isSuccess,
   } = useGetUsersQuery({ ...pageInfo });
   const [deleteUser] = useDeleteUserMutation();
+  const [convertUserToAdmin] = useConvertUserToAdminMutation();
+
+
+  const upToAdminHandler=(email)=>{
+    if(userRole==="superAdmin"){
+      convertUserToAdmin(email).unwrap()
+      .then(res=>{
+        toast.success("کاربر مورد نظر به ادمین ارتقا یافت")
+      })
+      .catch(error=>{
+        toast.error("مشکلی در ارتقا کاربر به ادمین پیش آمده")
+      })
+    }else{
+      toast.error("تنها ادمین اصلی میتواند کاربران را ارتقا دهد")
+    }
+  }
+
   const rows = users?.data ?? [];
 
+
+  const editUserHandler = () => {
+    navigate(`/admin-editusers/${userIdSelected}`);
+  };
+
+  const removeUserHandler = () => {
+    deleteUser(userIdSelected)
+      .unwrap()
+      .then((res) => {
+        toast.success(persianTexts.adminUsers.deleteSuccess);
+      })
+      .catch((error) => {
+        toast.error(persianTexts.adminUsers.deleteError);
+      });
+  };
   const columns = [
     {
       field: "name",
@@ -91,6 +127,19 @@ const AdminUsers = () => {
       },
     },
     {
+      field: "convertToAdmin",
+      headerName: "ارتقا",
+      minWidth: 160,
+      align: "center",
+      headerAlign: "center",
+      renderCell: (params) => (
+        <button className="table__btn table__status--pending" onClick={()=>upToAdminHandler(params.row.email)}>
+          ارتقا به ادمین
+        </button>
+      ),
+    },
+
+    {
       field: "action",
       headerName: "عملیات ها",
       align: "center",
@@ -122,20 +171,6 @@ const AdminUsers = () => {
       ),
     },
   ];
-  const editUserHandler = () => {
-    navigate(`/admin-editusers/${userIdSelected}`);
-  }
-  
-  const removeUserHandler = () => {
-    deleteUser(userIdSelected)
-      .unwrap()
-      .then((res) => {
-        toast.success(persianTexts.adminUsers.deleteSuccess);
-      })
-      .catch((error) => {
-        toast.error(persianTexts.adminUsers.deleteError);
-      });
-  }
   return (
     <>
       {isShowEditModal && (

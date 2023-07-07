@@ -13,7 +13,7 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(shopApi.middleware),
-  devTools: true,
+  devTools: false,
 });
 setupListeners(store.dispatch);
 export default store;

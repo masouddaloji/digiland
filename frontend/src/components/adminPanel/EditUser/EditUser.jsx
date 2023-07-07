@@ -63,7 +63,6 @@ const EditUser = () => {
         navigate("/admin-users");
       })
       .catch((error) => {
-        console.log("error", error);
         toast.error(persianTexts.editUser.updateError);
       });
   }

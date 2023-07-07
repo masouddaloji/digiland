@@ -120,7 +120,6 @@ function CheckInformation() {
     }
   }, [selectedProvince]);
 
-  console.log("userInfos", userInfos);
   return (
     <>
       {(isLoading&& userInfosLoading) && <Loader />}
