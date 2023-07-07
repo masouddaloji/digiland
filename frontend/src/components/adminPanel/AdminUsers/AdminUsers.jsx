@@ -125,6 +125,7 @@ const AdminUsers = () => {
   const editUserHandler = () => {
     navigate(`/admin-editusers/${userIdSelected}`);
   }
+  
   const removeUserHandler = () => {
     deleteUser(userIdSelected)
       .unwrap()

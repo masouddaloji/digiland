@@ -27,14 +27,13 @@ import { Iran } from "../../../Constants";
 import "./CheckInformation.css";
 
 function CheckInformation() {
+  useTitle("بررسی اطلاعات");
   const [showDiscount, setShowDiscount] = useState(false);
   const iranProvince = Object.keys(Iran);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [cities, setCities] = useState([]);
   const [isAcceptTerms, setIsAcceptTerms] = useState(false);
   const [isErrorTerms, setIsErrorTerms] = useState(false);
-
-  useTitle("بررسی اطلاعات");
   const { userID } = useAuth();
   const [addToOrder] = useAddToOrderMutation();
   const [updateUser] = useUpdateUserMutation();
@@ -74,6 +73,7 @@ function CheckInformation() {
       .unwrap()
       .then((res) => {
         toast.success("تغییرات با موفقیت ذخیره شد");
+        // window.location.reload()
       })
       .catch((error) => {
         toast.error("مشکلی در ذخیره تغییرات بوجود امد");
@@ -119,19 +119,20 @@ function CheckInformation() {
       setCities(null);
     }
   }, [selectedProvince]);
+
   console.log("userInfos", userInfos);
   return (
     <>
-      {isLoading && <Loader />}
-      {isSuccess && (
+      {(isLoading&& userInfosLoading) && <Loader />}
+      {(isSuccess&& userInfosSuccess) && (
         <Formik
           initialValues={{
-            checkFullName: userInfos?.name,
-            checkProvince: userInfos?.addresses?.[0]?.state,
-            checkCity: userInfos?.addresses?.[0]?.city,
-            checkAddress: userInfos?.addresses?.[0]?.street,
-            checkPostalCode: userInfos?.addresses?.[0]?.postalCode,
-            checkTelephone: userInfos?.phone,
+            checkFullName: userInfos?.name??"",
+            checkProvince: userInfos?.addresses?.[0]?.state??"",
+            checkCity: userInfos?.addresses?.[0]?.city??"",
+            checkAddress: userInfos?.addresses?.[0]?.street??"",
+            checkPostalCode: userInfos?.addresses?.[0]?.postalCode??"",
+            checkTelephone: userInfos?.phone??"",
           }}
           validationSchema={checkInformationSchema}
           validateOnMount

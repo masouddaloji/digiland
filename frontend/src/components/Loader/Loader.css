@@ -23,7 +23,7 @@
   height: 9rem;
   direction: ltr;
   border-radius: 50%;
-  animation: rotate 1.5s linear infinite;
+  animation: rotateAnim 1s linear infinite;
 }
 .loader::before {
   content: "";
@@ -73,7 +73,7 @@
 }
 
 /* animations */
-@keyframes rotate {
+@keyframes rotateAnim {
   0% {
     transform: rotate(0deg);
   }

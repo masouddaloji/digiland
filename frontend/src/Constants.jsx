@@ -318,7 +318,7 @@ export const menus = [
 ];
 
 export const banners = [
-  { id: nanoid(), link: "/", cover: "/images/widget/widget-img-1.png" },
+  { id: nanoid(), link: "/products/household-appliances/washing-cleaning", cover: "/images/widget/widget-img-1.png" },
   { id: nanoid(), link: "/", cover: "/images/widget/widget-img-2.png" },
   { id: nanoid(), link: "/", cover: "/images/widget/widget-img-3.png" },
   { id: nanoid(), link: "/", cover: "/images/widget/widget-img-4.png" },

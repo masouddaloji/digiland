@@ -26,7 +26,7 @@ import UserPanel from "./Pages/UserPanelLayout/Index"
 import Login from "./Pages/Login/Login"
 import Register from "./Pages/Register/Register"
 
-const Index = Loadable(lazy(() => import("./Pages/HomePage/Index")))
+import Index from "./Pages/HomePage/Index"
 const ProductsCategory = Loadable(lazy(() =>import("./Pages/ProductsCategory/ProductsCategory")))
 const Product = Loadable(lazy(() => import("./Pages/Product/Product")))
 const Cart = Loadable(lazy(() => import("./components/userBasket/userCart/Cart")))

@@ -5,12 +5,12 @@ const userApiAlice = shopApi.injectEndpoints({
     getUsers: builder.query({
       query: ({ page, limit }) => `/users?page=${page}&limit=${limit}`,
       providesTags: (result, error, arg) => {
-        if(result?.data?.length){
+        if (result?.data?.length) {
           return [
             { type: "Users", id: "LIST" },
             ...result.data.map(({ _id }) => ({ type: "Users", id: _id })),
-          ]
-        }else return { type: "Users", id: "LIST" }
+          ];
+        } else return { type: "Users", id: "LIST" };
       },
     }),
     getUserById: builder.query({
@@ -26,10 +26,7 @@ const userApiAlice = shopApi.injectEndpoints({
         url: `/users/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (result, error, arg) => [
-        { type: "Users", id: "LIST" },
-        { type: "Users", id: arg.id },
-      ],
+      invalidatesTags: (result, error, arg) => [{ type: "Users", id: "LIST" }],
     }),
     updateUser: builder.mutation({
       query: ({ data, id }) => ({
@@ -38,7 +35,8 @@ const userApiAlice = shopApi.injectEndpoints({
         body: { ...data },
       }),
       invalidatesTags: (result, error, arg) => [
-        { type: "Users", id: "LIST" }
+        { type: "Users", id: "LIST" },
+        { type: "Users", id: arg.id },
       ],
     }),
     uploadProfile: builder.mutation({
