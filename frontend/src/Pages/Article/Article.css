@@ -66,7 +66,13 @@
   color: var(--blue);
   margin-left: 1rem;
 }
-.article__content h3{
+.article__content h1,
+.article__content h2,
+.article__content h3,
+.article__content h4,
+.article__content h5,
+.article__content h6
+{
   margin: 1rem 0;
   font-size: 1.6rem;
   color: var(--black-50);
