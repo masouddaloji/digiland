@@ -218,9 +218,7 @@ a {
 
 /* end default */
 /* start helper */
-.row_reverce {
-  flex-direction: row-reverse;
-}
+
 .full--width {
   width: 100%;
 }
@@ -813,6 +811,10 @@ a {
   color: var(--white);
 }
 /* end favorite */
+.custom-toast-container .Toastify__toast-body{
+  font-family: var(--iran-bold);
+  font-size: 1.1rem;
+}
 .ss02 {
   -moz-font-feature-settings: "ss02";
   -webkit-font-feature-settings: "ss02";

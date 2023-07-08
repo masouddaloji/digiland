@@ -18,6 +18,7 @@
   width: 4.8rem;
   height: 4.8rem;
   border-radius: 0.9rem;
+  cursor: pointer;
 }
 .colorFilter__itemImageBox.selecedColor{
   border: .3rem solid var(--blue);

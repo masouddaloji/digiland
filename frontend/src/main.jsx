@@ -26,6 +26,7 @@ createRoot(document.getElementById("root")).render(
       </GoogleOAuthProvider>
     </Provider>
     <ToastContainer
+    className="custom-toast-container"
       position="top-right"
       autoClose={2000}
       hideProgressBar={false}

@@ -181,6 +181,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .goTop {
   font-size: 1.7rem;

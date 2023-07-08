@@ -65,6 +65,7 @@ pointer-events: auto;
   border-radius: var(--border-box);
   padding: 0.4rem 2rem;
   transition: all .3s;
+  cursor: pointer;
 }
 .priceSlider__btn:hover{
   background: var(--blue);

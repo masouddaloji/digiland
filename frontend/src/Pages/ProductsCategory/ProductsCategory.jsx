@@ -153,7 +153,7 @@ export default function ProductsCategory() {
               {/* end sorted products */}
               {/* start show products */}
 
-              <div className="row row_reverce">
+              <div className="row ">
                 {isSuccess &&
                   (products?.data?.length > 0 ? (
                     products.data.map((product) => (

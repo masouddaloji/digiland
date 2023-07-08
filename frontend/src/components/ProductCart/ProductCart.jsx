@@ -7,7 +7,10 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../../features/auth/authSlice";
 //rtk query
 import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
-import { useAddToFavoriteMutation, useGetFavoriteQuery } from "../../features/favorite/favoriteApislice";
+import {
+  useAddToFavoriteMutation,
+  useGetFavoriteQuery,
+} from "../../features/favorite/favoriteApislice";
 //components
 import Star from "../Star/Star";
 //persian text
@@ -20,35 +23,39 @@ import { addImageFallback } from "../../utils/utils";
 //styles
 import "./ProductCart.css";
 
-
-
 export default function ProductCart(props) {
-  const token=useSelector(selectToken)
-  const[addToBasket]=useAddToBasketMutation()
-  const[addToFavorite]=useAddToFavoriteMutation()
-  const {data:favorites}=useGetFavoriteQuery()
-  const { _id, title, image, offPrice, price, rating,  isLoading, isSuccess  } = props;
-  const addToBasketHandler = async() => {
-if(token){
-  await addToBasket(_id).unwrap()
-  .then(()=>{
-    toast.success(persianTexts.basket.addtobasketSuccess)
-  })
-  .catch((error)=>{
-    toast.error(persianTexts.basket.addtobasketError)
-  })
-}else{
-  toast.warning(persianTexts.basket.notLoginForaddTobasket)
-}
-  }
+  const token = useSelector(selectToken);
+  const [addToBasket] = useAddToBasketMutation();
+  const [addToFavorite] = useAddToFavoriteMutation();
+  const { data: favorites } = useGetFavoriteQuery();
+  const { _id, title, image, offPrice, price, rating, isLoading, isSuccess } =
+    props;
+  const addToBasketHandler = () => {
+    if(!token){
+      toast.warning(persianTexts.basket.notLoginForaddTobasket);
+      return
+    }
+       addToBasket(_id)
+        .unwrap()
+        .then(() => {
+          toast.success(persianTexts.basket.addtobasketSuccess);
+        })
+        .catch((error) => {
+          toast.error(persianTexts.basket.addtobasketError);
+        });
+  };
 
-  const addToFavoriteHandler = async() => {
-    if (token) {
-      let isInFavorite=favorites?.length?favorites.every(item=>item._id===_id):false
-      if(isInFavorite){
-        toast.warning("این محصول در لیست علاقه مندی ها وجود دارد")
-      }else{
-         addToFavorite(_id)
+  const addToFavoriteHandler = () => {
+    if (!token) {
+      toast.warning(persianTexts.favorite.addtoFavorite.notLogin);
+      return;
+    }
+    let isInFavorite =
+      favorites?.length && favorites.some((item) => item._id === _id);
+    if (isInFavorite) {
+      toast.warning("این محصول در لیست علاقه مندی ها وجود دارد");
+    } else {
+      addToFavorite(_id)
         .unwrap()
         .then((response) => {
           toast.success(persianTexts.favorite.addtoFavorite.success);
@@ -56,11 +63,8 @@ if(token){
         .catch((error) => {
           toast.error(persianTexts.favorite.addtoFavorite.error);
         });
-      }
-    } else {
-      toast.warning(persianTexts.favorite.addtoFavorite.notLogin)
     }
-  }
+  };
 
   return (
     <>
@@ -75,61 +79,73 @@ if(token){
             />
           </div>
 
-        <div className="productBox__content">
-        <Link to={`/product/${_id}`}>
-          <Tooltip arrow title={title} classes={{ tooltip: "custom__tooltip" }}>
-            <h2 className="product__title">
-              {title}
-            </h2>
-            </Tooltip>
-          </Link>
-          <div className="priceBox">
-            {offPrice ? (
-              <>
-                <del>
-                  <bdi className="productPrice ss02">
-                    {price.toLocaleString()}
-                  </bdi>
-                </del>
-                <span>
-                  {" "}
-                  <bdi className="currentPrice ss02">
-                    {(price - (price * offPrice) / 100).toLocaleString()}
-                  </bdi>
-                  <span className="toman">تومان</span>
-                </span>
-              </>
-            ) : (
-              <bdi className="currentPrice ss02">
-                {price.toLocaleString()}
-                <span className="toman">تومان</span>
-              </bdi>
-            )}
-          </div>
-          <div className="product__quickAccessBox">
-            <div className="product__rightBox">
-              <Tooltip placement="top" arrow title="افزودن به سبد خرید" classes={{ tooltip: "custom__tooltip" }}>
-              <div
-                className="product__addToBasketBox cursor"
-                onClick={addToBasketHandler}
+          <div className="productBox__content">
+            <Link to={`/product/${_id}`}>
+              <Tooltip
+                arrow
+                title={title}
+                classes={{ tooltip: "custom__tooltip" }}
               >
-                <MdOutlineAddShoppingCart className="Product__addToBasketIcon" />
-              </div>
-                </Tooltip>
-                <Tooltip placement="top" arrow title="افزودن به علاقه مندی ها" classes={{ tooltip: "custom__tooltip" }}>
-              <div
-                className="product__iconBox cursor"
-                onClick={() => addToFavoriteHandler(_id)}
-              >
-                <IoMdHeartEmpty className="fullIcon favorite__icon" />
-              </div>
+                <h2 className="product__title">{title}</h2>
               </Tooltip>
+            </Link>
+            <div className="priceBox">
+              {offPrice ? (
+                <>
+                  <del>
+                    <bdi className="productPrice ss02">
+                      {price.toLocaleString()}
+                    </bdi>
+                  </del>
+                  <span>
+                    {" "}
+                    <bdi className="currentPrice ss02">
+                      {(price - (price * offPrice) / 100).toLocaleString()}
+                    </bdi>
+                    <span className="toman">تومان</span>
+                  </span>
+                </>
+              ) : (
+                <bdi className="currentPrice ss02">
+                  {price.toLocaleString()}
+                  <span className="toman">تومان</span>
+                </bdi>
+              )}
             </div>
-            <div className="product__leftBox">{Star(rating)}</div>
+            <div className="product__quickAccessBox">
+              <div className="product__rightBox">
+                <Tooltip
+                  placement="top"
+                  arrow
+                  title="افزودن به سبد خرید"
+                  classes={{ tooltip: "custom__tooltip" }}
+                >
+                  <div
+                    className="product__addToBasketBox cursor"
+                    onClick={addToBasketHandler}
+                  >
+                    <MdOutlineAddShoppingCart className="Product__addToBasketIcon" />
+                  </div>
+                </Tooltip>
+                <Tooltip
+                  placement="top"
+                  arrow
+                  title="افزودن به علاقه مندی ها"
+                  classes={{ tooltip: "custom__tooltip" }}
+                >
+                  <div
+                    className="product__iconBox cursor"
+                    onClick={() => addToFavoriteHandler(_id)}
+                  >
+                    <IoMdHeartEmpty className="fullIcon favorite__icon" />
+                  </div>
+                </Tooltip>
+              </div>
+              <div className="product__leftBox">{Star(rating)}</div>
+            </div>
           </div>
         </div>
-        </div>
-      ) :isLoading? (
+      ) : isLoading ? (
         <div className="productBox">
           <Stack spacing={1}>
             <Skeleton
@@ -143,7 +159,7 @@ if(token){
             <Skeleton animation="wave" height="2rem" width="100%" />
           </Stack>
         </div>
-      ):null}
+      ) : null}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 //styles
 import "./PriceSlider.css";
 
@@ -40,8 +40,14 @@ export default function PriceSlider({ pageInfo, setPageInfo }) {
       right: `${100 - (filterPrice[1] / maxPrice) * 100}%`,
     });
   }, [filterPrice, maxPrice]);
+
   useEffect(() => {
-    if (!pageInfo.price) setFilterPrice([0, maxPrice]);
+    if (!pageInfo.price) {
+      setFilterPrice([0, maxPrice]);
+    }else{
+     const minMaxArray= pageInfo.price.split("/")
+     setFilterPrice([minMaxArray[0],minMaxArray[1]])
+    }
   }, [pageInfo]);
 
   return (

@@ -13,6 +13,10 @@ import { footerSliderItems } from "../../Constants";
 import "./Footer.css";
 
 export default function Footer() {
+  const goToTop = () => {
+    const appWrapper = document.querySelector('.app__wrapper') 
+    appWrapper.scrollTo(0, 0)
+};
   return (
     <div className="footer">
       <div className="container">
@@ -191,7 +195,7 @@ export default function Footer() {
               برداری شامل پیگرد قانونی می باشد.
             </p>
           </div>
-          <div className="goTopBox">
+          <div className="goTopBox" onClick={goToTop}>
             <IoIosArrowUp className="goTop" />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 //packages
 import { Link, useParams } from "react-router-dom";
 import domPurify from "dompurify";
@@ -10,7 +10,10 @@ import { selectToken } from "../../features/auth/authSlice";
 import { nanoid } from "@reduxjs/toolkit";
 import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
 import { useGetProductByIdQuery } from "../../features/Product/ProductApiSlice";
-import { useAddToFavoriteMutation, useGetFavoriteQuery } from "../../features/favorite/favoriteApislice";
+import {
+  useAddToFavoriteMutation,
+  useGetFavoriteQuery,
+} from "../../features/favorite/favoriteApislice";
 //components
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
@@ -54,7 +57,7 @@ const showRatingResultPersian = (rate) => {
     default:
       break;
   }
-}
+};
 const selectColorStyle = (persianColor) => {
   switch (persianColor) {
     case "قرمز":
@@ -75,7 +78,7 @@ const selectColorStyle = (persianColor) => {
     default:
       break;
   }
-}
+};
 
 export default function Product() {
   const { productId } = useParams();
@@ -86,32 +89,39 @@ export default function Product() {
   } = useGetProductByIdQuery(productId);
   const [addToBasket] = useAddToBasketMutation();
   const [addToFavorite] = useAddToFavoriteMutation();
-  const token=useSelector(selectToken)
+  const token = useSelector(selectToken);
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
-const {data:favorites}=useGetFavoriteQuery()
+  const { data: favorites } = useGetFavoriteQuery();
 
   const addToBasketHandler = async (id) => {
-    if (token) {
-      await addToBasket(id)
-        .unwrap()
-        .then(() => {
-          toast.success(persianTexts.basket.addtobasketSuccess);
-        })
-        .catch((error) => {
-          toast.error(persianTexts.basket.addtobasketError);
-        });
-    } else {
+    if (!token) {
       toast.warning(persianTexts.header.notLoginInBasket);
+      return;
     }
-  }
-  const addToFavoriteHandler =  () => {
-    if (token) {
-      let isInFavorite=favorites?.length?favorites.every(item=>item._id===productId):false
-      if(isInFavorite){
-        toast.warning("این محصول در لیست علاقه مندی ها وجود دارد")
-      }else{
-         addToFavorite(productId)
+
+    await addToBasket(id)
+      .unwrap()
+      .then(() => {
+        toast.success(persianTexts.basket.addtobasketSuccess);
+      })
+      .catch((error) => {
+        toast.error(persianTexts.basket.addtobasketError);
+      });
+  };
+
+  const addToFavoriteHandler = () => {
+    if (!token) {
+      toast.warning(persianTexts.favorite.addtoFavorite.notLogin);
+      return;
+    }
+
+    const isInFavorite =
+      favorites?.length && favorites.some((item) => item._id === productId);
+    if (isInFavorite) {
+      toast.warning("این محصول در لیست علاقه مندی ها وجود دارد");
+    } else {
+      addToFavorite(productId)
         .unwrap()
         .then((response) => {
           toast.success(persianTexts.favorite.addtoFavorite.success);
@@ -119,11 +129,8 @@ const {data:favorites}=useGetFavoriteQuery()
         .catch((error) => {
           toast.error(persianTexts.favorite.addtoFavorite.error);
         });
-      }
-    } else {
-      toast.warning(persianTexts.favorite.addtoFavorite.notLogin)
     }
-  }
+  };
 
   useTitle(product?.data?.title);
   return (
@@ -137,16 +144,16 @@ const {data:favorites}=useGetFavoriteQuery()
             <div className="row">
               {/* product images */}
               <div className="col-12 col-md-4 col-lg-4 col-xl-4">
-                <ProductGallery array={product?.data?.gallery} />
+                <ProductGallery array={product.data.gallery} />
               </div>
               {/* product details */}
               <div className="col-12 col-md-5 col-lg-5 col-xl-5">
                 <div>
                   <h2 className="product__detailsTitle">
-                    {product?.data?.title}
+                    {product.data.title}
                   </h2>
                   <span className="product__detailsSubtitle">
-                    {product?.data?.segment}
+                    {product.data.segment}
                   </span>
                   <div className="product__detailsMeta">
                     <span className="product__detailsMetainfo">دسته : </span>
@@ -182,19 +189,19 @@ const {data:favorites}=useGetFavoriteQuery()
                     </li>
                   </ul>
                   <div className="priceBox">
-                    {product?.data?.offPrice ? (
+                    {product.data.offPrice ? (
                       <>
                         <del>
                           <bdi className="product_info__price productPrice ss02">
-                            {product?.data?.price.toLocaleString()}
+                            {product.data.price.toLocaleString()}
                           </bdi>
                         </del>
                         <span>
                           {" "}
                           <bdi className="product_info__price currentPrice ss02">
                             {(
-                              product?.data?.price -
-                              (product?.data?.price * product?.data?.offPrice) /
+                              product.data.price -
+                              (product.data.price * product.data.offPrice) /
                                 100
                             ).toLocaleString()}
                           </bdi>
@@ -203,7 +210,7 @@ const {data:favorites}=useGetFavoriteQuery()
                       </>
                     ) : (
                       <bdi className="product_info__price currentPrice ss02">
-                        {product?.data?.price?.toLocaleString()}
+                        {product.data.price.toLocaleString()}
                         <span className="toman">تومان</span>
                       </bdi>
                     )}
@@ -212,11 +219,11 @@ const {data:favorites}=useGetFavoriteQuery()
                   <div className="product__colorBox">
                     <div className="product__currentColor">
                       <span> رنگ : </span>
-                      <span>{selectedColor ?? product?.data?.colors[0]}</span>
+                      <span>{selectedColor ?? product.data.colors[0]}</span>
                     </div>
                     <div className="colorAndAddTobasket__wrapper">
                       <div className="product__allColors">
-                        {product?.data?.colors?.map((color) => (
+                        {product.data.colors.map((color) => (
                           <div
                             key={nanoid()}
                             style={selectColorStyle(color)}
@@ -257,7 +264,7 @@ const {data:favorites}=useGetFavoriteQuery()
               <div className="col-12 col-md-3 col-lg-3">
                 <div className="product__availbleBox">
                   <div className="product__availbleWrapper">
-                    {product?.data?.quantity ? (
+                    {product.data.quantity ? (
                       <div className="product__availbleItem">
                         <BiCheckSquare className="product__availbleItemIcon available" />
                         موجود است
@@ -355,7 +362,7 @@ const {data:favorites}=useGetFavoriteQuery()
                       نقد و بررسی اجمالی
                     </span>
                     <span className="allDetails__headingDesc">
-                      {product?.data?.segment}
+                      {product.data.segment}
                     </span>
                   </div>
                 </div>
@@ -364,7 +371,7 @@ const {data:favorites}=useGetFavoriteQuery()
                     className="allDetails__detailsText"
                     dangerouslySetInnerHTML={{
                       __html: domPurify.sanitize(
-                        product?.data?.shortDescription
+                        product.data.shortDescription
                       ),
                     }}
                   ></p>
@@ -381,14 +388,14 @@ const {data:favorites}=useGetFavoriteQuery()
                   <div className="allDetails__headingLeft">
                     <span className="allDetails__headingTitle">مشخصات کلی</span>
                     <span className="allDetails__headingDesc">
-                      {product?.data?.segment}
+                      {product.data.segment}
                     </span>
                   </div>
                 </div>
                 <div
                   className="details__tableWrapper"
                   dangerouslySetInnerHTML={{
-                    __html: domPurify.sanitize(product?.data?.fullDescription),
+                    __html: domPurify.sanitize(product.data.fullDescription),
                   }}
                 ></div>
               </div>
@@ -405,7 +412,7 @@ const {data:favorites}=useGetFavoriteQuery()
                       نظرات کاربران
                     </span>
                     <span className="allDetails__headingDesc">
-                      {product?.data?.segment}
+                      {product.data.segment}
                     </span>
                   </div>
                 </div>
@@ -425,7 +432,7 @@ const {data:favorites}=useGetFavoriteQuery()
                       <div className="resultReview__wrraper">
                         <h3 className="resultReview__title">
                           {persianTexts.productInfo.productRatingFromUsers}
-                          <span>{product?.data?.rating}</span>
+                          <span>{product.data.rating}</span>
                         </h3>
                         <div className="resultReview__points">
                           <div className="resultReview__point">
@@ -437,12 +444,12 @@ const {data:favorites}=useGetFavoriteQuery()
                                 <span
                                   className="resultReview__pointProgressBar"
                                   style={{
-                                    width: `${product?.data?.rating * 20}%`,
+                                    width: `${product.data.rating * 20}%`,
                                   }}
                                 ></span>
                               </div>
                               <span className="resultReview__pointResultText">
-                                {showRatingResultPersian(product?.data?.rating)}
+                                {showRatingResultPersian(product.data.rating)}
                               </span>
                             </div>
                           </div>
@@ -490,18 +497,18 @@ const {data:favorites}=useGetFavoriteQuery()
                                       }`}
                                     >
                                       <AiOutlineStar className="comment__metaIcon" />
-                                      {review?.rating}
+                                      {review.rating}
                                     </div>
                                     <span className="comment__metaAuthor">
-                                      {review?.userId?.email?.split("@")[0]}
+                                      {review.userId.email.split("@")[0]}
                                     </span>
                                     <span className="comment__time">
-                                      {useConvertDate(review?.createdAt)}
+                                      {useConvertDate(review.createdAt)}
                                     </span>
                                   </div>
                                   <div className="comment__description">
                                     <p className="comment__descriptionText">
-                                      {review?.description}
+                                      {review.description}
                                     </p>
                                   </div>
                                   <div className="comment__isLikeWrapper">
@@ -548,7 +555,7 @@ const {data:favorites}=useGetFavoriteQuery()
                       نقد و بررسی
                     </span>
                     <span className="allDetails__headingDesc">
-                      {product?.data?.segment}
+                      {product.data.segment}
                     </span>
                   </div>
                 </div>
@@ -677,10 +684,8 @@ const {data:favorites}=useGetFavoriteQuery()
                 isSuccess={isSuccess}
                 slidesPerView={5}
                 spaceBetween={20}
-                autoplay={true}
-                loop={true}
                 navigation={true}
-                array={product?.related}
+                array={product.related}
                 slide="ProductCart"
               />
             )}

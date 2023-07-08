@@ -30,6 +30,7 @@ export const fileFilter = (
   callback: FileFilterCallback
 ): void => {
   if (
+    file.mimetype === "image/webp" ||
     file.mimetype === "image/png" ||
     file.mimetype === "image/jpg" ||
     file.mimetype === "image/jpeg"
