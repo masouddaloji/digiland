@@ -5,6 +5,8 @@ import { Routes,Route, useLocation } from 'react-router-dom';
 import { ErrorBoundary } from "react-error-boundary";
 //components
 import Loader from "./components/Loader/Loader";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+
 
 const Loadable = (Component) => (props) => {
   return (
@@ -95,7 +97,6 @@ const NotFound = Loadable(lazy(() => import("./Pages/NotFound/NotFound")));
 
 // styles
 import "./App.css";
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 export default function App() {
 
