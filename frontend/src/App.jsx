@@ -1,6 +1,7 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 // packages
-import { Routes, Route, ScrollRestoration } from "react-router-dom";
+
+import { Routes,Route, useLocation } from 'react-router-dom';
 import { ErrorBoundary } from "react-error-boundary";
 //components
 import Loader from "./components/Loader/Loader";
@@ -97,6 +98,7 @@ import "./App.css";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 export default function App() {
+
   function ErrorFallback({ error, resetErrorBoundary }) {
     return (
       <div role="alert" className="error_boundary">
@@ -108,8 +110,14 @@ export default function App() {
   }
 
   return (
+
     <div className="app__wrapper">
+           
       <div className="app">
+
+      <ScrollToTop >
+
+     
         <ErrorBoundary
           FallbackComponent={ErrorFallback}
           onReset={() => window.location.reload()}
@@ -206,7 +214,9 @@ export default function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
         </ErrorBoundary>
+        </ScrollToTop>
       </div>
     </div>
+
   );
 }

@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 //packages
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -12,22 +12,19 @@ import { Provider } from "react-redux";
 import store from "./App/store";
 //styles
 import "./index.css";
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+
 
 if (process.env.NODE_ENV === "production") {
   disableReactDevTools();
 }
 
-ReactDOM.render(
+createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Provider store={store}>
       <GoogleOAuthProvider clientId="729918453652-2g0tennb34t1jjfs510nqdp027ne2jk4.apps.googleusercontent.com">
-        <ScrollToTop>
-          <App />
-        </ScrollToTop>
+        <App />
       </GoogleOAuthProvider>
     </Provider>
-
     <ToastContainer
       position="top-right"
       autoClose={2000}
@@ -40,6 +37,5 @@ ReactDOM.render(
       pauseOnHover
       theme="colored"
     />
-  </BrowserRouter>,
-  document.getElementById("root")
+  </BrowserRouter>
 );
