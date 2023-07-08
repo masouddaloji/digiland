@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 //packages
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
@@ -26,7 +25,7 @@ const Rating = ({typeRating,id}) => {
   const [addReview] = useAddReviewMutation();
   const [addReviewArticle] = useAddReviewArticleMutation();
 
-  const submitReviewHandler = useCallback((reviewDetails) => {
+  const submitReviewHandler =(reviewDetails) => {
     const data = {
       rating: reviewDetails.userRating,
       description: reviewDetails.userComment,
@@ -48,7 +47,7 @@ const Rating = ({typeRating,id}) => {
         toast.error(persianTexts.rating.submit.error);
       });
     }
-  },[]);
+  }
   return (
     <Formik
       initialValues={{

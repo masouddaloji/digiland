@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 //packages
 import { Link } from "react-router-dom";
 import { Skeleton, Stack, Tooltip } from "@mui/material";
@@ -8,7 +7,7 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../../features/auth/authSlice";
 //rtk query
 import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
-import { useAddToFavoriteMutation } from "../../features/favorite/favoriteApislice";
+import { useAddToFavoriteMutation, useGetFavoriteQuery } from "../../features/favorite/favoriteApislice";
 //components
 import Star from "../Star/Star";
 //persian text
@@ -27,8 +26,9 @@ export default function ProductCart(props) {
   const token=useSelector(selectToken)
   const[addToBasket]=useAddToBasketMutation()
   const[addToFavorite]=useAddToFavoriteMutation()
+  const {data:favorites}=useGetFavoriteQuery()
   const { _id, title, image, offPrice, price, rating,  isLoading, isSuccess  } = props;
-  const addToBasketHandler = useCallback(async() => {
+  const addToBasketHandler = async() => {
 if(token){
   await addToBasket(_id).unwrap()
   .then(()=>{
@@ -40,21 +40,27 @@ if(token){
 }else{
   toast.warning(persianTexts.basket.notLoginForaddTobasket)
 }
-  },[]);
-
-  const addToFavoriteHandler =useCallback( async() => {
-  if(token){
-    await addToFavorite(_id).unwrap()
-    .then(()=>{
-      toast.success(persianTexts.favorite.addtoFavorite.success)
-    })
-    .catch((error)=>{
-      toast.error(persianTexts.favorite.addtoFavorite.error)
-    })
-  }else{
-    toast.warning(persianTexts.favorite.addtoFavorite.notLogin)
   }
-  },[]);
+
+  const addToFavoriteHandler = async() => {
+    if (token) {
+      let isInFavorite=favorites?.length?favorites.every(item=>item._id===_id):false
+      if(isInFavorite){
+        toast.warning("این محصول در لیست علاقه مندی ها وجود دارد")
+      }else{
+         addToFavorite(_id)
+        .unwrap()
+        .then((response) => {
+          toast.success(persianTexts.favorite.addtoFavorite.success);
+        })
+        .catch((error) => {
+          toast.error(persianTexts.favorite.addtoFavorite.error);
+        });
+      }
+    } else {
+      toast.warning(persianTexts.favorite.addtoFavorite.notLogin)
+    }
+  }
 
   return (
     <>

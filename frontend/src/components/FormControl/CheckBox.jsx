@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 //packages
 import { Field, useField } from "formik";
 //hooks
@@ -10,9 +10,9 @@ const CheckBox = (props) => {
   const [field, meta, helpers] = useField(props);
   const [isShowOptions, setIsShowOptions] = useState(false);
 
-  const tochedHandler =useCallback( () => {
+  const tochedHandler = () => {
     helpers.setTouched(true)
-  },[]);
+  }
 
 
   return (

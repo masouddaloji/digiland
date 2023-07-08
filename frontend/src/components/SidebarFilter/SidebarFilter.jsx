@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {  useEffect, useRef, useState } from "react";
 //packages
 import { useParams } from "react-router-dom";
 //components
@@ -22,24 +22,24 @@ const SidebarFilter = ({
   const maskRef = useRef();
   const [width, setWidth] = useState(window.innerWidth);
 
-  const closeFilterMask =useCallback( (e) => {
+  const closeFilterMask = (e) => {
     if (maskRef.current === e.target) {
       setIsShowFilterOptions(false);
     }
-  },[]);
+  }
 
-  const restFilterHandler =useCallback( () => {
+  const restFilterHandler = () => {
     setPageInfo((prev) => ({
       ...prev,
       price: "",
       brand: "",
       color: "",
     }));
-  },[]);
+  }
 
-  const resizeHandler =useCallback( () => {
+  const resizeHandler = () => {
     setWidth(window.innerWidth);
-  },[]);
+  }
   
   useEffect(() => {
     window.addEventListener("resize", resizeHandler);

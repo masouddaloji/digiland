@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // packages
 import { Outlet } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const AdminPanelLayout = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [isShowSidebar, setIsShowSidebar] = useState(false);
 
-  const resizeHandler = useCallback(() => setWidth(window.innerWidth),[]);
+  const resizeHandler = () => setWidth(window.innerWidth)
   useEffect(() => {
     window.addEventListener("resize", resizeHandler);
     return () => window.removeEventListener("resize", resizeHandler);

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 //styles
 import "./PriceSlider.css";
 
@@ -12,27 +12,21 @@ export default function PriceSlider({ pageInfo, setPageInfo }) {
     right: `${100 - (filterPrice[1] / maxPrice) * 100}%`,
   });
 
-  const changeInputMin = useCallback(
-    (e) => {
-      if (filterPrice[1] - e.target.value < gap) {
-        setFilterPrice([filterPrice[1] - gap, filterPrice[1]]);
-      } else {
-        setFilterPrice([e.target.value, filterPrice[1]]);
-      }
-    },
-    [filterPrice, gap]
-  );
+  const changeInputMin = (e) => {
+    if (filterPrice[1] - e.target.value < gap) {
+      setFilterPrice([filterPrice[1] - gap, filterPrice[1]]);
+    } else {
+      setFilterPrice([e.target.value, filterPrice[1]]);
+    }
+  };
 
-  const changeInputMax = useCallback(
-    (e) => {
-      if (e.target.value - filterPrice[0] < gap) {
-        setFilterPrice([filterPrice[0], filterPrice[0] + gap]);
-      } else {
-        setFilterPrice([filterPrice[0], e.target.value]);
-      }
-    },
-    [filterPrice, gap]
-  );
+  const changeInputMax = (e) => {
+    if (e.target.value - filterPrice[0] < gap) {
+      setFilterPrice([filterPrice[0], filterPrice[0] + gap]);
+    } else {
+      setFilterPrice([filterPrice[0], e.target.value]);
+    }
+  };
 
   const filteredByPrices = () =>
     setPageInfo((prev) => ({

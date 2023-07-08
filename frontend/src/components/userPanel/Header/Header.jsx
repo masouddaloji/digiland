@@ -12,12 +12,11 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { persianTexts } from "../../../text";
 //styles
 import "./Header.css";
-import { useCallback } from "react";
 
 const Header = ({ setshow }) => {
   const navigate = useNavigate();
   const [logOutUser] = useLogOutUserMutation();
-  const logOutHandler =useCallback( () => {
+  const logOutHandler = () => {
     logOutUser()
       .unwrap()
       .then((res) => {
@@ -25,7 +24,7 @@ const Header = ({ setshow }) => {
         navigate("/");
       })
       .catch((error) => toast.error(persianTexts.useLogout.logoutError));
-  },[]);
+  }
   return (
     <div className="col-12">
       <div className="userpanel__header">

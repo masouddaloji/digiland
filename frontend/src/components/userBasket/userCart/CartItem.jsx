@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import {  useState } from "react";
 //packages
 import { Link } from "react-router-dom";
 //rtk query
@@ -20,11 +20,11 @@ const CartItem = (props) => {
   const [removeItem, { isLoading: isLoadingRemove }] = useRemoveItemMutation();
   const [isLoadingUpdateCount, setIsLoadingUpdateCount] = useState(false);
 
-  const removeProductFromBasketHandler =useCallback( async (id) => {
+  const removeProductFromBasketHandler =async (id) => {
     await removeItem(id)
       .unwrap()
       .catch((error) => toast.error("حذف محصول از سبد خرید با مشکل مواجه شد"));
-  },[]);
+  }
   
   return (
     <tr

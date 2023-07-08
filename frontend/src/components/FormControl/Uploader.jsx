@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import {useState } from "react";
 // packages
 import { nanoid } from "@reduxjs/toolkit";
 import { useField } from "formik";
@@ -49,14 +49,14 @@ const Uploader = (props) => {
     },
   ] = useUploadCoverArticleMutation();
 
-  const prepareImagesForUpload = useCallback((event) => {
+  const prepareImagesForUpload = (event) => {
     helpers.setTouched(true);
     let files = Array.from(event?.target?.files);
     if (files.length > 0) {
       setSelectedImages(files);
     }
-  },[]);
-  const uploadHandler = useCallback(async (e) => {
+  }
+  const uploadHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     if (props.typeuploader === "product-multi") {
@@ -92,9 +92,9 @@ const Uploader = (props) => {
         })
         .catch((error) => console.log("error in uploader", error));
     }
-  },[]);
+  }
 
-  const showErrorMeassage =useCallback( () => {
+  const showErrorMeassage = () => {
     switch (props.typeuploader) {
       case "product-multi":
         return persianTexts.uploader.productMulti.error;
@@ -107,7 +107,7 @@ const Uploader = (props) => {
       default:
         break;
     }
-  },[]);
+  }
 
   return (
     <>

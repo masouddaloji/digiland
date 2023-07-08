@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // Packages
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
@@ -27,7 +27,6 @@ import { persianTexts } from "../../text";
 // style
 import "./Login.css";
 
-
 export default function Login() {
   const [loginUser] = useLoginUserMutation();
   const [loginSocial] = useLoginSocialMutation();
@@ -38,11 +37,11 @@ export default function Login() {
   const navigate = useNavigate();
   useTitle("صفحه ورود");
 
-  const persistHandler = useCallback(() => {
+  const persistHandler =() => {
     setPersist((prev) => !prev);
-  }, []);
+  }
 
-  const loginHandler = useCallback(async (data) => {
+  const loginHandler = async (data) => {
     const userData = {
       email: data.loginUserName,
       pwd: data.loginPassword,
@@ -59,8 +58,9 @@ export default function Login() {
         toast.error(persianTexts.login.logginError);
       }
     }
-  }, []);
-  const loginWithSocialinSiteHandler = useCallback(async (data) => {
+  }
+  
+  const loginWithSocialinSiteHandler = async (data) => {
     try {
       const { accessToken } = await loginSocial({
         username: data?.name,
@@ -77,20 +77,17 @@ export default function Login() {
         toast.error(persianTexts.login.logginError);
       }
     }
-  }, []);
+  }
 
-  const googleLoginHandler = useCallback(
-    useGoogleLogin({
-      onSuccess: async (tokenResponse) => {
-        setSocialToken(tokenResponse?.access_token);
-      },
-      onError: (errorResponse) => {
-        console.log("google error response", errorResponse);
-      },
-    }),
-    []
-  );
-  const getDataFromGoogle = useCallback(() => {
+  const googleLoginHandler = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setSocialToken(tokenResponse?.access_token);
+    },
+    onError: (errorResponse) => {
+      console.log("google error response", errorResponse);
+    },
+  });
+  const getDataFromGoogle = () => {
     fetch(
       `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${socialToken}`,
       {
@@ -105,7 +102,7 @@ export default function Login() {
         setSocialInfos({ ...result });
       })
       .catch((error) => console.log("error", error));
-  }, []);
+  };
   // get datails from google by google token
   useEffect(() => {
     if (socialToken) {
@@ -243,4 +240,3 @@ export default function Login() {
     </Formik>
   );
 }
-

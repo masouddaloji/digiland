@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 //packages
 import { toast } from "react-toastify";
 //rtk query
@@ -28,7 +28,7 @@ function ProductCount(props) {
     setIsLoadingUpdateCount(decrementLoading);
   }, [decrementLoading]);
 
-  const increment = useCallback(async () => {
+  const increment = async () => {
     if (value < maxValue) {
       await incrementItem(productId)
         .unwrap()
@@ -36,9 +36,9 @@ function ProductCount(props) {
           toast.error(persianTexts.basket.incrementProductError)
         );
     }
-  }, []);
+  }
 
-  const decrement = useCallback(async () => {
+  const decrement = async () => {
     if (value > minValue) {
       await decrementItem(productId)
         .unwrap()
@@ -46,7 +46,7 @@ function ProductCount(props) {
           toast.error(persianTexts.basket.decrementProductError)
         );
     }
-  }, []);
+  }
 
   useEffect(() => {
     setProductCount(value);

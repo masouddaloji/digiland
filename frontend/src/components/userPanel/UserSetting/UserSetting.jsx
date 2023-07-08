@@ -33,7 +33,9 @@ const UserSetting = () => {
   const iranProvince = Object.keys(Iran);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [cities, setCities] = useState([]);
+
   useTitle("ویرایش اطلاعات");
+  
   useEffect(() => {
     if (Iran[selectedProvince]) setCities(Iran[selectedProvince]);
   }, [selectedProvince]);

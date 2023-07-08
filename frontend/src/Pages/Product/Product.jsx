@@ -1,13 +1,16 @@
-import { useCallback, useState } from "react";
+import {  useState } from "react";
 //packages
 import { Link, useParams } from "react-router-dom";
 import domPurify from "dompurify";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+
 //rtk query
+import { selectToken } from "../../features/auth/authSlice";
 import { nanoid } from "@reduxjs/toolkit";
 import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
 import { useGetProductByIdQuery } from "../../features/Product/ProductApiSlice";
-import { useAddToFavoriteMutation } from "../../features/favorite/favoriteApislice";
+import { useAddToFavoriteMutation, useGetFavoriteQuery } from "../../features/favorite/favoriteApislice";
 //components
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
@@ -17,7 +20,6 @@ import Loader from "../../components/Loader/Loader";
 import Rating from "../../components/Rating/Rating";
 import Error from "../../components/Error/Error";
 //hooks
-import useAuth from "../../hooks/useAuth";
 import useConvertDate from "../../hooks/useConvertDate";
 import useTitle from "../../hooks/useTitle";
 //constanst
@@ -84,14 +86,13 @@ export default function Product() {
   } = useGetProductByIdQuery(productId);
   const [addToBasket] = useAddToBasketMutation();
   const [addToFavorite] = useAddToFavoriteMutation();
-  const { userName } = useAuth();
+  const token=useSelector(selectToken)
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
-
-
+const {data:favorites}=useGetFavoriteQuery()
 
   const addToBasketHandler = async (id) => {
-    if (userName) {
+    if (token) {
       await addToBasket(id)
         .unwrap()
         .then(() => {
@@ -104,9 +105,13 @@ export default function Product() {
       toast.warning(persianTexts.header.notLoginInBasket);
     }
   }
-  const addToFavoriteHandler = async () => {
-    if (userName) {
-      await addToFavorite(productId)
+  const addToFavoriteHandler =  () => {
+    if (token) {
+      let isInFavorite=favorites?.length?favorites.every(item=>item._id===productId):false
+      if(isInFavorite){
+        toast.warning("این محصول در لیست علاقه مندی ها وجود دارد")
+      }else{
+         addToFavorite(productId)
         .unwrap()
         .then((response) => {
           toast.success(persianTexts.favorite.addtoFavorite.success);
@@ -114,8 +119,9 @@ export default function Product() {
         .catch((error) => {
           toast.error(persianTexts.favorite.addtoFavorite.error);
         });
+      }
     } else {
-      toast.warning(persianTexts.header.notLoginInBasket);
+      toast.warning(persianTexts.favorite.addtoFavorite.notLogin)
     }
   }
 

@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 // packages
 import { useField } from "formik";
 import { Editor } from "@tinymce/tinymce-react";
@@ -12,7 +12,7 @@ const TextEditor = (props) => {
   const [field, meta, helpers] = useField(props);
   const [uploadCoverArticle] = useUploadCoverArticleMutation();
 
-  const handleImageUpload =useCallback( async (blobInfo, progress) => {
+  const handleImageUpload = async (blobInfo, progress) => {
     const formData = new FormData();
     formData.append("image", blobInfo.blob());
 
@@ -25,7 +25,7 @@ const TextEditor = (props) => {
         throw new Error("Image upload failed : " + error.message);
       });
     return urlimage;
-  },[]);
+  }
 
   return (
     <div className="editor__wrapper">

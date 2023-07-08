@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // packages
 import { Link } from "react-router-dom";
 //rtk queryuu
@@ -13,7 +13,7 @@ import "./Search.css";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState("");
-  const debounceQuery = useDebounce(searchValue, 600);
+  const debounceQuery = useDebounce(searchValue, 500);
   const [showResult, setShowResult] = useState(false);
   const [searchParams, setSearchParams] = useState({
     page: 1,

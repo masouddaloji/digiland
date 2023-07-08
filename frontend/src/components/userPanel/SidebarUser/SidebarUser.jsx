@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 //packages
 import { NavLink, useNavigate } from "react-router-dom";
@@ -39,7 +39,7 @@ const SidebarUser = ({ isShow, setshow }) => {
   const twoDaybefore = new Date().setDate(today.getDate() - 2);
   const twoDayAftyer = new Date().setDate(today.getDate() + 2);
 
-  const convertDate = useCallback((date) => {
+  const convertDate =(date) => {
     const options = {
       day: "numeric",
       month: "long",
@@ -52,7 +52,7 @@ const SidebarUser = ({ isShow, setshow }) => {
         <span>{month}</span>
       </span>
     );
-  }, []);
+  }
 
   useEffect(() => {
     useConvertDate(new Date());

@@ -33,7 +33,7 @@ export const ProductApiSlice = shopApi.injectEndpoints({
       query: (id) => `/products/reviews/${id}`,
       providesTags: (result, error, arg) => [
         { type: "Product", id: "List" },
-        { type: "Product", id: result._id },
+        { type: "Product", id: arg._id },
       ],
     }),
     uploadProductCover: builder.mutation({
