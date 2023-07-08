@@ -24,66 +24,41 @@ function Slider({
   slide,
   isLoading,
   isSuccess,
-  slidesPerView ,
+  slidesPerView,
   ...restprops
 }) {
-  const selectslide =(item) => {
-    switch (slide) {
-      case "SuggestedProductBox":
-        return (
-          <SuggestedProductBox
-            {...item}
-            isLoading={isLoading}
-            isSuccess={isSuccess}
-          />
-        );
-      case "CompanyProduct":
-        return (
-          <CompanyProduct
-            {...item}
-            isLoading={isLoading}
-            isSuccess={isSuccess}
-          />
-        );
-      case "ArticleBox":
-        return (
-          <ArticleBox {...item} isLoading={isLoading} isSuccess={isSuccess} />
-        );
-      case "ProductCart":
-        return (
-          <ProductCart {...item} isLoading={isLoading} isSuccess={isSuccess} />
-        );
-      case "BannerBox":
-        return (
-          <BannerBox {...item} isLoading={isLoading} isSuccess={isSuccess} />
-        );
-      case "serviceBox":
-        return (
-          <ServiceBox {...item} isLoading={isLoading} isSuccess={isSuccess} />
-        );
-      case "instantOffer":
-        return (
-          <InstantOffer {...item} isLoading={isLoading} isSuccess={isSuccess} />
-        );
-      case "footerSlider":
-        return (
-          <FooterSlider {...item} isLoading={isLoading} isSuccess={isSuccess} />
-        );
-      default:
-        return null;
+
+  const slideComponents = {
+    SuggestedProductBox: SuggestedProductBox,
+    CompanyProduct: CompanyProduct,
+    ArticleBox: ArticleBox,
+    ProductCart: ProductCart,
+    BannerBox: BannerBox,
+    serviceBox: ServiceBox,
+    instantOffer: InstantOffer,
+    footerSlider: FooterSlider,
+  };
+
+  const selectSlide = (item) => {
+    const SlideComponent = slideComponents[slide];
+    if (SlideComponent) {
+      return (
+        <SlideComponent {...item} isLoading={isLoading} isSuccess={isSuccess} />
+      );
     }
-  }
+    return null;
+  };
+
   return (
     <Swiper
       {...restprops}
       dir="rtl"
       pagination={slide === "instantOffer" ? { clickable: true } : false}
       autoplay={
-        restprops.autoplay
-         && {
-              delay: 3000,
-              disableOnInteraction: false,
-            }
+        restprops.autoplay && {
+          delay: 3000,
+          disableOnInteraction: false,
+        }
       }
       breakpoints={
         slidesPerView > 1
@@ -141,17 +116,16 @@ function Slider({
       className="customSwiper"
     >
       {/* */}
-      {isSuccess
-        ? array?.map((item) => (
-            <SwiperSlide key={nanoid()}>{selectslide(item)}</SwiperSlide>
-          ))
-        : isLoading
-        ? Array(slidesPerView ?? 1)
-            .fill(0)
-            .map(() => (
-              <SwiperSlide key={nanoid()}>{selectslide()}</SwiperSlide>
-            ))
-        : null}
+
+      {isSuccess &&
+        array?.map((item, index) => (
+          <SwiperSlide key={item.id ?? index}>{selectSlide(item)}</SwiperSlide>
+        ))}
+
+      {isLoading &&
+        Array(slidesPerView ?? 1)
+          .fill(0)
+          .map(() => <SwiperSlide key={nanoid()}>{selectSlide()}</SwiperSlide>)}
     </Swiper>
   );
 }

@@ -678,7 +678,7 @@ export default function Product() {
             </div>
           </div>
           <div className="row">
-            {product?.related?.length && (
+            {product.related?.length && (
               <Slider
                 isLoading={isLoading}
                 isSuccess={isSuccess}
