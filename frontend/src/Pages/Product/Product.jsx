@@ -22,9 +22,11 @@ import Slider from "../../components/Slider/Slider";
 import Loader from "../../components/Loader/Loader";
 import Rating from "../../components/Rating/Rating";
 import Error from "../../components/Error/Error";
-//hooks
+//custom hooks
 import useConvertDate from "../../hooks/useConvertDate";
 import useTitle from "../../hooks/useTitle";
+import useAuth from "../../hooks/useAuth";
+
 //constanst
 import { allInfosBtn } from "../../Constants";
 //persianText
@@ -89,10 +91,12 @@ export default function Product() {
   } = useGetProductByIdQuery(productId);
   const [addToBasket] = useAddToBasketMutation();
   const [addToFavorite] = useAddToFavoriteMutation();
-  const token = useSelector(selectToken);
+  const {token} = useAuth()
   const [active, setActive] = useState("description");
   const [selectedColor, setSelectedColor] = useState();
-  const { data: favorites } = useGetFavoriteQuery();
+  const { data: favorites } = useGetFavoriteQuery(undefined,{
+    skip:!token
+  });
 
   const addToBasketHandler = async (id) => {
     if (!token) {

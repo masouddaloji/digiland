@@ -27,17 +27,21 @@ import { persianTexts } from "../../../text";
 import "./main.css";
 
 const MainPanel = () => {
-  const { userID } = useAuth();
+  const { userID,token } = useAuth();
   const {
     data: userInfos,
     isLoading: userInfosLoading,
     isSuccess: userInfosSuccess,
-  } = useGetUserByIdQuery(userID);
+  } = useGetUserByIdQuery(userID,{
+    skip:!token
+  });
   const {
     data: favoriteProducts,
     isLoading: favoriteProductsLoading,
     isSuccess: favoriteProductsSuccess,
-  } = useGetFavoriteQuery();
+  } = useGetFavoriteQuery(undefined,{
+    skip:!token
+  });
   const userorderItem = [
     {
       id: nanoid(),

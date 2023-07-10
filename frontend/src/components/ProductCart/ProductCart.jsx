@@ -2,15 +2,15 @@
 import { Link } from "react-router-dom";
 import { Skeleton, Stack, Tooltip } from "@mui/material";
 import { toast } from "react-toastify";
-//redux
-import { useSelector } from "react-redux";
-import { selectToken } from "../../features/auth/authSlice";
+
 //rtk query
 import { useAddToBasketMutation } from "../../features/basket/basketApiSlice";
 import {
   useAddToFavoriteMutation,
   useGetFavoriteQuery,
 } from "../../features/favorite/favoriteApislice";
+//custom hook
+import useAuth from "../../hooks/useAuth";
 //components
 import Star from "../Star/Star";
 //persian text
@@ -24,10 +24,12 @@ import { addImageFallback } from "../../utils/utils";
 import "./ProductCart.css";
 
 export default function ProductCart(props) {
-  const token = useSelector(selectToken);
+  const {token} = useAuth()
   const [addToBasket] = useAddToBasketMutation();
   const [addToFavorite] = useAddToFavoriteMutation();
-  const { data: favorites } = useGetFavoriteQuery();
+  const { data: favorites } = useGetFavoriteQuery(undefined,{
+    skip:!token
+  });
   const { _id, title, image, offPrice, price, rating, isLoading, isSuccess } =
     props;
   const addToBasketHandler = () => {

@@ -83,7 +83,7 @@ export default function Brands({
             >
               <input
                 type="checkbox"
-                checked={filterInfo.brand === brand.title}
+                defaultChecked={filterInfo.brand === brand.title}
               />
               <img src={brand.img} className="brands__brandImg" alt="" />
               <span className="brands__brandTitle">{brand.perTitle}</span>

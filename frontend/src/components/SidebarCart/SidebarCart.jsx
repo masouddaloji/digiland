@@ -18,13 +18,15 @@ import { persianTexts } from "../../text";
 import "./SidebarCart.css";
 
 const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }) => {
+  const { userName,token } = useAuth();
   const {
     data: baskets,
     isLoading: basketLoading,
     isSuccess: basketSuccess,
     isError: basketError,
-  } = useGetBasketQuery();
-  const { userName } = useAuth();
+  } = useGetBasketQuery(undefined,{
+    skip:!token
+  });
   const maskRef = useRef();
   const sideBarCartRef = useRef();
 

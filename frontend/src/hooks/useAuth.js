@@ -16,7 +16,7 @@ const useAuth = () => {
      userRole=role
      userID=userId
   }
-  return { userName, userRole,userID };
+  return { userName, userRole,userID,token };
 };
 
 export default useAuth;

@@ -37,8 +37,12 @@ export default function Header() {
     isLoading: basketLoading,
     isSuccess: basketSuccess,
     isError: basketError,
-  } = useGetBasketQuery();
-  const { data, isLoading, isSuccess } = useGetUserByIdQuery(userID);
+  } = useGetBasketQuery(undefined,{
+    skip:!userName
+  });
+  const { data, isLoading, isSuccess } = useGetUserByIdQuery(userID,{
+    skip:!userName
+  });
 
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [deviceWidth, setDeviceWidth] = useState({ width: window.innerWidth });
