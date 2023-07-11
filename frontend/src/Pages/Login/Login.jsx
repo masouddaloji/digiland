@@ -52,7 +52,7 @@ export default function Login() {
       toast.success(persianTexts.login.logginSuccess);
       navigate("/");
     } catch (error) {
-      if (error.status && error.status === 401) {
+      if (error?.status === 401) {
         toast.error(persianTexts.login.loginNotMatch);
       } else {
         toast.error(persianTexts.login.logginError);
