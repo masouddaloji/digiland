@@ -29,6 +29,7 @@ const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
   }
   if (result?.error?.status === 403) {
     toast.warning("لطفا وارد حساب کاربری خود شوید")
+    window.location.href="/login"
   }
 
   return result;

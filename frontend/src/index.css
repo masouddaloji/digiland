@@ -359,7 +359,6 @@ a {
 }
 .product__img {
   width: 100%;
-  height: 16.8rem;
   object-fit: cover;
 }
 .fullIcon {
@@ -757,7 +756,7 @@ a {
   display: flex;
   flex-direction: column;
   width: 16rem;
-  padding: 1rem;
+  padding:2rem 1rem;
   border: 0.1rem dashed var(--gray);
   margin: 1rem 0;
 }

@@ -1,19 +1,20 @@
 //packages
-import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 //redux
-import { selectToken } from "../../../features/auth/authSlice";
 import { useEffect, useState } from "react";
+//custom hook
+import useAuth from "../../../hooks/useAuth";
 
 const RequiredLogin = () => {
   const location = useLocation();
-  const token = useSelector(selectToken);
+const {token}=useAuth()
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
