@@ -77,7 +77,7 @@ const AdminHeader = ({ isShow, setIsShow, width }) => {
         </div>
         <div className="admin__headerProfileBox">
         {isSuccess && <img
-            src={user?.image??"images/avatar.png"}
+            src={`https://digiland-app.iran.liara.run${user?.image}`??"images/avatar.png"}
             alt="admin porofile image"
             className="admin__headerProfile"
             onError={addImageFallback}/>

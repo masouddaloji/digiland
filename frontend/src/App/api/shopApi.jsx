@@ -25,9 +25,7 @@ const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
     if (refreshResult?.data) {
       api.dispatch(setToken({ ...refreshResult.data }));
       result = await baseQuery(args, api, extraOptions);
-    } else {
-      // toast.warning("لطفا وارد حساب کاربری خود شوید")
-    }
+    } 
   }
   if (result?.error?.status === 403) {
     toast.warning("لطفا وارد حساب کاربری خود شوید")

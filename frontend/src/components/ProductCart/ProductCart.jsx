@@ -16,7 +16,7 @@ import Star from "../Star/Star";
 //persian text
 import { persianTexts } from "../../text";
 //icons
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 //utils
 import { addImageFallback } from "../../utils/utils";
@@ -24,27 +24,28 @@ import { addImageFallback } from "../../utils/utils";
 import "./ProductCart.css";
 
 export default function ProductCart(props) {
-  const {token} = useAuth()
+  let isInFavorite = null;
+  const { token } = useAuth();
   const [addToBasket] = useAddToBasketMutation();
   const [addToFavorite] = useAddToFavoriteMutation();
-  const { data: favorites } = useGetFavoriteQuery(undefined,{
-    skip:!token
+  const { data: favorites } = useGetFavoriteQuery(undefined, {
+    skip: !token,
   });
   const { _id, title, image, offPrice, price, rating, isLoading, isSuccess } =
     props;
   const addToBasketHandler = () => {
-    if(!token){
+    if (!token) {
       toast.warning(persianTexts.basket.notLoginForaddTobasket);
-      return
+      return;
     }
-       addToBasket(_id)
-        .unwrap()
-        .then(() => {
-          toast.success(persianTexts.basket.addtobasketSuccess);
-        })
-        .catch((error) => {
-          toast.error(persianTexts.basket.addtobasketError);
-        });
+    addToBasket(_id)
+      .unwrap()
+      .then(() => {
+        toast.success(persianTexts.basket.addtobasketSuccess);
+      })
+      .catch((error) => {
+        toast.error(persianTexts.basket.addtobasketError);
+      });
   };
 
   const addToFavoriteHandler = () => {
@@ -52,8 +53,7 @@ export default function ProductCart(props) {
       toast.warning(persianTexts.favorite.addtoFavorite.notLogin);
       return;
     }
-    let isInFavorite =
-      favorites?.length && favorites.some((item) => item._id === _id);
+
     if (isInFavorite) {
       toast.warning("این محصول در لیست علاقه مندی ها وجود دارد");
     } else {
@@ -67,7 +67,10 @@ export default function ProductCart(props) {
         });
     }
   };
-
+  if (isSuccess) {
+    isInFavorite =
+      favorites?.length && favorites.some((item) => item._id === _id);
+  }
   return (
     <>
       {isSuccess ? (
@@ -139,7 +142,11 @@ export default function ProductCart(props) {
                     className="product__iconBox cursor"
                     onClick={() => addToFavoriteHandler(_id)}
                   >
-                    <IoMdHeartEmpty className="fullIcon favorite__icon" />
+                    {isInFavorite ? (
+                      <IoMdHeart className="favorite__icon is--favorite" />
+                    ) : (
+                      <IoMdHeartEmpty className="favorite__icon" />
+                    )}
                   </div>
                 </Tooltip>
               </div>

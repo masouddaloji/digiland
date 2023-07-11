@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+
 // packages
 import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { toast } from "react-toastify";
-import { useGoogleLogin } from "@react-oauth/google";
-import { useDispatch } from "react-redux";
+
 //rtk query
-import { useLoginSocialMutation, useRegisterUserMutation } from "../../features/auth/authApiSlice";
-//hooks
+import { useRegisterUserMutation } from "../../features/auth/authApiSlice";
+//custom hooks
 import useTitle from "../../hooks/useTitle";
+import useGoogleAuth from "../../hooks/useGoogleAuth";
+
 // icons
 import { MdLock } from "react-icons/md";
 import { HiOutlineMail } from "react-icons/hi";
@@ -23,12 +24,10 @@ import { persianTexts } from "../../text";
 
 export default function Register() {
   useTitle("ساخت حساب");
-  const [loginSocial] = useLoginSocialMutation();
-  const [socialToken, setSocialToken] = useState(null);
-  const [socialInfos, setSocialInfos] = useState(null);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [registerUser] = useRegisterUserMutation();
+  const { googleLoginHandler } = useGoogleAuth();
+
   const registerHandler = async (data) => {
     const userData = {
       email: data.registerEmail,
@@ -45,62 +44,6 @@ export default function Register() {
       });
   };
 
-  const loginWithSocialinSiteHandler = async (data) => {
-    try {
-      const { accessToken } = await loginSocial({
-        username: data?.name,
-        email: data?.email,
-        profileUrl: data?.picture,
-      }).unwrap();
-      dispatch(setToken({ accessToken }));
-      toast.success(persianTexts.login.logginSuccess);
-      navigate("/");
-    } catch (error) {
-      if (error.status && error.status === 401) {
-        toast.error(persianTexts.login.loginNotMatch);
-      } else {
-        toast.error(persianTexts.login.logginError);
-      }
-    }
-  };
-
-  const googleLoginHandler = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      setSocialToken(tokenResponse?.access_token);
-    },
-    onError: (errorResponse) => {
-      console.log("google error response", errorResponse);
-    },
-  });
-  const getDataFromGoogle = () => {
-    fetch(
-      `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${socialToken}`,
-      {
-        headers: {
-          Authorization: `Bearer ${socialToken}`,
-          Accept: "application/json",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        setSocialInfos({ ...result });
-      })
-      .catch((error) => console.log("error", error));
-  };
-  // get datails from google by google token
-  useEffect(() => {
-    if (socialToken) {
-      getDataFromGoogle();
-    }
-  }, [socialToken]);
-
-  // set google details for login in my site
-  useEffect(() => {
-    if (socialInfos) {
-      loginWithSocialinSiteHandler({ ...socialInfos });
-    }
-  }, [socialInfos]);
 
   return (
     <Formik

@@ -60,9 +60,14 @@
 }
 .favorite__icon{
   transition: all .3s;
+  width: 1.9rem;
+  height: 1.9rem;
+}
+.is--favorite{
+  fill: var(--red);
 }
 .favorite__icon:hover{
-  color: var(--blue);
+  color: var(--red);
 }
 .cursor{
   cursor: pointer;

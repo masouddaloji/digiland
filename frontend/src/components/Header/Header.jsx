@@ -110,7 +110,7 @@ export default function Header() {
                         <RiUserSettingsLine className="fullIcon" />
                       </div>
                       <span className="header__userName">
-                        خوش اومدی {data?.name??data?.email?.split("@")[0]}
+                       {data?.name??data?.email?.split("@")[0]}
                       </span>
                       <ul className="header__userOptions">
                         {userRole === "superAdmin" || userRole === "admin" ? (

@@ -359,7 +359,7 @@ a {
 }
 .product__img {
   width: 100%;
-  height: 100%;
+  height: 16.8rem;
   object-fit: cover;
 }
 .fullIcon {
@@ -831,7 +831,7 @@ a {
 /*start responsive */
 .container {
   width: 100%;
-  max-width: 135rem;
+  max-width: 140rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   margin-left: auto;
@@ -1241,9 +1241,6 @@ a {
 }
 
 @media (min-width: 1400px) {
-  /* .container {
-    width: 138rem;
-  } */
   .col-xxl-1 {
     width: 8.333333%;
     flex: 0 0 auto;

@@ -3,12 +3,10 @@ import { useRef } from "react";
 import { useField } from "formik";
 import { Editor } from "@tinymce/tinymce-react";
 //redux
-import { useSelector } from "react-redux";
 import { useUploadCoverArticleMutation } from "../../features/article/articleApiSlice";
 
 const TextEditor = (props) => {
   const editorRef = useRef();
-  const { token } = useSelector((state) => state?.auth);
   const [field, meta, helpers] = useField(props);
   const [uploadCoverArticle] = useUploadCoverArticleMutation();
 

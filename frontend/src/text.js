@@ -127,9 +127,9 @@ export const persianTexts = {
     registerTitle: "ایجاد حساب کاربری",
   },
   login: {
-    logginSuccess: "شما با موفقیت وارد شدید",
+    loginSuccess: "شما با موفقیت وارد شدید",
     loginNotMatch: "نام کاربری یا رمز عبور اشتباه است",
-    logginError: "ورود به حساب کاربری با مشکل مواجه شد لطفا دوباره تلاش کنید",
+    loginError: "ورود به حساب کاربری با مشکل مواجه شد لطفا دوباره تلاش کنید",
     headerTitle: "ورود به حساب کاربری",
     otherAcount: "با حساب های دیگر وارد شوید",
     notRegister: "هنوز ثبت نام نکرده اید؟ ",
